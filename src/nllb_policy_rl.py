@@ -251,6 +251,45 @@ def score_path(model: Any, tokenizer: Any, source: str, path: list[int],
         return torch.stack(terms).sum()
 
 
+@torch.inference_mode()
+def checkpoint_probe(model: Any, tokenizer: Any, bias: torch.Tensor,
+                     device: torch.device) -> dict[str, Any]:
+    """Record a fixed synthetic decode and score for a later reload comparison."""
+    source = "The checkpoint round-trip probe uses a fixed synthetic sentence."
+    target_language = tokenizer.convert_tokens_to_ids("deu_Latn")
+    previous_cache_setting = model.config.use_cache
+    model.config.use_cache = True
+    try:
+        generated = model.generate(
+            **source_inputs(tokenizer, source, device),
+            forced_bos_token_id=target_language,
+            do_sample=False,
+            num_beams=1,
+            max_new_tokens=32,
+            max_length=None,
+            use_cache=True,
+        )[0].tolist()
+    finally:
+        model.config.use_cache = previous_cache_setting
+    path = list(generated)
+    if path and path[0] == tokenizer.eos_token_id:
+        path = path[1:]
+    if path and path[0] == target_language:
+        path = path[1:]
+    logprob = score_path(
+        model, tokenizer, source, path, bias, 0.0, device,
+        autocast=False, with_grad=False,
+    )
+    return {
+        "source": source,
+        "generated_sequence_ids": generated,
+        "sampled_action_ids_excluding_forced_prefix": path,
+        "beta": 0.0,
+        "temperature": TEMPERATURE,
+        "sequence_logprob": float(logprob.item()),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=Path, default=DEFAULT_MODEL)
@@ -262,6 +301,10 @@ def main() -> None:
                         help="One synthetic batch + backward pass; optimizer update is forbidden")
     parser.add_argument("--preflight", action="store_true",
                         help="One frozen-manifest batch + one throwaway AdamW step; saves no model")
+    parser.add_argument("--checkpoint-check", action="store_true",
+                        help="One update on a fixed train subset; save a checkpoint for round-trip verification")
+    parser.add_argument("--development-check", action="store_true",
+                        help="Four paired updates on a fixed train subset; not a research pilot")
     parser.add_argument("--dry-run-max-target", type=int, default=32)
     parser.add_argument("--max-updates", type=int, default=256)
     parser.add_argument("--batch-size", type=int, default=8)
@@ -270,14 +313,29 @@ def main() -> None:
     parser.add_argument("--no-autocast", action="store_true")
     args = parser.parse_args()
 
+    selected_modes = sum((args.dry_run, args.preflight,
+                          args.checkpoint_check, args.development_check))
+    if selected_modes > 1:
+        parser.error("choose at most one of --dry-run, --preflight, --checkpoint-check, --development-check")
+    if args.checkpoint_check:
+        if args.max_updates not in (1, 256):
+            parser.error("--checkpoint-check performs exactly one update")
+        effective_updates = 1
+    elif args.development_check:
+        if args.max_updates not in (4, 256):
+            parser.error("--development-check performs exactly four updates")
+        effective_updates = 4
+    elif args.preflight or args.dry_run:
+        effective_updates = 1
+    else:
+        effective_updates = args.max_updates
+
     repo_metadata = repository_metadata()
     if not args.dry_run and repo_metadata["git_worktree_dirty"]:
         raise RuntimeError("refusing research-data runs from a dirty Git worktree")
     if not args.dry_run and not repo_metadata["git_commit_sha"]:
         raise RuntimeError("research-data runs require a Git commit")
 
-    if args.dry_run and args.preflight:
-        parser.error("choose either --dry-run or --preflight")
     if not args.dry_run and args.data is None:
         parser.error("training/preflight requires --data frozen.jsonl; --dry-run needs no research data")
     if args.dry_run and args.data is not None:
@@ -315,7 +373,7 @@ def main() -> None:
     model.config.use_cache = False
     bias = piece_bias(args.model, tokenizer, model.config.vocab_size, device)
 
-    preflight_indices: list[int] | None = None
+    manifest_indices_used: list[int] | None = None
     if args.dry_run:
         pairs = SMOKE_PAIRS
         beta = args.beta
@@ -331,19 +389,22 @@ def main() -> None:
             raise ValueError(f"protocol requires exactly 2048 frozen rows; found {len(pairs)}")
         if batch_size != 8:
             raise ValueError("protocol fixes batch size at 8")
-        if args.max_updates != 256:
-            raise ValueError("protocol fixes training at 256 updates")
-        if args.preflight:
+        if not (args.preflight or args.checkpoint_check or args.development_check) and args.max_updates != 256:
+            raise ValueError("protocol fixes full training at 256 updates")
+        if args.preflight or args.checkpoint_check or args.development_check:
             order_rng = random.Random(args.subset_seed)
             manifest_order = list(range(len(pairs)))
             order_rng.shuffle(manifest_order)
-            preflight_indices = manifest_order[:batch_size]
-            pairs = [pairs[index] for index in preflight_indices]
+            subset_size = batch_size if args.preflight else batch_size * effective_updates
+            manifest_indices_used = manifest_order[:subset_size]
+            pairs = [pairs[index] for index in manifest_indices_used]
 
     sources = [s for s, _ in pairs]
     references = [r for _, r in pairs]
-    if args.dry_run or args.preflight:
+    if args.dry_run or args.preflight or args.checkpoint_check:
         training_indices = list(range(batch_size))
+    elif args.development_check:
+        training_indices = list(range(len(pairs)))
     else:
         order_rng = random.Random(args.subset_seed)
         training_indices = list(range(len(pairs)))
@@ -390,7 +451,7 @@ def main() -> None:
             "data_unique_source_count": train_metadata["unique_source_count"] if not args.dry_run else None,
             "beta": beta, "temperature": TEMPERATURE, "max_source_tokens": MAX_SOURCE,
             "max_target_actions": MAX_TARGET, "batch_size": batch_size,
-            "updates": args.max_updates, "run_seed": args.run_seed,
+            "updates": effective_updates, "run_seed": args.run_seed,
             "subset_seed": args.subset_seed, "sample_seed": sample_seed,
             "learning_rate": 1e-6, "adamw_betas": [0.9, 0.999],
             "adamw_epsilon": 1e-8, "weight_decay": 0.0,
@@ -398,10 +459,15 @@ def main() -> None:
             "sacrebleu": sacrebleu.__version__, "torch": torch.__version__,
             "transformers": transformers.__version__, "autocast_bf16": autocast,
             "initial_checkpoint": "facebook/nllb-200-distilled-600M cached snapshot",
-            "mode": "one-batch-resource-preflight" if args.preflight else "full-training",
+            "mode": (
+                "one-batch-resource-preflight" if args.preflight else
+                "one-update-checkpoint-roundtrip" if args.checkpoint_check else
+                "four-update-development-check" if args.development_check else
+                "full-training"
+            ),
             "physical_gpu_memory_gib": physical_gpu_memory_gib,
             "pytorch_allocator_limit_gib": allocator_limit_gib or None,
-            "manifest_indices_used": preflight_indices,
+            "manifest_indices_used": manifest_indices_used,
         }
         atomic_json(args.output / "run_config.json", config)
 
@@ -410,7 +476,7 @@ def main() -> None:
     generator = torch.Generator(device=device).manual_seed(sample_seed)
     log_path = args.output / "steps.jsonl"
     started_all = time.perf_counter()
-    updates = 1 if args.dry_run or args.preflight else args.max_updates
+    updates = effective_updates
     for update in range(updates):
         begin = update * batch_size
         batch_indices = training_indices[begin:begin + batch_size]
@@ -441,7 +507,7 @@ def main() -> None:
             ]
             rollout_audit = {
                 "phase": "rollouts_complete_before_rescoring_or_gradient",
-                "manifest_indices": [preflight_indices[i] for i in batch_indices],
+                "manifest_indices": [manifest_indices_used[i] for i in batch_indices],
                 "source_token_lengths": source_lengths,
                 "target_action_lengths": [len(path) for path in paths],
                 "cap_hits": [len(path) == max_target and path[-1] != tokenizer.eos_token_id
@@ -583,7 +649,7 @@ def main() -> None:
                 "preflight_complete": True,
                 "optimizer_step_called": True,
                 "throwaway_model_checkpoint_saved": False,
-                "manifest_indices": preflight_indices,
+                "manifest_indices": manifest_indices_used,
                 "baseline_seconds": baseline_seconds,
                 "batch_seconds": time.perf_counter() - started_all,
                 "gpu": torch.cuda.get_device_name(device),
@@ -597,10 +663,12 @@ def main() -> None:
             print(json.dumps(preflight_record, indent=2), flush=True)
             return
 
+    probe = checkpoint_probe(model, tokenizer, bias, device)
     atomic_torch_save(
         args.output / "final.pt",
         {"model": model.state_dict(), "optimizer": optimizer.state_dict(),
-         "beta": beta, "run_seed": args.run_seed, "protocol": "docs/RL_PROTOCOL.md"},
+         "beta": beta, "run_seed": args.run_seed, "protocol": "docs/RL_PROTOCOL.md",
+         "probe": probe},
     )
     atomic_json(args.output / "final_checkpoint_integrity.json", {
         "path": str(args.output / "final.pt"),
@@ -608,6 +676,9 @@ def main() -> None:
         "size_bytes": (args.output / "final.pt").stat().st_size,
     })
     print(json.dumps({"training_complete": True, "updates": updates,
+                      "mode": "one-update-checkpoint-roundtrip" if args.checkpoint_check else
+                              "four-update-development-check" if args.development_check else
+                              "full-training",
                       "elapsed_seconds": time.perf_counter() - started_all,
                       "output": str(args.output)}, indent=2), flush=True)
 

@@ -55,7 +55,8 @@ paused until calibration, save/reload verification, the paired development
 check, and final protocol freeze are complete. See [the rights note](docs/RIGHTS_REVIEW.md)
 and [the protocol](docs/RL_PROTOCOL.md).
 
-The tracked Slurm wrappers are the evaluation smoke and calibration jobs.
+The tracked Slurm wrappers cover evaluation smoke, calibration, checkpoint
+round-trip verification, and the four-update paired development check.
 They use the BYU `cs/cs` partition and accept `NLLB_MODEL_DIR` and
 `NLLB_PYTHON` overrides. Other exploratory cluster wrappers are preserved in
 `scripts/archive/` locally and excluded from the Git snapshot.

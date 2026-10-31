@@ -26,6 +26,8 @@ venv/
 /scripts/slurm/*
 !/scripts/slurm/run_nllb_eval_smoke.sbatch
 !/scripts/slurm/run_tatoeba_calibration.sbatch
+!/scripts/slurm/run_nllb_checkpoint_check.sbatch
+!/scripts/slurm/run_nllb_development_check.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/
