@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-RESEARCH_SNAPSHOT_COMMIT = "abf1ccc"
+BASELINE_COMMIT = "abf1ccc"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -24,7 +24,10 @@ def repository_metadata() -> dict[str, Any]:
     except (OSError, subprocess.CalledProcessError):
         revision, dirty = None, None
     return {
-        "research_snapshot_commit": RESEARCH_SNAPSHOT_COMMIT,
+        "baseline_commit": BASELINE_COMMIT,
+        "executing_commit": revision,
+        # Keep the original keys for existing artifact readers.
+        "research_snapshot_commit": BASELINE_COMMIT,
         "git_commit_sha": revision,
         "git_worktree_dirty": dirty,
     }

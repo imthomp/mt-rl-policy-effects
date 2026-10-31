@@ -14,6 +14,7 @@ from typing import Any
 
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from rights_clearance import require_rights_clearance
 
 from nllb_policy_rl import (
     DEFAULT_MODEL, TEMPERATURE, piece_bias, policy_log_probs, score_path,
@@ -131,6 +132,7 @@ def compare_gradients(a: dict[str, torch.Tensor], b: dict[str, torch.Tensor]) ->
 
 
 def main() -> None:
+    require_rights_clearance()
     if not torch.cuda.is_available():
         raise RuntimeError("Run this audit on a scheduled GPU node")
     manifest_rows = [json.loads(line) for line in MANIFEST.read_text(encoding="utf-8").splitlines()]

@@ -17,6 +17,7 @@ from nllb_policy_rl import (
     piece_bias,
 )
 from reproducibility import repository_metadata
+from rights_clearance import clearance_metadata, require_rights_clearance
 
 
 def recursively_equal(expected: Any, actual: Any, location: str = "state") -> None:
@@ -45,6 +46,7 @@ def main() -> None:
     parser.add_argument("--run-dir", type=Path, required=True)
     args = parser.parse_args()
 
+    rights_record = require_rights_clearance()
     repo_metadata = repository_metadata()
     if repo_metadata["git_worktree_dirty"]:
         raise RuntimeError("checkpoint verification requires a clean Git worktree")
@@ -110,11 +112,13 @@ def main() -> None:
 
     report = {
         **repo_metadata,
+        "rights_clearance": clearance_metadata(rights_record),
         "checkpoint_path": str(checkpoint_path),
         "checkpoint_sha256": integrity["sha256"],
         "training_git_commit": run_config["git_commit_sha"],
         "model_id": "facebook/nllb-200-distilled-600M",
         "model_revision": args.model_dir.name,
+        "model_snapshot_hash": args.model_dir.name,
         "model_output_token_ids_match": True,
         "probe_logprob_absolute_error": logprob_error,
         "probe_logprob_tolerance": 1e-5,

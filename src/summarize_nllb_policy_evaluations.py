@@ -169,6 +169,9 @@ def main() -> None:
         raise ValueError("checkpoint evaluations used different input data")
     if len({meta.get("data_split") for meta in metadata.values()}) != 1:
         raise ValueError("checkpoint evaluations used different protocol splits")
+    for field in ("baseline_commit", "executing_commit", "model_snapshot_hash"):
+        if len({meta.get(field) for meta in metadata.values()}) != 1:
+            raise ValueError(f"checkpoint evaluations used different {field} values")
     first_label = next(iter(predictions))
     canonical = predictions[first_label]
     for label, rows in predictions.items():
@@ -208,6 +211,9 @@ def main() -> None:
         })
 
     summary = {
+        "baseline_commit": metadata[first_label].get("baseline_commit"),
+        "executing_commit": metadata[first_label].get("executing_commit"),
+        "model_snapshot_hash": metadata[first_label].get("model_snapshot_hash"),
         "data_sha256": metadata[first_label]["data_sha256"],
         "data_split": metadata[first_label].get("data_split"),
         "source_count": len(canonical),

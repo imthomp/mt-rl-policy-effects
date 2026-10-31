@@ -24,6 +24,7 @@ import torch
 from sacrebleu.metrics import CHRF
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from reproducibility import repository_metadata
+from rights_clearance import clearance_metadata, require_rights_clearance
 
 
 DEFAULT_MODEL = Path(os.environ.get(
@@ -313,6 +314,8 @@ def main() -> None:
     parser.add_argument("--no-autocast", action="store_true")
     args = parser.parse_args()
 
+    rights_record = require_rights_clearance()
+
     selected_modes = sum((args.dry_run, args.preflight,
                           args.checkpoint_check, args.development_check))
     if selected_modes > 1:
@@ -437,10 +440,12 @@ def main() -> None:
         import sacrebleu
         config = {
             **repo_metadata,
+            "rights_clearance": clearance_metadata(rights_record),
             "protocol": "docs/RL_PROTOCOL.md", "model_dir": str(args.model),
             "model_id": "facebook/nllb-200-distilled-600M",
             "model_license": "CC-BY-NC-4.0",
             "model_snapshot_revision": args.model.name,
+            "model_snapshot_hash": args.model.name,
             "model_config_sha256": file_sha256(args.model / "config.json"),
             "sentencepiece_sha256": file_sha256(args.model / "sentencepiece.bpe.model"),
             "data_path": str(args.data),

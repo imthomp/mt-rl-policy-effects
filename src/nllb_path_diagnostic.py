@@ -15,6 +15,7 @@ from pathlib import Path
 import sentencepiece as spm
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from rights_clearance import require_rights_clearance
 
 
 MODEL = Path(os.environ["NLLB_MODEL_DIR"])
@@ -44,6 +45,7 @@ def chrf_proxy(hypotheses: list[str], references: list[str]) -> float:
 
 
 def main() -> None:
+    require_rights_clearance()
     sources = SOURCE.read_text(encoding="utf-8").splitlines()
     references = REFERENCE.read_text(encoding="utf-8").splitlines()
     pairs = [(s, r) for s, r in zip(sources, references) if s.strip() and r.strip()]

@@ -29,6 +29,7 @@ from nllb_policy_rl import (
     source_inputs,
 )
 from reproducibility import repository_metadata
+from rights_clearance import clearance_metadata, require_rights_clearance
 from sacrebleu.metrics import BLEU, CHRF
 
 
@@ -75,7 +76,7 @@ def prefix_entropy_and_kl(
     bias: torch.Tensor,
     row: dict[str, Any],
     device: torch.device,
-) -> tuple[float, list[float], list[float]]:
+) -> tuple[float, list[float], list[float], int]:
     encoded = source_inputs(tokenizer, row["source"], device)
     target = tokenizer(
         text_target=row["reference"], return_tensors="pt",
@@ -125,6 +126,7 @@ def prefix_entropy_and_kl(
         sum(tilt_entropies) / len(tilt_entropies),
         [sum(values) / len(values) for values in temperature_entropies],
         [sum(values) / len(values) for values in divergences],
+        len(tilt_entropies),
     )
 
 
@@ -185,6 +187,7 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=812701)
     parser.add_argument("--max-sources", type=int, help="Optional engineering smoke limit")
     args = parser.parse_args()
+    rights_record = require_rights_clearance()
     repo_metadata = repository_metadata()
     if repo_metadata["git_worktree_dirty"]:
         raise RuntimeError("calibration requires a clean Git worktree")
@@ -223,12 +226,14 @@ def main() -> None:
         source_tilt_entropies = []
         source_temperature_entropies = [[] for _ in TEMPERATURES]
         source_kls = [0.0] * len(TEMPERATURES)
+        source_prefix_position_counts = []
         for reference in row["references"]:
-            tilt_entropy, temperature_entropies, prefix_kls = prefix_entropy_and_kl(
+            tilt_entropy, temperature_entropies, prefix_kls, prefix_position_count = prefix_entropy_and_kl(
                 model, tokenizer, bias,
                 {"source": row["source"], "reference": reference["text"]}, device,
             )
             source_tilt_entropies.append(tilt_entropy)
+            source_prefix_position_counts.append(prefix_position_count)
             for index, value in enumerate(temperature_entropies):
                 source_temperature_entropies[index].append(value)
             for index, value in enumerate(prefix_kls):
@@ -244,6 +249,7 @@ def main() -> None:
             "source_mean_temperature_entropy_nats": mean_temp_entropy,
             "temperature_mean_kl_tilt_to_temperature_nats": source_kls,
             "reference_count": len(source_tilt_entropies),
+            "reference_prefix_position_counts": source_prefix_position_counts,
         })
     mean_tilt_entropy = sum(
         row["source_mean_tilt_entropy_nats"] for row in per_source_contexts
@@ -336,6 +342,7 @@ def main() -> None:
     included_pairs = sum(row["pair_count"] for row in rows)
     output = {
         **repo_metadata,
+        "rights_clearance": clearance_metadata(rights_record),
         "status": "calibration-only-diagnostic",
         "data_path": str(args.data),
         "data_sha256": sha256(args.data),
@@ -347,6 +354,7 @@ def main() -> None:
         "model_license": "CC-BY-NC-4.0",
         "source_snapshot": args.model_dir.name,
         "model_revision": args.model_dir.name,
+        "model_snapshot_hash": args.model_dir.name,
         "model_config_sha256": sha256(args.model_dir / "config.json"),
         "sentencepiece_sha256": sha256(args.model_dir / "sentencepiece.bpe.model"),
         "base_seed": args.seed,
@@ -360,6 +368,11 @@ def main() -> None:
         "entropy_match_tolerance_nats": ENTROPY_MATCH_TOLERANCE_NATS,
         "entropy_match_pass": abs(entropy_residual) <= ENTROPY_MATCH_TOLERANCE_NATS,
         "matched_temperature_entropy_residual_nats": entropy_residual,
+        "entropy_conditioning": {
+            "prefixes": "shared teacher-forced reference-token prefixes, identical across tilted and temperature-only policies",
+            "averaging": f"average prefix-position entropy within each reference; average references within each unique English source; then equally average the {len(per_source_contexts)} source-level means",
+            "generated_trajectory_entropy_used": False,
+        },
         "quality_metric_signatures": {
             "training_reward": "SacreBLEU 2.6.0 sentence chrF++ / 100",
             "independent_quality": "SacreBLEU 2.6.0 corpus BLEU, tokenize=13a, lowercase=False, smooth=exp, effective_order=False",

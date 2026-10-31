@@ -9,6 +9,7 @@ from pathlib import Path
 
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from rights_clearance import require_rights_clearance
 
 from nllb_policy_rl import DEFAULT_MODEL, MAX_SOURCE, MAX_TARGET, piece_bias, score_path
 
@@ -19,6 +20,7 @@ BETA = 0.20
 
 
 def main() -> None:
+    require_rights_clearance()
     if not torch.cuda.is_available():
         raise RuntimeError("Run this stress test on an allocated GPU")
     physical_memory_gib = torch.cuda.get_device_properties(0).total_memory / (1024**3)

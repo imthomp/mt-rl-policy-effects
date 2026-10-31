@@ -48,12 +48,15 @@ The recorded BYU cluster environment uses PyTorch 2.11.0+cu130, Transformers
 `NLLB_MODEL_DIR` to the approved local snapshot path.
 
 The resource plan in the current protocol is one A100 job at partition/QoS
-`cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. The documented
-license basis permits the described noncommercial study subject to attribution;
-see [the data/model notice](docs/DATA_MODEL_NOTICE.md). The six-run pilot remains
-paused until calibration, save/reload verification, the paired development
-check, and final protocol freeze are complete. See [the rights note](docs/RIGHTS_REVIEW.md)
-and [the protocol](docs/RL_PROTOCOL.md).
+`cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. The published
+license terms appear to support the described noncommercial study subject to
+attribution; the project's institutional review is pending in
+`docs/rights_clearance.json`. Model-work scripts block until that review is
+recorded. Afterward, calibration, save/reload verification, the paired
+development check, and final protocol freeze remain before the six-run pilot.
+See [the rights note](docs/RIGHTS_REVIEW.md),
+[the data/model notice](docs/DATA_MODEL_NOTICE.md), and
+[the protocol](docs/RL_PROTOCOL.md).
 
 The tracked Slurm wrappers cover evaluation smoke, calibration, checkpoint
 round-trip verification, and the four-update paired development check.

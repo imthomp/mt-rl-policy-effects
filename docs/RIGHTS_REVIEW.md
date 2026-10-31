@@ -1,14 +1,16 @@
 # Rights and provenance review brief
 
-**Status: license gate cleared for the described noncommercial academic
-research, based on the published terms summarized in
-[DATA_MODEL_NOTICE.md](DATA_MODEL_NOTICE.md).** CC-BY 2.0 FR permits reuse of
-Tatoeba text with attribution; CC-BY-NC-4.0 permits noncommercial use and
-adaptation of the NLLB model subject to its terms. The licenses themselves do
-not require university approval. This is a project reading of published terms,
-not a formal legal determination; separate BYU policies or a commercial sponsor
-may impose additional conditions. Keep the work noncommercial and follow the
-attribution and model-license conditions below.
+**Status: the license terms appear to support the described noncommercial
+academic work, but the required institutional review under this project's
+process is still pending.** CC-BY 2.0 FR permits reuse of Tatoeba text with
+attribution; CC-BY-NC-4.0 permits noncommercial use and adaptation of the NLLB
+model subject to its terms. The licenses themselves do not require university
+approval. This is a project reading of published terms, not a formal legal
+determination; the institutional review may identify separate BYU policies or
+conditions. Keep the work noncommercial and follow the attribution and
+model-license conditions below. No model calibration, evaluation, checkpoint
+verification, or training should run until the project's review is recorded in
+[`rights_clearance.json`](rights_clearance.json).
 
 ## Proposed work
 
@@ -82,6 +84,7 @@ establishes usable terms for the relevant material.
   provenance, hashes, counts, and attribution-field documentation.
 - The linked Tatoeba and NLLB terms pages above.
 
-If a separate institutional policy review occurs, record its scope and
-conditions here without recording sensitive legal communications in this Git
-repository.
+The reviewer should record status, scope, role, decision date, a non-sensitive
+decision reference, and any conditions in `rights_clearance.json`. Do not store
+sensitive legal communications in this Git repository. Model-work scripts
+refuse to run while that record is pending.

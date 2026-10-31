@@ -30,6 +30,7 @@ from nllb_policy_rl import (
     sample_one,
 )
 from reproducibility import repository_metadata
+from rights_clearance import clearance_metadata, require_rights_clearance
 
 
 BETAS = (0.0, 0.20)
@@ -318,6 +319,7 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
 
+    rights_record = require_rights_clearance()
     repo_metadata = repository_metadata()
     if repo_metadata["git_worktree_dirty"]:
         raise RuntimeError("evaluation requires a clean Git worktree")
@@ -461,6 +463,7 @@ def main() -> None:
 
         config = {
             **repo_metadata,
+            "rights_clearance": clearance_metadata(rights_record),
             "checkpoint_label": label,
             "checkpoint_spec": checkpoint_spec,
             "checkpoint_sha256": checkpoint_hash,
@@ -468,6 +471,7 @@ def main() -> None:
             "model_id": "facebook/nllb-200-distilled-600M",
             "model_license": "CC-BY-NC-4.0",
             "model_revision": args.model_dir.name,
+            "model_snapshot_hash": args.model_dir.name,
             "model_config_sha256": sha256(args.model_dir / "config.json"),
             "data_path": str(args.data),
             "data_sha256": source_hash,
