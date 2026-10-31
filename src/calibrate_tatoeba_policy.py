@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import os
+import random
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,8 @@ TEMPERATURES = tuple(round(0.5 + 0.1 * index, 1) for index in range(11))
 BETA = 0.20
 BASE_TEMPERATURE = 0.7
 ENTROPY_MATCH_TOLERANCE_NATS = 0.05
+PAIRED_BOOTSTRAP_RESAMPLES = 2000
+PAIRED_BOOTSTRAP_SEED = 812702
 CHRF = CHRF(char_order=6, word_order=2, beta=2, lowercase=False,
             whitespace=False, eps_smoothing=False)
 BLEU = BLEU(tokenize="13a", lowercase=False, smooth_method="exp",
@@ -172,9 +175,25 @@ def paired_descriptive_differences(
             for a, b in zip(left, right, strict=True)
             if a[field] is not None and b[field] is not None
         ]
+        mean = sum(differences) / len(differences) if differences else None
+        interval = None
+        if differences:
+            generator = random.Random(PAIRED_BOOTSTRAP_SEED)
+            bootstrap_means = sorted(
+                sum(differences[index] for index in (
+                    generator.randrange(len(differences))
+                    for _ in range(len(differences))
+                )) / len(differences)
+                for _ in range(PAIRED_BOOTSTRAP_RESAMPLES)
+            )
+            interval = {
+                "lower_95": bootstrap_means[round(0.025 * (len(bootstrap_means) - 1))],
+                "upper_95": bootstrap_means[round(0.975 * (len(bootstrap_means) - 1))],
+            }
         result[field] = {
             "n_source_groups": len(differences),
-            "mean_left_minus_right": sum(differences) / len(differences) if differences else None,
+            "mean_left_minus_right": mean,
+            "paired_source_bootstrap_95_interval": interval,
         }
     return result
 
@@ -269,13 +288,18 @@ def main() -> None:
     matched_temperature = TEMPERATURES[matched_index]
     entropy_residual = mean_temperature_entropies[matched_index] - mean_tilt_entropy
 
-    samples = {"control": [], "length_tilt": [], "temperature_only": []}
+    samples = {"control": [], "length_tilt": []}
     summaries = {}
-    for arm, (name, beta, temperature) in enumerate((
+    sampling_conditions = [
         ("control", 0.0, BASE_TEMPERATURE),
         ("length_tilt", BETA, BASE_TEMPERATURE),
-        ("temperature_only", 0.0, matched_temperature),
-    )):
+    ]
+    # If entropy matching selects the control's existing temperature, the
+    # comparator is the same policy. Do not sample or report it as another arm.
+    temperature_comparator_aliases_control = matched_temperature == BASE_TEMPERATURE
+    if not temperature_comparator_aliases_control:
+        sampling_conditions.append(("temperature_only", 0.0, matched_temperature))
+    for arm, (name, beta, temperature) in enumerate(sampling_conditions):
         records = []
         for row in rows:
             generator = torch.Generator(device=device).manual_seed(
@@ -292,6 +316,9 @@ def main() -> None:
             content_token_count = sum(
                 token not in special_ids and token != eos for token in path
             )
+            non_eos_special_token_count = sum(
+                token in special_ids and token != eos for token in path
+            )
             word_count = len(hypothesis.split())
             records.append({
                 "source_sentence_id": row.get("source_sentence_id"),
@@ -302,6 +329,7 @@ def main() -> None:
                 "sentence_bleu": BLEU.sentence_score(hypothesis, references).score,
                 "action_count_including_eos": len(path),
                 "content_token_count_excluding_eos_and_specials": content_token_count,
+                "non_eos_special_token_count": non_eos_special_token_count,
                 "word_count": word_count,
                 "fertility_tokens_per_word": content_token_count / word_count if word_count else None,
                 "empty_output": not hypothesis,
@@ -322,6 +350,15 @@ def main() -> None:
                 if r["fertility_tokens_per_word"] is not None
             ]),
             "empty_output_rate": sum(r["empty_output"] for r in records) / len(records),
+            "non_eos_special_token_emission_rate": sum(
+                r["non_eos_special_token_count"] > 0 for r in records
+            ) / len(records),
+            "non_eos_special_token_emitting_source_count": sum(
+                r["non_eos_special_token_count"] > 0 for r in records
+            ),
+            "non_eos_special_token_count": sum(
+                r["non_eos_special_token_count"] for r in records
+            ),
             "eos_rate": sum(r["eos_emitted"] for r in records) / len(records),
             "cap_rate": sum(r["cap_hit"] for r in records) / len(records),
             "truncation_rate": sum(r["cap_hit"] for r in records) / len(records),
@@ -340,6 +377,19 @@ def main() -> None:
         ).score
 
     included_pairs = sum(row["pair_count"] for row in rows)
+    paired_differences = {
+        "length_tilt_minus_control": paired_descriptive_differences(
+            samples["length_tilt"], samples["control"],
+        ),
+    }
+    if not temperature_comparator_aliases_control:
+        paired_differences["temperature_only_minus_length_tilt"] = paired_descriptive_differences(
+            samples["temperature_only"], samples["length_tilt"],
+        )
+    paired_differences["corpus_bleu_points_length_tilt_minus_control"] = (
+        summaries["length_tilt"]["corpus_bleu"] - summaries["control"]["corpus_bleu"]
+    )
+
     output = {
         **repo_metadata,
         "rights_clearance": clearance_metadata(rights_record),
@@ -365,6 +415,7 @@ def main() -> None:
         "temperature_only_mean_conditional_entropy_nats": dict(zip(TEMPERATURES, mean_temperature_entropies)),
         "mean_conditional_kl_tilt_to_temperature_nats": dict(zip(TEMPERATURES, mean_kls)),
         "matched_temperature": matched_temperature,
+        "temperature_comparator_aliases_control": temperature_comparator_aliases_control,
         "entropy_match_tolerance_nats": ENTROPY_MATCH_TOLERANCE_NATS,
         "entropy_match_pass": abs(entropy_residual) <= ENTROPY_MATCH_TOLERANCE_NATS,
         "matched_temperature_entropy_residual_nats": entropy_residual,
@@ -378,17 +429,16 @@ def main() -> None:
             "independent_quality": "SacreBLEU 2.6.0 corpus BLEU, tokenize=13a, lowercase=False, smooth=exp, effective_order=False",
         },
         "sampled_policy_summaries": summaries,
-        "paired_descriptive_differences": {
-            "length_tilt_minus_control": paired_descriptive_differences(
-                samples["length_tilt"], samples["control"],
-            ),
-            "temperature_only_minus_length_tilt": paired_descriptive_differences(
-                samples["temperature_only"], samples["length_tilt"],
-            ),
+        "paired_descriptive_differences": paired_differences,
+        "paired_source_bootstrap": {
+            "resamples": PAIRED_BOOTSTRAP_RESAMPLES,
+            "seed": PAIRED_BOOTSTRAP_SEED,
+            "unit": "unique English source group",
+            "limitation": "intervals reflect source resampling for one sampled output per policy and source; they do not capture within-source rollout sampling variability",
         },
         "sampled_outputs": samples,
         "source_prefix_diagnostics": per_source_contexts,
-        "interpretation": "Calibration diagnostic only. The temperature comparator passes the prespecified entropy tolerance only if entropy_match_pass is true; equal conditional entropy and small KL do not establish policy equivalence or justify a third training arm.",
+        "interpretation": "Calibration diagnostic only. The temperature comparator passes the prespecified entropy tolerance only if entropy_match_pass is true; equal conditional entropy and small KL do not establish policy equivalence or justify a third training arm. If the matched temperature equals the control temperature, the policies are identical and the comparator aliases control rather than being sampled as another condition.",
     }
     atomic_json(args.output, output)
     print(json.dumps({key: value for key, value in output.items() if key not in ("sampled_outputs", "source_prefix_diagnostics")}, indent=2))
