@@ -49,8 +49,11 @@ The recorded BYU cluster environment uses PyTorch 2.11.0+cu130, Transformers
 
 The resource plan in the current protocol is one A100 job at partition/QoS
 `cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. Do not launch
-research training until the rights, calibration, novelty, save/reload, and
-development-check gates in `docs/RL_PROTOCOL.md` are resolved.
+model calibration, evaluation, development checks, or research training until
+the rights gate is cleared. Then complete calibration, save/reload verification,
+the paired development check, and freeze the final protocol before the six-run
+pilot. See [the rights review brief](docs/RIGHTS_REVIEW.md) and
+[the protocol](docs/RL_PROTOCOL.md).
 
 The tracked Slurm wrappers are the evaluation smoke and calibration jobs.
 They use the BYU `cs/cs` partition and accept `NLLB_MODEL_DIR` and

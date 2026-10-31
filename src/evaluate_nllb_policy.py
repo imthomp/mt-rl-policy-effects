@@ -29,6 +29,7 @@ from nllb_policy_rl import (
     piece_bias,
     sample_one,
 )
+from reproducibility import repository_metadata
 
 
 BETAS = (0.0, 0.20)
@@ -41,6 +42,9 @@ CHRF = CHRF(
     char_order=6, word_order=2, beta=2, lowercase=False,
     whitespace=False, eps_smoothing=False,
 )
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+PROTOCOL_SPLIT_AUDIT = REPOSITORY_ROOT / "data/tatoeba_en_de/protocol_v1/split_audit.json"
+EVALUATION_SPLITS = {"calibration", "development", "test_in_domain"}
 
 
 def sha256(path: Path) -> str:
@@ -49,6 +53,26 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def validate_protocol_split(path: Path, allowed_splits: set[str] | None = None) -> tuple[str, dict[str, Any]]:
+    """Require one frozen protocol manifest so references cannot cross splits."""
+    if not PROTOCOL_SPLIT_AUDIT.is_file():
+        raise FileNotFoundError(f"protocol split audit is missing: {PROTOCOL_SPLIT_AUDIT}")
+    audit = json.loads(PROTOCOL_SPLIT_AUDIT.read_text(encoding="utf-8"))
+    resolved_path = path.resolve()
+    allowed = allowed_splits if allowed_splits is not None else EVALUATION_SPLITS
+    for split_name, metadata in audit["split_manifests"].items():
+        expected_path = (REPOSITORY_ROOT / metadata["path"]).resolve()
+        if split_name not in allowed or resolved_path != expected_path:
+            continue
+        actual_hash = sha256(resolved_path)
+        if actual_hash != metadata["sha256"]:
+            raise ValueError(f"{split_name} manifest hash differs from the frozen split audit")
+        return split_name, metadata
+    raise ValueError(
+        f"evaluation data must be one frozen manifest from {sorted(allowed)}; got {path}"
+    )
 
 
 def atomic_json(path: Path, value: Any) -> None:
@@ -294,14 +318,25 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
 
+    repo_metadata = repository_metadata()
+    if repo_metadata["git_worktree_dirty"]:
+        raise RuntimeError("evaluation requires a clean Git worktree")
+    if not repo_metadata["git_commit_sha"]:
+        raise RuntimeError("evaluation requires a Git commit")
+
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA GPU allocation required")
     if not args.model_dir.is_dir():
         raise FileNotFoundError(args.model_dir)
     if args.max_examples is not None and args.max_examples <= 0:
         raise ValueError("--max-examples must be positive")
+    split_name, split_metadata = validate_protocol_split(args.data)
     pair_rows = read_rows(args.data, None)
+    if len(pair_rows) != split_metadata["pair_count"]:
+        raise ValueError(f"input pair count differs from frozen {split_name} split audit")
     rows = group_rows_by_source(pair_rows)
+    if len(rows) != split_metadata["unique_source_count"]:
+        raise ValueError(f"unique source count differs from frozen {split_name} split audit")
     if args.max_examples is not None:
         # Smoke limits count source sentences and keep every reference for
         # each selected source, rather than splitting a multi-reference group.
@@ -425,6 +460,7 @@ def main() -> None:
             raise
 
         config = {
+            **repo_metadata,
             "checkpoint_label": label,
             "checkpoint_spec": checkpoint_spec,
             "checkpoint_sha256": checkpoint_hash,
@@ -432,9 +468,12 @@ def main() -> None:
             "model_config_sha256": sha256(args.model_dir / "config.json"),
             "data_path": str(args.data),
             "data_sha256": source_hash,
+            "data_split": split_name,
             "pair_count": included_pair_count,
             "input_pair_count": len(pair_rows),
             "source_count": len(rows),
+            "full_source_count": split_metadata["unique_source_count"],
+            "input_unique_source_count": len(group_rows_by_source(pair_rows)),
             "truncated_smoke_run": bool(args.max_examples),
             "max_examples": args.max_examples,
             "source_max_tokens": MAX_SOURCE,

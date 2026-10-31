@@ -167,6 +167,8 @@ def main() -> None:
 
     if len({meta["data_sha256"] for meta in metadata.values()}) != 1:
         raise ValueError("checkpoint evaluations used different input data")
+    if len({meta.get("data_split") for meta in metadata.values()}) != 1:
+        raise ValueError("checkpoint evaluations used different protocol splits")
     first_label = next(iter(predictions))
     canonical = predictions[first_label]
     for label, rows in predictions.items():
@@ -207,6 +209,7 @@ def main() -> None:
 
     summary = {
         "data_sha256": metadata[first_label]["data_sha256"],
+        "data_split": metadata[first_label].get("data_split"),
         "source_count": len(canonical),
         "pair_count": metadata[first_label].get("pair_count"),
         "input_pair_count": metadata[first_label].get("input_pair_count"),

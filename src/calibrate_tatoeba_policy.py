@@ -18,7 +18,7 @@ from typing import Any
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-from evaluate_nllb_policy import group_rows_by_source, read_rows
+from evaluate_nllb_policy import group_rows_by_source, read_rows, validate_protocol_split
 from nllb_policy_rl import (
     DEFAULT_MODEL,
     MAX_TARGET,
@@ -28,12 +28,14 @@ from nllb_policy_rl import (
     sample_one,
     source_inputs,
 )
+from reproducibility import repository_metadata
 from sacrebleu.metrics import CHRF
 
 
 TEMPERATURES = tuple(round(0.5 + 0.1 * index, 1) for index in range(11))
 BETA = 0.20
 BASE_TEMPERATURE = 0.7
+ENTROPY_MATCH_TOLERANCE_NATS = 0.05
 CHRF = CHRF(char_order=6, word_order=2, beta=2, lowercase=False,
             whitespace=False, eps_smoothing=False)
 
@@ -130,12 +132,15 @@ def seed_for(source_id: Any, base_seed: int, arm: int) -> int:
     return (base_seed + arm * 1_000_003 + offset) % (2**63 - 1)
 
 
-def distribution(values: list[float]) -> dict[str, float]:
+def distribution(values: list[float]) -> dict[str, Any]:
+    if not values:
+        return {"n": 0, "mean": None, "sd": None, "p10": None, "median": None, "p90": None}
     ordered = sorted(values)
     def quantile(fraction: float) -> float:
         index = round(fraction * (len(ordered) - 1))
         return ordered[index]
     return {
+        "n": len(ordered),
         "mean": sum(ordered) / len(ordered),
         "sd": (sum((value - sum(ordered) / len(ordered)) ** 2 for value in ordered)
                / max(1, len(ordered) - 1)) ** 0.5,
@@ -143,6 +148,31 @@ def distribution(values: list[float]) -> dict[str, float]:
         "median": quantile(0.50),
         "p90": quantile(0.90),
     }
+
+
+def paired_descriptive_differences(
+    left: list[dict[str, Any]], right: list[dict[str, Any]],
+) -> dict[str, Any]:
+    if len(left) != len(right) or [r["source_sentence_id"] for r in left] != [
+        r["source_sentence_id"] for r in right
+    ]:
+        raise ValueError("calibration policy outputs are not source-aligned")
+    fields = (
+        "mean_reference_chrfpp_reward", "action_count_including_eos",
+        "word_count", "fertility_tokens_per_word", "eos_emitted", "cap_hit",
+    )
+    result = {}
+    for field in fields:
+        differences = [
+            float(a[field]) - float(b[field])
+            for a, b in zip(left, right, strict=True)
+            if a[field] is not None and b[field] is not None
+        ]
+        result[field] = {
+            "n_source_groups": len(differences),
+            "mean_left_minus_right": sum(differences) / len(differences) if differences else None,
+        }
+    return result
 
 
 def main() -> None:
@@ -153,6 +183,11 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=812701)
     parser.add_argument("--max-sources", type=int, help="Optional engineering smoke limit")
     args = parser.parse_args()
+    repo_metadata = repository_metadata()
+    if repo_metadata["git_worktree_dirty"]:
+        raise RuntimeError("calibration requires a clean Git worktree")
+    if not repo_metadata["git_commit_sha"]:
+        raise RuntimeError("calibration requires a Git commit")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA GPU allocation required")
     if args.output.exists():
@@ -160,8 +195,13 @@ def main() -> None:
     if args.max_sources is not None and args.max_sources <= 0:
         raise ValueError("--max-sources must be positive")
 
+    split_name, split_metadata = validate_protocol_split(args.data, {"calibration"})
     pair_rows = read_rows(args.data, None)
+    if len(pair_rows) != split_metadata["pair_count"]:
+        raise ValueError("calibration pair count differs from the frozen split audit")
     rows = group_rows_by_source(pair_rows)
+    if len(rows) != split_metadata["unique_source_count"]:
+        raise ValueError("calibration source count differs from the frozen split audit")
     if args.max_sources is not None:
         rows = rows[:args.max_sources]
     if not rows:
@@ -219,6 +259,7 @@ def main() -> None:
     matched_index = min(range(len(TEMPERATURES)),
                         key=lambda index: abs(mean_temperature_entropies[index] - mean_tilt_entropy))
     matched_temperature = TEMPERATURES[matched_index]
+    entropy_residual = mean_temperature_entropies[matched_index] - mean_tilt_entropy
 
     samples = {"control": [], "length_tilt": [], "temperature_only": []}
     summaries = {}
@@ -239,6 +280,11 @@ def main() -> None:
             hypothesis = tokenizer.decode(path, skip_special_tokens=True).strip()
             references = [ref["text"] for ref in row["references"]]
             eos = tokenizer.eos_token_id
+            special_ids = set(tokenizer.all_special_ids)
+            content_token_count = sum(
+                token not in special_ids and token != eos for token in path
+            )
+            word_count = len(hypothesis.split())
             records.append({
                 "source_sentence_id": row.get("source_sentence_id"),
                 "sampled_token_ids": path,
@@ -246,7 +292,10 @@ def main() -> None:
                 "hypothesis": hypothesis,
                 "mean_reference_chrfpp_reward": CHRF.sentence_score(hypothesis, references).score / 100.0,
                 "action_count_including_eos": len(path),
-                "word_count": len(hypothesis.split()),
+                "content_token_count_excluding_eos_and_specials": content_token_count,
+                "word_count": word_count,
+                "fertility_tokens_per_word": content_token_count / word_count if word_count else None,
+                "empty_output": not hypothesis,
                 "eos_emitted": bool(path and path[-1] == eos),
                 "cap_hit": len(path) == MAX_TARGET and (not path or path[-1] != eos),
                 "reference_count": len(references),
@@ -258,15 +307,23 @@ def main() -> None:
             "reward_distribution": distribution([r["mean_reference_chrfpp_reward"] for r in records]),
             "action_count_distribution": distribution([r["action_count_including_eos"] for r in records]),
             "word_count_distribution": distribution([r["word_count"] for r in records]),
+            "fertility_distribution": distribution([
+                r["fertility_tokens_per_word"] for r in records
+                if r["fertility_tokens_per_word"] is not None
+            ]),
+            "empty_output_rate": sum(r["empty_output"] for r in records) / len(records),
             "eos_rate": sum(r["eos_emitted"] for r in records) / len(records),
             "cap_rate": sum(r["cap_hit"] for r in records) / len(records),
+            "truncation_rate": sum(r["cap_hit"] for r in records) / len(records),
         }
 
     included_pairs = sum(row["pair_count"] for row in rows)
     output = {
+        **repo_metadata,
         "status": "calibration-only-diagnostic",
         "data_path": str(args.data),
         "data_sha256": sha256(args.data),
+        "data_split": split_name,
         "pair_count": included_pairs,
         "source_count": len(rows),
         "source_snapshot": args.model_dir.name,
@@ -280,11 +337,21 @@ def main() -> None:
         "temperature_only_mean_conditional_entropy_nats": dict(zip(TEMPERATURES, mean_temperature_entropies)),
         "mean_conditional_kl_tilt_to_temperature_nats": dict(zip(TEMPERATURES, mean_kls)),
         "matched_temperature": matched_temperature,
-        "matched_temperature_entropy_residual_nats": mean_temperature_entropies[matched_index] - mean_tilt_entropy,
+        "entropy_match_tolerance_nats": ENTROPY_MATCH_TOLERANCE_NATS,
+        "entropy_match_pass": abs(entropy_residual) <= ENTROPY_MATCH_TOLERANCE_NATS,
+        "matched_temperature_entropy_residual_nats": entropy_residual,
         "sampled_policy_summaries": summaries,
+        "paired_descriptive_differences": {
+            "length_tilt_minus_control": paired_descriptive_differences(
+                samples["length_tilt"], samples["control"],
+            ),
+            "temperature_only_minus_length_tilt": paired_descriptive_differences(
+                samples["temperature_only"], samples["length_tilt"],
+            ),
+        },
         "sampled_outputs": samples,
         "source_prefix_diagnostics": per_source_contexts,
-        "interpretation": "Calibration diagnostic only; entropy matching on reference prefixes is not policy equivalence and does not justify a third training arm.",
+        "interpretation": "Calibration diagnostic only. The temperature comparator passes the prespecified entropy tolerance only if entropy_match_pass is true; equal conditional entropy and small KL do not establish policy equivalence or justify a third training arm.",
     }
     atomic_json(args.output, output)
     print(json.dumps({key: value for key, value in output.items() if key not in ("sampled_outputs", "source_prefix_diagnostics")}, indent=2))

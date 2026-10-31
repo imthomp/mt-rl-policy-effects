@@ -23,12 +23,17 @@ import sentencepiece as spm
 import torch
 from sacrebleu.metrics import CHRF
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from reproducibility import repository_metadata
 
 
 DEFAULT_MODEL = Path(os.environ.get(
     "NLLB_MODEL_DIR",
     str(Path.home() / ".cache/huggingface/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d"),
 ))
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+PROTOCOL_SPLIT_AUDIT = REPOSITORY_ROOT / "data/tatoeba_en_de/protocol_v1/split_audit.json"
+TRAIN_SPLIT_NAME = "train"
+TRAIN_ORDER_SEED = 314159
 TEMPERATURE = 0.7
 BETA_TREATMENT = 0.20
 MAX_SOURCE = 256
@@ -43,6 +48,23 @@ def file_sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def validate_training_manifest(path: Path) -> dict[str, Any]:
+    """Require the single audited Tatoeba train manifest for research runs."""
+    if not PROTOCOL_SPLIT_AUDIT.is_file():
+        raise FileNotFoundError(f"protocol split audit is missing: {PROTOCOL_SPLIT_AUDIT}")
+    audit = json.loads(PROTOCOL_SPLIT_AUDIT.read_text(encoding="utf-8"))
+    metadata = audit["split_manifests"][TRAIN_SPLIT_NAME]
+    resolved = path.resolve()
+    expected = (REPOSITORY_ROOT / metadata["path"]).resolve()
+    if resolved != expected:
+        raise ValueError(f"training data must be the frozen {TRAIN_SPLIT_NAME} manifest: {expected}")
+    if file_sha256(resolved) != metadata["sha256"]:
+        raise ValueError("training manifest SHA-256 differs from the frozen split audit")
+    if metadata["pair_count"] != 2048:
+        raise ValueError("frozen training manifest must contain 2,048 translation pairs")
+    return metadata
 
 
 def atomic_json(path: Path, value: Any) -> None:
@@ -243,9 +265,16 @@ def main() -> None:
     parser.add_argument("--dry-run-max-target", type=int, default=32)
     parser.add_argument("--max-updates", type=int, default=256)
     parser.add_argument("--batch-size", type=int, default=8)
-    parser.add_argument("--subset-seed", type=int)
+    parser.add_argument("--subset-seed", type=int, default=TRAIN_ORDER_SEED,
+                        help="Shared manifest-order seed; protocol fixes this at 314159")
     parser.add_argument("--no-autocast", action="store_true")
     args = parser.parse_args()
+
+    repo_metadata = repository_metadata()
+    if not args.dry_run and repo_metadata["git_worktree_dirty"]:
+        raise RuntimeError("refusing research-data runs from a dirty Git worktree")
+    if not args.dry_run and not repo_metadata["git_commit_sha"]:
+        raise RuntimeError("research-data runs require a Git commit")
 
     if args.dry_run and args.preflight:
         parser.error("choose either --dry-run or --preflight")
@@ -272,8 +301,8 @@ def main() -> None:
             allocator_limit_gib / physical_gpu_memory_gib, 0,
         )
     autocast = not args.no_autocast
-    if args.subset_seed is None:
-        args.subset_seed = 314159 + args.run_seed
+    if args.subset_seed != TRAIN_ORDER_SEED and not args.dry_run:
+        raise ValueError(f"protocol fixes the shared subset/order seed at {TRAIN_ORDER_SEED}")
     random.seed(args.run_seed)
     torch.manual_seed(args.run_seed)
     torch.cuda.manual_seed_all(args.run_seed)
@@ -293,6 +322,7 @@ def main() -> None:
         max_target = args.dry_run_max_target
         batch_size = len(pairs)
     else:
+        train_metadata = validate_training_manifest(args.data)
         pairs = read_jsonl(args.data)
         beta = args.beta
         max_target = MAX_TARGET
@@ -345,12 +375,16 @@ def main() -> None:
         import transformers
         import sacrebleu
         config = {
+            **repo_metadata,
             "protocol": "docs/RL_PROTOCOL.md", "model_dir": str(args.model),
             "model_snapshot_revision": args.model.name,
             "model_config_sha256": file_sha256(args.model / "config.json"),
             "sentencepiece_sha256": file_sha256(args.model / "sentencepiece.bpe.model"),
             "data_path": str(args.data),
             "data_sha256": file_sha256(args.data),
+            "data_split": TRAIN_SPLIT_NAME,
+            "data_pair_count": train_metadata["pair_count"] if not args.dry_run else None,
+            "data_unique_source_count": train_metadata["unique_source_count"] if not args.dry_run else None,
             "beta": beta, "temperature": TEMPERATURE, "max_source_tokens": MAX_SOURCE,
             "max_target_actions": MAX_TARGET, "batch_size": batch_size,
             "updates": args.max_updates, "run_seed": args.run_seed,

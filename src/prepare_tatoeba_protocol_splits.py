@@ -116,6 +116,8 @@ def main() -> None:
         split_meta[name] = {
             "path": str(path),
             "pair_count": len(split_rows),
+            "unique_source_count": len({row["source_sentence_id"] for row in split_rows}),
+            "unique_reference_count": len({row["reference_sentence_id"] for row in split_rows}),
             "sha256": sha256(path),
             "unique_source_contributors": len({row["source_contributor"] for row in split_rows}),
             "unique_reference_contributors": len({row["reference_contributor"] for row in split_rows}),
