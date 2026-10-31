@@ -19,6 +19,8 @@ venv/
 !/data/tatoeba_en_de/protocol_v1/split_audit.json
 /data/tatoeba_raw/*
 !/data/tatoeba_raw/README.md
+/data/reward_da/*
+!/data/reward_da/README.md
 
 # Local operating instructions and superseded cluster job wrappers
 /local_notes/
@@ -28,6 +30,7 @@ venv/
 !/scripts/slurm/run_tatoeba_calibration.sbatch
 !/scripts/slurm/run_nllb_checkpoint_check.sbatch
 !/scripts/slurm/run_nllb_development_check.sbatch
+!/scripts/slurm/run_da_diagnostic_metrics.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/

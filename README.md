@@ -1,10 +1,17 @@
-# NLLB policy-gradient feasibility study
+# MT reward-optimization studies
 
 Research code and protocol notes for a proposed English-to-German NLLB-200
 policy-gradient study. The `β=.20` protocol is closed because its launch screen
 did not pass, and the six-run training pilot was not launched. See [GO/No-Go](docs/GO_NO_GO.md) and
 [the protocol](docs/RL_PROTOCOL.md) for the recorded conclusion and retained
 experimental specification.
+
+The active successor direction is a bounded offline study of whether frozen
+AmanaMT dataset-slice diagnostics improve reward-model reliability under
+best-of-N optimization pressure beyond matched random slice removal. Its
+protocol and holdout rules are in
+[REWARD_OVEROPTIMIZATION_PROTOCOL.md](docs/REWARD_OVEROPTIMIZATION_PROTOCOL.md).
+No reward model has been trained under this successor protocol.
 
 ## Current design
 

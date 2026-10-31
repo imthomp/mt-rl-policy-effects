@@ -1,0 +1,3425 @@
+{
+  "reward_da_diagnostic_sample": {
+    "input_shards": [
+      {
+        "name": "wmt-da-human-evaluation-train-00000-of-00002.arrow",
+        "sha256": "575c77d6e34bed9e0c15249f356308c5b18370f35b264b36e91ae8113a4cf5bc"
+      },
+      {
+        "name": "wmt-da-human-evaluation-train-00001-of-00002.arrow",
+        "sha256": "b467f854063ba921a255dbc1bc1e8bb0189225c07cfd7efcb914af621c8b4c19"
+      }
+    ],
+    "output_path": "data/reward_da/diagnostic_sample.jsonl",
+    "output_sha256": "a669dabcf6d94dac1902009c561f720334cda0e2f7eae612b0c407700fc31e21",
+    "sample_per_slice_cap": 1000,
+    "sample_unit": "language_pair_by_year",
+    "sampled_row_count": 87000,
+    "seed": 20261031,
+    "slice_count": 87,
+    "slice_rows": [
+      {
+        "language_pair": "bn-hi",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "cs-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "cs-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "cs-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "cs-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "cs-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "de-cs",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "de-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "de-fr",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "de-fr",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-cs",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-cs",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-cs",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-cs",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-cs",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-de",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-de",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-de",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-de",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-de",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-et",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-fi",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-fi",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-fi",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-gu",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-ha",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-is",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-ja",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-ja",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-kk",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-lt",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-lv",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-pl",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-ru",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-ru",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-ru",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-ru",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-ru",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "en-ta",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-tr",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-tr",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-zh",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "en-zh",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "en-zh",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "en-zh",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "en-zh",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "et-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "fi-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "fi-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "fi-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "fr-de",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "fr-de",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "gu-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "ha-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "hi-bn",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "is-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "ja-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "ja-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "ja-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "kk-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "km-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "lt-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "pl-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "ps-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "ru-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "ta-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "tr-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "tr-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "uk-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "xh-zu",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2017
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2018
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2019
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2020
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2021
+      },
+      {
+        "language_pair": "zh-en",
+        "sampled_rows": 1000,
+        "year": 2022
+      },
+      {
+        "language_pair": "zu-xh",
+        "sampled_rows": 1000,
+        "year": 2021
+      }
+    ],
+    "threshold_rule": {
+      "bootstrap_interval": "paired percentile 95%",
+      "crossing_interval": "inconclusive; retain slice",
+      "diagnostic": "spearman(COMET, BLEURT) - spearman(COMET, DA)",
+      "flag_when": "lower endpoint > 0.50"
+    }
+  },
+  "reward_da_slice_inventory": {
+    "available_matching_fields": [
+      "label volume",
+      "year",
+      "direction",
+      "domain distribution",
+      "annotator-count distribution",
+      "language pair when another year is available"
+    ],
+    "dataset_id": "RicardoRei/wmt-da-human-evaluation",
+    "diagnostic_discovery_slice_count": 6,
+    "input_shards": [
+      {
+        "name": "wmt-da-human-evaluation-train-00000-of-00002.arrow",
+        "sha256": "575c77d6e34bed9e0c15249f356308c5b18370f35b264b36e91ae8113a4cf5bc"
+      },
+      {
+        "name": "wmt-da-human-evaluation-train-00001-of-00002.arrow",
+        "sha256": "b467f854063ba921a255dbc1bc1e8bb0189225c07cfd7efcb914af621c8b4c19"
+      }
+    ],
+    "label_row_count": 1285190,
+    "rows": [
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "wiki": 4461
+        },
+        "label_rows": 4461,
+        "language_pair": "bn-hi",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 8,
+        "annotator_count_mean": 1.8877859300820026,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 11585
+        },
+        "label_rows": 11585,
+        "language_pair": "cs-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 3,
+        "annotator_count_mean": 1.320201557489693,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 8732
+        },
+        "label_rows": 8732,
+        "language_pair": "cs-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 10,
+        "annotator_count_mean": 1.4211155378486056,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 7530
+        },
+        "label_rows": 7530,
+        "language_pair": "cs-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 7242
+        },
+        "label_rows": 7242,
+        "language_pair": "cs-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 10583,
+          "social": 5425
+        },
+        "label_rows": 16008,
+        "language_pair": "cs-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "news": 13804
+        },
+        "label_rows": 13804,
+        "language_pair": "de-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 9,
+        "annotator_count_mean": 1.502994839660892,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 21704
+        },
+        "label_rows": 21704,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.4208210111251935,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 28404
+        },
+        "label_rows": 28404,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1641421268855647,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 31887
+        },
+        "label_rows": 31887,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.529380963462881,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 17188
+        },
+        "label_rows": 17188,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 18409
+        },
+        "label_rows": 18409,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "conversation": 3986,
+          "ecommerce": 4340,
+          "news": 4366,
+          "social": 4512
+        },
+        "label_rows": 17204,
+        "language_pair": "de-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "news": 6691
+        },
+        "label_rows": 6691,
+        "language_pair": "de-fr",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "news": 8258
+        },
+        "label_rows": 8258,
+        "language_pair": "de-fr",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 18,
+        "annotator_count_mean": 1.4184200272744985,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 20532
+        },
+        "label_rows": 20532,
+        "language_pair": "en-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 3,
+        "annotator_count_mean": 1.26189539913488,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 7629
+        },
+        "label_rows": 7629,
+        "language_pair": "en-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.4716224383275645,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 18201
+        },
+        "label_rows": 18201,
+        "language_pair": "en-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 2.3951286449399656,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 14575
+        },
+        "label_rows": 14575,
+        "language_pair": "en-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10006
+        },
+        "label_rows": 10006,
+        "language_pair": "en-cs",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 14,
+        "annotator_count_mean": 1.456085409252669,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 7025
+        },
+        "label_rows": 7025,
+        "language_pair": "en-de",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 5,
+        "annotator_count_mean": 1.1431230407523512,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10208
+        },
+        "label_rows": 10208,
+        "language_pair": "en-de",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.234912968314924,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 75777
+        },
+        "label_rows": 75777,
+        "language_pair": "en-de",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.6948480164863473,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 19410
+        },
+        "label_rows": 19410,
+        "language_pair": "en-de",
+        "used_in_diagnostic_discovery": true,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 13572
+        },
+        "label_rows": 13572,
+        "language_pair": "en-de",
+        "used_in_diagnostic_discovery": true,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1088516746411483,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 13376
+        },
+        "label_rows": 13376,
+        "language_pair": "en-et",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.2282704990648685,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10159
+        },
+        "label_rows": 10159,
+        "language_pair": "en-fi",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 3,
+        "annotator_count_mean": 1.14350994195381,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 8097
+        },
+        "label_rows": 8097,
+        "language_pair": "en-fi",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2850923564898316,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 16079
+        },
+        "label_rows": 16079,
+        "language_pair": "en-fi",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 5,
+        "annotator_count_mean": 1.5001444251877527,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 6924
+        },
+        "label_rows": 6924,
+        "language_pair": "en-gu",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10812
+        },
+        "label_rows": 10812,
+        "language_pair": "en-ha",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10838
+        },
+        "label_rows": 10838,
+        "language_pair": "en-is",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 2.393192733347254,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 9578
+        },
+        "label_rows": 9578,
+        "language_pair": "en-ja",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 14856
+        },
+        "label_rows": 14856,
+        "language_pair": "en-ja",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.4078355031025673,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 8219
+        },
+        "label_rows": 8219,
+        "language_pair": "en-kk",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.4444692488000892,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 8959
+        },
+        "label_rows": 8959,
+        "language_pair": "en-lt",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 3,
+        "annotator_count_mean": 1.1845094664371774,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 5810
+        },
+        "label_rows": 5810,
+        "language_pair": "en-lv",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.8167801740446463,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10572
+        },
+        "label_rows": 10572,
+        "language_pair": "en-pl",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.4497061873487729,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 17358
+        },
+        "label_rows": 17358,
+        "language_pair": "en-ru",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.530212562694053,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 16748
+        },
+        "label_rows": 16748,
+        "language_pair": "en-ru",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2926451168398692,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 17417
+        },
+        "label_rows": 17417,
+        "language_pair": "en-ru",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.8058079458400143,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 11226
+        },
+        "label_rows": 11226,
+        "language_pair": "en-ru",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 9313
+        },
+        "label_rows": 9313,
+        "language_pair": "en-ru",
+        "used_in_diagnostic_discovery": true,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2100126742712294,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 7890
+        },
+        "label_rows": 7890,
+        "language_pair": "en-ta",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 2,
+        "annotator_count_mean": 1.0882785679254536,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 2039
+        },
+        "label_rows": 2039,
+        "language_pair": "en-tr",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 3,
+        "annotator_count_mean": 1.0689655172413792,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 3132
+        },
+        "label_rows": 3132,
+        "language_pair": "en-tr",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 17,
+        "annotator_count_mean": 1.5847764406613833,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 10221
+        },
+        "label_rows": 10221,
+        "language_pair": "en-zh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 5,
+        "annotator_count_mean": 1.2692516268980478,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 22128
+        },
+        "label_rows": 22128,
+        "language_pair": "en-zh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.3564031580026659,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 19506
+        },
+        "label_rows": 19506,
+        "language_pair": "en-zh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 8,
+        "annotator_count_mean": 2.725008347245409,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 29950
+        },
+        "label_rows": 29950,
+        "language_pair": "en-zh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "en_to_x",
+        "domain_counts": {
+          "news": 27876
+        },
+        "label_rows": 27876,
+        "language_pair": "en-zh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 5,
+        "annotator_count_mean": 1.2860558157689306,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 20496
+        },
+        "label_rows": 20496,
+        "language_pair": "et-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 10,
+        "annotator_count_mean": 1.8054621017217494,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 15159
+        },
+        "label_rows": 15159,
+        "language_pair": "fi-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.174874707651186,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 14965
+        },
+        "label_rows": 14965,
+        "language_pair": "fi-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2255165095811746,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 16021
+        },
+        "label_rows": 16021,
+        "language_pair": "fi-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "news": 3999
+        },
+        "label_rows": 3999,
+        "language_pair": "fr-de",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "news": 7196
+        },
+        "label_rows": 7196,
+        "language_pair": "fr-de",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 8,
+        "annotator_count_mean": 1.5321637426900585,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 9063
+        },
+        "label_rows": 9063,
+        "language_pair": "gu-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 13171
+        },
+        "label_rows": 13171,
+        "language_pair": "ha-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "wiki": 4512
+        },
+        "label_rows": 4512,
+        "language_pair": "hi-bn",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 8903
+        },
+        "label_rows": 8903,
+        "language_pair": "is-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2566282581944288,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 8939
+        },
+        "label_rows": 8939,
+        "language_pair": "ja-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 14482
+        },
+        "label_rows": 14482,
+        "language_pair": "ja-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "conversation": 5784,
+          "ecommerce": 5833,
+          "news": 5777,
+          "social": 5932
+        },
+        "label_rows": 23326,
+        "language_pair": "ja-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 10,
+        "annotator_count_mean": 1.6703490941228458,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 6789
+        },
+        "label_rows": 6789,
+        "language_pair": "kk-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.196315120711563,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "wiki": 4722
+        },
+        "label_rows": 4722,
+        "language_pair": "km-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 10,
+        "annotator_count_mean": 1.7062530295685894,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 10315
+        },
+        "label_rows": 10315,
+        "language_pair": "lt-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1966824644549763,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 11816
+        },
+        "label_rows": 11816,
+        "language_pair": "pl-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 2,
+        "annotator_count_mean": 1.1420516157015832,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "wiki": 4611
+        },
+        "label_rows": 4611,
+        "language_pair": "ps-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.3007786429365962,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 17980
+        },
+        "label_rows": 17980,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.2359200425628942,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 13157
+        },
+        "label_rows": 13157,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1712482182854815,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 19644
+        },
+        "label_rows": 19644,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1818554797681933,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 19499
+        },
+        "label_rows": 19499,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 8926
+        },
+        "label_rows": 8926,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "ecommerce": 4751,
+          "news": 9285,
+          "social": 4740
+        },
+        "label_rows": 18776,
+        "language_pair": "ru-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.1743434076811403,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 7577
+        },
+        "label_rows": 7577,
+        "language_pair": "ta-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 8,
+        "annotator_count_mean": 1.4309201038361696,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 17335
+        },
+        "label_rows": 17335,
+        "language_pair": "tr-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 6,
+        "annotator_count_mean": 1.4225352112676057,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 12851
+        },
+        "label_rows": 12851,
+        "language_pair": "tr-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "other": 16470
+        },
+        "label_rows": 16470,
+        "language_pair": "uk-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "wiki": 2968
+        },
+        "label_rows": 2968,
+        "language_pair": "xh-zu",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 9,
+        "annotator_count_mean": 1.4189030621900904,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 26419
+        },
+        "label_rows": 26419,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2017
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.156989586620385,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 25352
+        },
+        "label_rows": 25352,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2018
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 20170
+        },
+        "label_rows": 20170,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": false,
+        "year": 2019
+      },
+      {
+        "annotator_count_max": 4,
+        "annotator_count_mean": 1.181871068610697,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 55006
+        },
+        "label_rows": 55006,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": true,
+        "year": 2020
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "news": 36128
+        },
+        "label_rows": 36128,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": true,
+        "year": 2021
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_en",
+        "domain_counts": {
+          "conversation": 3872,
+          "ecommerce": 5628,
+          "news": 5706,
+          "social": 5614
+        },
+        "label_rows": 20820,
+        "language_pair": "zh-en",
+        "used_in_diagnostic_discovery": true,
+        "year": 2022
+      },
+      {
+        "annotator_count_max": 1,
+        "annotator_count_mean": 1.0,
+        "annotator_count_min": 1,
+        "direction": "x_to_y",
+        "domain_counts": {
+          "wiki": 2502
+        },
+        "label_rows": 2502,
+        "language_pair": "zu-xh",
+        "used_in_diagnostic_discovery": false,
+        "year": 2021
+      }
+    ],
+    "score_values_accessed": false,
+    "slice_count": 87,
+    "slice_unit": "language_pair_by_year",
+    "system_identity_available": false,
+    "translation_text_accessed": false,
+    "unmatchable_field": "system composition"
+  },
+  "reward_holdout_feasibility": {
+    "design_status": "coverage_only_outcomes_locked",
+    "wmt25": {
+      "archive_sha256": "7e67ca85470462247ae934fe2cddb6938b0e6b23e06fa4c75ec7bc66ac64fc0a",
+      "language_pairs": {
+        "en-ko_KR": {
+          "annotation_rows": 3474,
+          "archive_member": "Task2/mqm_generalMT2025_en-ko_KR_with_errors.json",
+          "candidate_count_distribution": [
+            {
+              "candidates": 18,
+              "segments": 193
+            }
+          ],
+          "candidate_count_max": 18,
+          "candidate_count_mean": 18.0,
+          "candidate_count_min": 18,
+          "methods": [
+            "MQM"
+          ],
+          "rectangular_candidate_pool": true,
+          "segments": 193,
+          "systems": [
+            "Algharb",
+            "Claude-4",
+            "CommandA",
+            "CommandA-MT",
+            "DeepSeek-V3",
+            "GPT-4.1",
+            "GemTrans",
+            "Gemini-2.5-Pro",
+            "Gemma-3-12B",
+            "IRB-MT",
+            "Laniqo",
+            "Mistral-Medium",
+            "Qwen3-235B",
+            "Shy",
+            "TowerPlus-9B",
+            "UvA-MT",
+            "Wenyiil",
+            "Yolu"
+          ],
+          "unique_systems": 18
+        },
+        "ja-zh_CN": {
+          "annotation_rows": 3906,
+          "archive_member": "Task2/mqm_generalMT2025_ja-zh_CN_with_errors.json",
+          "candidate_count_distribution": [
+            {
+              "candidates": 18,
+              "segments": 217
+            }
+          ],
+          "candidate_count_max": 18,
+          "candidate_count_mean": 18.0,
+          "candidate_count_min": 18,
+          "methods": [
+            "MQM"
+          ],
+          "rectangular_candidate_pool": true,
+          "segments": 217,
+          "systems": [
+            "Algharb",
+            "Claude-4",
+            "CommandA-MT",
+            "DeepSeek-V3",
+            "GPT-4.1",
+            "GemTrans",
+            "Gemini-2.5-Pro",
+            "IRB-MT",
+            "In2x",
+            "Kaze-MT",
+            "Laniqo",
+            "Mistral-Medium",
+            "NTTSU",
+            "Qwen3-235B",
+            "Shy",
+            "TowerPlus-9B",
+            "Wenyiil",
+            "Yolu"
+          ],
+          "unique_systems": 18
+        }
+      },
+      "outcome_fields_accessed": [],
+      "role": "primary_rectangular_mqm_holdout",
+      "source_url": "https://data.statmt.org/wmt25/metrics-qetask2/Task2-20260625T123413Z-3-001.zip"
+    },
+    "wmt26": {
+      "annotation_file_sha256": "6023795cc592864a9d67ed6daaaada283041d0a8c87c4bfb4c3e5ae276c73b28",
+      "annotation_source_url": "https://github.com/wmt-conference/wmt26-general-mt/releases/download/humeval/annotations.json",
+      "campaign_archive_sha256": "a2c0de94781cfe4608b38ec4ef3c3d1f8b11c50eaebc7b9a2b2e567d56fe98b6",
+      "campaign_source_url": "https://github.com/wmt-conference/wmt26-general-mt/releases/download/humeval/campaign_sources.zip",
+      "filter_manifest_sha256": "23363c3cb8dbb7208d413f0017e63fe01aad06c4faa76065793fe591edcd569a",
+      "filter_manifest_url": "https://raw.githubusercontent.com/wmt-conference/wmt26-general-mt/main/synthetic_references/manifest.json",
+      "language_pairs": {
+        "ces_Latn---deu_Latn": {
+          "campaign_id": "ces_Latn---deu_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 830
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 175
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 47
+            },
+            {
+              "judged_candidates": 4,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 5,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 176
+            },
+            {
+              "judged_candidates": 7,
+              "segments": 32
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 106
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 40
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 15
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 32
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 19
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 14
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 31,
+              "segments": 49
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 8.609638554216868,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.05903614457831325,
+          "pre_reliability_fully_judged_segments": 49,
+          "rectangular_candidate_pool": true,
+          "segments": 830,
+          "unique_systems": 31
+        },
+        "ces_Latn---ukr_Cyrl": {
+          "campaign_id": "ces_Latn---ukr_Cyrl v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 29,
+              "segments": 830
+            }
+          ],
+          "candidate_count_max": 29,
+          "candidate_count_mean": 29.0,
+          "candidate_count_min": 29,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 305
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 78
+            },
+            {
+              "judged_candidates": 5,
+              "segments": 36
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 134
+            },
+            {
+              "judged_candidates": 7,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 17
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 58
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 37
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 28
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 14
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 49
+            }
+          ],
+          "judged_candidate_count_max": 29,
+          "judged_candidate_count_mean": 6.56144578313253,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 2,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 0.05903614457831325,
+          "pre_reliability_fully_judged_segments": 49,
+          "rectangular_candidate_pool": true,
+          "segments": 830,
+          "unique_systems": 29
+        },
+        "ces_Latn---vie_Latn": {
+          "campaign_id": "ces_Latn---vie_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 830
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 781
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 16
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 16
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 5
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 1.6602409638554216,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.0,
+          "pre_reliability_fully_judged_segments": 0,
+          "rectangular_candidate_pool": true,
+          "segments": 830,
+          "unique_systems": 31
+        },
+        "eng_Latn---arz_Arab": {
+          "campaign_id": "eng_Latn---arz_Arab v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 30,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 30,
+          "candidate_count_mean": 30.0,
+          "candidate_count_min": 30,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 30,
+              "segments": 691
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 30.0,
+          "judged_candidate_count_min": 30,
+          "low_reliability_users_removed_by_official_pipeline": 13,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 1.0,
+          "pre_reliability_fully_judged_segments": 691,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 30
+        },
+        "eng_Latn---bel_Cyrl": {
+          "campaign_id": "eng_Latn---bel_Cyrl v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 6,
+              "segments": 89
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 115
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 52
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 84
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 69
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 9
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 24
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 41
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 63
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 31,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 13.24602026049204,
+          "judged_candidate_count_min": 6,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---ces_Latn": {
+          "campaign_id": "eng_Latn---ces_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 30,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 30,
+          "candidate_count_mean": 30.0,
+          "candidate_count_min": 30,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 365
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 10
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 88
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 46
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 21
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 15
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 26
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 6.497829232995659,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 30
+        },
+        "eng_Latn---deu_Latn": {
+          "campaign_id": "eng_Latn---deu_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 30,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 30,
+          "candidate_count_mean": 30.0,
+          "candidate_count_min": 30,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 6,
+              "segments": 147
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 278
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 17
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 9
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 33
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 19
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 41
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 12.431259044862518,
+          "judged_candidate_count_min": 6,
+          "low_reliability_users_removed_by_official_pipeline": 1,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 30
+        },
+        "eng_Latn---ekk_Latn": {
+          "campaign_id": "eng_Latn---ekk_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 30,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 30,
+          "candidate_count_mean": 30.0,
+          "candidate_count_min": 30,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 9,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 87
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 37
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 64
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 98
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 99
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 80
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 50
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 26,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 17.45151953690304,
+          "judged_candidate_count_min": 9,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 30
+        },
+        "eng_Latn---hye_Armn": {
+          "campaign_id": "eng_Latn---hye_Armn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 28,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 28,
+          "candidate_count_mean": 28.0,
+          "candidate_count_min": 28,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 9,
+              "segments": 115
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 22
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 156
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 113
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 46
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 73
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 13
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 36
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 10
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 28,
+          "judged_candidate_count_mean": 14.479015918958032,
+          "judged_candidate_count_min": 9,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 28
+        },
+        "eng_Latn---ind_Latn": {
+          "campaign_id": "eng_Latn---ind_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 31,
+              "segments": 691
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 31.0,
+          "judged_candidate_count_min": 31,
+          "low_reliability_users_removed_by_official_pipeline": 1,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 1.0,
+          "pre_reliability_fully_judged_segments": 691,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---isl_Latn": {
+          "campaign_id": "eng_Latn---isl_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 9,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 32
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 197
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 62
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 134
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 36
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 25
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 48
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 21
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 36
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 31,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 16.107091172214183,
+          "judged_candidate_count_min": 9,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---jpn_Jpan": {
+          "campaign_id": "eng_Latn---jpn_Jpan v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 31,
+              "segments": 691
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 31.0,
+          "judged_candidate_count_min": 31,
+          "low_reliability_users_removed_by_official_pipeline": 6,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 1.0,
+          "pre_reliability_fully_judged_segments": 691,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---kaz_Cyrl": {
+          "campaign_id": "eng_Latn---kaz_Cyrl v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 29,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 29,
+          "candidate_count_mean": 29.0,
+          "candidate_count_min": 29,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 9,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 10
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 111
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 53
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 109
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 69
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 34
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 70
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 79
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 25
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 10
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 29,
+          "judged_candidate_count_mean": 16.547033285094066,
+          "judged_candidate_count_min": 9,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 29
+        },
+        "eng_Latn---kor_Hang": {
+          "campaign_id": "eng_Latn---kor_Hang v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 29,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 29,
+          "candidate_count_mean": 29.0,
+          "candidate_count_min": 29,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 303
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 32
+            },
+            {
+              "judged_candidates": 5,
+              "segments": 41
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 44
+            },
+            {
+              "judged_candidates": 7,
+              "segments": 27
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 28
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 19
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 22
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 32
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 29,
+          "judged_candidate_count_mean": 6.813314037626628,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 2,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 29
+        },
+        "eng_Latn---lij_Latn": {
+          "campaign_id": "eng_Latn---lij_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 29,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 29,
+          "candidate_count_mean": 29.0,
+          "candidate_count_min": 29,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 9,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 44
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 30
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 126
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 85
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 117
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 77
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 98
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 19
+            },
+            {
+              "judged_candidates": 25,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 26,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 7
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 64
+            }
+          ],
+          "judged_candidate_count_max": 29,
+          "judged_candidate_count_mean": 18.712011577424022,
+          "judged_candidate_count_min": 9,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.09261939218523878,
+          "pre_reliability_fully_judged_segments": 64,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 29
+        },
+        "eng_Latn---lld_Latn": {
+          "campaign_id": "eng_Latn---lld_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 27,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 27,
+          "candidate_count_mean": 27.0,
+          "candidate_count_min": 27,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 3,
+              "segments": 23
+            },
+            {
+              "judged_candidates": 5,
+              "segments": 9
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 182
+            },
+            {
+              "judged_candidates": 7,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 40
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 130
+            },
+            {
+              "judged_candidates": 10,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 36
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 85
+            },
+            {
+              "judged_candidates": 13,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 16
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 48
+            },
+            {
+              "judged_candidates": 16,
+              "segments": 5
+            },
+            {
+              "judged_candidates": 17,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 11
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 26,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 61
+            }
+          ],
+          "judged_candidate_count_max": 27,
+          "judged_candidate_count_mean": 10.89001447178003,
+          "judged_candidate_count_min": 3,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08827785817655572,
+          "pre_reliability_fully_judged_segments": 61,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 27
+        },
+        "eng_Latn---rus_Cyrl": {
+          "campaign_id": "eng_Latn---rus_Cyrl v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 18,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 19,
+              "segments": 12
+            },
+            {
+              "judged_candidates": 20,
+              "segments": 41
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 51
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 116
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 86
+            },
+            {
+              "judged_candidates": 25,
+              "segments": 89
+            },
+            {
+              "judged_candidates": 26,
+              "segments": 145
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 24
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 22
+            },
+            {
+              "judged_candidates": 31,
+              "segments": 35
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 24.675832127351665,
+          "judged_candidate_count_min": 18,
+          "low_reliability_users_removed_by_official_pipeline": 3,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 0.05065123010130246,
+          "pre_reliability_fully_judged_segments": 35,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---sme_Latn": {
+          "campaign_id": "eng_Latn---sme_Latn v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 27,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 27,
+          "candidate_count_mean": 27.0,
+          "candidate_count_min": 27,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 526
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 23
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 26
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 27,
+          "judged_candidate_count_mean": 3.6642547033285093,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 27
+        },
+        "eng_Latn---tha_Thai": {
+          "campaign_id": "eng_Latn---tha_Thai v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 31,
+              "segments": 691
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 31.0,
+          "judged_candidate_count_min": 31,
+          "low_reliability_users_removed_by_official_pipeline": 1,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 1.0,
+          "pre_reliability_fully_judged_segments": 691,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 31
+        },
+        "eng_Latn---ukr_Cyrl": {
+          "campaign_id": "eng_Latn---ukr_Cyrl v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 30,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 30,
+          "candidate_count_mean": 30.0,
+          "candidate_count_min": 30,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 20,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 22,
+              "segments": 29
+            },
+            {
+              "judged_candidates": 23,
+              "segments": 51
+            },
+            {
+              "judged_candidates": 24,
+              "segments": 79
+            },
+            {
+              "judged_candidates": 25,
+              "segments": 153
+            },
+            {
+              "judged_candidates": 26,
+              "segments": 89
+            },
+            {
+              "judged_candidates": 27,
+              "segments": 50
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 77
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 114
+            },
+            {
+              "judged_candidates": 30,
+              "segments": 30
+            }
+          ],
+          "judged_candidate_count_max": 30,
+          "judged_candidate_count_mean": 25.985528219971055,
+          "judged_candidate_count_min": 20,
+          "low_reliability_users_removed_by_official_pipeline": 6,
+          "post_reliability_coverage_confirmed": false,
+          "pre_reliability_fully_judged_segment_fraction": 0.04341534008683068,
+          "pre_reliability_fully_judged_segments": 30,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 30
+        },
+        "eng_Latn---zho_Hans": {
+          "campaign_id": "eng_Latn---zho_Hans v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 29,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 29,
+          "candidate_count_mean": 29.0,
+          "candidate_count_min": 29,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 526
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 37
+            },
+            {
+              "judged_candidates": 5,
+              "segments": 26
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 14
+            },
+            {
+              "judged_candidates": 7,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 6
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 8
+            },
+            {
+              "judged_candidates": 11,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 14,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 3
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 29,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 29,
+          "judged_candidate_count_mean": 3.4558610709117223,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 29
+        },
+        "eng_Latn---zho_Hant_TW": {
+          "campaign_id": "eng_Latn---zho_Hant_TW v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 28,
+              "segments": 691
+            }
+          ],
+          "candidate_count_max": 28,
+          "candidate_count_mean": 28.0,
+          "candidate_count_min": 28,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 0,
+              "segments": 499
+            },
+            {
+              "judged_candidates": 3,
+              "segments": 31
+            },
+            {
+              "judged_candidates": 6,
+              "segments": 38
+            },
+            {
+              "judged_candidates": 8,
+              "segments": 20
+            },
+            {
+              "judged_candidates": 9,
+              "segments": 1
+            },
+            {
+              "judged_candidates": 12,
+              "segments": 4
+            },
+            {
+              "judged_candidates": 15,
+              "segments": 16
+            },
+            {
+              "judged_candidates": 18,
+              "segments": 18
+            },
+            {
+              "judged_candidates": 21,
+              "segments": 2
+            },
+            {
+              "judged_candidates": 28,
+              "segments": 62
+            }
+          ],
+          "judged_candidate_count_max": 28,
+          "judged_candidate_count_mean": 4.167872648335745,
+          "judged_candidate_count_min": 0,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 0.08972503617945007,
+          "pre_reliability_fully_judged_segments": 62,
+          "rectangular_candidate_pool": true,
+          "segments": 691,
+          "unique_systems": 28
+        },
+        "zho_Hans---jpn_Jpan": {
+          "campaign_id": "zho_Hans---jpn_Jpan v3",
+          "candidate_count_distribution": [
+            {
+              "candidates": 31,
+              "segments": 541
+            }
+          ],
+          "candidate_count_max": 31,
+          "candidate_count_mean": 31.0,
+          "candidate_count_min": 31,
+          "judged_candidate_count_distribution": [
+            {
+              "judged_candidates": 31,
+              "segments": 541
+            }
+          ],
+          "judged_candidate_count_max": 31,
+          "judged_candidate_count_mean": 31.0,
+          "judged_candidate_count_min": 31,
+          "low_reliability_users_removed_by_official_pipeline": 0,
+          "post_reliability_coverage_confirmed": true,
+          "pre_reliability_fully_judged_segment_fraction": 1.0,
+          "pre_reliability_fully_judged_segments": 541,
+          "rectangular_candidate_pool": true,
+          "segments": 541,
+          "unique_systems": 31
+        }
+      },
+      "outcome_fields_accessed": [
+        "score presence/type/range for coverage validation; values not retained or summarized"
+      ],
+      "role": "secondary_sparse_cesa_holdout"
+    }
+  }
+}
