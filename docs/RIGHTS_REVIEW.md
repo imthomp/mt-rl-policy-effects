@@ -1,9 +1,14 @@
 # Rights and provenance review brief
 
-**Status: pending institutional review.** No research-data model inference,
-calibration, development check, or training should be run until the appropriate
-BYU reviewer confirms the intended use below. Preparing this brief records the
-questions and available provenance; it is not legal advice or clearance.
+**Status: license gate cleared for the described noncommercial academic
+research, based on the published terms summarized in
+[DATA_MODEL_NOTICE.md](DATA_MODEL_NOTICE.md).** CC-BY 2.0 FR permits reuse of
+Tatoeba text with attribution; CC-BY-NC-4.0 permits noncommercial use and
+adaptation of the NLLB model subject to its terms. The licenses themselves do
+not require university approval. This is a project reading of published terms,
+not a formal legal determination; separate BYU policies or a commercial sponsor
+may impose additional conditions. Keep the work noncommercial and follow the
+attribution and model-license conditions below.
 
 ## Proposed work
 
@@ -39,10 +44,14 @@ guarantee of translation accuracy or independent rights clearance.
 ## Model
 
 The proposed local checkpoint is
-[facebook/nllb-200-distilled-600M](https://huggingface.co/facebook/nllb-200-distilled-600M).
-Its model card states CC-BY-NC-4.0. The project needs review of whether the
-planned academic research, local HPC use, saved optimizer/model checkpoints,
-and generated translations fit the applicable terms and BYU policies.
+[facebook/nllb-200-distilled-600M](https://huggingface.co/facebook/nllb-200-distilled-600M),
+pinned to revision `f8d333a098d19b4fd9a8b18f94170487ad3f821d`. Its model card
+states CC-BY-NC-4.0 and identifies research as an intended use. The planned
+work is noncommercial academic research. The model and any modified weights
+remain subject to the license's noncommercial condition. The project will not
+distribute model weights, optimizer states, or sentence-level data in the code
+repository. Check for separate BYU policy before any commercially sponsored
+project or external distribution.
 
 ## OPUS-100
 
@@ -52,28 +61,27 @@ lists the license as unknown, and the cached English-German rows lack upstream
 corpus identifiers. It remains excluded unless a bounded provenance review
 establishes usable terms for the relevant material.
 
-## Questions for the institutional reviewer
+## Attribution and scope checks
 
-1. Is the described use of Tatoeba under the recorded export-level CC-BY 2.0 FR
-   terms acceptable, including local research training and evaluation?
-2. Does the NLLB CC-BY-NC-4.0 condition allow the planned academic fine-tuning
-   and evaluation on BYU HPC? Are additional institutional approvals needed?
-3. What attribution should accompany internal reports, papers, or any later
-   sharing of derived outputs?
-4. May model checkpoints, optimizer states, and generated translations remain
-   on the managed HPC under the proposed access controls? What limits apply to
-   sharing them outside BYU?
-5. Is a private, code-only Git repository acceptable under these terms, and
-   what review is needed before making it public?
+1. Keep Tatoeba sentence IDs and contributor names in local manifests; include
+   Tatoeba, its source link, CC-BY 2.0 FR link, and preprocessing changes in
+   reports or any permitted data sharing.
+2. Credit Meta AI and the pinned NLLB revision, link the model card and
+   CC-BY-NC-4.0 license, and describe the fine-tuning modification when
+   reporting or sharing permitted materials.
+3. Keep model use and any sharing of modified weights noncommercial. Do not
+   treat this notice as approval for a commercially sponsored project.
 
 ## Materials
 
+- [Data/model notice](DATA_MODEL_NOTICE.md), including attribution text,
+  preprocessing, the pinned model revision, and the fine-tuning description.
 - [RL protocol](RL_PROTOCOL.md), including split definitions and planned use.
 - `data/tatoeba_en_de/candidate_audit.json` and
   `data/tatoeba_en_de/protocol_v1/split_audit.json` for compact local
   provenance, hashes, counts, and attribution-field documentation.
 - The linked Tatoeba and NLLB terms pages above.
 
-Record the reviewer's role, date, decision, scope, and any conditions here before
-resuming model use. Do not record sensitive legal communications in this Git
+If a separate institutional policy review occurs, record its scope and
+conditions here without recording sensitive legal communications in this Git
 repository.

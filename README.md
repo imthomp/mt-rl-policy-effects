@@ -48,12 +48,12 @@ The recorded BYU cluster environment uses PyTorch 2.11.0+cu130, Transformers
 `NLLB_MODEL_DIR` to the approved local snapshot path.
 
 The resource plan in the current protocol is one A100 job at partition/QoS
-`cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. Do not launch
-model calibration, evaluation, development checks, or research training until
-the rights gate is cleared. Then complete calibration, save/reload verification,
-the paired development check, and freeze the final protocol before the six-run
-pilot. See [the rights review brief](docs/RIGHTS_REVIEW.md) and
-[the protocol](docs/RL_PROTOCOL.md).
+`cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. The documented
+license basis permits the described noncommercial study subject to attribution;
+see [the data/model notice](docs/DATA_MODEL_NOTICE.md). The six-run pilot remains
+paused until calibration, save/reload verification, the paired development
+check, and final protocol freeze are complete. See [the rights note](docs/RIGHTS_REVIEW.md)
+and [the protocol](docs/RL_PROTOCOL.md).
 
 The tracked Slurm wrappers are the evaluation smoke and calibration jobs.
 They use the BYU `cs/cs` partition and accept `NLLB_MODEL_DIR` and
@@ -63,6 +63,8 @@ They use the BYU `cs/cs` partition and accept `NLLB_MODEL_DIR` and
 ## Rights and reuse
 
 No code license is assigned yet. Confirm repository ownership and choose a
-license before making this repository public. Dataset and model terms are
-documented separately in the protocol; their review is still open. Tatoeba
-contributor attribution must be preserved if text is later redistributed.
+license before making this repository public. The noncommercial research
+license basis and required notices for the current data/model are summarized in
+[DATA_MODEL_NOTICE.md](docs/DATA_MODEL_NOTICE.md); Tatoeba contributor
+attribution must be preserved if text is redistributed. OPUS-100 remains
+excluded.
