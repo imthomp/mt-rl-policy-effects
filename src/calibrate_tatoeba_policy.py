@@ -29,7 +29,7 @@ from nllb_policy_rl import (
     source_inputs,
 )
 from reproducibility import repository_metadata
-from sacrebleu.metrics import CHRF
+from sacrebleu.metrics import BLEU, CHRF
 
 
 TEMPERATURES = tuple(round(0.5 + 0.1 * index, 1) for index in range(11))
@@ -38,6 +38,8 @@ BASE_TEMPERATURE = 0.7
 ENTROPY_MATCH_TOLERANCE_NATS = 0.05
 CHRF = CHRF(char_order=6, word_order=2, beta=2, lowercase=False,
             whitespace=False, eps_smoothing=False)
+BLEU = BLEU(tokenize="13a", lowercase=False, smooth_method="exp",
+            smooth_value=None, max_ngram_order=4, effective_order=False)
 
 
 def sha256(path: Path) -> str:
@@ -158,7 +160,7 @@ def paired_descriptive_differences(
     ]:
         raise ValueError("calibration policy outputs are not source-aligned")
     fields = (
-        "mean_reference_chrfpp_reward", "action_count_including_eos",
+        "mean_reference_chrfpp_reward", "sentence_bleu", "action_count_including_eos",
         "word_count", "fertility_tokens_per_word", "eos_emitted", "cap_hit",
     )
     result = {}
@@ -291,6 +293,7 @@ def main() -> None:
                 "sampled_logprob": logprob,
                 "hypothesis": hypothesis,
                 "mean_reference_chrfpp_reward": CHRF.sentence_score(hypothesis, references).score / 100.0,
+                "sentence_bleu": BLEU.sentence_score(hypothesis, references).score,
                 "action_count_including_eos": len(path),
                 "content_token_count_excluding_eos_and_specials": content_token_count,
                 "word_count": word_count,
@@ -305,6 +308,7 @@ def main() -> None:
             "beta": beta,
             "temperature": temperature,
             "reward_distribution": distribution([r["mean_reference_chrfpp_reward"] for r in records]),
+            "sentence_bleu_distribution": distribution([r["sentence_bleu"] for r in records]),
             "action_count_distribution": distribution([r["action_count_including_eos"] for r in records]),
             "word_count_distribution": distribution([r["word_count"] for r in records]),
             "fertility_distribution": distribution([
@@ -316,6 +320,18 @@ def main() -> None:
             "cap_rate": sum(r["cap_hit"] for r in records) / len(records),
             "truncation_rate": sum(r["cap_hit"] for r in records) / len(records),
         }
+        max_reference_count = max(len(row["references"]) for row in rows)
+        reference_streams = [
+            [
+                row["references"][index]["text"]
+                if index < len(row["references"]) else ""
+                for row in rows
+            ]
+            for index in range(max_reference_count)
+        ]
+        summaries[name]["corpus_bleu"] = BLEU.corpus_score(
+            [record["hypothesis"] for record in records], reference_streams,
+        ).score
 
     included_pairs = sum(row["pair_count"] for row in rows)
     output = {
@@ -344,6 +360,10 @@ def main() -> None:
         "entropy_match_tolerance_nats": ENTROPY_MATCH_TOLERANCE_NATS,
         "entropy_match_pass": abs(entropy_residual) <= ENTROPY_MATCH_TOLERANCE_NATS,
         "matched_temperature_entropy_residual_nats": entropy_residual,
+        "quality_metric_signatures": {
+            "training_reward": "SacreBLEU 2.6.0 sentence chrF++ / 100",
+            "independent_quality": "SacreBLEU 2.6.0 corpus BLEU, tokenize=13a, lowercase=False, smooth=exp, effective_order=False",
+        },
         "sampled_policy_summaries": summaries,
         "paired_descriptive_differences": {
             "length_tilt_minus_control": paired_descriptive_differences(
