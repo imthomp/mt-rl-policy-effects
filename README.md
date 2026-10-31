@@ -1,9 +1,10 @@
 # NLLB policy-gradient feasibility study
 
 Research code and protocol notes for a proposed English-to-German NLLB-200
-policy-gradient study. This repository is under active development. The six-run
-training pilot is paused; see [GO/No-Go](docs/GO_NO_GO.md) and
-[the protocol](docs/RL_PROTOCOL.md) for the current decision and open gates.
+policy-gradient study. The `β=.20` protocol is closed because its launch screen
+did not pass, and the six-run training pilot was not launched. See [GO/No-Go](docs/GO_NO_GO.md) and
+[the protocol](docs/RL_PROTOCOL.md) for the recorded conclusion and retained
+experimental specification.
 
 ## Current design
 
