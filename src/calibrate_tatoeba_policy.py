@@ -198,6 +198,59 @@ def paired_descriptive_differences(
     return result
 
 
+def paired_corpus_bleu_bootstrap(
+    left: list[dict[str, Any]],
+    right: list[dict[str, Any]],
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    source_ids = [row.get("source_sentence_id") for row in rows]
+    if ([row["source_sentence_id"] for row in left] != source_ids
+            or [row["source_sentence_id"] for row in right] != source_ids):
+        raise ValueError("corpus-BLEU samples are not aligned to calibration sources")
+
+    def references_for(indices: list[int]) -> list[list[str]]:
+        max_references = max(len(rows[index]["references"]) for index in indices)
+        return [
+            [
+                rows[index]["references"][reference_index]["text"]
+                if reference_index < len(rows[index]["references"]) else ""
+                for index in indices
+            ]
+            for reference_index in range(max_references)
+        ]
+
+    generator = random.Random(PAIRED_BOOTSTRAP_SEED)
+    deltas = []
+    for _ in range(PAIRED_BOOTSTRAP_RESAMPLES):
+        indices = [generator.randrange(len(rows)) for _ in rows]
+        references = references_for(indices)
+        left_score = BLEU.corpus_score(
+            [left[index]["hypothesis"] for index in indices], references,
+        ).score
+        right_score = BLEU.corpus_score(
+            [right[index]["hypothesis"] for index in indices], references,
+        ).score
+        deltas.append(left_score - right_score)
+    deltas.sort()
+    return {
+        "resamples": len(deltas),
+        "seed": PAIRED_BOOTSTRAP_SEED,
+        "lower_95": deltas[round(0.025 * (len(deltas) - 1))],
+        "upper_95": deltas[round(0.975 * (len(deltas) - 1))],
+    }
+
+
+def classify_loss_interval(
+    estimate: float, interval: dict[str, Any], margin: float,
+) -> str:
+    threshold = -margin
+    if interval["lower_95"] >= threshold:
+        return "pass"
+    if interval["upper_95"] < threshold:
+        return "fail"
+    return "inconclusive"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL)
@@ -339,6 +392,7 @@ def main() -> None:
             })
         samples[name] = records
         summaries[name] = {
+            "source_group_count": len(records),
             "beta": beta,
             "temperature": temperature,
             "reward_distribution": distribution([r["mean_reference_chrfpp_reward"] for r in records]),
@@ -350,6 +404,7 @@ def main() -> None:
                 if r["fertility_tokens_per_word"] is not None
             ]),
             "empty_output_rate": sum(r["empty_output"] for r in records) / len(records),
+            "empty_output_source_count": sum(r["empty_output"] for r in records),
             "non_eos_special_token_emission_rate": sum(
                 r["non_eos_special_token_count"] > 0 for r in records
             ) / len(records),
@@ -360,8 +415,10 @@ def main() -> None:
                 r["non_eos_special_token_count"] for r in records
             ),
             "eos_rate": sum(r["eos_emitted"] for r in records) / len(records),
+            "eos_source_count": sum(r["eos_emitted"] for r in records),
             "cap_rate": sum(r["cap_hit"] for r in records) / len(records),
             "truncation_rate": sum(r["cap_hit"] for r in records) / len(records),
+            "truncation_source_count": sum(r["cap_hit"] for r in records),
         }
         max_reference_count = max(len(row["references"]) for row in rows)
         reference_streams = [
@@ -386,9 +443,46 @@ def main() -> None:
         paired_differences["temperature_only_minus_length_tilt"] = paired_descriptive_differences(
             samples["temperature_only"], samples["length_tilt"],
         )
-    paired_differences["corpus_bleu_points_length_tilt_minus_control"] = (
-        summaries["length_tilt"]["corpus_bleu"] - summaries["control"]["corpus_bleu"]
-    )
+    paired_differences["corpus_bleu_points_length_tilt_minus_control"] = {
+        "mean_left_minus_right": summaries["length_tilt"]["corpus_bleu"] - summaries["control"]["corpus_bleu"],
+        "paired_source_bootstrap_95_interval": paired_corpus_bleu_bootstrap(
+            samples["length_tilt"], samples["control"], rows,
+        ),
+    }
+
+    chrf_difference = paired_differences["length_tilt_minus_control"][
+        "mean_reference_chrfpp_reward"
+    ]
+    bleu_difference = paired_differences["corpus_bleu_points_length_tilt_minus_control"]
+    quality_decisions = {
+        "chrfpp_reward": classify_loss_interval(
+            chrf_difference["mean_left_minus_right"],
+            chrf_difference["paired_source_bootstrap_95_interval"],
+            0.03,
+        ),
+        "corpus_bleu_points": classify_loss_interval(
+            bleu_difference["mean_left_minus_right"],
+            bleu_difference["paired_source_bootstrap_95_interval"],
+            2.0,
+        ),
+    }
+    treatment_summary = summaries["length_tilt"]
+    validity_decisions = {
+        "eos_rate": "pass" if treatment_summary["eos_rate"] >= 0.99 else "fail",
+        "truncation_rate": "pass" if treatment_summary["truncation_rate"] <= 0.01 else "fail",
+        "empty_output_rate": "pass" if treatment_summary["empty_output_rate"] <= 0.005 else "fail",
+        "non_eos_special_token_emission_rate": (
+            "pass" if treatment_summary["non_eos_special_token_emission_rate"] <= 0.01 else "fail"
+        ),
+    }
+    if abs(entropy_residual) > ENTROPY_MATCH_TOLERANCE_NATS:
+        calibration_screen = "entropy_match_failed"
+    elif "fail" in (*quality_decisions.values(), *validity_decisions.values()):
+        calibration_screen = "fail"
+    elif "inconclusive" in quality_decisions.values():
+        calibration_screen = "inconclusive_one_extension_allowed"
+    else:
+        calibration_screen = "pass"
 
     output = {
         **repo_metadata,
@@ -428,8 +522,22 @@ def main() -> None:
             "training_reward": "SacreBLEU 2.6.0 sentence chrF++ / 100",
             "independent_quality": "SacreBLEU 2.6.0 corpus BLEU, tokenize=13a, lowercase=False, smooth=exp, effective_order=False",
         },
+        "screening_rate_definitions": {
+            "denominator": "one generated output per unique English source group in the initial calibration; extension outputs use source-clustered paired draws",
+            "eos_rate": "outputs whose final sampled action is EOS divided by generated outputs",
+            "truncation_rate": "outputs that reach the 256-action cap without EOS divided by generated outputs",
+            "empty_output_rate": "outputs whose decoded and stripped hypothesis is empty divided by generated outputs",
+            "non_eos_special_token_emission_rate": "outputs with at least one generated special-token ID other than EOS divided by generated outputs; the forced language prefix is excluded",
+        },
         "sampled_policy_summaries": summaries,
         "paired_descriptive_differences": paired_differences,
+        "screening_decisions": {
+            "quality": quality_decisions,
+            "validity": validity_decisions,
+            "entropy_match": "pass" if abs(entropy_residual) <= ENTROPY_MATCH_TOLERANCE_NATS else "fail",
+            "overall_calibration_screen": calibration_screen,
+            "interpretation": "A quality interval wholly within its permitted loss is pass; wholly beyond the loss is fail; crossing it is inconclusive and permits the sole bounded rollout extension.",
+        },
         "paired_source_bootstrap": {
             "resamples": PAIRED_BOOTSTRAP_RESAMPLES,
             "seed": PAIRED_BOOTSTRAP_SEED,

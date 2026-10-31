@@ -3,9 +3,9 @@
 This project uses Tatoeba text and the Meta NLLB-200 distilled 600M model under
 the terms identified below. The planned work is noncommercial academic
 research. This notice summarizes the project's attribution and provenance; it
-is not a legal opinion. The project's separate institutional review is pending
-in [`rights_clearance.json`](rights_clearance.json); that review must be
-recorded before running the model workflow.
+is not a legal opinion. The project researcher recorded a noncommercial-use
+self-assessment in [`rights_clearance.json`](rights_clearance.json); this is not
+institutional approval.
 
 ## Tatoeba English–German text
 

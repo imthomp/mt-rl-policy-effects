@@ -22,6 +22,8 @@ changes.
   references.
 - `src/calibrate_tatoeba_policy.py`: calibration-only entropy/temperature
   comparison; it is not a third training arm.
+- `src/merge_tatoeba_calibration_replicates.py`: combines the sole prespecified
+  extra rollout sample only when the initial quality interval is inconclusive.
 - `src/prepare_tatoeba_manifests.py` and `src/prepare_tatoeba_protocol_splits.py`:
   candidate selection, attribution, and sentence-disjoint split builders.
 - `tests/`: small synthetic estimator checks.
@@ -50,9 +52,8 @@ The recorded BYU cluster environment uses PyTorch 2.11.0+cu130, Transformers
 The resource plan in the current protocol is one A100 job at partition/QoS
 `cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. The published
 license terms appear to support the described noncommercial study subject to
-attribution; the project's institutional review is pending in
-`docs/rights_clearance.json`. Model-work scripts block until that review is
-recorded. Afterward, calibration, save/reload verification, the paired
+attribution; the project researcher recorded a noncommercial-use self-assessment in
+`docs/rights_clearance.json`. This is not institutional approval. Model-work scripts require that project decision. Afterward, calibration, save/reload verification, the paired
 development check, and final protocol freeze remain before the six-run pilot.
 See [the rights note](docs/RIGHTS_REVIEW.md),
 [the data/model notice](docs/DATA_MODEL_NOTICE.md), and

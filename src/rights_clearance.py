@@ -1,4 +1,4 @@
-"""Require the project's documented institutional rights review before model use."""
+"""Require the project's documented rights-use decision before model use."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ def require_rights_clearance() -> dict[str, Any]:
     record = json.loads(CLEARANCE_RECORD.read_text(encoding="utf-8"))
     if record.get("status") != "cleared":
         raise RuntimeError(
-            "model use is paused until docs/rights_clearance.json records an institutional decision"
+            "model use is paused until docs/rights_clearance.json records the project's rights-use decision"
         )
     required = ("scope", "reviewer_role", "decision_date", "decision_reference")
     missing = [field for field in required if not record.get(field)]

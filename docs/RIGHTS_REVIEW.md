@@ -1,15 +1,12 @@
 # Rights and provenance review brief
 
-**Status: the license terms appear to support the described noncommercial
-academic work, but the required institutional review under this project's
-process is still pending.** CC-BY 2.0 FR permits reuse of Tatoeba text with
+**Status: the project researcher has assessed the documented noncommercial
+use as acceptable. This is not institutional approval or a formal legal
+determination.** CC-BY 2.0 FR permits reuse of Tatoeba text with
 attribution; CC-BY-NC-4.0 permits noncommercial use and adaptation of the NLLB
 model subject to its terms. The licenses themselves do not require university
-approval. This is a project reading of published terms, not a formal legal
-determination; the institutional review may identify separate BYU policies or
-conditions. Keep the work noncommercial and follow the attribution and
-model-license conditions below. No model calibration, evaluation, checkpoint
-verification, or training should run until the project's review is recorded in
+approval. Keep the work noncommercial and follow the attribution and
+model-license conditions below. The decision and its scope are recorded in
 [`rights_clearance.json`](rights_clearance.json).
 
 ## Proposed work
@@ -79,9 +76,9 @@ establishes usable terms for the relevant material.
 BYU's [Copyright Policy](https://policy.byu.edu/view/copyright-policy) places
 responsibility for complying with copyright requirements on members of the BYU
 community and identifies the [Copyright Licensing Office](https://copyright.byu.edu/)
-as a resource. This project keeps its institutional review gate pending as
-requested; this policy reference does not itself record a project-specific
-decision or imply that BYU requires a particular approval for this research.
+as a resource. The project researcher recorded a self-assessment in
+[`rights_clearance.json`](rights_clearance.json); this policy reference does
+not imply that BYU reviewed or approved this research.
 
 ## Materials
 
@@ -93,7 +90,6 @@ decision or imply that BYU requires a particular approval for this research.
   provenance, hashes, counts, and attribution-field documentation.
 - The linked Tatoeba and NLLB terms pages above.
 
-The reviewer should record status, scope, role, decision date, a non-sensitive
-decision reference, and any conditions in `rights_clearance.json`. Do not store
-sensitive legal communications in this Git repository. Model-work scripts
-refuse to run while that record is pending.
+Any later change in use, such as commercial sponsorship or external sharing,
+requires a new project rights assessment. Do not store sensitive legal
+communications in this Git repository.
