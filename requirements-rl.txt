@@ -1,0 +1,2 @@
+# Frozen training reward dependency from RL_PROTOCOL.md
+sacrebleu==2.6.0

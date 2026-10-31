@@ -1,0 +1,132 @@
+# Draft protocol: NLLB decoder-policy intervention during RL
+
+**Status:** Adopt the sentence-disjoint Tatoeba protocol split defined in `data/tatoeba_en_de/protocol_v1/split_audit.json`; the frozen OPUS-100 manifests remain excluded, with one two-hour provenance/clearance review as a bounded parallel task. The Tatoeba data terms and NLLB model's CC-BY-NC-4.0 terms still need institutional review. The A100 resource plan is frozen to `cs/cs` (QoS `cs`) with a 72 GiB allocator cap. The six-run pilot remains paused while we complete the novelty decision, run Tatoeba calibration, obtain rights review, verify checkpoint save/reload, rerun the grouped/multi-reference evaluation smoke, and complete a short paired development check. Atomic save and fresh-output protections are implemented. The intended claim is a total decoder-policy-procedure effect on this documented Tatoeba population, not a fertility-only effect.
+
+## Research question and treatment
+
+> On a small, sentence-disjoint, positively reviewed Tatoeba English→German corpus, does a fixed token-piece-length tilt during NLLB policy-gradient training change in-domain translation learning under common decoding relative to an untilted rollout policy, and do any differences track reward variation, EOS/truncation, gradient direction, or update magnitude?
+
+This is a total policy-procedure comparison. Tokenization, sampled content, initial output quality, termination, and gradient updates can all change together. The six runs cannot establish that fertility mediates an outcome or that a difference is unique to token length rather than general exploration; the calibration-only temperature comparison below is a novelty diagnostic, not a training control. The prespecified mechanism diagnostics are the calibration-set EOS/cap/empty-output and reward distributions, plus per-update advantage and update-norm variation. Treat these as descriptive evidence about the procedure, not a mediation analysis.
+
+Use the same pretrained weights and task data in two arms:
+
+- **Control:** untilted decoder policy at the explicitly fixed temperature `τ = 0.7`, `β = 0`. This is not NLLB's native `τ = 1` policy.
+- **Treatment:** fixed length-tilted decoder policy, `β = +0.20`.
+
+At every sampled decoder action, define
+
+```text
+f(v) = 1 − len(piece(v).replace("▁", " "))
+πθ,β(v | x, prefix)
+  = softmax((logitsθ(v | x, prefix) + β f(v)) / 0.7)
+```
+
+The length is Python Unicode code-point length. All special-token biases are zero. The categorical is normalized over the full output vocabulary exactly as in the existing calibration implementation; no top-k/top-p or rejection is used. NLLB's target-language token is forced as the initial decoder action and is excluded from the sampled-action log probability. EOS remains a sampled action and is included in the log probability. Keep the model in evaluation mode (dropout disabled) for rollout and gradient rescoring; gradients still flow through the model parameters. The source is encoded with the canonical NLLB tokenizer, `eng_Latn`→`deu_Latn`, truncating at 256 source tokens. The maximum generated target is 256 actions; cap-hit outputs are kept and scored as truncated, with their cap-hit rate reported.
+
+This treatment changes which token IDs are sampled and therefore changes decoder embeddings, positions, self-attention/KV states, subsequent conditionals, EOS timing, output strings, and action counts. It is a **decoder-policy intervention**. Tokens-per-word/fertility are treatment diagnostics and possible mediators.
+
+## Estimands
+
+Let `Y(θ, β)` be an evaluation metric for checkpoint `θ` decoded with policy setting `β`. Let `θ₀` be the shared NLLB checkpoint and `θ_{β,K}` the checkpoint after the fixed RL budget `K` under rollout policy `β`.
+
+1. **Primary learning estimand:** the difference in common-decoder improvement,
+
+   ```text
+   [Y(θ_{.20,K}, 0) − Y(θ₀, 0)] − [Y(θ_{0,K}, 0) − Y(θ₀, 0)]
+   = Y(θ_{.20,K}, 0) − Y(θ_{0,K}, 0).
+   ```
+
+   Both arms start from identical weights, so their initial common-decoder score is the same. This contrast asks whether the rollout procedure changes the learned parameters' quality under one shared decoder.
+
+2. **Assigned-procedure final performance:** compare `Y(θ_{.20,K}, .20)` with `Y(θ_{0,K}, 0)`. Also report each arm's change from its own initial assigned-policy score: `Y(θ_{β,K}, β) − Y(θ₀, β)`. This includes the treatment's immediate starting-quality change and therefore has different headroom. Report both absolute final score and change; do not substitute one for the other.
+
+3. **Immediate decoder effect and interaction:** evaluate every final checkpoint under both `β=0` and `β=.20`, as well as the shared initial checkpoint under both. The within-checkpoint decoder contrast measures the immediate decoding-policy effect; differences between checkpoints under the same decoder measure parameter-learning effects. These are secondary contrasts.
+
+The estimand is the total effect of assigning the rollout policy during this finite training procedure. It includes any mediated effects through fertility, output distribution, decoder representations, and initial assigned-policy quality. It does not identify a fertility-only effect.
+
+## Data and split roles
+
+- **Selected population:** direct English→German Tatoeba translation links from the 2026-10-31 weekly exports. Both sentence records had at least one positive community review and no negative review. This review field is experimental and does not guarantee translation adequacy. Text was NFC-normalized and stripped; exact WMT23/WMT24 source/reference text overlaps were excluded.
+- **Training:** `data/tatoeba_en_de/protocol_v1/train.jsonl`, 2,048 pairs. All six runs use this same manifest and batch order. Seeds therefore vary optimizer/action-sampling randomness rather than training-data subsets. Train for one pass: 256 updates, batch size 8, one fresh rollout per source per update.
+- **Policy calibration:** `calibration.jsonl`, 1,024 pairs. Before the development check, compare initial control (`β=0, τ=.7`) and treatment (`β=.20, τ=.7`) output quality/reward distributions, action and word lengths, EOS/cap/empty-output rates. Keep `β=.20` fixed as the candidate dose; if its effect is negligible or dominated by early termination on Tatoeba, stop and revise the research question instead of escalating the dose against held-out outcomes.
+- **Temperature-only novelty diagnostic:** on the same calibration set and common teacher-forced reference prefixes, compare the tilted policy (`β=.20, τ=.7`) with a temperature-only family (`β=0`, `τ ∈ {.5,.6,…,1.5}`). For each source, average prefix-position conditional entropy and `KL(π_tilt || π_temp)` across its linked references; then average across sources. Select the grid temperature whose mean conditional entropy is closest to the tilted policy's. At that temperature, compare one sampled output per source with the control and tilt for reward, length, EOS, and cap behavior. This is a diagnostic only, not a third training arm or evidence of equivalence. If it shows no distinct, useful length-specific question beyond a generic exploration change, do not launch the six runs.
+- **Development:** `development.jsonl`, 1,024 sentence-disjoint pairs. Use it only for the fixed short paired engineering check (four updates per arm, same training manifest), output alignment/metric checks, and detection of nonzero parameter updates. Do not tune β, temperature, optimizer, or the primary outcome from it.
+- **Primary final evaluation:** `test_in_domain.jsonl`, 2,048 untouched Tatoeba pairs, for common-decoder in-domain BLEU and secondary chrF++. The runner groups pairs sharing one English sentence ID and uses its linked German sentences as multiple references; source-cluster bootstrap uses those same source IDs. Freeze the runner and protocol before scoring this split.
+- **Transfer evaluation:** WMT24 remains an untouched cross-domain secondary evaluation, not the primary target for a Tatoeba-trained model. Keep WMT23 calibration results as historical evidence only; do not treat the old β calibration as transferable.
+- **Unused data:** 2,606 eligible pairs remain unassigned. Do not add them after seeing calibration, development, or test results without a versioned protocol change.
+
+The four fixed split files, row counts, source pool hash, and pairwise sentence-ID/text overlap audit are in `data/tatoeba_en_de/protocol_v1/split_audit.json`. All three training seeds reuse the same 2,048 rows. The separate original `train_seed*.jsonl` files are exploratory candidates and are not used by this protocol.
+
+**Data rights and provenance:** Tatoeba's [downloads page](https://tatoeba.org/en/downloads) states the weekly text export is under CC-BY 2.0 FR and notes some sentences are also available under CC0. The detailed export contains no per-sentence license field, so each row records the export-level CC-BY 2.0 FR terms for both English and German and does not assert sentence-specific CC0 status. The [usage guidance](https://en.wiki.tatoeba.org/articles/show/using-the-tatoeba-corpus) says to credit authors; the [attribution FAQ](https://en.wiki.tatoeba.org/articles/show/faq) asks projects to identify Tatoeba, link to it, and state the license. Per-row IDs, contributor names, and source/reference license fields are retained. The README contains suggested attribution noting filtering and normalization; the candidate audit pins source-export hashes. This documents the terms and provenance path, not institutional legal approval. The NLLB model card specifies [CC-BY-NC-4.0](https://huggingface.co/facebook/nllb-200-distilled-600M); its noncommercial condition applies separately, so obtain the institution's review of the intended research and any checkpoint/output distribution before running the development check or pilot. OPUS-100's [Hugging Face card](https://huggingface.co/datasets/Helsinki-NLP/opus-100) still says license unknown, and the cached rows lack upstream-corpus attribution. Keep OPUS out of the protocol; pursue source-level clearance as a time-bounded parallel task, not as a blocker to the Tatoeba design.
+
+## Rollout and exact likelihood
+
+For every optimizer update, draw one output `yᵢ` autoregressively for each source `xᵢ` in the next fixed batch. The control samples from `πθ,0`; the treatment samples from `πθ,.20`. Use the full normalized categorical, temperature `0.7`, forced target-language prefix, and 256-action cap above. Decode with NLLB's normal special-token skipping for text reward, and retain raw sampled IDs for audit. Do not retokenize a sampled string or assign it an after-the-fact BPE-dropout path. For every rollout, rescore the sampled sequence under the same pre-update model and require absolute sampled-versus-rescored sequence log-probability error ≤`1e−4`; otherwise stop before optimization.
+
+For the exact sampled token trajectory `yᵢ,1:Tᵢ`, score it under the same arm's behavior policy and current pre-update parameters:
+
+```text
+log πθ,β(yᵢ | xᵢ)
+  = Σ[t=1..Tᵢ] log softmax((logitsθ,t + β f) / 0.7)[yᵢ,t].
+```
+
+Recompute this score with teacher forcing through the same autoregressive states, including sampled EOS if present. Exclude the forced target-language prefix and padding because neither is sampled. Sampling and rescoring must use the same bias vector, temperature, vocabulary support, and normalizer. No importance ratio is needed: each batch is sampled from the current policy and used for one update only.
+
+## Reward, baseline, loss, and optimizer
+
+- **Reward:** SacreBLEU 2.6.0 sentence-level chrF++ against that pair's Tatoeba German reference: `CHRF(char_order=6, word_order=2, beta=2, lowercase=False, whitespace=False, eps_smoothing=False).sentence_score(hypothesis, [reference]).score / 100`. Freeze this scorer/version and NFC/strip normalization. The reward is in `[0,1]`; no learned or tokenized model reward is used.
+- **Baseline:** precompute `c(xᵢ)` once as the same initial checkpoint's greedy, canonical `β=0` output reward for each training source, using the same forced target language and 256-token cap. Freeze it for all updates and both arms. It is independent of the sampled action, so it leaves the expected score-function gradient unchanged. No batch reward normalization or group-relative normalization.
+- **Advantage:** `Aᵢ = stop_gradient(R(xᵢ,yᵢ) − c(xᵢ))`.
+- **Loss:** response-mean REINFORCE,
+
+  ```text
+  L(θ) = −(1/8) Σ[i=1..8] Aᵢ log πθ,β(yᵢ | xᵢ).
+  ```
+
+  Each response's log probability is the sum across its sampled actions; then response contributions are averaged over eight responses. Do not divide by tokens, sequence length, or batch token count. Reward, baseline, and sampled actions are detached. No PPO clipping, entropy bonus, KL term, discounting, token weighting, or gradient clipping in this minimal pilot.
+- **Optimizer:** full-model AdamW, learning rate `1e−6`, `β₁=.9`, `β₂=.999`, `ε=1e−8`, weight decay `0`, no scheduler, no gradient accumulation. Keep parameters, gradients, and optimizer states in FP32; use BF16 autocast for forward/backward and FP32 log-softmax/reward arithmetic. Start both arms from identical weights and fresh identical optimizer states. One update follows each rollout batch.
+
+The code must recompute the exact transformed policy log probability with gradients before any training run. If the chosen BF16/optimizer configuration does not fit or diverges, stop and revise this protocol rather than silently adding clipping, adapters, token normalization, or replay.
+
+## Replication, budget, and stopping
+
+Run three paired optimization seeds: `17`, `29`, and `41`. All six runs use the same fixed 2,048 training pairs, batch order (order seed `314159`), baseline outputs, and initial weights. Within each seed, the two arms share the optimization seed but use action-sampling streams `100r` for control and `100r+1` for treatment. This avoids confounding seed variation with different data subsets. It yields six runs, 1,536 total optimizer updates, and 12,288 rollout responses. Three seeds remain a feasibility pilot, not strong evidence for small effects.
+
+Use an **80 GB GPU**, four CPU cores, and 24 GB host memory per run. The final-manifest A100 preflight (job `14936831`) on `cs/cs` peaked at 55.43 GiB allocated. After adding shared encoder reuse, the same batch on an A100 again peaked at 55.43 GiB allocated / 56.22 GiB reserved (job `14937722`), passed the 72 GiB allocator cap, preserved the sampled-versus-rescored error at `4.17e-6`, and completed the throwaway update in 12.03 seconds versus 16.99 seconds before the optimization. A fresh current-code A100 preflight (job `14938472`) reproduced the 55.43 / 56.22 GiB peak, passed exact rescoring at `4.17e-6`, generated a longest response of 59 actions with no cap hits, and completed the throwaway update in 12.04 seconds. The optimization's saved-rollout score and gradients matched the previous cached implementation exactly in both FP32 and BF16 (job `14937540`). A separate A100 256-action, no-EOS stress batch used the eight longest seed-17 sources and one throwaway AdamW step; it peaked at 11.48 GiB allocated / 15.70 GiB reserved (job `14937719`). A follow-up stress also included the trainer's update-norm diagnostic and peaked at 12.12 GiB / 15.70 GiB (job `14938368`). These repeated-token stress paths are artificial and do not establish throughput or training stability, but directly cover the full action cap on the gradient-scoring path. Freeze the training resource plan to **A100 on partition/QoS `cs/cs`**, run serially, and retain the 72 GiB PyTorch allocator cap. An attempted B200 actual-data preflight exceeded 72 GiB and failed, so do not use `cs3` for training. The revised protocol adopts the documented Tatoeba split, while OPUS-100 clearance is parallel and noncritical. NLLB model terms need institutional review and study novelty remains unresolved. These resource results do not authorize the six research runs.
+
+Train for exactly 256 updates with no validation-based early stopping. Save the shared initial checkpoint, each run's final model and optimizer state, configuration, seeds, sampled token IDs/log probabilities, per-step rewards, gradient/update norms, EOS/cap/special-token counts, and hardware/software versions. Stop a run only for non-finite values, policy-score mismatch, OOM, or a protocol violation; mark it failed and do not change its settings in place. Any code or hyperparameter change starts a new protocol/run record. The trainer now records model/config/tokenizer/data hashes, writes checkpoints and metadata atomically, refuses to reuse a non-empty full-training output directory, and writes a final checkpoint SHA-256 integrity record. It does not support periodic checkpoints or resume. The development check must still save/reload a checkpoint and confirm prediction equality before the pilot.
+
+## Evaluation and interpretation
+
+Freeze the scoring implementation and this protocol before opening the in-domain test or WMT24. For the initial parameters (`θ₀`) and the six final checkpoints (control/treatment for each paired seed):
+
+1. **Common decoder:** deterministic NLLB beam-4 decoding with no length tilt, `length_penalty=1.0`, `early_stopping=False`, no repetition penalty, and maximum 256 new tokens. This is the primary comparison across learned checkpoints.
+2. **Policy evaluation matrix:** evaluate all seven parameter sets under stochastic `β=0` and `β=.20` decoding at temperature `0.7`, using three fixed independent samples per source. This separates immediate decoder effects from changed parameters and estimates performance under each assigned policy.
+
+Primary quality is corpus BLEU on the untouched Tatoeba in-domain test pairs, grouped by English source sentence and scored against all its linked German references, with a frozen SacreBLEU 2.6.0 signature (`tokenize=13a`, `lowercase=False`, `smooth_method="exp"`, `smooth_value=None`, `max_ngram_order=4`, `effective_order=False`). Report corpus chrF++ secondarily. Apply the same common-beam and stochastic policy matrix described above; also report reward, sampled target-token counts excluding the forced language token and EOS, EOS/cap rates, non-EOS special-token emissions, empty-output rate, and output lengths. Define diagnostic tokens-per-word as non-special sampled target tokens divided by whitespace-separated decoded words after NFC normalization; omit it for empty outputs and report them separately. For stochastic conditions, average the three sample scores within each source, then use paired source bootstrap intervals with samples clustered by source ID. Report all three paired training-seed differences; the common training manifest means between-seed variation reflects optimization/action sampling rather than data-subset variation. Treat WMT24 BLEU/chrF++ as a prespecified cross-domain transfer secondary outcome and do not inspect it until evaluation code, signatures, and this protocol are frozen. Source-level intervals do not replace training-seed variation.
+
+Use **+1.0 in-domain common-decoder BLEU** as the provisional minimum useful effect for considering expansion. A positive pilot signal requires a pooled effect at least +1 BLEU and positive effects in all three paired seeds. A negative signal requires non-positive effects in all three seeds and a pooled source-bootstrap interval that excludes +1 BLEU. Otherwise call it inconclusive. This is a progression rule, not confirmatory evidence; a larger study needs power and more independent runs. Report initial-quality and update-norm differences, response-reward variation, and EOS/cap outcomes. These diagnostics can characterize the total procedure effect but do not isolate a length-specific mechanism or establish fertility mediation.
+
+## Environment note and remaining review
+
+The cluster environment reports PyTorch 2.11.0+cu130, Transformers 5.14.1, SentencePiece 0.2.2, and SacreBLEU 2.6.0. The pinned scorer is recorded in [requirements-rl.txt](../requirements-rl.txt). The training entry point is [nllb_policy_rl.py](../src/nllb_policy_rl.py). Tracked Slurm wrappers for calibration and evaluation are in `scripts/slurm/`; older experiment wrappers remain local-only in `scripts/archive/`.
+
+Trainer review: the sampled policy and gradient scorer use the same temperature, bias, vocabulary normalization, forced-prefix handling, and sampled EOS path; the actual-data A100 check passed rescoring and finite-gradient gates. Atomic final saves, integrity metadata, and fresh-output guards are implemented but have not passed a save/reload check. The common-decoder and stochastic evaluation runner is implemented and an earlier eight-example smoke passed alignment; subsequent changes added source grouping and multiple Tatoeba references, so rerun that smoke after model-rights review. A calibration-only entropy-matched temperature runner is implemented in [calibrate_tatoeba_policy.py](../src/calibrate_tatoeba_policy.py), but has not been run. The save/reload check, four-update paired development check, calibration measurements, novelty decision, and institutional review of Tatoeba/model rights remain outstanding. Do not launch the six-run pilot until those gates pass.
+
+**Smoke result (Slurm job 14714730):** one synthetic batch of eight examples ran on an NVIDIA L40S with BF16 autocast. Maximum sampled length was capped at 32 for this smoke run; mean sampled actions were 10.125 (9.125 excluding EOS). The exact behavior-policy rescore discrepancy was `2.86e-7` (gate: `1e-4`), the loss and all 509 gradient tensors were finite, gradient norm was 5.367, and the backward batch took 5.36 seconds. Peak allocated GPU memory was 19.32 GiB; this measurement does not include AdamW state allocation because the dry-run branch deliberately never steps the optimizer. The job used 1.43 GiB host RSS and completed in 48 seconds including model loading. Its examples and reward values are synthetic and are not model-quality evidence.
+
+An earlier implementation attempt (job 14714568) stopped before optimization when cached sampling and full-sequence rescoring differed by 0.103. Rescoring now replays the same cached autoregressive trajectory used by sampling, including gradients through cached decoder states; the final smoke rerun passed the stated likelihood gate. During data preparation, WMT23/WMT24 source and reference text were used only for exact overlap matching; hypothesis values and metric scores were not inspected. These preflight results are not evidence of an MT learning effect or novelty.
+
+### Frozen data and actual-data resource preflight (2026-10-31)
+
+The manifest builder is [prepare_opus_manifests.py](../src/prepare_opus_manifests.py), using the already-cached Helsinki-NLP/OPUS-100 `de-en` parquet snapshot and [pyarrow pinned in requirements-data.txt](../requirements-data.txt). It found the Parquet fields `translation.en` and `translation.de`, used as source and reference, respectively. After NFC normalization and stripping, the 1,000,000-row train split had no empty rows, 31,741 exact duplicate pairs, and 968,259 unique nonempty pairs. To keep calibration and held-out data separate, 50 unique pairs whose source matched WMT24 and 4 additional pairs whose source matched WMT23 were excluded before sampling. The WMT24 audit selected its `src` and `refA` segments from cached XML; WMT23 used its cached source/refA files. Hypothesis values and metric scores were not inspected.
+
+The three 2,048-pair manifests and audit are in `data/opus100_en_de/`. Every manifest has zero exact-pair, source, and reference overlap with WMT23 calibration or WMT24 evaluation. Pairwise overlaps across training seeds are 5 (17–29), 4 (17–41), and 8 (29–41), leaving distinct sampled subsets.
+
+| Run seed | Subset seed | Manifest SHA-256 | WMT23 pair/source/reference overlap | WMT24 pair/source/reference overlap |
+|---:|---:|---|---:|---:|
+| 17 | 314176 | `0a4252aad99a746ddb6a9ad5f213a170c0e2ef3a7f47f8469fc4a41198653830` | 0 / 0 / 0 | 0 / 0 / 0 |
+| 29 | 314188 | `46b8597d96e13a3bf2e0ed821944ce6e062eeb3151306f32e7ddc2f5385af76a` | 0 / 0 / 0 | 0 / 0 / 0 |
+| 41 | 314200 | `6c869561646b4f2606a8f81334cba122c5890d4709e3cf924efd6c7b9e9f0245` | 0 / 0 / 0 | 0 / 0 / 0 |
+
+The final-manifest preflight was Slurm job `14936831` on `cs-1-1` (NVIDIA A100-SXM4-80GB), using seed-17 manifest indices `[1308, 226, 1206, 1633, 439, 1116, 1224, 846]`, treatment `β=.20`, 256-action cap, and BF16 autocast. It made exactly one AdamW update on the throwaway in-memory model and saved no checkpoint. Mean generated actions were 24.375, cap rate was zero, log-probability rescore error was `4.17e-6`, gradient norm was 7.971, and update norm was 0.0184. The batch took 16.99 seconds after a 1.99-second baseline pass; peak GPU allocation including optimizer state was 55.43 GiB (56.83 GiB reserved), and host RSS was 1.51 GiB. This established fit for that batch on the 80 GB A100 but not L40S. **That initial gate note is superseded:** a later A100 256-action stress and optimized actual-data preflight completed under the 72 GiB allocator cap; see the 2026-10-31 status and resource details above.

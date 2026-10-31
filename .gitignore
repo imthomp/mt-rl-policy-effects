@@ -1,0 +1,45 @@
+# Local Python state
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+
+# Local corpora and generated manifests (retain only explanatory READMEs)
+/data/opus100_en_de/
+!/data/opus100_en_de/
+/data/opus100_en_de/*
+!/data/opus100_en_de/manifest_audit.json
+/data/tatoeba_en_de/*
+!/data/tatoeba_en_de/README.md
+!/data/tatoeba_en_de/candidate_audit.json
+!/data/tatoeba_en_de/protocol_v1/
+/data/tatoeba_en_de/protocol_v1/*
+!/data/tatoeba_en_de/protocol_v1/split_audit.json
+/data/tatoeba_raw/*
+!/data/tatoeba_raw/README.md
+
+# Local operating instructions and superseded cluster job wrappers
+/local_notes/
+/scripts/archive/
+/scripts/slurm/*
+!/scripts/slurm/run_nllb_eval_smoke.sbatch
+!/scripts/slurm/run_tatoeba_calibration.sbatch
+
+# Model outputs, local logs, and diagnostics may contain generated text
+/artifacts/diagnostics/
+/artifacts/runs/
+/artifacts/logs/*
+!/artifacts/logs/.gitkeep
+*.out
+*.err
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,2 @@
+# Reader used to prepare frozen manifests from the existing OPUS-100 cache.
+pyarrow==26.0.0

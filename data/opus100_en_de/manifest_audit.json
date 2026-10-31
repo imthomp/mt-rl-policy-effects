@@ -1,0 +1,83 @@
+{
+  "purpose": "data-integrity overlap audit only; no evaluation scores computed",
+  "dataset": "Helsinki-NLP/opus-100 config de-en, cached parquet snapshot 805090dc28bf78897da9641cdf08b61287580df9",
+  "normalization": "Unicode NFC then strip outer whitespace; preserve case and punctuation",
+  "cleaning": {
+    "input_rows": 1000000,
+    "empty_rows_removed": 0,
+    "exact_duplicate_pairs_removed": 31741,
+    "unique_nonempty_pairs": 968259,
+    "fields": {
+      "source": "translation.en",
+      "reference": "translation.de"
+    },
+    "unique_pairs_excluded_for_exact_wmt24_source_overlap": 50,
+    "unique_pairs_excluded_for_exact_wmt23_source_overlap": 4,
+    "eligible_pairs_after_wmt23_and_wmt24_source_exclusion": 968205
+  },
+  "sources": {
+    "opus_train_path": "<local Hugging Face cache>/datasets--Helsinki-NLP--opus-100/snapshots/805090dc28bf78897da9641cdf08b61287580df9/de-en/train-00000-of-00001.parquet",
+    "opus_train_sha256": "496a8ce873740047105f4cc9b503c94f78e8446ad02b48d24d137b54cd8f4aec",
+    "opus_dataset_info_sha256": "a64053b84533aaa8c59cb44e7cc5cb3292e56b7e2a0e16b4910466e5e44a8f42",
+    "wmt24_source_reference_xml": "${SACREBLEU_HOME}/wmt24/raw/xml/wmttest2024.en-de.all.xml",
+    "wmt24_source_reference_xml_sha256": "193154e436017e6c1fc339cc13d39fec90ee95d71045c972e34b193fe6c736da",
+    "wmt24_text_used": "src and refA segments used for exact matching; hypothesis values ignored; no scores computed",
+    "wmt23_source_path": "${SACREBLEU_HOME}/wmt23/wmt23.en-de.src",
+    "wmt23_source_sha256": "097b5ccf5552f62c052bad7878caeeec2d3db431c02076fbfe1fd057fb272eef",
+    "wmt23_reference_path": "${SACREBLEU_HOME}/wmt23/wmt23.en-de.ref-refA",
+    "wmt23_reference_sha256": "b02877fdc8050e73d18bdcb5a31779ccb51028b30bd33e5c59e813130c5508b2",
+    "wmt23_text_used": "source and refA only for exact matching; no scores computed"
+  },
+  "wmt23_source_refA_pair_count": 557,
+  "wmt23_unique_sources": 556,
+  "wmt23_unique_references": 556,
+  "wmt24_source_refA_pair_count": 997,
+  "wmt24_unique_sources": 992,
+  "wmt24_unique_references": 992,
+  "seed_manifests": {
+    "17": {
+      "run_seed": 17,
+      "subset_seed": 314176,
+      "pair_count": 2048,
+      "path": "data/opus100_en_de/train_seed17.jsonl",
+      "sha256": "0a4252aad99a746ddb6a9ad5f213a170c0e2ef3a7f47f8469fc4a41198653830",
+      "wmt23_exact_pair_overlap_count": 0,
+      "wmt23_source_overlap_count": 0,
+      "wmt23_reference_overlap_count": 0,
+      "wmt24_exact_pair_overlap_count": 0,
+      "wmt24_source_overlap_count": 0,
+      "wmt24_reference_overlap_count": 0
+    },
+    "29": {
+      "run_seed": 29,
+      "subset_seed": 314188,
+      "pair_count": 2048,
+      "path": "data/opus100_en_de/train_seed29.jsonl",
+      "sha256": "46b8597d96e13a3bf2e0ed821944ce6e062eeb3151306f32e7ddc2f5385af76a",
+      "wmt23_exact_pair_overlap_count": 0,
+      "wmt23_source_overlap_count": 0,
+      "wmt23_reference_overlap_count": 0,
+      "wmt24_exact_pair_overlap_count": 0,
+      "wmt24_source_overlap_count": 0,
+      "wmt24_reference_overlap_count": 0
+    },
+    "41": {
+      "run_seed": 41,
+      "subset_seed": 314200,
+      "pair_count": 2048,
+      "path": "data/opus100_en_de/train_seed41.jsonl",
+      "sha256": "6c869561646b4f2606a8f81334cba122c5890d4709e3cf924efd6c7b9e9f0245",
+      "wmt23_exact_pair_overlap_count": 0,
+      "wmt23_source_overlap_count": 0,
+      "wmt23_reference_overlap_count": 0,
+      "wmt24_exact_pair_overlap_count": 0,
+      "wmt24_source_overlap_count": 0,
+      "wmt24_reference_overlap_count": 0
+    }
+  },
+  "cross_seed_pair_overlaps": {
+    "17-29": 5,
+    "17-41": 4,
+    "29-41": 8
+  }
+}

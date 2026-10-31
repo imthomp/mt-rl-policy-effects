@@ -1,0 +1,76 @@
+# NLLB length-bias feasibility gate
+
+## Decision
+
+**Hold the six-run pilot.** The earlier WMT23 dose screen showed that stronger length tilts shift fertility while reducing the custom translation-quality proxy and shortening outputs. That is evidence about the prior WMT-calibrated procedure, not proof that a Tatoeba-calibrated total-policy study cannot be informative. The revised Tatoeba pilot remains conditional on the calibration, novelty, model-rights, and operational gates below.
+
+## Calibration evidence
+
+Two calibration jobs ran on the BYU L40S partition with NLLB-200 distilled 600M, English-to-German, temperature 0.7, and paired WMT23 calibration examples. WMT23 was used only for calibration; the cached WMT24 set remains held out. The 128-example dose run used the same sampled source/reference rows for each condition and a 256-token cap.
+
+| Bias vs. zero | Tokens per word, paired change (95% bootstrap interval) | Character n-gram proxy, paired change (95% interval) | Output length change | EOS / cap hits |
+|---|---:|---:|---:|---:|
+| `β=0.20` | +0.055 (+0.022, +0.088) | −3.40 (−5.76, −1.23) | −31.9 characters; −5.1 words | 98.4% / 2 |
+| `β=0.30` | +0.069 (+0.034, +0.103) | −5.66 (−8.28, −3.11) | −48.7 characters; −7.3 words | 98.4% / 2 |
+
+The quality measure is the project’s custom character n-gram F-score proxy over orders 1–6, **not official chrF++**. Mean sampling-versus-rescoring log-probability error remained below `3e-5`, supporting correctness of the transformed behavior-policy likelihood. The proxy score is a calibration signal, not a final evaluation.
+
+At lower doses (`β=+0.10`), the fertility change was too small and uncertain to justify a learning comparison. Thus no tested dose gives both a useful treatment shift and acceptable initial competence. The output shortening and quality loss also show that the transform changes the sampled string distribution.
+
+## Queue and job status
+
+- Dose calibration completed as Slurm job `14694992` on `m13l` / `gpu` in 4m36s.
+- An A100 `cs` standby duplicate and an H200 `m13h` duplicate were canceled before starting after the L40S job began.
+- No calibration or training jobs remain queued or running.
+- `dwmatrix` accepts `matrix`, but its prior estimate was about two days; it would not address the intervention’s quality problem.
+
+## Earlier recommendation (superseded)
+
+The initial suggestion to return to a same-string segmentation intervention predates the later total-policy-effect feasibility analysis. The active study is explicitly a total decoder-policy-procedure comparison; it does not claim that fertility alone causes learning differences.
+
+The exact finite same-string estimator check is now documented in [SAME_STRING_INVARIANCE.md](SAME_STRING_INVARIANCE.md). It confirms that a separately sampled segmentation path does not affect the ordinary expected string-policy gradient under string-only reward. Token-mean and position-weighted estimators can create path-dependent sample weighting, but that is an estimator effect and does not meet the MT intervention gate. MT RL remains paused pending a written mechanism and estimand that address this invariance.
+
+Further policy and model alternatives screened after this decision are summarized in [IDEA_SCREENING.md](IDEA_SCREENING.md). They also do not pass the MT pilot gate.
+
+## Follow-up feasibility decision
+
+The estimator milestone is complete. “Response-mean” now explicitly means summing each sequence's valid token-action score contributions and averaging those sequence contributions over the batch; it has no per-response token-count denominator. Dividing token contributions by each response's own length is a separate segmentation-dependent estimator. See [SAME_STRING_INVARIANCE.md](SAME_STRING_INVARIANCE.md).
+
+The estimator-focused result alone is not a sufficient MT contribution. A bounded NLLB RL study is worth pursuing if its claim is the **total effect of a normalized segmentation-oriented autoregressive policy procedure**, with changed representations and initial output quality included in the treatment. It is not a fertility-only causal test. The current status is conditional go for that research question, but no-go for starting training until the RL update pipeline and fixed reward/evaluation protocol are specified. The feasibility analysis is in [INTERVENTION_FEASIBILITY.md](INTERVENTION_FEASIBILITY.md).
+
+The next pre-training milestone is now specified in [RL_PROTOCOL.md](RL_PROTOCOL.md): the existing length tilt is a **decoder-policy intervention**, not direct reassignment of alternate segmentations to fixed translations. Fertility is a measured mediator/diagnostic. The protocol reports both assigned-policy performance and common-decoder performance, separates final scores from within-arm improvement, and keeps training paused pending reviewed implementation and a resource dry run.
+
+## Reproducibility artifacts
+
+- Raw dose calibration: `artifacts/diagnostics/nllb600m_length_bias_dose_calibration.json`
+- Paired bootstrap analysis: `artifacts/diagnostics/nllb600m_length_bias_dose_analysis.json`
+- Analysis code: `analyze_length_bias_calibration.py`
+- Job log: `artifacts/logs/nllb_dose_14694992.out`
+
+## Implementation preflight update (2026-10-24)
+
+The total-policy-effect protocol is implemented in [nllb_policy_rl.py](../src/nllb_policy_rl.py), with the training reward pinned in [requirements-rl.txt](../requirements-rl.txt). A final synthetic, one-batch L40S smoke run (Slurm job `14714730`) completed without an optimizer update: all gradients were finite and the sampled-versus-rescored behavior log-probability error was `2.86e-7` against the `1e-4` limit. The run used 19.32 GiB peak allocated GPU memory before AdamW state allocation and 1.43 GiB host RSS. It used eight synthetic examples with a 32-token cap, so neither its reward nor its memory/time is representative of OPUS training. The first code attempt stopped at a score mismatch of 0.103 and was corrected before the successful run (job `14714568`).
+
+**Status at that stage:** implementation smoke passed, but frozen manifests, overlap audits, and representative resource profiling were still outstanding. No WMT24 scores were viewed.
+
+## Data and resource preflight update (2026-10-31)
+
+The three frozen manifests and integrity report are in [data/opus100_en_de/manifest_audit.json](../data/opus100_en_de/manifest_audit.json); the deterministic builder is [prepare_opus_manifests.py](../src/prepare_opus_manifests.py). The cache contained 1,000,000 OPUS train rows; after NFC/strip and exact pair deduplication there were 968,259 nonempty unique pairs. Before sampling, 50 source-matching pairs against WMT24 and 4 against WMT23 were excluded. Each 2,048-pair manifest has zero exact source, reference, or pair overlaps with both WMT23 and WMT24. No metric scores or hypothesis text were inspected.
+
+The first preflight request on `m13l/gpu` had a projected start around 11:25. Moving the pending job to `cs/cs` put it on an idle A100 and it started immediately. The final-manifest preflight (job `14936831`) completed one throwaway AdamW step on an NVIDIA A100-SXM4-80GB, with no checkpoint saved. It passed likelihood rescoring (`4.17e-6` error), had finite gradients (`7.971` norm), and measured `55.43 GiB` peak GPU allocation (`56.83 GiB` reserved), `1.51 GiB` host RSS, and a 16.99-second batch. The 8 rollouts averaged 24.375 actions with no cap hits.
+
+**Historical gate note (superseded by the later 2026-10-31 checks below):** the first L40S 48 GB plan did not fit the representative batch. OPUS-100's HF card lists the license as unknown, and the cached rows have no upstream-corpus field; the NLLB model is marked CC-BY-NC-4.0. The first follow-up audit compared cached and uncached gradients, but its alleged GPU peaks were actually gradient norms; those fields were invalid. The optimized scorer now reuses one encoder forward per source; on the saved rollout it matched the previous scorer exactly in FP32 and BF16 scores and gradients (job `14937540`, artifact `artifacts/diagnostics/nllb_gradient_equivalence_v2.json`). The optimized A100 actual-data preflight (job `14937722`) passed exact rescoring (`4.17e-6`), finite gradients, and one throwaway AdamW update at 55.43 GiB allocated / 56.22 GiB reserved under a 72 GiB allocator cap; its batch time was 12.03s versus the previous 16.99s. The A100 256-action stress (job `14937719`, artifact `artifacts/diagnostics/nllb_long_response_memory_14937719.json`) peaked at 11.48 GiB allocated / 15.70 GiB reserved. Freeze the resource plan to A100 partition/QoS `cs/cs`, run serially, with the 72 GiB allocator cap. A B200 actual-data preflight (job `14937663`) exceeded the same cap, so exclude `cs3` from the training plan. No multi-update research training has been launched.
+
+## Active follow-up (2026-10-31)
+
+The gradient-equivalence artifact is `artifacts/diagnostics/nllb_gradient_equivalence_14936831.json` (job `14937115`, B200). In FP32, cached and teacher-forced scoring were numerically close (log-probability difference `1.05e-5`; gradient cosine `0.9999999995`; relative L2 difference `2.64e-6`). Under BF16 autocast they differed more (log-probability difference `0.0776`; cosine `0.99886`; relative L2 difference `0.0477`). This is a diagnostic comparison between different forward execution paths, not the consistency check used by training: the trainer samples and rescales with the same cached autoregressive path, which previously passed on-device at `4.17e-6`. The audit had a separate reporting bug: its `cached_peak_gib`/`uncached_peak_gib` values were populated with gradient norms. They are invalid memory measurements and must not be used for partition selection.
+
+The corrected memory-only job uses eight 256-action no-EOS artificial paths and the eight longest seed-17 source examples, then performs one throwaway AdamW update. The B200 run (job `14937393`) peaked at 11.48 GiB allocated / 15.83 GiB reserved; the direct A100 run (job `14937719`) peaked at 11.48 GiB allocated / 15.70 GiB reserved. A follow-up A100 audit (job `14938368`, artifact `artifacts/diagnostics/nllb_long_response_memory_14938368.json`) also computed the production trainer's post-step update-norm diagnostic; peak was 12.12 GiB allocated / 15.70 GiB reserved. All used a 72 GiB PyTorch allocator cap. A fresh current-code actual-data preflight (job `14938472`) completed on A100 with 59 as the longest sampled response, zero cap hits, rescore error `4.17e-6`, and the same peak as the earlier A100 actual-data preflight: 55.43 GiB allocated / 56.22 GiB reserved. The result stays under the 72 GiB cap. It is still an 8-response one-update preflight, not evidence about multi-update stability or throughput. The B200 actual-data preflight exceeded the cap; keep the training hardware frozen to A100 `cs/cs`.
+
+The closest prior-work review found that Kiegeland and Kreutzer's NAACL 2021 study already varies softmax temperature during NMT policy-gradient training, alongside reward baselines and scaling, and evaluates changes in output distribution and BLEU. It does not test this particular piece-length logit bias on a pretrained multilingual NLLB model, but it substantially narrows the novelty claim: the contribution cannot simply be that changing a rollout distribution affects RL learning. The proposed intervention would need a focused claim about the consequences of a token-piece-length tilt, and evidence beyond a fertility shift. The cited paper is [here](https://aclanthology.org/2021.naacl-main.133/) and its [full text](https://aclanthology.org/2021.naacl-main.133.pdf).
+
+OPUS-100 provenance remains unresolved and is excluded from the protocol. The [Hugging Face card](https://huggingface.co/datasets/Helsinki-NLP/opus-100) currently lists its license as unknown. The [official OPUS-100 description](https://opus.nlpl.eu/opus-100.php) says its language-pair data were assembled by concatenating the OPUS corpora without curation; those include heterogeneous sources such as subtitles, software documentation, and Bible text. The cached English-German Parquet schema exposes only `translation.en` and `translation.de`, with no upstream-corpus identifier, so this snapshot cannot support sentence-level license mapping by itself. Keep a two-hour source-level clearance review as a bounded parallel task: look for a version-matched corpus manifest or mapping; if none resolves the included sources and terms, record OPUS as uncleared and close the task. Do not let it block Tatoeba.
+
+The adopted Tatoeba protocol uses the fixed sentence-disjoint splits in `data/tatoeba_en_de/protocol_v1/`: 2,048 train, 1,024 calibration, 1,024 development, and 2,048 in-domain test pairs, with zero cross-split sentence-ID or exact normalized-text overlaps. All three optimization seeds reuse the same training split. The regenerated 2026-10-31 candidate audit records both contributors and export-level CC-BY 2.0 FR terms for each side; source exports contain no row-level license field, so the rows are not claimed to be sentence-specific CC0. Institutional rights clearance remains undetermined.
+
+An earlier A100 evaluation smoke (job `14939094`) tested eight development examples under common beam-4 and both stochastic policies for two identical base checkpoints; output alignment passed and the paired common-decoder difference was exactly zero. It did not use the held-out test set, and its quality scores are not evidence. The evaluator has since changed to group repeated English sentence IDs and score all linked German references, so rerun its smoke after model-rights review. The calibration-only runner now compares control (`β=0, τ=.7`), length tilt (`β=.2, τ=.7`), and a temperature-only policy selected by matching teacher-forced conditional entropy; it also reports `KL(π_tilt || π_temp)` on those prefixes. This diagnostic is implemented but has not been run. Atomic checkpoint saves, output-directory protection, and integrity hashes are implemented; a save/reload check has not been done. The NLLB model's CC-BY-NC-4.0 terms and Tatoeba research use still need institutional review. Calibration results, the novelty decision, save/reload check, and four-update paired development check remain open. No six-run training has started. Current filesystem free space is 316 GB; `cs/cs` remains the frozen A100 partition/QoS and no jobs are queued or running.

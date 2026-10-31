@@ -1,0 +1,74 @@
+{
+  "status": "candidate-manifests-created",
+  "dataset": "Tatoeba official English-German detailed sentences + translation links",
+  "snapshot_date": "2026-10-31",
+  "license": "CC-BY-2.0-FR (text); attribution preserved per sentence",
+  "license_scope": {
+    "source_statement": "Tatoeba's weekly text export is released under CC-BY 2.0 FR; its downloads page also notes that some sentences are available under CC0",
+    "row_level_license_metadata_in_exports": false,
+    "project_policy": "Treat each selected row under the export-level CC-BY 2.0 FR terms and retain both sentence contributors; do not claim sentence-specific CC0 status from these files",
+    "institutional_clearance": "not determined by this dataset audit"
+  },
+  "attribution_fields": [
+    "source_sentence_id",
+    "source_contributor",
+    "reference_sentence_id",
+    "reference_contributor"
+  ],
+  "rights_fields": [
+    "source_license",
+    "reference_license"
+  ],
+  "quality_filter": "each sentence has >=1 positive community review and no negative community review; review data is experimental per Tatoeba",
+  "english_sentences": 2040024,
+  "german_sentences": 785673,
+  "positive_review_eligible_sentences": 1004386,
+  "linked_english_german_rows": 586288,
+  "unique_reviewed_pairs": 8750,
+  "pairs_excluded_for_exact_wmt_text_overlap": 0,
+  "eligible_pairs_after_overlap_exclusion": 8750,
+  "wmt_overlap_source_counts": {
+    "wmt23_pair_count": 557,
+    "wmt24_pair_count": 992,
+    "wmt23_unique_source_count": 556,
+    "wmt24_unique_source_count": 992
+  },
+  "manifest_rows": {
+    "17": {
+      "path": "data/tatoeba_en_de/train_seed17.jsonl",
+      "pair_count": 2048,
+      "sha256": "ee98bc0802d1e8ac718a1a2c058556b71aebf976992e713a7a180366fc039968"
+    },
+    "29": {
+      "path": "data/tatoeba_en_de/train_seed29.jsonl",
+      "pair_count": 2048,
+      "sha256": "07067c27d05a012d5943bd3fd7c55855644660bf021ce1dd721ae64d84be4a24"
+    },
+    "41": {
+      "path": "data/tatoeba_en_de/train_seed41.jsonl",
+      "pair_count": 2048,
+      "sha256": "2980163ea505a66009a79450d8bebe196861f7c35688bc3f0b9476827c8dac4c"
+    }
+  },
+  "eligible_pair_pool": {
+    "path": "data/tatoeba_en_de/eligible_pairs.jsonl",
+    "pair_count": 8750,
+    "sha256": "6819ed0329d447210c96f26c50c86fdfc4aef8cfb28358c88beb18c5cfab8139"
+  },
+  "cross_seed_pair_overlaps": {
+    "17-29": 0,
+    "17-41": 0,
+    "29-41": 0
+  },
+  "source_file_sha256": {
+    "sentences_detailed.tar.bz2": "8080a162f74f427d96154d8e0676d94d3c0b80f7642876f02fb5ed2fce6d017f",
+    "links.tar.bz2": "69a55057566127a4c2f5cd618ae47167cb66972d67a3f8f39f368c106cd6f50c",
+    "users_sentences.csv": "e3219c3f1a9fbd2962f068ec4487d80af1a00cb66bd8d9083e11c2c41f206a1d"
+  },
+  "source_file_urls": {
+    "sentences_detailed.tar.bz2": "https://downloads.tatoeba.org/exports/sentences_detailed.tar.bz2",
+    "links.tar.bz2": "https://downloads.tatoeba.org/exports/links.tar.bz2",
+    "users_sentences.csv": "https://downloads.tatoeba.org/exports/users_sentences.csv"
+  },
+  "selection_seed_rule": "shuffle eligible pairs with seed 314159 and allocate disjoint 2048-pair chunks in run-seed order"
+}

@@ -1,0 +1,294 @@
+"""Calibration-only entropy-matched temperature diagnostic for Tatoeba.
+
+Uses reference-prefix contexts to select a beta=0 temperature matching the
+mean conditional entropy of beta=.20, then compares one sampled output per
+source under the two procedures. Do not use this as a training arm.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import tempfile
+from pathlib import Path
+from typing import Any
+
+import torch
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+from evaluate_nllb_policy import group_rows_by_source, read_rows
+from nllb_policy_rl import (
+    DEFAULT_MODEL,
+    MAX_TARGET,
+    decode_from_encoder,
+    encode_source,
+    piece_bias,
+    sample_one,
+    source_inputs,
+)
+from sacrebleu.metrics import CHRF
+
+
+TEMPERATURES = tuple(round(0.5 + 0.1 * index, 1) for index in range(11))
+BETA = 0.20
+BASE_TEMPERATURE = 0.7
+CHRF = CHRF(char_order=6, word_order=2, beta=2, lowercase=False,
+            whitespace=False, eps_smoothing=False)
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def atomic_json(path: Path, value: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
+            json.dump(value, stream, ensure_ascii=False, indent=2)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temp_name, path)
+    except BaseException:
+        try:
+            os.unlink(temp_name)
+        except FileNotFoundError:
+            pass
+        raise
+
+
+@torch.inference_mode()
+def prefix_entropy_and_kl(
+    model: Any,
+    tokenizer: Any,
+    bias: torch.Tensor,
+    row: dict[str, Any],
+    device: torch.device,
+) -> tuple[float, list[float], list[float]]:
+    encoded = source_inputs(tokenizer, row["source"], device)
+    target = tokenizer(
+        text_target=row["reference"], return_tensors="pt",
+        truncation=True, max_length=MAX_TARGET,
+    )["input_ids"][0].tolist()
+    if not target:
+        raise ValueError("empty tokenized reference")
+    eos, lang = tokenizer.eos_token_id, tokenizer.convert_tokens_to_ids("deu_Latn")
+    if eos not in target:
+        target.append(eos)
+    target = target[:MAX_TARGET]
+    if not target:
+        raise ValueError("reference has no target actions")
+
+    decoder_start = torch.tensor([[eos]], dtype=torch.long, device=device)
+    encoder_outputs = encode_source(model, encoded, autocast=True)
+    with torch.autocast("cuda", dtype=torch.bfloat16):
+        first = decode_from_encoder(model, encoded, encoder_outputs, decoder_start)
+    past = first.past_key_values
+    step_input = torch.tensor([[lang]], dtype=torch.long, device=device)
+    tilt_entropies: list[float] = []
+    temperature_entropies = [[] for _ in TEMPERATURES]
+    divergences = [[] for _ in TEMPERATURES]
+    for target_token in target:
+        with torch.autocast("cuda", dtype=torch.bfloat16):
+            output = decode_from_encoder(model, encoded, encoder_outputs, step_input, past)
+        past = output.past_key_values
+        logits = output.logits[0, -1, :].float()
+        tilted = ((logits + BETA * bias) / BASE_TEMPERATURE).log_softmax(dim=-1)
+        p_tilted = tilted.exp()
+        entropy = -(p_tilted * tilted).sum()
+        tilt_entropies.append(float(entropy.item()))
+
+        for index, temperature in enumerate(TEMPERATURES):
+            temp_logp = (logits / temperature).log_softmax(dim=-1)
+            p_temperature = temp_logp.exp()
+            temperature_entropies[index].append(
+                float((-(p_temperature * temp_logp).sum()).item())
+            )
+            divergences[index].append(
+                float((p_tilted * (tilted - temp_logp)).sum().item())
+            )
+        step_input = torch.tensor([[target_token]], dtype=torch.long, device=device)
+        if target_token == eos:
+            break
+    return (
+        sum(tilt_entropies) / len(tilt_entropies),
+        [sum(values) / len(values) for values in temperature_entropies],
+        [sum(values) / len(values) for values in divergences],
+    )
+
+
+def seed_for(source_id: Any, base_seed: int, arm: int) -> int:
+    digest = hashlib.sha256(str(source_id).encode("utf-8")).digest()
+    offset = int.from_bytes(digest[:4], "big")
+    return (base_seed + arm * 1_000_003 + offset) % (2**63 - 1)
+
+
+def distribution(values: list[float]) -> dict[str, float]:
+    ordered = sorted(values)
+    def quantile(fraction: float) -> float:
+        index = round(fraction * (len(ordered) - 1))
+        return ordered[index]
+    return {
+        "mean": sum(ordered) / len(ordered),
+        "sd": (sum((value - sum(ordered) / len(ordered)) ** 2 for value in ordered)
+               / max(1, len(ordered) - 1)) ** 0.5,
+        "p10": quantile(0.10),
+        "median": quantile(0.50),
+        "p90": quantile(0.90),
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL)
+    parser.add_argument("--data", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--seed", type=int, default=812701)
+    parser.add_argument("--max-sources", type=int, help="Optional engineering smoke limit")
+    args = parser.parse_args()
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA GPU allocation required")
+    if args.output.exists():
+        raise FileExistsError(args.output)
+    if args.max_sources is not None and args.max_sources <= 0:
+        raise ValueError("--max-sources must be positive")
+
+    pair_rows = read_rows(args.data, None)
+    rows = group_rows_by_source(pair_rows)
+    if args.max_sources is not None:
+        rows = rows[:args.max_sources]
+    if not rows:
+        raise ValueError("no source groups selected")
+
+    device = torch.device("cuda")
+    tokenizer = AutoTokenizer.from_pretrained(args.model_dir, local_files_only=True)
+    tokenizer.src_lang, tokenizer.tgt_lang = "eng_Latn", "deu_Latn"
+    model = AutoModelForSeq2SeqLM.from_pretrained(
+        args.model_dir, local_files_only=True, dtype=torch.float32,
+    ).to(device).eval()
+    model.config.use_cache = True
+    bias = piece_bias(args.model_dir, tokenizer, model.config.vocab_size, device)
+
+    per_source_contexts = []
+    for source_index, row in enumerate(rows):
+        source_tilt_entropies = []
+        source_temperature_entropies = [[] for _ in TEMPERATURES]
+        source_kls = [0.0] * len(TEMPERATURES)
+        for reference in row["references"]:
+            tilt_entropy, temperature_entropies, prefix_kls = prefix_entropy_and_kl(
+                model, tokenizer, bias,
+                {"source": row["source"], "reference": reference["text"]}, device,
+            )
+            source_tilt_entropies.append(tilt_entropy)
+            for index, value in enumerate(temperature_entropies):
+                source_temperature_entropies[index].append(value)
+            for index, value in enumerate(prefix_kls):
+                source_kls[index] += value
+        if not source_tilt_entropies:
+            raise ValueError(f"no reference-prefix positions for source {source_index}")
+        mean_entropy = sum(source_tilt_entropies) / len(source_tilt_entropies)
+        mean_temp_entropy = [sum(values) / len(values) for values in source_temperature_entropies]
+        source_kls = [value / len(source_tilt_entropies) for value in source_kls]
+        per_source_contexts.append({
+            "source_sentence_id": row.get("source_sentence_id"),
+            "source_mean_tilt_entropy_nats": mean_entropy,
+            "source_mean_temperature_entropy_nats": mean_temp_entropy,
+            "temperature_mean_kl_tilt_to_temperature_nats": source_kls,
+            "reference_count": len(source_tilt_entropies),
+        })
+    mean_tilt_entropy = sum(
+        row["source_mean_tilt_entropy_nats"] for row in per_source_contexts
+    ) / len(per_source_contexts)
+    mean_temperature_entropies = [
+        sum(row["source_mean_temperature_entropy_nats"][index]
+            for row in per_source_contexts) / len(per_source_contexts)
+        for index in range(len(TEMPERATURES))
+    ]
+    mean_kls = [
+        sum(row["temperature_mean_kl_tilt_to_temperature_nats"][index]
+            for row in per_source_contexts) / len(per_source_contexts)
+        for index in range(len(TEMPERATURES))
+    ]
+    matched_index = min(range(len(TEMPERATURES)),
+                        key=lambda index: abs(mean_temperature_entropies[index] - mean_tilt_entropy))
+    matched_temperature = TEMPERATURES[matched_index]
+
+    samples = {"control": [], "length_tilt": [], "temperature_only": []}
+    summaries = {}
+    for arm, (name, beta, temperature) in enumerate((
+        ("control", 0.0, BASE_TEMPERATURE),
+        ("length_tilt", BETA, BASE_TEMPERATURE),
+        ("temperature_only", 0.0, matched_temperature),
+    )):
+        records = []
+        for row in rows:
+            generator = torch.Generator(device=device).manual_seed(
+                seed_for(row.get("source_sentence_id") or row["source"], args.seed, arm)
+            )
+            path, logprob = sample_one(
+                model, tokenizer, row["source"], bias, beta, generator, device,
+                autocast=True, max_target=MAX_TARGET, temperature=temperature,
+            )
+            hypothesis = tokenizer.decode(path, skip_special_tokens=True).strip()
+            references = [ref["text"] for ref in row["references"]]
+            eos = tokenizer.eos_token_id
+            records.append({
+                "source_sentence_id": row.get("source_sentence_id"),
+                "sampled_token_ids": path,
+                "sampled_logprob": logprob,
+                "hypothesis": hypothesis,
+                "mean_reference_chrfpp_reward": CHRF.sentence_score(hypothesis, references).score / 100.0,
+                "action_count_including_eos": len(path),
+                "word_count": len(hypothesis.split()),
+                "eos_emitted": bool(path and path[-1] == eos),
+                "cap_hit": len(path) == MAX_TARGET and (not path or path[-1] != eos),
+                "reference_count": len(references),
+            })
+        samples[name] = records
+        summaries[name] = {
+            "beta": beta,
+            "temperature": temperature,
+            "reward_distribution": distribution([r["mean_reference_chrfpp_reward"] for r in records]),
+            "action_count_distribution": distribution([r["action_count_including_eos"] for r in records]),
+            "word_count_distribution": distribution([r["word_count"] for r in records]),
+            "eos_rate": sum(r["eos_emitted"] for r in records) / len(records),
+            "cap_rate": sum(r["cap_hit"] for r in records) / len(records),
+        }
+
+    included_pairs = sum(row["pair_count"] for row in rows)
+    output = {
+        "status": "calibration-only-diagnostic",
+        "data_path": str(args.data),
+        "data_sha256": sha256(args.data),
+        "pair_count": included_pairs,
+        "source_count": len(rows),
+        "source_snapshot": args.model_dir.name,
+        "model_config_sha256": sha256(args.model_dir / "config.json"),
+        "sentencepiece_sha256": sha256(args.model_dir / "sentencepiece.bpe.model"),
+        "base_seed": args.seed,
+        "temperature_grid": list(TEMPERATURES),
+        "tilt_beta": BETA,
+        "tilt_temperature": BASE_TEMPERATURE,
+        "mean_tilt_conditional_entropy_nats": mean_tilt_entropy,
+        "temperature_only_mean_conditional_entropy_nats": dict(zip(TEMPERATURES, mean_temperature_entropies)),
+        "mean_conditional_kl_tilt_to_temperature_nats": dict(zip(TEMPERATURES, mean_kls)),
+        "matched_temperature": matched_temperature,
+        "matched_temperature_entropy_residual_nats": mean_temperature_entropies[matched_index] - mean_tilt_entropy,
+        "sampled_policy_summaries": summaries,
+        "sampled_outputs": samples,
+        "source_prefix_diagnostics": per_source_contexts,
+        "interpretation": "Calibration diagnostic only; entropy matching on reference prefixes is not policy equivalence and does not justify a third training arm.",
+    }
+    atomic_json(args.output, output)
+    print(json.dumps({key: value for key, value in output.items() if key not in ("sampled_outputs", "source_prefix_diagnostics")}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

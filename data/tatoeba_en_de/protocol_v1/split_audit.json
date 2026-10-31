@@ -1,0 +1,96 @@
+{
+  "status": "sentence-disjoint-protocol-splits-created",
+  "source_dataset": "Tatoeba official English-German detailed sentences + translation links",
+  "source_snapshot_date": "2026-10-31",
+  "source_license": "CC-BY-2.0-FR (text); attribution preserved per sentence",
+  "source_pair_pool_path": "data/tatoeba_en_de/eligible_pairs.jsonl",
+  "source_pair_pool_count": 8750,
+  "source_pair_pool_sha256": "6819ed0329d447210c96f26c50c86fdfc4aef8cfb28358c88beb18c5cfab8139",
+  "split_seed": 314159,
+  "selection_rule": "shuffle eligible pool; greedily assign rows to the split with largest normalized size deficit; sentence IDs and normalized source/reference text may belong to only one split; discard conflicting rows and leave unused rows unassigned",
+  "target_split_sizes": {
+    "train": 2048,
+    "calibration": 1024,
+    "development": 1024,
+    "test_in_domain": 2048
+  },
+  "actual_split_sizes": {
+    "train": 2048,
+    "calibration": 1024,
+    "development": 1024,
+    "test_in_domain": 2048
+  },
+  "unused_eligible_pairs": 2606,
+  "split_manifests": {
+    "train": {
+      "path": "data/tatoeba_en_de/protocol_v1/train.jsonl",
+      "pair_count": 2048,
+      "sha256": "3cbffd5ba8cadea7d76698b4118d149dc0af8e3361d9c912b5352966e6d276e4",
+      "unique_source_contributors": 212,
+      "unique_reference_contributors": 245
+    },
+    "calibration": {
+      "path": "data/tatoeba_en_de/protocol_v1/calibration.jsonl",
+      "pair_count": 1024,
+      "sha256": "86bd01478ae6535100ef24f7fd3c760b91aa6c03c8ee115d1b6ac4c990f74a84",
+      "unique_source_contributors": 136,
+      "unique_reference_contributors": 185
+    },
+    "development": {
+      "path": "data/tatoeba_en_de/protocol_v1/development.jsonl",
+      "pair_count": 1024,
+      "sha256": "e95aa8ac89fa67f11ed3c33178ea3b5edd755b7bbbe4618f9742dec97b8f5839",
+      "unique_source_contributors": 136,
+      "unique_reference_contributors": 170
+    },
+    "test_in_domain": {
+      "path": "data/tatoeba_en_de/protocol_v1/test_in_domain.jsonl",
+      "pair_count": 2048,
+      "sha256": "bbb0f1e432cb40d861b808c378282eccf3293c4116896b592413d504ff0d47b1",
+      "unique_source_contributors": 227,
+      "unique_reference_contributors": 273
+    }
+  },
+  "pairwise_overlaps": {
+    "train-calibration": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    },
+    "train-development": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    },
+    "train-test_in_domain": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    },
+    "calibration-development": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    },
+    "calibration-test_in_domain": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    },
+    "development-test_in_domain": {
+      "sentence_id_overlap": 0,
+      "exact_text_overlap": 0,
+      "pair_overlap": 0
+    }
+  },
+  "attribution_fields_preserved": [
+    "source_sentence_id",
+    "source_contributor",
+    "source_license",
+    "reference_sentence_id",
+    "reference_contributor",
+    "reference_license"
+  ],
+  "wmt23_wmt24_exact_text_overlap": 0,
+  "interpretation": "All three training seeds must reuse the same 2,048-row train split; seed variation then reflects optimization and action-sampling randomness, not different data subsets."
+}
