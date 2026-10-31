@@ -74,6 +74,15 @@ establishes usable terms for the relevant material.
 3. Keep model use and any sharing of modified weights noncommercial. Do not
    treat this notice as approval for a commercially sponsored project.
 
+## BYU process reference
+
+BYU's [Copyright Policy](https://policy.byu.edu/view/copyright-policy) places
+responsibility for complying with copyright requirements on members of the BYU
+community and identifies the [Copyright Licensing Office](https://copyright.byu.edu/)
+as a resource. This project keeps its institutional review gate pending as
+requested; this policy reference does not itself record a project-specific
+decision or imply that BYU requires a particular approval for this research.
+
 ## Materials
 
 - [Data/model notice](DATA_MODEL_NOTICE.md), including attribution text,
