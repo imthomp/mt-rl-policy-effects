@@ -97,6 +97,13 @@ minor punctuation errors cost 0.1, other minor errors cost 1, and a
 nontranslation receives the fixed score -25. These choices were frozen before
 summarizing any held-out quality scores.
 
+The WMT26 external check uses the same nested candidate counts through 16 and
+then the full Chinese-to-Japanese candidate pool, with the same deterministic
+permutation count, permutation seed, paired segment analysis, and cluster
+bootstrap resampling rule. Its retained mean cESA score is the human endpoint.
+This protocol-transfer result will not be used to retune the diagnostic or
+reward models.
+
 ## Launch boundary
 
 This phase supports a claim about offline reward optimization, not policy
