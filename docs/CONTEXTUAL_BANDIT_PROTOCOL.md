@@ -52,6 +52,11 @@ updates. The REINFORCE seeds are 20261110 through 20261114. These choices may
 be changed only to correct an execution failure, with a new protocol version,
 not in response to human-quality results.
 
+For the tabular policy, the objective is summed over its independent context
+rows so that the same learning rate applies to each row; exact and sampled
+tabular updates use that identical summed objective. The contextual policy
+uses the mean over contexts because its parameters are shared.
+
 ## Exact-gradient audit
 
 At fixed policy checkpoints from the exact trajectory, compute the exact

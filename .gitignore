@@ -36,6 +36,7 @@ venv/
 !/scripts/slurm/run_reward_model_development.sbatch
 !/scripts/slurm/run_wmt25_reward_scoring.sbatch
 !/scripts/slurm/run_wmt26_reward_scoring.sbatch
+!/scripts/slurm/run_contextual_bandit.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/
