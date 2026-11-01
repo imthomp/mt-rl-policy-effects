@@ -56,3 +56,15 @@ venv/
 .DS_Store
 .idea/
 .vscode/
+
+# LaTeX intermediates (source, generated macros, and final PDFs are retained)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.xdv
+/paper/tokenization_acl/main.txt

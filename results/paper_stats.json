@@ -17813,6 +17813,233 @@
     "target_removed_rows": 239364,
     "volume_tolerance": 0.05
   },
+  "tokenization_paper": {
+    "scope": "same-string estimator validation and NLLB length-tilt feasibility; no RL training effect",
+    "status": "complete",
+    "synthetic": {
+      "batch_size": 2,
+      "batches": 200000,
+      "exact_batch_response_mean_theta": [
+        0.319126314166943,
+        -0.006511127434027098,
+        -0.312615186732916
+      ],
+      "exact_batch_token_mean_phi": 0.011980334071850507,
+      "exact_batch_token_mean_theta": [
+        0.10414410242474983,
+        -0.003354952104075423,
+        -0.10078915032067444
+      ],
+      "exact_response_mean_phi": 0.0,
+      "exact_response_mean_theta": [
+        0.31912631416694304,
+        -0.006511127434027077,
+        -0.312615186732916
+      ],
+      "exact_string_gradient_theta": [
+        0.3191263141669431,
+        -0.006511127434027096,
+        -0.31261518673291594
+      ],
+      "expected_string_reward": 0.22603526444481795,
+      "monte_carlo_batch_gradients": {
+        "global_token_mean": [
+          [
+            0.10418689295447874,
+            -0.003388237570053126,
+            -0.10079865538442069
+          ],
+          0.011978206249998258
+        ],
+        "response_mean": [
+          [
+            0.3193305328349103,
+            -0.00667917309029693,
+            -0.31265135974377195
+          ],
+          0.00015556249999995278
+        ]
+      },
+      "monte_carlo_global_token_phi_abs_error": 2.1278218522487874e-06,
+      "monte_carlo_global_token_theta_max_abs_error": 4.279052972890052e-05,
+      "monte_carlo_response_phi_abs_error": 0.00015556249999995278,
+      "monte_carlo_response_theta_max_abs_error": 0.00020421866796732635,
+      "notes": [
+        "Joint probability is p_theta(string) times q_phi(path|string).",
+        "Ordinary response-mean REINFORCE is invariant to q_phi for string-only reward.",
+        "Global token mean uses each sampled batch's total token count, so its expected sample weighting depends on q_phi.",
+        "Position weighting is an explicit alternative estimator and must not be confused with the joint behavior score."
+      ],
+      "outcome_count": 5,
+      "path_probabilities_sum": 1.0,
+      "per_response_token_mean_phi": 0.044691048983803744,
+      "per_response_token_mean_theta": [
+        0.12249533982449318,
+        -0.01010778283435245,
+        -0.11238755699014073
+      ],
+      "phi_logit": -1.0986122886681098,
+      "position_weighted_cosine_vs_response_mean": 0.9999477349261894,
+      "position_weighted_gamma_0_5_theta": [
+        0.17688577175425674,
+        -0.005644069357351129,
+        -0.17124170239690562
+      ],
+      "position_weighted_gamma_1_theta": [
+        0.31912631416694304,
+        -0.006511127434027077,
+        -0.312615186732916
+      ],
+      "q_sampler_sensitivity": [
+        {
+          "global_token_mean_phi": 0.011980334071850507,
+          "global_token_mean_theta": [
+            0.10414410242474983,
+            -0.003354952104075423,
+            -0.10078915032067444
+          ],
+          "q_short": 0.25,
+          "response_mean_phi": 0.0,
+          "response_mean_theta": [
+            0.31912631416694304,
+            -0.006511127434027077,
+            -0.312615186732916
+          ]
+        },
+        {
+          "global_token_mean_phi": 0.01906117392768449,
+          "global_token_mean_theta": [
+            0.18419873705500864,
+            -0.017407731196215616,
+            -0.16679100585879292
+          ],
+          "q_short": 0.75,
+          "response_mean_phi": 0.0,
+          "response_mean_theta": [
+            0.31912631416694304,
+            -0.00651112743402708,
+            -0.31261518673291594
+          ]
+        }
+      ],
+      "q_short": 0.25,
+      "response_theta_max_abs_difference_between_q_settings": 5.551115123125783e-17,
+      "rewards": {
+        "A": 1.0,
+        "B": 0.2,
+        "C": -0.7
+      },
+      "scope": "exact finite synthetic policy; not an MT result",
+      "seed": 41,
+      "string_probabilities": {
+        "A": 0.41232668557957836,
+        "B": 0.2500887766217052,
+        "C": 0.3375845377987164
+      },
+      "strings": [
+        "A",
+        "B",
+        "C"
+      ],
+      "theta_logits": [
+        0.3,
+        -0.2,
+        0.1
+      ],
+      "token_mean_cosine_vs_response_mean": 0.999944896431422
+    },
+    "table_row_trace": {
+      "calibration_table": {
+        "actions_including_eos": "tatoeba_calibration.actions_including_eos",
+        "chrf_reward": "tatoeba_calibration.chrf_reward",
+        "corpus_bleu_points": "tatoeba_calibration.corpus_bleu_points",
+        "decoded_word_count": "tatoeba_calibration.decoded_word_count",
+        "tokens_per_word": "tatoeba_calibration.fertility"
+      },
+      "synthetic_table": {
+        "global_token_mean_phi": "synthetic.q_sampler_sensitivity[*].global_token_mean_phi",
+        "response_mean_phi": "synthetic.q_sampler_sensitivity[*].response_mean_phi"
+      }
+    },
+    "tatoeba_calibration": {
+      "actions_including_eos": {
+        "mean_length_tilt_minus_control": 0.14564102564102563,
+        "n_source_groups": 975,
+        "paired_source_bootstrap_95_interval": {
+          "lower_95": 0.06769230769230769,
+          "upper_95": 0.2246153846153846
+        }
+      },
+      "chrf_reward": {
+        "mean_length_tilt_minus_control": -0.020771083696569447,
+        "n_source_groups": 975,
+        "paired_source_bootstrap_95_interval": {
+          "lower_95": -0.03200012014419095,
+          "upper_95": -0.009867491355647406
+        }
+      },
+      "combined_artifact": "artifacts/diagnostics/tatoeba_policy_calibration_combined_14941363_14941543.json",
+      "combined_artifact_sha256": "4791581967f7d4dfc52a3aaec5dd139360d0c3b9fe03879fd913b941e0b645b9",
+      "corpus_bleu_points": {
+        "mean_length_tilt_minus_control": -2.2029013718739954,
+        "n_source_groups": 975,
+        "paired_source_bootstrap_95_interval": {
+          "lower_95": -3.8353790069339517,
+          "resamples": 2000,
+          "seed": 812702,
+          "upper_95": -0.6228666277189028
+        }
+      },
+      "decoded_word_count": {
+        "mean_length_tilt_minus_control": 0.010256410256410256,
+        "n_source_groups": 975,
+        "paired_source_bootstrap_95_interval": {
+          "lower_95": -0.043076923076923075,
+          "upper_95": 0.06307692307692307
+        }
+      },
+      "entropy_match_pass": true,
+      "entropy_match_tolerance_nats": 0.05,
+      "entropy_residual_nats": -0.009941447404842152,
+      "fertility": {
+        "mean_length_tilt_minus_control": 0.03134010040350836,
+        "n_source_groups": 975,
+        "paired_source_bootstrap_95_interval": {
+          "lower_95": 0.020110636221495955,
+          "upper_95": 0.04267605077792028
+        }
+      },
+      "generated_output_count": 1950,
+      "initial_artifact": "artifacts/diagnostics/tatoeba_policy_calibration_14941363.json",
+      "initial_artifact_sha256": "5dd3556f63b8f2237903ec0f5d7e5d2343ea6b88632358d007decaf3734842f9",
+      "matched_temperature": 0.7,
+      "model_id": "facebook/nllb-200-distilled-600M",
+      "model_snapshot_hash": "f8d333a098d19b4fd9a8b18f94170487ad3f821d",
+      "overall_screen": "inconclusive_after_single_extension",
+      "quality_decisions": {
+        "chrF++_reward": "inconclusive",
+        "corpus_BLEU_points": "inconclusive"
+      },
+      "rollout_seed_count": 2,
+      "source_count": 975,
+      "tilt_beta": 0.2,
+      "tilt_temperature": 0.7,
+      "validity_counts": {
+        "empty_output_count": 0,
+        "eos_output_count": 1950,
+        "generated_output_count": 1950,
+        "non_eos_special_token_id_count": 0,
+        "non_eos_special_token_output_count": 0,
+        "truncated_output_count": 0
+      },
+      "validity_rates": {
+        "empty_output_rate": 0.0,
+        "eos_rate": 1.0,
+        "non_eos_special_token_emission_rate": 0.0,
+        "truncation_rate": 0.0
+      }
+    }
+  },
   "wmt25_best_of_n": {
     "bootstrap_resamples": 10000,
     "bootstrap_seed": 20261104,

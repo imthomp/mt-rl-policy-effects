@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\input{generated_stats}
+
+\title{Exact Segmentation Invariance and a Negative Feasibility Result for Tokenization-Oriented Machine Translation Policy Gradients}
+
+\author{Anonymous ACL submission}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We investigate whether changing target-side segmentation can provide a clean
+intervention for reinforcement learning in machine translation.  The project
+produced two complementary negative results.  First, for a policy that samples
+a surface string and then samples a conditionally normalized segmentation,
+ordinary response-level policy gradients with string-only reward are exactly
+invariant to the segmentation sampler.  Token-normalized or position-weighted
+updates can break this invariance, but then the effect belongs to the estimator.
+Second, a normalized piece-length tilt in \ModelName{} changed the complete
+autoregressive policy rather than merely resegmenting fixed strings.  On a
+frozen English--German calibration set it increased token fertility while
+reducing both the fixed string reward and an independent translation metric.
+The prespecified launch screen was therefore not passed, and no research
+training run was launched.  Together, these results clarify why exact behavior
+likelihood is necessary but insufficient for identifying a useful
+tokenization-only intervention in sequence-level reinforcement learning.
+\end{abstract}
+
+\section{Motivation}
+
+Subword regularization and BPE-dropout show that sampling alternative
+segmentations can improve supervised machine translation
+\citep{kudo-2018-subword,provilkov-etal-2020-bpe}.  This does not immediately
+imply a useful reinforcement-learning intervention.  Policy-gradient training
+requires the likelihood of the process that generated an action, and changing
+the segmentation may either leave a string-level estimator unchanged or alter
+the represented autoregressive policy itself.  Exploration and reward scaling
+are already known to matter in neural machine translation policy gradients
+\citep{kiegeland-kreutzer-2021-revisiting}.
+
+We report the completed tokenization branch of a larger project.  Our scope is
+deliberately narrow: estimator validity and intervention feasibility.  We do
+not report an effect of tokenization on reinforcement-learning outcomes because
+the intervention failed its calibration gate before training.
+
+\section{Same-string intervention}
+
+Let a string policy sample a surface string $s$, after which a segmentation
+sampler draws a path $z$:
+\begin{equation}
+P_{\theta,\phi}(s,z\mid x)
+=P_\theta(s\mid x)q_\phi(z\mid s,x).
+\end{equation}
+For string-only reward $R(s)$ and a normalized conditional sampler, define the
+two expected score-function gradients as
+\begin{align}
+g_\theta
+&=\mathbb{E}_{s,z}[R(s)\nabla_\theta\log P_{\theta,\phi}(s,z\mid x)]\\
+&=\mathbb{E}_{s}[R(s)\nabla_\theta\log P_\theta(s\mid x)],\\
+g_\phi
+&=\mathbb{E}_{z\mid s}[\nabla_\phi\log q_\phi(z\mid s,x)]
+=\mathbf{0}.
+\end{align}
+Thus a separately sampled segmentation cannot change the expected ordinary
+string-policy gradient.  Scoring the alternate token path with the base
+model's raw autoregressive likelihood would instead score a process that did
+not generate the sample.
+
+\subsection{Exact finite verification}
+
+We enumerate a categorical policy over \SyntheticStringCount{} strings and
+\SyntheticOutcomeCount{} joint string--path outcomes.  Some strings admit
+short and long paths; reward depends only on the string.  We enumerate ordered
+batches of size \SyntheticBatchSize{} and compare exact expectations with
+\SyntheticMCBatches{} Monte Carlo batches.
+
+Table~\ref{tab:synthetic} varies the probability of the short path.  The
+response-mean string gradient changes by at most \ResponseThetaMaxDiff{}, and
+the segmentation-parameter gradient remains zero.  Dividing by the random
+total number of tokens in each batch instead changes expected sample weighting
+and yields a nonzero segmentation gradient.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+Estimator & $q=\QLow$ & $q=\QHigh$ \\
+\midrule
+Response mean, $\phi$ gradient & \ResponsePhiLow & \ResponsePhiHigh \\
+Global token mean, $\phi$ gradient & \GlobalPhiLow & \GlobalPhiHigh \\
+\bottomrule
+\end{tabular}
+\caption{Exact segmentation-sampler gradients as the short-path probability
+$q$ varies.  The global token mean has a sampled, path-dependent denominator.}
+\label{tab:synthetic}
+\end{table}
+
+The maximum Monte Carlo error for the response-mean string-gradient
+coordinates is \MCResponseThetaError{}; its segmentation-gradient error is
+\MCResponsePhiError{}.  Corresponding errors for the global-token estimator
+are \MCGlobalThetaError{} and \MCGlobalPhiError{}.  These checks validate the
+implementation rather than provide translation-quality evidence.
+
+\section{Autoregressive length tilt}
+
+Because the same-string construction leaves no ordinary-gradient mechanism,
+we also tested a broader decoder-policy intervention in \ModelName{}, a
+released NLLB model \citep{nllb-2024-scaling}.  At each decoding step, a fixed
+bias favored shorter visible SentencePiece tokens and the categorical policy
+was renormalized.  The sampled token then changed the next decoder input,
+position, attention state, future distribution, and stopping time.  This is a
+total autoregressive policy intervention, not reassignment of a segmentation
+to an otherwise fixed translation.
+
+The frozen comparison used a tilt coefficient of \TiltBeta{} and temperature
+\TiltTemperature{}.  The control used the entropy-matched temperature
+\MatchedTemperature{}.  Entropy was measured on shared teacher-forced prefixes;
+the residual was \EntropyResidual{} nats against a tolerance of
+\EntropyTolerance{} nats.  The calibration contained \TatoebaSources{} unique
+Tatoeba sources and \CalibrationReplicates{} paired rollout replicates, giving
+\TatoebaOutputs{} generated outputs.  Human scores were not used.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Tilt minus control & Mean & Lower & Upper \\
+\midrule
+Tokens per word & \FertilityDelta & \FertilityLow & \FertilityHigh \\
+chrF++ reward & \ChrfDelta & \ChrfLow & \ChrfHigh \\
+Corpus BLEU points & \BleuDelta & \BleuLow & \BleuHigh \\
+Actions incl. EOS & \ActionDelta & \ActionLow & \ActionHigh \\
+Decoded words & \WordDelta & \WordLow & \WordHigh \\
+\bottomrule
+\end{tabular}
+\caption{Paired source-bootstrap intervals on the frozen calibration set.
+The chrF++ reward is on its normalized scale; BLEU is reported in points.}
+\label{tab:calibration}
+\end{table}
+
+Table~\ref{tab:calibration} shows the central feasibility result.  Fertility
+increased, but the reward and independent metric both decreased.  The action
+count changed while decoded word count was nearly stable, supporting a
+tokenization shift, but not a competence-preserving one.  All \EOSCount{}
+outputs ended in EOS; truncation, empty-output, and non-EOS special-token counts
+were respectively \TruncationCount{}, \EmptyCount{}, and \SpecialTokenCount{}.
+The prespecified quality screen remained inconclusive about whether both losses
+were within acceptable limits after its sole bounded extension.  The pilot was
+not launched.
+
+\section{Discussion}
+
+The two studies rule out different shortcuts.  Exact joint likelihood does not
+make a same-string segmentation sampler causally active under an ordinary
+string-reward estimator.  Conversely, passing alternate token identities
+through an autoregressive decoder supplies a mechanism, but it also changes
+the policy's initial competence and surface-string distribution.  A fertility
+change under token-normalized credit assignment is an estimator effect; a
+fertility change under the length tilt is a total decoder-policy effect.
+
+This distinction also bounds the negative result.  We do not conclude that
+tokenization is irrelevant to reinforcement learning.  We conclude that the
+tested clean construction is invariant, while the tested non-invariant
+construction did not satisfy its launch gate.
+
+\section{Conclusion}
+
+The tokenization branch is complete as a validation and feasibility study.
+It provides an exact invariance result, tests where alternative reductions
+break that invariance, and records a negative real-model calibration.  It does
+not establish a translation-learning effect, because training was correctly
+stopped before that estimand was evaluated.
+
+\section*{Limitations}
+
+The exact harness is intentionally finite and does not model neural decoder
+states.  The real-model screen covers one model family, one language direction,
+one calibration split, and one fixed tilt dose.  Entropy matching does not make
+two policies equivalent.  The calibration estimates initial behavior only and
+cannot determine whether later reinforcement learning would recover from the
+quality loss.
+
+\section*{Ethical Considerations}
+
+The real-model study used the documented noncommercial research terms for the
+NLLB checkpoint and attributed Tatoeba data.  No human judgments were newly
+collected.  No model weights were released or trained after the feasibility
+screen failed.
+
+\bibliography{references}
+
+\end{document}
