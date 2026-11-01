@@ -26,6 +26,8 @@ indicators. It learns a linear logit for every candidate system. The hashing
 transform has no fitted vocabulary and therefore cannot leak test sources into
 training. A separate tabular policy over training contexts demonstrates
 known-source memorization and is never described as source generalization.
+The implementation uses the first eight bytes of SHA-256 for FIPS-compatible
+feature indexing and sign assignment.
 
 ## Objective and optimization
 

@@ -34,7 +34,7 @@ def hash_features(text: str, dimensions: int = HASH_FEATURES) -> np.ndarray:
     for width in (3, 4, 5):
         for start in range(max(0, len(normalized) - width + 1)):
             gram = normalized[start : start + width].encode("utf-8")
-            digest = hashlib.blake2b(gram, digest_size=8).digest()
+            digest = hashlib.sha256(gram).digest()[:8]
             value = int.from_bytes(digest)
             index = value % dimensions
             features[index] += -1.0 if value & (1 << 63) else 1.0
