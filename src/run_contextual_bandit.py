@@ -400,7 +400,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         **probability_arrays,
     )
     result["probability_artifact"] = {
-        "path": str(args.probabilities_output.relative_to(Path(__file__).resolve().parents[1])),
+        "path": str(
+            args.probabilities_output.resolve().relative_to(Path(__file__).resolve().parents[1])
+        ),
         "sha256": sha256_file(args.probabilities_output),
         "arrays": len(probability_arrays),
     }
