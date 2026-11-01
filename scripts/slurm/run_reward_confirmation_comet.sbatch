@@ -21,12 +21,14 @@ models=(wmt22-cometkiwi-da wmt23-cometkiwi-da-xl)
 model="${models[$SLURM_ARRAY_TASK_ID]}"
 output_root="artifacts/reward_models/confirmation/external/predictions"
 
-"$TRAINING_PYTHON" -u src/score_mqm_confirmation_comet.py \
-  --model-name "$model" \
-  --dataset-name wmt24_ja_zh \
-  --source "$dataset_root/generalMT2024/mqm_generalMT2024_jazh.tsv" \
-  --manifest results/predictor_confirmation_manifest.json \
-  --output "$output_root/wmt24_ja_zh/${model}.jsonl"
+if [[ ! -f "$output_root/wmt24_ja_zh/${model}.jsonl" ]]; then
+  "$TRAINING_PYTHON" -u src/score_mqm_confirmation_comet.py \
+    --model-name "$model" \
+    --dataset-name wmt24_ja_zh \
+    --source "$dataset_root/generalMT2024/mqm_generalMT2024_jazh.tsv" \
+    --manifest results/predictor_confirmation_manifest.json \
+    --output "$output_root/wmt24_ja_zh/${model}.jsonl"
+fi
 
 "$TRAINING_PYTHON" -u src/score_mqm_confirmation_comet.py \
   --model-name "$model" \

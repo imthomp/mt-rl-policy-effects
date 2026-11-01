@@ -80,6 +80,8 @@ def freeze_dataset(
             reasons.append("source_text_variants")
         if any(len(targets[(segment, system)]) != 1 for system in observed):
             reasons.append("candidate_text_variants")
+        if "refA" not in excluded_systems or len(targets[(segment, "refA")]) != 1:
+            reasons.append("reference_text_variants")
         if reasons:
             for reason in reasons:
                 exclusions[reason] += 1
@@ -103,7 +105,8 @@ def freeze_dataset(
         "excluded_segment_counts_by_reason": dict(sorted(exclusions.items())),
         "cleaning_rule": (
             "exclude reference/human systems by name prefix; retain segments with every "
-            "machine system, one source-text variant, and one target-text variant per candidate"
+            "machine system, one source-text variant, one target-text variant per machine "
+            "candidate, and one refA text variant for reference-based reward scoring"
         ),
         "outcome_fields_accessed": [],
         "prohibited_outcome_fields": ["category", "severity", "metadata"],

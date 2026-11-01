@@ -34,7 +34,7 @@ class PredictorConfirmationManifestTests(unittest.TestCase):
         ]
         for document in ("d1", "d2", "d3"):
             for segment in ("1", "2"):
-                for system in ("SystemA", "SystemB"):
+                for system in ("SystemA", "SystemB", "refA"):
                     lines.append(
                         f"{system}\t{document}\t{segment}\t{document}{segment}\tr1\ts{document}{segment}\t{system}{segment}\tX\tMajor\t{{}}"
                     )

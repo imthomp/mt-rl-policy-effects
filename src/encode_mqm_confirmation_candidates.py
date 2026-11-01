@@ -59,6 +59,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     import torch
+    import run_text_policy_bandit as text_bandit
+
+    text_bandit.torch = torch
 
     if args.output.exists():
         raise FileExistsError(f"Refusing to overwrite: {args.output}")
