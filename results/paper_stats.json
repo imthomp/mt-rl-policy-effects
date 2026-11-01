@@ -31362,6 +31362,18 @@
       "source": "results/text_policy_predictor_development.json",
       "status": "already viewed; used only to freeze this rule"
     },
+    "human_scoring": {
+      "aggregation": "average rater-level segment penalties; do not average error rows directly",
+      "candidate_quality": "negative mean rater penalty, so larger values are better",
+      "major_penalty": 5.0,
+      "minor_fluency_punctuation_penalty": 0.1,
+      "minor_penalty": 1.0,
+      "neutral_or_no_error_penalty": 0.0,
+      "non_translation_penalty": 25.0,
+      "rater_penalty": "sum error penalties within segment, system, and rater",
+      "source": "pinned google/wmt-mqm-human-evaluation README at the manifest revision",
+      "unknown_labels": "fail closed"
+    },
     "optimization": {
       "checkpoint_rule": "first checkpoint reaching each target; report unreachable targets",
       "estimator": "exact finite-action policy gradient",

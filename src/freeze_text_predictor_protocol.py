@@ -108,6 +108,18 @@ def build(root: Path) -> dict[str, Any]:
             ],
             "checkpoint_selection_uses_human_outcomes": False,
         },
+        "human_scoring": {
+            "source": "pinned google/wmt-mqm-human-evaluation README at the manifest revision",
+            "candidate_quality": "negative mean rater penalty, so larger values are better",
+            "rater_penalty": "sum error penalties within segment, system, and rater",
+            "major_penalty": 5.0,
+            "minor_penalty": 1.0,
+            "minor_fluency_punctuation_penalty": 0.1,
+            "non_translation_penalty": 25.0,
+            "neutral_or_no_error_penalty": 0.0,
+            "unknown_labels": "fail closed",
+            "aggregation": "average rater-level segment penalties; do not average error rows directly",
+        },
         "baselines": {
             "always_keep_initial": True,
             "always_optimize": True,
