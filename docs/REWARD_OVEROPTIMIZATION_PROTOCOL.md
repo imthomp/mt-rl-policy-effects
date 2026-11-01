@@ -3,8 +3,10 @@
 ## Status
 
 The former token-length-tilt pilot remains closed. This is a separate,
-offline-first successor study. No reward model has been trained and no
-held-out human outcome has been used for tuning.
+offline-first successor study. Four fixed-budget reward models have been
+frozen using the all-data, diagnostic-filtered, global-random, and
+direction-matched-earlier-year conditions. Their common-development metrics
+were recorded before any held-out human quality outcome was used.
 
 ## Research question
 
@@ -86,6 +88,14 @@ paired within the same source and candidate pool. WMT26 analyses may use only
 prespecified complete-coverage subsets or an explicitly justified estimator
 for its dynamic missingness; it must not silently treat unjudged candidates as
 low quality.
+
+For WMT25, the frozen nested candidate counts are 1, 2, 4, 8, 16, and the full
+candidate pool. One hundred deterministic candidate permutations per source
+are generated from seed 20261103 and shared across reward models. Human MQM is
+computed with the official WMT25 severity rule: major errors cost 5 points,
+minor punctuation errors cost 0.1, other minor errors cost 1, and a
+nontranslation receives the fixed score -25. These choices were frozen before
+summarizing any held-out quality scores.
 
 ## Launch boundary
 

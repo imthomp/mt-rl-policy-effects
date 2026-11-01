@@ -34,6 +34,7 @@ venv/
 !/scripts/slurm/run_nllb_development_check.sbatch
 !/scripts/slurm/run_da_diagnostic_metrics.sbatch
 !/scripts/slurm/run_reward_model_development.sbatch
+!/scripts/slurm/run_wmt25_reward_scoring.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/

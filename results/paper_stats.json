@@ -4335,6 +4335,83 @@
       "role": "secondary_sparse_cesa_holdout"
     }
   },
+  "reward_model_development": {
+    "conditions": {
+      "all_data": {
+        "dev_mse": 0.6580573942213995,
+        "dev_pearson": 0.4427551714963816,
+        "dev_spearman": 0.43796842561469734,
+        "elapsed_seconds": 445.75432702101534,
+        "final_train_loss": 0.45515720546245575,
+        "git_worktree_dirty": false,
+        "gpu_name": "Tesla P100-PCIE-16GB",
+        "mean_last_25_train_loss": 0.7170352166891099,
+        "peak_gpu_allocated_gib": 5.924811363220215,
+        "slurm_array_task_id": "0",
+        "slurm_job_id": "14948550",
+        "train_indices_sha256": "66b87b30325188791e369a64eb002a43f4823bbf6b05241742868df846b7766f"
+      },
+      "diagnostic_filtered": {
+        "dev_mse": 0.6579282631503133,
+        "dev_pearson": 0.4575627766489837,
+        "dev_spearman": 0.4485709640988949,
+        "elapsed_seconds": 454.0347530430008,
+        "final_train_loss": 0.6458356231451035,
+        "git_worktree_dirty": false,
+        "gpu_name": "Tesla P100-PCIE-16GB",
+        "mean_last_25_train_loss": 0.7285376600921154,
+        "peak_gpu_allocated_gib": 5.93162727355957,
+        "slurm_array_task_id": "1",
+        "slurm_job_id": "14948404",
+        "train_indices_sha256": "d86dca4b3335d9e3d8efca8c5d7979efd93922ecdecefc79d3e55db103991724"
+      },
+      "direction_matched_earlier_year": {
+        "dev_mse": 0.6658579175639674,
+        "dev_pearson": 0.4291504056859745,
+        "dev_spearman": 0.4338682927152448,
+        "elapsed_seconds": 455.89254968997557,
+        "final_train_loss": 0.6473534442484379,
+        "git_worktree_dirty": false,
+        "gpu_name": "Tesla P100-PCIE-16GB",
+        "mean_last_25_train_loss": 0.6694017672538757,
+        "peak_gpu_allocated_gib": 5.924097537994385,
+        "slurm_array_task_id": "3",
+        "slurm_job_id": "14948394",
+        "train_indices_sha256": "ed30d620ea63322cc1bc017811008a01c62662c95c68282d5ac06ba4b4f9b702"
+      },
+      "global_random_2": {
+        "dev_mse": 0.6697818268937795,
+        "dev_pearson": 0.4325693762111507,
+        "dev_spearman": 0.4315431497717165,
+        "elapsed_seconds": 451.1388770430058,
+        "final_train_loss": 0.5706310756504536,
+        "git_worktree_dirty": false,
+        "gpu_name": "Tesla P100-PCIE-16GB",
+        "mean_last_25_train_loss": 0.6527727819979191,
+        "peak_gpu_allocated_gib": 5.923759460449219,
+        "slurm_array_task_id": "2",
+        "slurm_job_id": "14948405",
+        "train_indices_sha256": "3f86b924aec4d1eea155fde92b48611db140248cf5fcb2e83b51e095c4b38d27"
+      }
+    },
+    "shared_configuration": {
+      "batch_size": 8,
+      "dev_indices_sha256": "78e5f86e0aad3b5d093b4f678c04bf3a2d96ae14ed55771e2c7720cb459bfc3c",
+      "dev_rows": 5000,
+      "executing_commit": "ec5a694d9bda0074f8d7d804cfe7c235bd4a3830",
+      "gradient_accumulation": 4,
+      "indices_manifest_sha256": "a01e3623938a82799d8fb909d278d927cad622646cf5e435601877a2e0035f1c",
+      "learning_rate": 2e-05,
+      "max_length": 256,
+      "model_name": "FacebookAI/xlm-roberta-base",
+      "model_snapshot_hash": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+      "seed": 20261102,
+      "steps": 500,
+      "train_rows": 50000,
+      "warmup_steps": 50
+    },
+    "status": "complete_models_frozen_before_human_outcome_access"
+  },
   "reward_training_conditions": {
     "conditions": {
       "all_data": {
