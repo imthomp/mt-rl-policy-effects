@@ -21,6 +21,7 @@ from analyze_wmt25_best_of_n import (
     _mean_ci,
     candidate_order,
 )
+from wmt26_candidate_pool import EXCLUDED_NON_MACHINE_SYSTEMS, machine_only_rows
 
 
 POOL_SIZES = (1, 2, 4, 8, 16, "full")
@@ -51,6 +52,7 @@ def read_conditions(root: Path) -> tuple[dict[str, Any], dict[str, dict[str, dic
             row = conditions[condition][row_key]
             if (row["lp"], row["segment_key"], row["system_id"], row["human_cesa"]) != identity:
                 raise ValueError(f"Candidate content mismatch: {row_key} / {condition}")
+    conditions = {condition: machine_only_rows(rows) for condition, rows in conditions.items()}
     return metadata, conditions
 
 
@@ -124,6 +126,7 @@ def analyze(conditions: dict[str, dict[str, dict[str, Any]]]) -> dict[str, Any]:
         "status": "complete",
         "endpoint": "zho_Hans---jpn_Jpan cESA",
         "candidate_pool_size": full_size,
+        "excluded_non_machine_systems": sorted(EXCLUDED_NON_MACHINE_SYSTEMS),
         "pool_sizes": pool_sizes,
         "permutations": PERMUTATIONS,
         "permutation_seed": PERMUTATION_SEED,

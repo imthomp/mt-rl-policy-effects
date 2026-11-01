@@ -16,6 +16,7 @@ import numpy as np
 from analyze_wmt25_best_of_n import CONDITIONS
 from score_wmt26_cesa_candidates import CAMPAIGN_MEMBER
 from audit_reward_holdouts import sha256_file
+from wmt26_candidate_pool import EXCLUDED_NON_MACHINE_SYSTEMS
 
 
 HASH_FEATURES = 512
@@ -27,7 +28,6 @@ RECORD_EVERY = 10
 POLICY_SEEDS = tuple(range(20261110, 20261115))
 AUDIT_STEPS = (0, 50, 100, 200)
 AUDIT_DRAWS = 256
-EXCLUDED_ACTIONS = ("Human (postediting)",)
 
 
 def hash_features(text: str, dimensions: int = HASH_FEATURES) -> np.ndarray:
@@ -60,10 +60,14 @@ def machine_candidate_keys(
     all_keys: set[tuple[str, str]],
 ) -> set[tuple[str, str]]:
     observed_actions = {system for _, system in all_keys}
-    missing_exclusions = set(EXCLUDED_ACTIONS) - observed_actions
+    missing_exclusions = EXCLUDED_NON_MACHINE_SYSTEMS - observed_actions
     if missing_exclusions:
         raise ValueError(f"Expected excluded actions are absent: {sorted(missing_exclusions)}")
-    return {(context, action) for context, action in all_keys if action not in EXCLUDED_ACTIONS}
+    return {
+        (context, action)
+        for context, action in all_keys
+        if action not in EXCLUDED_NON_MACHINE_SYSTEMS
+    }
 
 
 def read_environment(
@@ -303,7 +307,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "policy_seeds": list(POLICY_SEEDS),
             "audit_steps": list(AUDIT_STEPS),
             "audit_draws": AUDIT_DRAWS,
-            "excluded_actions": list(EXCLUDED_ACTIONS),
+            "excluded_actions": sorted(EXCLUDED_NON_MACHINE_SYSTEMS),
             "exclusion_reason": "human-postedited output is an evaluation artifact, not a deployable MT action",
         },
         "environment": {

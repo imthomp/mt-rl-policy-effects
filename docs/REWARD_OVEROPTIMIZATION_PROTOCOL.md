@@ -100,9 +100,11 @@ summarizing any held-out quality scores.
 The WMT26 external check uses the same nested candidate counts through 16 and
 then the full Chinese-to-Japanese candidate pool, with the same deterministic
 permutation count, permutation seed, paired segment analysis, and cluster
-bootstrap resampling rule. Its retained mean cESA score is the human endpoint.
-This protocol-transfer result will not be used to retune the diagnostic or
-reward models.
+bootstrap resampling rule. The released `Human (postediting)` output is excluded
+before candidate permutations are built because it is an evaluation artifact,
+not a deployable MT-system action. Its retained mean cESA score is the human
+endpoint. This protocol-transfer result will not be used to retune the
+diagnostic or reward models.
 
 ## Launch boundary
 
