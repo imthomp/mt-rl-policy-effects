@@ -43,6 +43,8 @@ class PredictorConfirmationManifestTests(unittest.TestCase):
         split = result["calibration_evaluation_split"]
         self.assertEqual(len(split["calibration_document_ids"]), 2)
         self.assertEqual(len(split["calibration_segment_ids"]), 2)
+        self.assertEqual(len(split["optimization_segment_ids"]), 4)
+        self.assertEqual(len(split["unlabeled_optimization_segment_ids"]), 2)
         self.assertEqual(len(split["evaluation_document_ids"]), 1)
         self.assertTrue(
             set(split["calibration_document_ids"]).isdisjoint(split["evaluation_document_ids"])

@@ -135,13 +135,18 @@ def freeze_dataset(
             )
             for document in calibration_documents
         ]
+        optimization_segments = [
+            segment
+            for segment in included
+            if segment.split("|", 1)[0] in calibration_document_set
+        ]
         evaluation_segments = [
             segment
             for segment in included
             if segment.split("|", 1)[0] not in calibration_document_set
         ]
-        unused_same_document_segments = len(included) - len(calibration_segments) - len(
-            evaluation_segments
+        unlabeled_optimization_segments = sorted(
+            set(optimization_segments) - set(calibration_segments)
         )
         if not evaluation_segments:
             raise AssertionError("Document-disjoint evaluation set is empty")
@@ -153,9 +158,10 @@ def freeze_dataset(
             ),
             "calibration_document_ids": calibration_documents,
             "calibration_segment_ids": calibration_segments,
+            "optimization_segment_ids": optimization_segments,
+            "unlabeled_optimization_segment_ids": unlabeled_optimization_segments,
             "evaluation_document_ids": ordered_documents[calibration_document_count:],
             "evaluation_segment_ids": evaluation_segments,
-            "unused_segments_from_calibration_documents": unused_same_document_segments,
             "outcome_fields_accessed": [],
         }
     return result

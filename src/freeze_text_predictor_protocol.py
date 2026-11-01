@@ -68,6 +68,7 @@ def build(root: Path) -> dict[str, Any]:
             "secondary": "wmt23_zh_en",
             "calibration_documents_per_dataset": CALIBRATION_DOCUMENTS,
             "calibration_segments_per_document": 1,
+            "optimization": "all eligible segments from calibration documents; human labels opened only for the one frozen calibration segment per document",
             "evaluation": "all eligible segments in documents disjoint from calibration",
             "outcomes_at_freeze": "sealed",
         },
@@ -81,7 +82,7 @@ def build(root: Path) -> dict[str, Any]:
         },
         "predictor": {
             "name": "initial text-policy human/reward gradient cosine",
-            "reward_gradient_data": "all calibration-pool sources and frozen train systems; no human outcomes required",
+            "reward_gradient_data": "all eligible segments in calibration documents and frozen train systems; no human outcomes required",
             "human_gradient_data": "one frozen segment from each calibration document and frozen train systems",
             "reward_standardization": "mean zero and unit variance on the reward-gradient pool",
             "decision_rule": "optimize iff cosine > 0; ties and nonfinite values keep the initial policy",
