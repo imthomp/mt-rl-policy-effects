@@ -29,12 +29,14 @@ two matched-removal controls.  Increasing best-of-$N$ pressure lowers held-out
 human quality for every reward on both expert MQM and cESA candidate pools.
 Targeted filtering sometimes improves over the all-data reward but does not
 reliably beat matched removal.  In a finite-action contextual bandit, exact
-policy-gradient optimization of three rewards sharply reduces held-out cESA;
-a direction-matched reward instead remains diffuse and slightly improves it.
-Mechanism analysis shows that the failing policies learn strong preferences
-for one translation system.  The results establish reward overoptimization
-and sensitivity to reward-training composition, but not disagreement filtering
-as a remedy.  We release an exactly checkable bandit implementation and
+policy-gradient optimization of three rewards sharply reduces held-out cESA.
+A direction-matched reward appears to avoid this, but the contrast is a
+reward-seed effect: across retrained seeds and longer optimization, every
+reward instance falls below uniform selection.  Mechanism analysis shows that the failing
+policies learn strong preferences for one translation system, yet a policy
+with no system identity also loses quality on unseen systems.  The results
+establish reward overoptimization, but not disagreement filtering or any
+tested training composition as a remedy.  We release an exactly checkable bandit implementation and
 source-traced paper statistics.
 \end{abstract}
 
@@ -48,11 +50,20 @@ rewards \citep{he-etal-2024-improving}.  A reward's training labels are one
 possible source of the mismatch.
 
 AmanaMT reported large variation in metric--human agreement across translation
-directions \citep{thompson-2026-amanamt}.  Subsequent auditing found that some
-of this pattern aligns with changes in annotation protocol.  Expert MQM can
+directions \citep{thompson-2026-amanamt}.  Motivated by that observation, we
+conduct a separate audit here and find that some of the pattern aligns with
+changes in annotation protocol.  Expert MQM can
 produce different conclusions from crowd ratings \citep{freitag-etal-2021-experts},
 and the shared-task organizers explicitly cautioned against segment-level use
 of reference-based direct assessment \citep{freitag-etal-2022-results}.
+
+Reward-model benchmarks increasingly evaluate whether pre-optimization tests
+predict downstream selection or training behavior
+\citep{zhou-etal-2025-rmb,malik-etal-2025-rewardbench2,kim-etal-2025-rethinking}.
+Our contribution is narrower than establishing
+that development accuracy can fail: we give an exactly checkable MT test bed,
+trace failure across reward-training seeds and optimization pressure, and test
+whether it persists when complete translation systems are held out.
 
 We turn that diagnosis into a falsifiable intervention: remove language-pair
 by year slices where two automatic metrics agree much more strongly with each
@@ -62,11 +73,11 @@ optimization pressure, beyond simply training on fewer labels.
 
 Our answer is negative but informative.  All learned rewards exhibit offline
 overoptimization.  The targeted condition does not consistently outperform
-matched controls, while an earlier-year direction-matched control behaves very
-differently during policy optimization.  This shifts the conclusion from
-``bad labels can be detected and removed'' to a narrower one: reward behavior
-is highly sensitive to training-data composition, and the present diagnostic
-does not identify a sufficient correction.
+matched controls, and an earlier-year direction-matched control that first
+appears safe does not replicate across reward seeds.  This shifts the conclusion
+from ``bad labels can be detected and removed'' to a narrower one: every tested
+reward fails under enough optimization, and the present diagnostic does not
+identify a sufficient correction.
 
 \section{Metric--annotation disagreement}
 
@@ -202,21 +213,22 @@ dashed lines average REINFORCE seeds, with shaded seed ranges.}
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{lrrr}
 \toprule
-Reward & Final cESA & $\Delta$ uniform & Interval \\
+Reward data & Mean cESA & SD & Reward seeds \\
 \midrule
-All & \AllBanditCesa & \AllBanditChange & [\AllBanditLow, \AllBanditHigh] \\
-Filtered & \FilteredBanditCesa & \FilteredBanditChange & [\FilteredBanditLow, \FilteredBanditHigh] \\
-Random & \RandomBanditCesa & \RandomBanditChange & [\RandomBanditLow, \RandomBanditHigh] \\
-Direction/year & \DirectionBanditCesa & \DirectionBanditChange & [\DirectionBanditLow, \DirectionBanditHigh] \\
+All & \AllSeedFinalMean & \AllSeedFinalSd & \SeedCount \\
+Filtered & \FilteredSeedFinalMean & \FilteredSeedFinalSd & \SeedCount \\
+Random & \RandomSeedFinalMean & \RandomSeedFinalSd & \SeedCount \\
+Direction/year & \DirectionSeedFinalMean & \DirectionSeedFinalSd & \SeedCount \\
 \bottomrule
 \end{tabular}
-\caption{Exact-gradient expected held-out cESA after optimization.  Uniform
-selection has cESA \UniformCesa{}; intervals use document-clustered bootstrap.}
+\caption{Exact-gradient held-out cESA after \HorizonFinalStep{} updates, summarized
+across independently trained reward checkpoints.  SD is across reward seeds,
+not a confidence interval; uniform selection has cESA \UniformCesa{}.}
 \label{tab:bandit}
 \end{table}
 
-Three rewards learn policies far below uniform selection
-(Table~\ref{tab:bandit}).  Their most probable action is the same system,
+In the initial single-checkpoint trajectories (Figure~\ref{fig:bandit}), three
+rewards learn policies far below uniform selection.  Their most probable action is the same system,
 receiving mean probabilities \AllTopProbability{}, \FilteredTopProbability{},
 and \RandomTopProbability{} under all-data, filtered, and random rewards.  The
 direction-matched policy remains comparatively diffuse: its most probable
@@ -224,39 +236,95 @@ system receives \DirectionTopProbability{}.  The failure is therefore largely
 system preference, not evidence that the source-conditioned policy discovered
 useful translation routing.
 
+The diffuse result does not show that the direction-matched reward is safe.  Its
+policy has barely left uniform selection after \BanditUpdates{} updates, with
+entropy \DirectionFrozenEntropy{}, and the candidates it scores highest have
+mean cESA \DirectionProxyBest{}.  We therefore continued the same exact
+optimization to \HorizonFinalStep{} updates, with one reward checkpoint per
+condition.  When its entropy reaches \HorizonMatchedEntropy{}, the level of the
+random-removal policy at the original horizon, its held-out cESA is
+\DirectionHorizonMatched{}, far below uniform selection at \UniformCesa{}.  The
+direction-matched reward is slower to fail, not robust.  At
+\HorizonFinalStep{} updates it ends at \DirectionHorizonFinal{}, against
+\AllHorizonFinal{}, \FilteredHorizonFinal{}, and \RandomHorizonFinal{} for the
+other rewards, but that gap comes from one checkpoint per condition.
+
+\paragraph{Reward-seed replication.}
+We therefore retrained every condition across \SeedCount{} reward seeds and
+repeated exact optimization.  The contrast does not replicate.  At the original
+horizon, seeds of the same condition range from \DirectionSeedFrozenMin{} to
+\DirectionSeedFrozenMax{} for direction-matched rewards, and an unfiltered seed
+reaches \AllSeedFrozenMax{} and a random-removal seed \RandomSeedFrozenMax{}.
+Only \SeedCellsAboveFrozen{} of \SeedCells{} reward instances are above uniform
+at that horizon, and they are those whose policies have hardly moved: human
+quality and policy entropy have Spearman correlation \SeedEntropySpearman{}
+across instances.  At \HorizonFinalStep{} updates, \SeedCellsBelowFinal{} of
+\SeedCells{} instances are below uniform (Table~\ref{tab:bandit}), with means
+\AllSeedFinalMean{}, \FilteredSeedFinalMean{}, \RandomSeedFinalMean{}, and
+\DirectionSeedFinalMean{} and standard deviations of
+\AllSeedFinalSd{}, \FilteredSeedFinalSd{}, \RandomSeedFinalSd{}, and
+\DirectionSeedFinalSd{}.  The condition means overlap the substantial
+within-condition reward-seed variation; the present experiment does not
+establish a reliable condition effect.
+
+\paragraph{Unseen systems.}
+System preference could reflect memorized system identity.  We therefore replace
+system logits with one shared linear scorer over frozen \TextPolicyEncoder{}
+embeddings of each source--candidate pair.  The policy trains on
+\TextPolicyTrainSystems{} systems and is evaluated on
+\TextPolicyHeldoutSystems{} different systems and on unseen documents.  Human
+cESA on that split changes by \AllTextChange{} [\AllTextLow{}, \AllTextHigh{}]
+for all-data, \FilteredTextChange{} [\FilteredTextLow{}, \FilteredTextHigh{}]
+for filtered, \RandomTextChange{} [\RandomTextLow{}, \RandomTextHigh{}] for
+random-removal, and \DirectionTextChange{} [\DirectionTextLow{},
+\DirectionTextHigh{}] for direction-matched rewards.  The failure therefore
+does not depend on memorizing system names.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/text_policy_bandit.pdf}
+\caption{Source--candidate-text policies on documents and systems absent from
+policy training.  Exact-gradient trajectories are solid; dashed trajectories
+summarize REINFORCE runs.  Held-out proxy reward rises while human cESA falls.}
+\label{fig:textpolicy}
+\end{figure*}
+
 \section{Discussion}
 
 The study supports two conclusions.  First, modest development correlation
 does not prevent substantial overoptimization under either best-of-$N$ or
-policy gradients.  Second, reward-training composition matters: replacing
-later into-English data with earlier slices produces qualitatively different
-policy behavior.  What it does not show is equally important.  The diagnostic
+policy gradients, even without system identity.  Second, an apparently safe
+reward can be an unfinished optimization: reward seed changes when failure
+arrives, and no tested condition prevents it.  What the study does not show
+is equally important.  The diagnostic
 flags dataset slices, not individual wrong labels; filtering does not reliably
-beat matched removal; and one checkpoint per condition cannot separate a small
-data effect from reward-training variability.
+beat matched removal; and a single checkpoint per condition would have
+mistaken reward-training variability for a data effect, as our first run did.
 
 The bandit offers an exact RL test bed but cannot generate translations outside
-its candidate pool.  Its fixed system actions also make system identity easy to
-learn.  A stronger next experiment should score source--candidate text and hold
-out complete systems, followed by multiple independently trained reward
-checkpoints.  Generative RL would additionally require independent evaluation
-of newly produced translations.
+its candidate pool.  Holding out complete systems shows that direct system
+identity is not necessary for failure, but textual style may still reveal a
+system indirectly.  A prospective next experiment should ask whether cheap
+pre-optimization diagnostics predict failure at matched entropy or KL across
+new reward seeds and untouched human-rated data.  Generative RL would
+additionally require independent evaluation of newly produced translations.
 
 \section{Conclusion}
 
 Optimizing learned MT rewards consistently exposes weaknesses that ordinary
 development correlation obscures.  Metric--annotation disagreement is useful
 for defining a targeted audit, but the present evidence does not validate it
-as a filtering remedy.  The most robust finding is broader: label composition
-can determine whether reward optimization mildly improves or catastrophically
-reduces human-rated quality.
+as a filtering remedy.  The most robust finding is broader: every tested reward
+loses human-rated quality under enough optimization, so a short run that looks
+safe is not evidence of a safe reward.
 
 \section*{Limitations}
 
 The diagnostic uses automatic metrics that overlap historically with some DA
 training slices.  Matched controls cannot match system composition because the
 source DA release omits system identifiers.  Holdouts differ in languages and
-human protocols.  There is one reward-training seed per condition.  The
+human protocols.  Offline best-of-$N$ and text-policy results use one reward-training seed per
+condition, so their intervals omit reward-training variability.  The
 contextual policy selects among fixed systems and its test set is
 source-disjoint, not an untouched confirmation set for the broader hypothesis.
 

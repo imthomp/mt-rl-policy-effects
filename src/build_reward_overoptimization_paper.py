@@ -37,6 +37,10 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
     wmt26 = root["wmt26_best_of_n"]
     bandit = root["bandit_mechanism"]
     bandit_run = root["contextual_bandit"]
+    text_policy = root["text_policy_bandit"]
+    text_mechanism = root["text_policy_mechanism"]
+    horizon = root["bandit_horizon"]
+    seeds = root["bandit_seed_replication"]
 
     wmt25_first = str(wmt25["pool_sizes"][0])
     wmt25_full = str(wmt25["candidate_pool_size"])
@@ -49,6 +53,8 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
         w26 = wmt26["conditions"][condition]
         exact = bandit["conditions"][condition]["exact_policy"]
         top = bandit["conditions"][condition]["top_mean_action_probabilities"][0]
+        text_exact = text_policy["conditions"][condition]["primary_exact"]
+        text_top = text_mechanism["conditions"][condition]["system_rows"][0]
         conditions[condition] = {
             "label": condition_label(condition),
             "excluded_slice_count": len(training["conditions"][condition]["excluded_slices"]),
@@ -64,6 +70,10 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
             ),
             "bandit_exact": exact,
             "bandit_top_action": top,
+            "text_policy_exact": text_exact,
+            "text_policy_top_system": text_top,
+            "bandit_horizon": horizon["conditions"][condition],
+            "bandit_seeds": seeds["conditions"][condition],
         }
 
     wmt25_contrasts = wmt25["selection_results"]["combined"]["contrasts"]
@@ -124,6 +134,23 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
                 "independent_reconstruction_matches_recorded_metrics"
             ],
         },
+        "seeds": {key: value for key, value in seeds.items() if key != "conditions"},
+        "horizon": {
+            "final_step": horizon["final_step"],
+            "matched_entropy": horizon["matched_entropy"],
+        },
+        "text_policy": {
+            "contexts": text_mechanism["contexts"],
+            "heldout_systems": text_mechanism["systems"],
+            "train_systems": len(text_policy["environment"]["train_systems"]),
+            "updates": text_policy["protocol"]["steps"],
+            "policy_seeds": len(text_policy["protocol"]["policy_seeds"]),
+            "encoder_name": text_policy["protocol"]["encoder_name"],
+            "encoder_revision": text_policy["protocol"]["encoder_revision"],
+            "independent_reconstruction": text_mechanism[
+                "independent_reconstruction_matches_recorded_metrics"
+            ],
+        },
         "conditions": conditions,
         "targeted_contrasts": targeted_contrasts,
     }
@@ -136,6 +163,7 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
         "training_conditions": {},
         "best_of_n": {},
         "bandit": {},
+        "text_policy": {},
         "targeted_contrasts": {},
     }
     for condition in CONDITIONS:
@@ -147,6 +175,7 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
             "wmt25_full_human_mqm",
             "wmt26_full_human_cesa",
             "bandit_exact",
+            "text_policy_exact",
         }
         if not required <= set(row):
             raise AssertionError(f"Incomplete paper row: {condition}")
@@ -158,7 +187,15 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
             f"wmt25_best_of_n.selection_results.combined.conditions.{condition}; "
             f"wmt26_best_of_n.conditions.{condition}"
         )
-        traces["bandit"][condition] = f"bandit_mechanism.conditions.{condition}.exact_policy"
+        traces["bandit"][condition] = (
+            f"bandit_mechanism.conditions.{condition}.exact_policy; "
+            f"bandit_horizon.conditions.{condition}; "
+            f"bandit_seed_replication.conditions.{condition} from results/bandit_seeds/seed_*.json"
+        )
+        traces["text_policy"][condition] = (
+            f"text_policy_bandit.conditions.{condition}.primary_exact; "
+            f"text_policy_mechanism.conditions.{condition}"
+        )
     for comparator, row in result["targeted_contrasts"].items():
         for endpoint in ("wmt25_full", "wmt26_full"):
             if not {"mean", "ci_low", "ci_high", "segments"} <= set(row[endpoint]):
@@ -191,6 +228,7 @@ def render_macros(path: Path, result: dict[str, Any]) -> None:
     diagnostic = result["diagnostic"]
     reward = result["reward_training"]
     bandit = result["bandit"]
+    text_policy = result["text_policy"]
     macros: dict[str, str] = {
         "DiagnosticSlices": f"{diagnostic['slice_count']:,}",
         "DiagnosticFlagged": f"{diagnostic['flagged_slice_count']:,}",
@@ -215,6 +253,12 @@ def render_macros(path: Path, result: dict[str, Any]) -> None:
         "BanditUpdates": f"{bandit['updates']:,}",
         "BanditSeeds": str(bandit["policy_seeds"]),
         "UniformCesa": f"{bandit['uniform_human']['mean']:.2f}",
+        "TextPolicyContexts": f"{text_policy['contexts']:,}",
+        "TextPolicyTrainSystems": f"{text_policy['train_systems']:,}",
+        "TextPolicyHeldoutSystems": f"{text_policy['heldout_systems']:,}",
+        "TextPolicyUpdates": f"{text_policy['updates']:,}",
+        "TextPolicySeeds": str(text_policy["policy_seeds"]),
+        "TextPolicyEncoder": text_policy["encoder_name"].replace("FacebookAI/", ""),
         "WMTPrimaryName": "WMT25",
         "WMTExternalName": "WMT26",
     }
@@ -233,6 +277,30 @@ def render_macros(path: Path, result: dict[str, Any]) -> None:
         macros[f"{name}BanditLow"] = signed(change["ci_low"], 2)
         macros[f"{name}BanditHigh"] = signed(change["ci_high"], 2)
         macros[f"{name}TopProbability"] = f"{row['bandit_top_action']['probability']:.3f}"
+        text_change = row["text_policy_exact"]["human_change_from_uniform"]
+        macros[f"{name}TextCesa"] = f"{row['text_policy_exact']['human_cesa']:.2f}"
+        macros[f"{name}TextChange"] = signed(text_change["mean"], 2)
+        macros[f"{name}TextLow"] = signed(text_change["ci_low"], 2)
+        macros[f"{name}TextHigh"] = signed(text_change["ci_high"], 2)
+        macros[f"{name}TextTopProbability"] = (
+            f"{row['text_policy_top_system']['mean_probability']:.3f}"
+        )
+        macros[f"{name}HorizonFinal"] = f"{row['bandit_horizon']['final_human_cesa']:.2f}"
+        macros[f"{name}HorizonMatched"] = f"{row['bandit_horizon']['matched_human_cesa']:.2f}"
+        macros[f"{name}HorizonMatchedStep"] = f"{row['bandit_horizon']['matched_step']:,}"
+        macros[f"{name}FrozenEntropy"] = f"{row['bandit_horizon']['frozen_entropy']:.2f}"
+        macros[f"{name}ProxyBest"] = f"{row['bandit_horizon']['proxy_best_human_cesa']:.2f}"
+        macros[f"{name}SeedFrozenMin"] = f"{row['bandit_seeds']['frozen_min']:.2f}"
+        macros[f"{name}SeedFrozenMax"] = f"{row['bandit_seeds']['frozen_max']:.2f}"
+        macros[f"{name}SeedFinalMean"] = f"{row['bandit_seeds']['final_mean']:.2f}"
+        macros[f"{name}SeedFinalSd"] = f"{row['bandit_seeds']['final_sd']:.2f}"
+    macros["SeedCount"] = str(result["seeds"]["reward_seeds"])
+    macros["SeedCells"] = str(result["seeds"]["cells"])
+    macros["SeedCellsBelowFinal"] = str(result["seeds"]["cells_below_uniform_final"])
+    macros["SeedCellsAboveFrozen"] = str(result["seeds"]["cells_above_uniform_frozen"])
+    macros["SeedEntropySpearman"] = f"{result['seeds']['spearman_entropy_human_frozen']:.2f}"
+    macros["HorizonFinalStep"] = f"{result['horizon']['final_step']:,}"
+    macros["HorizonMatchedEntropy"] = f"{result['horizon']['matched_entropy']:.2f}"
     for comparator, row in result["targeted_contrasts"].items():
         name = macro_name(comparator)
         for endpoint, prefix in (("wmt25_full", "Primary"), ("wmt26_full", "External")):

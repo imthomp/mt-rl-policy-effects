@@ -37,12 +37,14 @@ venv/
 !/scripts/slurm/run_wmt25_reward_scoring.sbatch
 !/scripts/slurm/run_wmt26_reward_scoring.sbatch
 !/scripts/slurm/run_contextual_bandit.sbatch
+!/scripts/slurm/run_text_policy_bandit.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/
 /artifacts/runs/
 /artifacts/reward_models/
 /artifacts/bandit/
+/artifacts/verification/
 /artifacts/logs/*
 !/artifacts/logs/.gitkeep
 *.out
