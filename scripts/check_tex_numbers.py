@@ -14,6 +14,10 @@ STRUCTURAL_EXCEPTIONS = (
     re.compile(r"\\cite[a-zA-Z*]*\{[^}]+\}"),
     # Mathematical zero vector in an analytic identity, not an empirical quantity.
     re.compile(r"\\mathbf\{0\}"),
+    # LaTeX table column span, a structural layout argument.
+    re.compile(r"\\multicolumn\{\d+\}"),
+    # Table padding is a typographic dimension, not a data-derived claim.
+    re.compile(r"\\setlength\{\\tabcolsep\}\{\d+(?:\.\d+)?pt\}"),
 )
 
 

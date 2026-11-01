@@ -1,0 +1,7 @@
+% Reuse the pinned official ACL style without duplicating it in this draft.
+\let\RewardPaperOriginalBibliographyStyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{%
+  \RewardPaperOriginalBibliographyStyle{../tokenization_acl/#1}%
+}
+\input{../tokenization_acl/acl.sty}
+\let\bibliographystyle\RewardPaperOriginalBibliographyStyle

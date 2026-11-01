@@ -17679,6 +17679,281 @@
     },
     "status": "complete_models_frozen_before_human_outcome_access"
   },
+  "reward_overoptimization_paper": {
+    "bandit": {
+      "actions": 30,
+      "contexts": 541,
+      "independent_reconstruction": true,
+      "policy_seeds": 5,
+      "test_contexts": 174,
+      "test_documents": 56,
+      "train_contexts": 367,
+      "uniform_human": {
+        "ci_high": 72.41571475497815,
+        "ci_low": 56.306292460346576,
+        "document_clusters": 56,
+        "mean": 66.26684227330779,
+        "segments": 174
+      },
+      "updates": 200
+    },
+    "claim_boundary": "Reward optimization is sensitive to reward-training composition; metric-annotation disagreement filtering is not established as superior to matched removal.",
+    "conditions": {
+      "all_data": {
+        "bandit_exact": {
+          "entropy": 1.3662692308425903,
+          "human_cesa": 33.07445315864849,
+          "human_change_from_uniform": {
+            "ci_high": -21.386006495678934,
+            "ci_low": -43.38882933956178,
+            "document_clusters": 56,
+            "mean": -33.1923891146593,
+            "segments": 174
+          },
+          "kl_from_uniform": 2.034928321838379,
+          "raw_proxy": -0.07086171895513918,
+          "standardized_proxy": 0.35965239616455613
+        },
+        "bandit_top_action": {
+          "probability": 0.7336017489433289,
+          "system": "Tiny Aya Global"
+        },
+        "development_spearman": 0.43796842561469734,
+        "excluded_slice_count": 0,
+        "label": "All data",
+        "removed_source_rows": 0,
+        "wmt25_change_first_to_full": -0.5849170731707307,
+        "wmt25_full_human_mqm": {
+          "ci_high": -6.617317073170732,
+          "ci_low": -9.172689024390245,
+          "mean": -7.862439024390245,
+          "segments": 410
+        },
+        "wmt26_change_first_to_full": -19.659681146025875,
+        "wmt26_full_human_cesa": {
+          "ci_high": 48.23340264941466,
+          "ci_low": 41.25997381392482,
+          "mean": 44.699630314232905,
+          "segments": 541
+        }
+      },
+      "diagnostic_filtered": {
+        "bandit_exact": {
+          "entropy": 1.4654061794281006,
+          "human_cesa": 33.86335485893804,
+          "human_change_from_uniform": {
+            "ci_high": -19.881882791994165,
+            "ci_low": -43.435969732754685,
+            "document_clusters": 56,
+            "mean": -32.40348741436975,
+            "segments": 174
+          },
+          "kl_from_uniform": 1.935791254043579,
+          "raw_proxy": -0.11186650017582817,
+          "standardized_proxy": 0.5863815934742757
+        },
+        "bandit_top_action": {
+          "probability": 0.6952223777770996,
+          "system": "Tiny Aya Global"
+        },
+        "development_spearman": 0.4485709640988949,
+        "excluded_slice_count": 14,
+        "label": "Disagreement-filtered",
+        "removed_source_rows": 239364,
+        "wmt25_change_first_to_full": -0.1951609756097552,
+        "wmt25_full_human_mqm": {
+          "ci_high": -6.37755487804878,
+          "ci_low": -8.65101219512195,
+          "mean": -7.472682926829269,
+          "segments": 410
+        },
+        "wmt26_change_first_to_full": -17.990703943314855,
+        "wmt26_full_human_cesa": {
+          "ci_high": 49.946164510166355,
+          "ci_low": 42.866566543438076,
+          "mean": 46.368607516943925,
+          "segments": 541
+        }
+      },
+      "direction_matched_earlier_year": {
+        "bandit_exact": {
+          "entropy": 3.337989091873169,
+          "human_cesa": 67.92194957924308,
+          "human_change_from_uniform": {
+            "ci_high": 2.1017407664177874,
+            "ci_low": 1.2343455210538048,
+            "document_clusters": 56,
+            "mean": 1.6551073059352843,
+            "segments": 174
+          },
+          "kl_from_uniform": 0.06320834159851074,
+          "raw_proxy": -0.0713401068156877,
+          "standardized_proxy": 0.07567491746084336
+        },
+        "bandit_top_action": {
+          "probability": 0.05635290965437889,
+          "system": "MakotoAI"
+        },
+        "development_spearman": 0.4338682927152448,
+        "excluded_slice_count": 14,
+        "label": "Direction-matched earlier year",
+        "removed_source_rows": 247332,
+        "wmt25_change_first_to_full": -0.33467317073170566,
+        "wmt25_full_human_mqm": {
+          "ci_high": -6.465609756097561,
+          "ci_low": -8.823182926829267,
+          "mean": -7.61219512195122,
+          "segments": 410
+        },
+        "wmt26_change_first_to_full": -16.324037276648177,
+        "wmt26_full_human_cesa": {
+          "ci_high": 51.531211491065925,
+          "ci_low": 44.52000539125076,
+          "mean": 48.0352741836106,
+          "segments": 541
+        }
+      },
+      "global_random_2": {
+        "bandit_exact": {
+          "entropy": 2.013519287109375,
+          "human_cesa": 39.667635000149374,
+          "human_change_from_uniform": {
+            "ci_high": -15.216304954565363,
+            "ci_low": -36.34424083533147,
+            "document_clusters": 56,
+            "mean": -26.599207273158413,
+            "segments": 174
+          },
+          "kl_from_uniform": 1.3876781463623047,
+          "raw_proxy": -0.08600229769532029,
+          "standardized_proxy": 0.28836749309645704
+        },
+        "bandit_top_action": {
+          "probability": 0.5638984441757202,
+          "system": "Tiny Aya Global"
+        },
+        "development_spearman": 0.4315431497717165,
+        "excluded_slice_count": 14,
+        "label": "Size-matched random",
+        "removed_source_rows": 235497,
+        "wmt25_change_first_to_full": -0.5171121951219497,
+        "wmt25_full_human_mqm": {
+          "ci_high": -6.643884146341463,
+          "ci_low": -9.041469512195121,
+          "mean": -7.794634146341464,
+          "segments": 410
+        },
+        "wmt26_change_first_to_full": -17.9329405422058,
+        "wmt26_full_human_cesa": {
+          "ci_high": 49.99383857054837,
+          "ci_low": 42.92964417744917,
+          "mean": 46.42637091805298,
+          "segments": 541
+        }
+      }
+    },
+    "diagnostic": {
+      "bootstrap_resamples": 2000,
+      "definition": "Spearman(COMET,BLEURT) minus Spearman(COMET,DA)",
+      "flagged_slice_count": 14,
+      "inconclusive_slice_count": 9,
+      "sample_rows": 87000,
+      "slice_count": 87,
+      "threshold": 0.5
+    },
+    "reward_training": {
+      "development_rows": 5000,
+      "model_name": "FacebookAI/xlm-roberta-base",
+      "reward_checkpoint_seeds_per_condition": 1,
+      "steps": 500,
+      "train_rows_per_condition": 50000
+    },
+    "status": "initial_manuscript_draft",
+    "table_row_trace": {
+      "bandit": {
+        "all_data": "bandit_mechanism.conditions.all_data.exact_policy",
+        "diagnostic_filtered": "bandit_mechanism.conditions.diagnostic_filtered.exact_policy",
+        "direction_matched_earlier_year": "bandit_mechanism.conditions.direction_matched_earlier_year.exact_policy",
+        "global_random_2": "bandit_mechanism.conditions.global_random_2.exact_policy"
+      },
+      "best_of_n": {
+        "all_data": "wmt25_best_of_n.selection_results.combined.conditions.all_data; wmt26_best_of_n.conditions.all_data",
+        "diagnostic_filtered": "wmt25_best_of_n.selection_results.combined.conditions.diagnostic_filtered; wmt26_best_of_n.conditions.diagnostic_filtered",
+        "direction_matched_earlier_year": "wmt25_best_of_n.selection_results.combined.conditions.direction_matched_earlier_year; wmt26_best_of_n.conditions.direction_matched_earlier_year",
+        "global_random_2": "wmt25_best_of_n.selection_results.combined.conditions.global_random_2; wmt26_best_of_n.conditions.global_random_2"
+      },
+      "targeted_contrasts": {
+        "all_data": "wmt25_best_of_n...diagnostic_filtered_minus_all_data; wmt26_best_of_n...diagnostic_filtered_minus_all_data",
+        "direction_matched_earlier_year": "wmt25_best_of_n...diagnostic_filtered_minus_direction_matched_earlier_year; wmt26_best_of_n...diagnostic_filtered_minus_direction_matched_earlier_year",
+        "global_random_2": "wmt25_best_of_n...diagnostic_filtered_minus_global_random_2; wmt26_best_of_n...diagnostic_filtered_minus_global_random_2"
+      },
+      "training_conditions": {
+        "all_data": "reward_training_conditions.conditions.all_data; reward_model_development.conditions.all_data",
+        "diagnostic_filtered": "reward_training_conditions.conditions.diagnostic_filtered; reward_model_development.conditions.diagnostic_filtered",
+        "direction_matched_earlier_year": "reward_training_conditions.conditions.direction_matched_earlier_year; reward_model_development.conditions.direction_matched_earlier_year",
+        "global_random_2": "reward_training_conditions.conditions.global_random_2; reward_model_development.conditions.global_random_2"
+      }
+    },
+    "targeted_contrasts": {
+      "all_data": {
+        "wmt25_full": {
+          "ci_high": 1.2476158536585358,
+          "ci_low": -0.4063719512195122,
+          "mean": 0.3897560975609756,
+          "segments": 410
+        },
+        "wmt26_full": {
+          "ci_high": 3.41807224276032,
+          "ci_low": 0.007605514479359255,
+          "mean": 1.6689772027110288,
+          "segments": 541
+        }
+      },
+      "direction_matched_earlier_year": {
+        "wmt25_full": {
+          "ci_high": 0.8480548780487804,
+          "ci_low": -0.5407378048780487,
+          "mean": 0.13951219512195123,
+          "segments": 410
+        },
+        "wmt26_full": {
+          "ci_high": 0.3242452248921749,
+          "ci_low": -3.6860944239063462,
+          "mean": -1.6666666666666667,
+          "segments": 541
+        }
+      },
+      "global_random_2": {
+        "wmt25_full": {
+          "ci_high": 1.101036585365853,
+          "ci_low": -0.43073170731707316,
+          "mean": 0.32195121951219513,
+          "segments": 410
+        },
+        "wmt26_full": {
+          "ci_high": 1.7498844731977814,
+          "ci_low": -1.85620764017252,
+          "mean": -0.05776340110905741,
+          "segments": 541
+        }
+      }
+    },
+    "wmt25": {
+      "candidate_pool_size": 18,
+      "human_endpoint": "MQM score; higher is better",
+      "permutations": 100,
+      "segments": 410
+    },
+    "wmt26": {
+      "candidate_pool_size": 30,
+      "excluded_non_machine_systems": [
+        "Human (postediting)"
+      ],
+      "human_endpoint": "cESA; higher is better",
+      "permutations": 100,
+      "segments": 541
+    }
+  },
   "reward_training_conditions": {
     "conditions": {
       "all_data": {
