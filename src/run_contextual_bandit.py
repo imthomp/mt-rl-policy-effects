@@ -15,6 +15,7 @@ import numpy as np
 
 from analyze_wmt25_best_of_n import CONDITIONS
 from score_wmt26_cesa_candidates import CAMPAIGN_MEMBER
+from audit_reward_holdouts import sha256_file
 
 
 HASH_FEATURES = 512
@@ -298,6 +299,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         },
         "conditions": {},
     }
+    probability_arrays: dict[str, np.ndarray] = {}
     for condition_index, condition in enumerate(CONDITIONS):
         reward_raw_np = rewards_np[condition]
         mean = float(reward_raw_np[train_np].mean())
@@ -324,6 +326,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 }
                 for step, (weights, bias) in sorted(checkpoints.items())
             ]
+            final_weights, final_bias = checkpoints[STEPS]
+            probability_arrays[f"{condition}__reinforce__{seed}"] = torch.softmax(
+                features @ final_weights + final_bias, dim=-1
+            ).cpu().numpy()
+        final_weights, final_bias = exact[STEPS]
+        probability_arrays[f"{condition}__exact"] = torch.softmax(
+            features @ final_weights + final_bias, dim=-1
+        ).cpu().numpy()
         audits = {}
         for step in AUDIT_STEPS:
             weights, bias = exact[step]
@@ -380,6 +390,20 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "trajectories": trajectories,
             "tabular_trajectories": tabular,
         }
+    args.probabilities_output.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(
+        args.probabilities_output,
+        contexts=np.asarray(contexts),
+        actions=np.asarray(actions),
+        train_indices=train_np,
+        test_indices=test_np,
+        **probability_arrays,
+    )
+    result["probability_artifact"] = {
+        "path": str(args.probabilities_output.relative_to(Path(__file__).resolve().parents[1])),
+        "sha256": sha256_file(args.probabilities_output),
+        "arrays": len(probability_arrays),
+    }
     return result
 
 
@@ -397,6 +421,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prediction-root", type=Path, default=root / "artifacts/reward_models/wmt26_predictions")
     parser.add_argument("--campaign-archive", type=Path, default=root / "data/reward_da/wmt26-campaign_sources.zip")
     parser.add_argument("--output", type=Path, default=root / "results/paper_stats.json")
+    parser.add_argument(
+        "--probabilities-output",
+        type=Path,
+        default=root / "artifacts" / "bandit" / "final_action_probabilities.npz",
+    )
     return parser.parse_args()
 
 

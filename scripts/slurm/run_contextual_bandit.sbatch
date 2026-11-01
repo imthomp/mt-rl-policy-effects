@@ -17,4 +17,5 @@ TRAINING_PYTHON="${TRAINING_PYTHON:-${HOME}/projects/multilingual-mqm-benchmark/
 "$TRAINING_PYTHON" -u src/run_contextual_bandit.py \
   --prediction-root artifacts/reward_models/wmt26_predictions \
   --campaign-archive data/reward_da/wmt26-campaign_sources.zip \
+  --probabilities-output artifacts/bandit/final_action_probabilities.npz \
   --output results/paper_stats.json
