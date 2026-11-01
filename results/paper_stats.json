@@ -461,6 +461,828 @@
       "flag_when": "lower endpoint > 0.50"
     }
   },
+  "reward_da_slice_diagnostics": {
+    "bleurt_metadata": {
+      "complete": true,
+      "completed_rows": 87000,
+      "input_path": "data/reward_da/diagnostic_sample.jsonl",
+      "input_sha256": "a669dabcf6d94dac1902009c561f720334cda0e2f7eae612b0c407700fc31e21",
+      "metric": "bleurt",
+      "model_name": "Elron/bleurt-large-512",
+      "model_snapshot_hash": "00397b0917e464c5ca1a45db156d0b836cd65e97",
+      "output_path": "artifacts/diagnostics/da_diagnostic_bleurt.jsonl",
+      "output_sha256": "fb49f203eebd70f93df602c3815e9f440a3ccd53b4373bb72736a3af9b8b8274",
+      "slurm_array_task_id": "1",
+      "slurm_job_id": "14943747",
+      "total_rows": 87000
+    },
+    "bootstrap_resamples": 2000,
+    "comet_metadata": {
+      "complete": true,
+      "completed_rows": 87000,
+      "input_path": "data/reward_da/diagnostic_sample.jsonl",
+      "input_sha256": "a669dabcf6d94dac1902009c561f720334cda0e2f7eae612b0c407700fc31e21",
+      "metric": "comet",
+      "model_name": "Unbabel/wmt22-comet-da",
+      "model_snapshot_hash": "2760a223ac957f30acfb18c8aa649b01cf1d75f2",
+      "output_path": "artifacts/diagnostics/da_diagnostic_comet.jsonl",
+      "output_sha256": "30abf75c537c68f81062f8020a67d38cbea74e7567868e37fddca514cb9a2452",
+      "slurm_array_task_id": "0",
+      "slurm_job_id": "14943748",
+      "total_rows": 87000
+    },
+    "flagged_slice_count": 14,
+    "inconclusive_slice_count": 9,
+    "rows": [
+      {
+        "d2": 0.3207393223722722,
+        "d2_ci_lower": 0.23706851041973986,
+        "d2_ci_upper": 0.3976705346955819,
+        "decision": "retained_clear",
+        "language_pair": "bn-hi",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.178651087979545,
+        "d2_ci_lower": 0.1451577796739917,
+        "d2_ci_upper": 0.21528859331439862,
+        "decision": "retained_clear",
+        "language_pair": "cs-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.31165178272049415,
+        "d2_ci_lower": 0.26820483396046524,
+        "d2_ci_upper": 0.3551145288520119,
+        "decision": "retained_clear",
+        "language_pair": "cs-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.5346990286224628,
+        "d2_ci_lower": 0.4723957269887748,
+        "d2_ci_upper": 0.595254048175088,
+        "decision": "inconclusive_retain",
+        "language_pair": "cs-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.7694111689153851,
+        "d2_ci_lower": 0.69526260157767,
+        "d2_ci_upper": 0.8396320571988685,
+        "decision": "flagged",
+        "language_pair": "cs-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.7499239817693331,
+        "d2_ci_lower": 0.6845937728370103,
+        "d2_ci_upper": 0.8138817881974355,
+        "decision": "flagged",
+        "language_pair": "cs-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": -0.16184761867463204,
+        "d2_ci_lower": -0.21673992381351137,
+        "d2_ci_upper": -0.1104814203557514,
+        "decision": "retained_clear",
+        "language_pair": "de-cs",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.2851603398835777,
+        "d2_ci_lower": 0.241950411516425,
+        "d2_ci_upper": 0.3301884325788326,
+        "decision": "retained_clear",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.24930142558001078,
+        "d2_ci_lower": 0.21365163788059785,
+        "d2_ci_upper": 0.2883733223102965,
+        "decision": "retained_clear",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.3887869899016495,
+        "d2_ci_lower": 0.34174440271412065,
+        "d2_ci_upper": 0.4375046955259045,
+        "decision": "retained_clear",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.4394323290832729,
+        "d2_ci_lower": 0.37874667994353917,
+        "d2_ci_upper": 0.5034724627092727,
+        "decision": "inconclusive_retain",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.7339399128682406,
+        "d2_ci_lower": 0.6634801387971779,
+        "d2_ci_upper": 0.7999807734595141,
+        "decision": "flagged",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.705861057287239,
+        "d2_ci_lower": 0.6388038394944072,
+        "d2_ci_upper": 0.7798835307637798,
+        "decision": "flagged",
+        "language_pair": "de-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": -0.09918313386290678,
+        "d2_ci_lower": -0.15762756471996284,
+        "d2_ci_upper": -0.0439441314918905,
+        "decision": "retained_clear",
+        "language_pair": "de-fr",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.2464988939053368,
+        "d2_ci_lower": 0.17931150903752008,
+        "d2_ci_upper": 0.3140979521005713,
+        "decision": "retained_clear",
+        "language_pair": "de-fr",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.21827494797435054,
+        "d2_ci_lower": -0.2733416133085681,
+        "d2_ci_upper": -0.1658524040687776,
+        "decision": "retained_clear",
+        "language_pair": "en-cs",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.15484563406763496,
+        "d2_ci_lower": -0.20554060992977732,
+        "d2_ci_upper": -0.10694015345215438,
+        "decision": "retained_clear",
+        "language_pair": "en-cs",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.15966721173047194,
+        "d2_ci_lower": -0.21566393250330185,
+        "d2_ci_upper": -0.10714127156674087,
+        "decision": "retained_clear",
+        "language_pair": "en-cs",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.16118483318236032,
+        "d2_ci_lower": -0.21817933183106822,
+        "d2_ci_upper": -0.10310077939149226,
+        "decision": "retained_clear",
+        "language_pair": "en-cs",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": -0.18352571332528367,
+        "d2_ci_lower": -0.2519389703581471,
+        "d2_ci_upper": -0.11479013287783026,
+        "decision": "retained_clear",
+        "language_pair": "en-cs",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.25428864306249177,
+        "d2_ci_lower": -0.3166767721581402,
+        "d2_ci_upper": -0.19564306208649138,
+        "decision": "retained_clear",
+        "language_pair": "en-de",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.11929339694938002,
+        "d2_ci_lower": -0.16613510425498978,
+        "d2_ci_upper": -0.07653067650217248,
+        "decision": "retained_clear",
+        "language_pair": "en-de",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.12589995135403398,
+        "d2_ci_lower": 0.0626646107366217,
+        "d2_ci_upper": 0.19044364471868339,
+        "decision": "retained_clear",
+        "language_pair": "en-de",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.05870613463881125,
+        "d2_ci_lower": -0.003015049636544051,
+        "d2_ci_upper": 0.12028214013216487,
+        "decision": "retained_clear",
+        "language_pair": "en-de",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.26415882156642884,
+        "d2_ci_lower": 0.19367442892332945,
+        "d2_ci_upper": 0.33088469257378644,
+        "decision": "retained_clear",
+        "language_pair": "en-de",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.2597662000171677,
+        "d2_ci_lower": -0.3161457557457465,
+        "d2_ci_upper": -0.20381601390684817,
+        "decision": "retained_clear",
+        "language_pair": "en-et",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.1290928425316804,
+        "d2_ci_lower": -0.17544776784170893,
+        "d2_ci_upper": -0.08231008660378421,
+        "decision": "retained_clear",
+        "language_pair": "en-fi",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.19916727735955742,
+        "d2_ci_lower": -0.2514285793785275,
+        "d2_ci_upper": -0.14929705298594279,
+        "decision": "retained_clear",
+        "language_pair": "en-fi",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.18498434712912992,
+        "d2_ci_lower": -0.23390290705030864,
+        "d2_ci_upper": -0.1362567197397428,
+        "decision": "retained_clear",
+        "language_pair": "en-fi",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.1897844764292107,
+        "d2_ci_lower": -0.2507544853682323,
+        "d2_ci_upper": -0.1289347905136856,
+        "decision": "retained_clear",
+        "language_pair": "en-gu",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.18065205524607464,
+        "d2_ci_lower": 0.11207161461472206,
+        "d2_ci_upper": 0.24922627192836172,
+        "decision": "retained_clear",
+        "language_pair": "en-ha",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.09131300067101533,
+        "d2_ci_lower": -0.14606804931641273,
+        "d2_ci_upper": -0.037552035631221954,
+        "decision": "retained_clear",
+        "language_pair": "en-is",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.15892259812171716,
+        "d2_ci_lower": -0.2180936609413715,
+        "d2_ci_upper": -0.10383267015385886,
+        "decision": "retained_clear",
+        "language_pair": "en-ja",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": -0.014609313598827334,
+        "d2_ci_lower": -0.07521766920889719,
+        "d2_ci_upper": 0.04954769521225129,
+        "decision": "retained_clear",
+        "language_pair": "en-ja",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.10688690794207278,
+        "d2_ci_lower": -0.16106374521333539,
+        "d2_ci_upper": -0.05059184382881339,
+        "decision": "retained_clear",
+        "language_pair": "en-kk",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.26518782540025265,
+        "d2_ci_lower": -0.3171196392532829,
+        "d2_ci_upper": -0.21231700030743825,
+        "decision": "retained_clear",
+        "language_pair": "en-lt",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.1755329168217712,
+        "d2_ci_lower": -0.2262046195497198,
+        "d2_ci_upper": -0.12642811363663778,
+        "decision": "retained_clear",
+        "language_pair": "en-lv",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.1199745960675821,
+        "d2_ci_lower": -0.184271505529036,
+        "d2_ci_upper": -0.051854550064640716,
+        "decision": "retained_clear",
+        "language_pair": "en-pl",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": -0.217455277476868,
+        "d2_ci_lower": -0.26897052462831855,
+        "d2_ci_upper": -0.16645926089487117,
+        "decision": "retained_clear",
+        "language_pair": "en-ru",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.015985162682595644,
+        "d2_ci_lower": -0.07644439989988838,
+        "d2_ci_upper": 0.04410971288314875,
+        "decision": "retained_clear",
+        "language_pair": "en-ru",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.08417177532494602,
+        "d2_ci_lower": -0.13143330400003742,
+        "d2_ci_upper": -0.03724727784011853,
+        "decision": "retained_clear",
+        "language_pair": "en-ru",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.03528119710776878,
+        "d2_ci_lower": -0.09797112557882418,
+        "d2_ci_upper": 0.026307810862878655,
+        "decision": "retained_clear",
+        "language_pair": "en-ru",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.06910617882471298,
+        "d2_ci_lower": 0.002771125694295655,
+        "d2_ci_upper": 0.1366651861145449,
+        "decision": "retained_clear",
+        "language_pair": "en-ru",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": -0.2067309964417165,
+        "d2_ci_lower": -0.2658554844525113,
+        "d2_ci_upper": -0.1496281388367572,
+        "decision": "retained_clear",
+        "language_pair": "en-ta",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": -0.22973821262572092,
+        "d2_ci_lower": -0.27844392955306635,
+        "d2_ci_upper": -0.17788717702461285,
+        "decision": "retained_clear",
+        "language_pair": "en-tr",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.24173094507836285,
+        "d2_ci_lower": -0.29631618224887873,
+        "d2_ci_upper": -0.18169624323715114,
+        "decision": "retained_clear",
+        "language_pair": "en-tr",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.1570560488376349,
+        "d2_ci_lower": -0.21902233046508537,
+        "d2_ci_upper": -0.09422698131446833,
+        "decision": "retained_clear",
+        "language_pair": "en-zh",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": -0.00289132546504689,
+        "d2_ci_lower": -0.07599048753362472,
+        "d2_ci_upper": 0.06429951233365083,
+        "decision": "retained_clear",
+        "language_pair": "en-zh",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": -0.05175409719424007,
+        "d2_ci_lower": -0.11628723314959356,
+        "d2_ci_upper": 0.010789254266267352,
+        "decision": "retained_clear",
+        "language_pair": "en-zh",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.08185601257744446,
+        "d2_ci_lower": -0.14229300892215618,
+        "d2_ci_upper": -0.019958539977773776,
+        "decision": "retained_clear",
+        "language_pair": "en-zh",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.006721036149434589,
+        "d2_ci_lower": -0.07415237464366178,
+        "d2_ci_upper": 0.0842184245233782,
+        "decision": "retained_clear",
+        "language_pair": "en-zh",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.27142440501835363,
+        "d2_ci_lower": 0.23350268295284046,
+        "d2_ci_upper": 0.31107246275533124,
+        "decision": "retained_clear",
+        "language_pair": "et-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.2335420889866331,
+        "d2_ci_lower": 0.1963852113140319,
+        "d2_ci_upper": 0.27427674135164115,
+        "decision": "retained_clear",
+        "language_pair": "fi-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.3220113300958294,
+        "d2_ci_lower": 0.27653489354584637,
+        "d2_ci_upper": 0.37322633736081817,
+        "decision": "retained_clear",
+        "language_pair": "fi-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.4533100689356923,
+        "d2_ci_lower": 0.4039311187085603,
+        "d2_ci_upper": 0.5049100268277659,
+        "decision": "inconclusive_retain",
+        "language_pair": "fi-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": -0.03744087801808971,
+        "d2_ci_lower": -0.09488149303145194,
+        "d2_ci_upper": 0.01823332997260835,
+        "decision": "retained_clear",
+        "language_pair": "fr-de",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.3168225040667552,
+        "d2_ci_lower": 0.24194990326056773,
+        "d2_ci_upper": 0.39239041594778207,
+        "decision": "retained_clear",
+        "language_pair": "fr-de",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.47515527868302276,
+        "d2_ci_lower": 0.4171921447432505,
+        "d2_ci_upper": 0.529352388089575,
+        "decision": "inconclusive_retain",
+        "language_pair": "gu-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.7473701508768107,
+        "d2_ci_lower": 0.6825575803980435,
+        "d2_ci_upper": 0.8142654191971893,
+        "decision": "flagged",
+        "language_pair": "ha-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.21330303914300644,
+        "d2_ci_lower": 0.13458302000663883,
+        "d2_ci_upper": 0.29043501772517477,
+        "decision": "retained_clear",
+        "language_pair": "hi-bn",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.7812499437521411,
+        "d2_ci_lower": 0.7124656280052409,
+        "d2_ci_upper": 0.8477219781779403,
+        "decision": "flagged",
+        "language_pair": "is-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.5147159082347601,
+        "d2_ci_lower": 0.45689965842737823,
+        "d2_ci_upper": 0.5754259977575471,
+        "decision": "inconclusive_retain",
+        "language_pair": "ja-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.7397118070341232,
+        "d2_ci_lower": 0.6733342892893701,
+        "d2_ci_upper": 0.8078201012089342,
+        "decision": "flagged",
+        "language_pair": "ja-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.7098389432764369,
+        "d2_ci_lower": 0.6423980973413875,
+        "d2_ci_upper": 0.7788750953751411,
+        "decision": "flagged",
+        "language_pair": "ja-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": 0.3719046305126109,
+        "d2_ci_lower": 0.32568921643313203,
+        "d2_ci_upper": 0.42010721916483423,
+        "decision": "retained_clear",
+        "language_pair": "kk-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.39476368204366624,
+        "d2_ci_lower": 0.3480934835113217,
+        "d2_ci_upper": 0.4441476142409873,
+        "decision": "retained_clear",
+        "language_pair": "km-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.4076409890783005,
+        "d2_ci_lower": 0.355852395036943,
+        "d2_ci_upper": 0.45816805463324756,
+        "decision": "retained_clear",
+        "language_pair": "lt-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.5127188940141696,
+        "d2_ci_lower": 0.45184191757537295,
+        "d2_ci_upper": 0.5768091968095747,
+        "decision": "inconclusive_retain",
+        "language_pair": "pl-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.5286547108677897,
+        "d2_ci_lower": 0.4727519133841707,
+        "d2_ci_upper": 0.5843333045578089,
+        "decision": "inconclusive_retain",
+        "language_pair": "ps-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.31965902951150393,
+        "d2_ci_lower": 0.27247161490086613,
+        "d2_ci_upper": 0.37157665949329377,
+        "decision": "retained_clear",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.38665661508627674,
+        "d2_ci_lower": 0.33879214813489794,
+        "d2_ci_upper": 0.4361496596350608,
+        "decision": "retained_clear",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.4012993661781346,
+        "d2_ci_lower": 0.34937094350015735,
+        "d2_ci_upper": 0.4563334878045048,
+        "decision": "retained_clear",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.5673038364673044,
+        "d2_ci_lower": 0.5046044083670169,
+        "d2_ci_upper": 0.6299853029026065,
+        "decision": "flagged",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.7328756284447394,
+        "d2_ci_lower": 0.6607192487911481,
+        "d2_ci_upper": 0.8028104149337342,
+        "decision": "flagged",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.7610003954111153,
+        "d2_ci_lower": 0.6909365429287623,
+        "d2_ci_upper": 0.8244404098139853,
+        "decision": "flagged",
+        "language_pair": "ru-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": 0.4908852468181836,
+        "d2_ci_lower": 0.43598627810304275,
+        "d2_ci_upper": 0.5432074947065331,
+        "decision": "inconclusive_retain",
+        "language_pair": "ta-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.270897270643881,
+        "d2_ci_lower": 0.23106559071277438,
+        "d2_ci_upper": 0.3115074297290298,
+        "decision": "retained_clear",
+        "language_pair": "tr-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.3500360079362813,
+        "d2_ci_lower": 0.3036172464255652,
+        "d2_ci_upper": 0.39607453339601173,
+        "decision": "retained_clear",
+        "language_pair": "tr-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.846349996466073,
+        "d2_ci_lower": 0.7864753441881204,
+        "d2_ci_upper": 0.912784632391532,
+        "decision": "flagged",
+        "language_pair": "uk-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": 0.12915838561174053,
+        "d2_ci_lower": 0.05867025020233819,
+        "d2_ci_upper": 0.20188518137563738,
+        "decision": "retained_clear",
+        "language_pair": "xh-zu",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.29552103152987486,
+        "d2_ci_lower": 0.25100189149179947,
+        "d2_ci_upper": 0.34290905713017783,
+        "decision": "retained_clear",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2017
+      },
+      {
+        "d2": 0.3776891640655503,
+        "d2_ci_lower": 0.3287932028727236,
+        "d2_ci_upper": 0.4256763097253497,
+        "decision": "retained_clear",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2018
+      },
+      {
+        "d2": 0.22639598923522386,
+        "d2_ci_lower": 0.19190786231345236,
+        "d2_ci_upper": 0.26291022428836786,
+        "decision": "retained_clear",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2019
+      },
+      {
+        "d2": 0.5461993845304116,
+        "d2_ci_lower": 0.48961599473377193,
+        "d2_ci_upper": 0.6094071710644664,
+        "decision": "inconclusive_retain",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2020
+      },
+      {
+        "d2": 0.843889394548121,
+        "d2_ci_lower": 0.779616364905696,
+        "d2_ci_upper": 0.912532528417748,
+        "decision": "flagged",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2021
+      },
+      {
+        "d2": 0.7957639858364635,
+        "d2_ci_lower": 0.7292942224218322,
+        "d2_ci_upper": 0.8624819861267825,
+        "decision": "flagged",
+        "language_pair": "zh-en",
+        "rows": 1000,
+        "year": 2022
+      },
+      {
+        "d2": 0.08522972570870901,
+        "d2_ci_lower": 0.025860373134974864,
+        "d2_ci_upper": 0.14647671406943744,
+        "decision": "retained_clear",
+        "language_pair": "zu-xh",
+        "rows": 1000,
+        "year": 2021
+      }
+    ],
+    "sample_sha256": "a669dabcf6d94dac1902009c561f720334cda0e2f7eae612b0c407700fc31e21",
+    "seed": 20261031,
+    "slice_count": 87,
+    "threshold": 0.5
+  },
   "reward_da_slice_inventory": {
     "available_matching_fields": [
       "label volume",
