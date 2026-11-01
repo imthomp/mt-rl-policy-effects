@@ -1,0 +1,133 @@
+{
+  "conditions": {
+    "all_data": {
+      "excluded_slices": [],
+      "removed_rows": 0,
+      "role": "baseline"
+    },
+    "diagnostic_filtered": {
+      "excluded_slices": [
+        "cs-en|2021",
+        "cs-en|2022",
+        "de-en|2021",
+        "de-en|2022",
+        "ha-en|2021",
+        "is-en|2021",
+        "ja-en|2021",
+        "ja-en|2022",
+        "ru-en|2020",
+        "ru-en|2021",
+        "ru-en|2022",
+        "uk-en|2022",
+        "zh-en|2021",
+        "zh-en|2022"
+      ],
+      "removed_rows": 239364,
+      "role": "targeted_intervention"
+    },
+    "direction_matched_earlier_year": {
+      "attempt": 2,
+      "excluded_slices": [
+        "cs-en|2017",
+        "de-en|2017",
+        "de-en|2019",
+        "fi-en|2017",
+        "fi-en|2018",
+        "kk-en|2019",
+        "lt-en|2019",
+        "ru-en|2018",
+        "ru-en|2019",
+        "tr-en|2017",
+        "tr-en|2018",
+        "zh-en|2017",
+        "zh-en|2018",
+        "zh-en|2019"
+      ],
+      "relative_volume_difference": 0.033288213766481174,
+      "removed_rows": 247332,
+      "role": "direction_matched_year_confound_sensitivity",
+      "seed": 611953,
+      "within_tolerance": true
+    },
+    "global_random_1": {
+      "attempt": 12,
+      "excluded_slices": [
+        "de-en|2017",
+        "de-en|2018",
+        "en-cs|2019",
+        "en-et|2018",
+        "en-fi|2018",
+        "en-kk|2019",
+        "en-pl|2020",
+        "en-ru|2019",
+        "fi-en|2017",
+        "kk-en|2019",
+        "lt-en|2019",
+        "ru-en|2019",
+        "zh-en|2017",
+        "zh-en|2018"
+      ],
+      "relative_volume_difference": 0.04050734446282649,
+      "removed_rows": 229668,
+      "role": "size_matched_random_control",
+      "seed": 48117,
+      "within_tolerance": true
+    },
+    "global_random_2": {
+      "attempt": 20,
+      "excluded_slices": [
+        "cs-en|2018",
+        "en-de|2019",
+        "en-de|2021",
+        "en-et|2018",
+        "en-fi|2019",
+        "en-ha|2021",
+        "en-ja|2020",
+        "en-tr|2018",
+        "en-zh|2017",
+        "en-zh|2021",
+        "et-en|2018",
+        "fr-de|2019",
+        "hi-bn|2021",
+        "tr-en|2017"
+      ],
+      "relative_volume_difference": 0.01615531157567554,
+      "removed_rows": 235497,
+      "role": "size_matched_random_control",
+      "seed": 90231,
+      "within_tolerance": true
+    },
+    "global_random_3": {
+      "attempt": 8,
+      "excluded_slices": [
+        "bn-hi|2021",
+        "de-en|2019",
+        "de-fr|2021",
+        "en-de|2019",
+        "en-de|2021",
+        "en-et|2018",
+        "en-ja|2021",
+        "en-kk|2019",
+        "en-zh|2020",
+        "fi-en|2018",
+        "fr-de|2019",
+        "hi-bn|2021",
+        "tr-en|2017",
+        "zu-xh|2021"
+      ],
+      "relative_volume_difference": 0.017985160675790847,
+      "removed_rows": 243669,
+      "role": "size_matched_random_control",
+      "seed": 177013,
+      "within_tolerance": true
+    }
+  },
+  "conditions_sha256_basis": "canonical JSON below",
+  "inconclusive_slices_are_never_random_controls": true,
+  "known_limitation": "No retained-clear into-English slices exist in the flagged later-year strata; the direction-matched sensitivity necessarily uses earlier years.",
+  "random_controls_use_only": "retained_clear slices",
+  "slice_key_format": "language_pair|year",
+  "target_excluded_slice_count": 14,
+  "target_removed_rows": 239364,
+  "volume_tolerance": 0.05
+}

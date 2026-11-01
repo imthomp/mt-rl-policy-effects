@@ -21,6 +21,8 @@ venv/
 !/data/tatoeba_raw/README.md
 /data/reward_da/*
 !/data/reward_da/README.md
+!/data/reward_da/conditions.json
+/data/reward_da/development_indices.json
 
 # Local operating instructions and superseded cluster job wrappers
 /local_notes/
@@ -31,10 +33,12 @@ venv/
 !/scripts/slurm/run_nllb_checkpoint_check.sbatch
 !/scripts/slurm/run_nllb_development_check.sbatch
 !/scripts/slurm/run_da_diagnostic_metrics.sbatch
+!/scripts/slurm/run_reward_model_development.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/
 /artifacts/runs/
+/artifacts/reward_models/
 /artifacts/logs/*
 !/artifacts/logs/.gitkeep
 *.out
