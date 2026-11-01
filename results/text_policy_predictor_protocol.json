@@ -1,0 +1,255 @@
+{
+  "analysis": {
+    "no_post_outcome_changes": true,
+    "paired_reporting": "show every row and pair decisions/outcomes within checkpoint and dataset",
+    "primary_unit": "reward checkpoint crossed with confirmation dataset",
+    "success_criterion": "the frozen sign screen has lower mean decision regret than both always-optimize and the frozen best-of-N screen on new learned-reward checkpoints",
+    "uncertainty": "hierarchical bootstrap over reward-training seed and evaluation document; external controls reported separately"
+  },
+  "baselines": {
+    "always_keep_initial": true,
+    "always_optimize": true,
+    "best_of_n_grid": [
+      2,
+      4,
+      8
+    ],
+    "best_of_n_primary": 4,
+    "best_of_n_rule": "exact expectation over uniformly drawn candidate subsets on calibration data; optimize iff primary-N selected human quality exceeds uniform"
+  },
+  "confirmation_data": {
+    "calibration_documents_per_dataset": 64,
+    "calibration_segments_per_document": 1,
+    "evaluation": "all eligible segments in documents disjoint from calibration",
+    "manifest": "results/predictor_confirmation_manifest.json",
+    "outcomes_at_freeze": "sealed",
+    "primary": "wmt24_ja_zh",
+    "secondary": "wmt23_zh_en"
+  },
+  "development_evidence": {
+    "external_single_checkpoints": 2,
+    "label_budget_source": "results/text_policy_predictor_label_budget.json",
+    "reward_instances": 26,
+    "reward_training_seeds": 6,
+    "selected_budget_diagnostics": {
+      "decision_agreement_with_full_development_predictor": {
+        "high": 1.0,
+        "low": 1.0,
+        "median": 1.0
+      },
+      "false_optimize_rate_on_development_failures": {
+        "high": 0.0,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "human_scored_candidates": 1280,
+      "instance_cosine_intervals": {
+        "20261102/all_data": {
+          "high": -0.5043357104063034,
+          "low": -0.8314551740884781,
+          "median": -0.7272814810276031
+        },
+        "20261102/diagnostic_filtered": {
+          "high": -0.48284794166684153,
+          "low": -0.8294573426246643,
+          "median": -0.7249725759029388
+        },
+        "20261102/direction_matched_earlier_year": {
+          "high": -0.17705630436539666,
+          "low": -0.6226756617426872,
+          "median": -0.43736429512500763
+        },
+        "20261102/global_random_2": {
+          "high": -0.48061098381876965,
+          "low": -0.8217314973473548,
+          "median": -0.710769385099411
+        },
+        "20261103/all_data": {
+          "high": -0.5465676099061967,
+          "low": -0.8610631182789803,
+          "median": -0.769207626581192
+        },
+        "20261103/diagnostic_filtered": {
+          "high": -0.45418988913297653,
+          "low": -0.8009505704045295,
+          "median": -0.6796465516090393
+        },
+        "20261103/direction_matched_earlier_year": {
+          "high": -0.4236362874507905,
+          "low": -0.7880266547203064,
+          "median": -0.6702702939510345
+        },
+        "20261103/global_random_2": {
+          "high": -0.46616159304976523,
+          "low": -0.8126716285943985,
+          "median": -0.6908878684043884
+        },
+        "20261104/all_data": {
+          "high": -0.4480579644441608,
+          "low": -0.7987035468220711,
+          "median": -0.6859147250652313
+        },
+        "20261104/diagnostic_filtered": {
+          "high": -0.5229000017046929,
+          "low": -0.8523713037371635,
+          "median": -0.7581685781478882
+        },
+        "20261104/direction_matched_earlier_year": {
+          "high": -0.33471477478742606,
+          "low": -0.7214809224009514,
+          "median": -0.5746212005615234
+        },
+        "20261104/global_random_2": {
+          "high": -0.46869421973824515,
+          "low": -0.8206744357943535,
+          "median": -0.7144958972930908
+        },
+        "20261105/all_data": {
+          "high": -0.36243885457515734,
+          "low": -0.7356369137763977,
+          "median": -0.6056923866271973
+        },
+        "20261105/diagnostic_filtered": {
+          "high": -0.45067097395658506,
+          "low": -0.806264154613018,
+          "median": -0.6916995346546173
+        },
+        "20261105/direction_matched_earlier_year": {
+          "high": -0.39361841827631017,
+          "low": -0.7592016845941544,
+          "median": -0.6270862817764282
+        },
+        "20261105/global_random_2": {
+          "high": -0.42907791361212744,
+          "low": -0.7922265797853469,
+          "median": -0.6819436550140381
+        },
+        "20261106/all_data": {
+          "high": -0.4749014452099803,
+          "low": -0.8147990822792053,
+          "median": -0.7100491225719452
+        },
+        "20261106/diagnostic_filtered": {
+          "high": -0.4575756385922434,
+          "low": -0.8037709161639214,
+          "median": -0.6957704126834869
+        },
+        "20261106/direction_matched_earlier_year": {
+          "high": -0.5477753594517708,
+          "low": -0.8667895928025245,
+          "median": -0.775578498840332
+        },
+        "20261106/global_random_2": {
+          "high": -0.4042569108307365,
+          "low": -0.7710954040288925,
+          "median": -0.6527623534202576
+        },
+        "20261107/all_data": {
+          "high": -0.4816135428845884,
+          "low": -0.8196672692894935,
+          "median": -0.7196686863899231
+        },
+        "20261107/diagnostic_filtered": {
+          "high": -0.4430581122636796,
+          "low": -0.7949346870183944,
+          "median": -0.6757771968841553
+        },
+        "20261107/direction_matched_earlier_year": {
+          "high": -0.43155625909566897,
+          "low": -0.7988990098237991,
+          "median": -0.6724514961242676
+        },
+        "20261107/global_random_2": {
+          "high": -0.4637525700032712,
+          "low": -0.8124008670449256,
+          "median": -0.7071909010410309
+        },
+        "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+          "high": 0.6853881418704987,
+          "low": 0.23153283745050432,
+          "median": 0.5260489881038666
+        },
+        "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+          "high": 0.8897522330284119,
+          "low": 0.5315712615847588,
+          "median": 0.7978543639183044
+        }
+      },
+      "optimize_rate_on_development_nonfailures": {
+        "high": 1.0,
+        "low": 1.0,
+        "median": 1.0
+      },
+      "spearman_with_final_human_change": {
+        "high": 0.8133333333333332,
+        "low": 0.6416068376068376,
+        "median": 0.7569230769230768
+      }
+    },
+    "source": "results/text_policy_predictor_development.json",
+    "status": "already viewed; used only to freeze this rule"
+  },
+  "optimization": {
+    "checkpoint_rule": "first checkpoint reaching each target; report unreachable targets",
+    "estimator": "exact finite-action policy gradient",
+    "learning_rate": 0.5,
+    "maximum_steps": 5000,
+    "pressure_grid_nats": [
+      0.0,
+      0.1,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "pressure_measure": "mean KL(pi || uniform) in nats on the optimization pool",
+    "primary_pressure_nats": 0.25
+  },
+  "outcome": {
+    "checkpoint_selection_uses_human_outcomes": false,
+    "failure": "primary human-quality change < 0",
+    "primary": "mean human-quality change from uniform on held-out documents crossed with held-out systems at the primary KL target",
+    "secondary": [
+      "human-quality curve over the full KL grid",
+      "proxy-reward curve over the full KL grid",
+      "decision regret against max(initial, optimized)",
+      "false-optimize and false-keep rates"
+    ]
+  },
+  "policy": {
+    "encoder_name": "FacebookAI/xlm-roberta-base",
+    "encoder_revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+    "initial_policy": "uniform over the available training systems",
+    "representation": "frozen source-candidate XLM-R embeddings",
+    "scorer": "one shared linear vector; no system identity or bias",
+    "system_split": "exact train/heldout system lists in the frozen manifest"
+  },
+  "predictor": {
+    "decision_rule": "optimize iff cosine > 0; ties and nonfinite values keep the initial policy",
+    "human_gradient_data": "one frozen segment from each calibration document and frozen train systems",
+    "name": "initial text-policy human/reward gradient cosine",
+    "reward_gradient_data": "all calibration-pool sources and frozen train systems; no human outcomes required",
+    "reward_standardization": "mean zero and unit variance on the reward-gradient pool",
+    "theory": "the sign is the first-order predicted human-quality change under the reward update",
+    "threshold": 0.0
+  },
+  "research_question": "Can the sign of a pre-optimization first-order human/reward alignment screen choose between reward optimization and the initial policy on new reward seeds and document-disjoint human-rated candidate pools?",
+  "reward_training": {
+    "all_runs_reported": true,
+    "conditions": [
+      "all_data",
+      "diagnostic_filtered",
+      "direction_matched_earlier_year",
+      "global_random_2"
+    ],
+    "external_positive_controls": [
+      "wmt22-cometkiwi-da",
+      "wmt23-cometkiwi-da-xl"
+    ],
+    "new_seeds": [
+      20261203,
+      20261204,
+      20261205
+    ]
+  },
+  "status": "protocol_frozen_confirmation_outcomes_sealed"
+}

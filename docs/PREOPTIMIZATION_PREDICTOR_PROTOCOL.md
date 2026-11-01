@@ -1,8 +1,10 @@
 # Prospective pre-optimization failure predictor
 
-Status: design draft. Do not run a confirmation analysis from this document
-until the hypothesis, human-label budget, untouched datasets, predictor formulas,
-and decision thresholds are frozen in a dated revision.
+Status: frozen for confirmation. The machine-readable source of truth is
+`results/text_policy_predictor_protocol.json`; the exact candidate, document,
+and system lists are in `results/predictor_confirmation_manifest.json`. Human
+outcomes for the confirmation evaluation documents remained sealed when this
+revision was frozen.
 
 The existing WMT candidate pools, reward checkpoints, and observed optimization
 outcomes are development evidence. They cannot serve as untouched confirmation
@@ -25,17 +27,17 @@ source--candidate pool. Reward-training seeds are independent units. Policy
 sampling seeds estimate optimizer noise and are not substitutes for reward
 seeds.
 
-Development and confirmation must be disjoint in reward seed, source or
-document, and held-out distribution. Complete systems should also be held out
-where candidate coverage permits it.
+Development and confirmation are disjoint in reward seed and dataset.
+Calibration and evaluation are document-disjoint within each confirmation
+dataset. The source--candidate-text policy is trained and evaluated on disjoint
+system sets and never receives system identity.
 
 ## Outcome
 
-The primary outcome is change in independent human quality from the initial
-policy at matched optimization pressure. Pressure will be expressed using a
-frozen policy-movement measure such as KL from the initial policy or policy
-entropy, not update count. This prevents a slowly moving policy from being
-misclassified as safe.
+The primary outcome is change in independent human quality from the uniform
+policy at the frozen primary KL target. Secondary outcomes trace the complete
+frozen KL grid. Checkpoints are selected by achieved KL, never by human quality
+or update count.
 
 Secondary outcomes are the human-quality curve against achieved proxy reward,
 the pressure at which quality first falls below its frozen tolerance, and
@@ -69,15 +71,20 @@ first-order change in entropy or KL under the frozen update rule. This separates
 weak learning signals from rewards that immediately induce concentrated
 policies.
 
-## Predictor requiring independent human labels
+## Frozen primary predictor
 
 ### First-order alignment
 
-On a separately labeled calibration subset, compute the dot product between the
-reward objective's initial policy gradient and the human-quality objective's
-initial gradient. A negative value predicts immediate movement against human
-quality. This predictor consumes human labels and must be compared at matched
-total cost, not presented as free.
+On the frozen document-disjoint calibration subset, compute the cosine between
+the reward objective's exact initial gradient and the human-quality objective's
+exact initial gradient in the shared source--candidate-text scorer. The reward
+gradient uses the full unlabeled optimization pool; only the human gradient
+uses the bounded labeled sample.
+
+The decision follows the theoretically defined sign: optimize only when the
+estimated alignment is strictly positive. A tie, nonfinite value, or negative
+alignment keeps the initial policy. The selected label budget and development
+stability diagnostics are recorded in the protocol JSON and SSOT.
 
 Labels used for this predictor may not be reused for confirmation outcomes.
 
@@ -89,33 +96,24 @@ Labels used for this predictor may not be reused for confirmation outcomes.
 - Always keep the initial policy.
 - Always optimize the reward.
 
-The best-of-N audit is the primary practical baseline. Its sampling budget and
-human-label cost must match the proposed screen as closely as possible.
+The best-of-N audit is the primary practical baseline. The frozen protocol uses
+exact expectations over candidate subsets and the same calibration outcomes.
 
-## Frozen decision rule
+## Frozen decision and analysis
 
-The development data may be used once to choose one predictor specification and
-one decision threshold. The rule must map each reward checkpoint to either
-`optimize` or `keep_initial` without consulting confirmation outcomes.
-
-Before confirmation, freeze:
-
-- predictor formulas, standardization, and missing-data handling;
-- the policy-movement grid and quality-loss tolerance;
-- the decision threshold and tie handling;
-- label, scoring, and compute budgets;
-- reward seeds and source/system/distribution splits;
-- primary uncertainty interval and success criterion;
-- handling of failed reward training or optimization runs.
-
-No predictor may be added after inspecting confirmation outcomes.
+The formulas, standardization, label budget, reward seeds, policy-pressure grid,
+system and document splits, baselines, tie handling, and success criterion are
+now frozen in the protocol JSON. Every failed or degenerate run remains in the
+report. No predictor may be added after inspecting confirmation outcomes.
 
 ## Confirmation requirements
 
-Confirmation requires genuinely new human-rated candidate data. Repartitioning
-the already inspected WMT pools does not restore untouched status. If suitable
-released data do not exist, the choices are to collect a bounded new human
-evaluation or explicitly keep the work as an exploratory development study.
+The primary and secondary confirmation pools are the frozen WMT MQM datasets
+listed in the manifest. Their existence had been mentioned prospectively, so
+they are not historically unanticipated, but their MQM outcomes were not used
+in predictor development. Calibration outcomes may be opened only to compute
+the frozen screen; evaluation-document outcomes remain sealed until decisions
+and policy trajectories are fixed.
 
 The confirmation report must show every reward checkpoint, including failed
 or degenerate runs, and intervals over reward-training units. It must report
@@ -123,19 +121,17 @@ selection quality, regret, worst-case loss, abstention rate, and total cost.
 
 ## Interpretation boundaries
 
-A successful system-level predictor in a fixed candidate pool may exploit
-stable system style. It does not by itself establish a safeguard for generative
-RL, where system identity is absent and the policy creates new outputs.
+A successful predictor in this fixed candidate pool does not by itself
+establish a safeguard for generative RL, where the policy creates new outputs.
 
 A successful first-order predictor establishes local alignment near the initial
 policy. It does not guarantee safety under large policy movement unless the
 confirmation outcome explicitly tests that range.
 
-## Unresolved choices before freezing
+## Scope
 
-- The untouched human-rated datasets and their candidate coverage.
-- The human-label budget for first-order alignment.
-- The matched policy-pressure grid.
-- The practical human-quality loss tolerance.
-- Whether confirmation targets fixed-pool selection only or also a generative
-  policy experiment.
+This confirmation targets fixed-pool source--candidate-text selection. A
+generative policy experiment is explicitly outside the frozen study. The
+remaining work is execution: train the new reward seeds, score the frozen
+candidate pools, encode their text pairs, apply the calibration-only screen,
+run every policy trajectory, and then evaluate on the sealed documents.

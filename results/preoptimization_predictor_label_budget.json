@@ -1,0 +1,720 @@
+{
+  "action_count": 30,
+  "budgets": {
+    "128": {
+      "decision_agreement_with_full_development_predictor": {
+        "high": 0.9615384615384616,
+        "low": 0.9615384615384616,
+        "median": 0.9615384615384616
+      },
+      "false_optimize_rate_on_development_failures": {
+        "high": 0.0,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "human_scored_candidates": 3840,
+      "instance_cosine_intervals": {
+        "20261102/all_data": {
+          "high": 0.25857767102705514,
+          "low": 0.19303229064226055,
+          "median": 0.2263590669170018
+        },
+        "20261102/diagnostic_filtered": {
+          "high": 0.3014478089961531,
+          "low": 0.23292293064941566,
+          "median": 0.2689684070888489
+        },
+        "20261102/direction_matched_earlier_year": {
+          "high": 0.5640162370640968,
+          "low": 0.5125613276178067,
+          "median": 0.5403722063873491
+        },
+        "20261102/global_random_2": {
+          "high": 0.29697183046828035,
+          "low": 0.23529928807853379,
+          "median": 0.26717430043431434
+        },
+        "20261103/all_data": {
+          "high": 0.2804231783137203,
+          "low": 0.21197943592422364,
+          "median": 0.24804939474780133
+        },
+        "20261103/diagnostic_filtered": {
+          "high": 0.45801968980821406,
+          "low": 0.39649576397583036,
+          "median": 0.4285333438308199
+        },
+        "20261103/direction_matched_earlier_year": {
+          "high": 0.5178863420364807,
+          "low": 0.4586520976056805,
+          "median": 0.48927112189323146
+        },
+        "20261103/global_random_2": {
+          "high": 0.17625428203432913,
+          "low": 0.12424450355382341,
+          "median": 0.1496907930446501
+        },
+        "20261104/all_data": {
+          "high": 0.327198058731842,
+          "low": 0.26090532238982544,
+          "median": 0.2942720302963098
+        },
+        "20261104/diagnostic_filtered": {
+          "high": 0.23770806820449084,
+          "low": 0.16751327261984827,
+          "median": 0.20375600044807424
+        },
+        "20261104/direction_matched_earlier_year": {
+          "high": 0.5444424085180586,
+          "low": 0.493162990094586,
+          "median": 0.5203665559560058
+        },
+        "20261104/global_random_2": {
+          "high": 0.38246630600530446,
+          "low": 0.32058632487664646,
+          "median": 0.3525288450722218
+        },
+        "20261105/all_data": {
+          "high": 0.4954655139977721,
+          "low": 0.4334330091575078,
+          "median": 0.4655421015173676
+        },
+        "20261105/diagnostic_filtered": {
+          "high": 0.4658030549076389,
+          "low": 0.4059494172980736,
+          "median": 0.4369383658952558
+        },
+        "20261105/direction_matched_earlier_year": {
+          "high": 0.28521188680067205,
+          "low": 0.21612950243942658,
+          "median": 0.2518190362270416
+        },
+        "20261105/global_random_2": {
+          "high": 0.40405090297998836,
+          "low": 0.3404775433441143,
+          "median": 0.3735904243645199
+        },
+        "20261106/all_data": {
+          "high": 0.43263233986170685,
+          "low": 0.3689252193748451,
+          "median": 0.4018422946712371
+        },
+        "20261106/diagnostic_filtered": {
+          "high": 0.4144750240680056,
+          "low": 0.3491786244851693,
+          "median": 0.3828578554874636
+        },
+        "20261106/direction_matched_earlier_year": {
+          "high": 0.213123129418321,
+          "low": 0.14545011532262686,
+          "median": 0.17862474740179407
+        },
+        "20261106/global_random_2": {
+          "high": 0.45610172821098255,
+          "low": 0.39436331613374453,
+          "median": 0.4260159751442836
+        },
+        "20261107/all_data": {
+          "high": 0.32818939198560354,
+          "low": 0.2637033541347535,
+          "median": 0.29720596537946675
+        },
+        "20261107/diagnostic_filtered": {
+          "high": 0.4201275390924188,
+          "low": 0.3538333181445607,
+          "median": 0.3886352012195609
+        },
+        "20261107/direction_matched_earlier_year": {
+          "high": 0.22427557323554906,
+          "low": 0.15705469559518728,
+          "median": 0.19295547471137528
+        },
+        "20261107/global_random_2": {
+          "high": 0.4714582991642059,
+          "low": 0.40787090761292655,
+          "median": 0.4412149329361822
+        },
+        "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+          "high": 0.512186714084942,
+          "low": 0.43415813083031285,
+          "median": 0.47450301825993246
+        },
+        "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+          "high": 0.6859401191596981,
+          "low": 0.6267618521223371,
+          "median": 0.6592357066271617
+        }
+      },
+      "optimize_rate_on_development_nonfailures": {
+        "high": 0.5,
+        "low": 0.5,
+        "median": 0.5
+      },
+      "spearman_with_final_human_change": {
+        "high": 0.8905982905982905,
+        "low": 0.8666666666666666,
+        "median": 0.881025641025641
+      }
+    },
+    "16": {
+      "decision_agreement_with_full_development_predictor": {
+        "high": 0.9615384615384616,
+        "low": 0.9230769230769231,
+        "median": 0.9230769230769231
+      },
+      "false_optimize_rate_on_development_failures": {
+        "high": 0.0,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "human_scored_candidates": 480,
+      "instance_cosine_intervals": {
+        "20261102/all_data": {
+          "high": 0.34052520233267064,
+          "low": -0.01279673899809787,
+          "median": 0.18308084512148715
+        },
+        "20261102/diagnostic_filtered": {
+          "high": 0.3653814304854583,
+          "low": 0.02285968568652951,
+          "median": 0.21368328197213982
+        },
+        "20261102/direction_matched_earlier_year": {
+          "high": 0.5518344773986888,
+          "low": 0.2830677374207815,
+          "median": 0.42987773468581947
+        },
+        "20261102/global_random_2": {
+          "high": 0.3616279707544198,
+          "low": 0.027996884228365004,
+          "median": 0.2154510327310254
+        },
+        "20261103/all_data": {
+          "high": 0.35085707859437715,
+          "low": 0.010770474136030524,
+          "median": 0.1972066208515334
+        },
+        "20261103/diagnostic_filtered": {
+          "high": 0.48492516270927893,
+          "low": 0.15868193593754443,
+          "median": 0.34067902434127406
+        },
+        "20261103/direction_matched_earlier_year": {
+          "high": 0.526842245596709,
+          "low": 0.2094933792264358,
+          "median": 0.38804033333343907
+        },
+        "20261103/global_random_2": {
+          "high": 0.2606822126919936,
+          "low": -0.03802236184942189,
+          "median": 0.12166522850189673
+        },
+        "20261104/all_data": {
+          "high": 0.38241928738700864,
+          "low": 0.050131247784411206,
+          "median": 0.23804251256016304
+        },
+        "20261104/diagnostic_filtered": {
+          "high": 0.32534970782035966,
+          "low": -0.03493991664215032,
+          "median": 0.16149517697889013
+        },
+        "20261104/direction_matched_earlier_year": {
+          "high": 0.5449990044431592,
+          "low": 0.26347186927144217,
+          "median": 0.41199502944277444
+        },
+        "20261104/global_random_2": {
+          "high": 0.42300462808451533,
+          "low": 0.10111423418918777,
+          "median": 0.27999127361344534
+        },
+        "20261105/all_data": {
+          "high": 0.5052386889093102,
+          "low": 0.1967365810819384,
+          "median": 0.3704568612720991
+        },
+        "20261105/diagnostic_filtered": {
+          "high": 0.48878774958538285,
+          "low": 0.1675113378918098,
+          "median": 0.3467550022250025
+        },
+        "20261105/direction_matched_earlier_year": {
+          "high": 0.34598236759682677,
+          "low": 0.029342560175857717,
+          "median": 0.20011786251006275
+        },
+        "20261105/global_random_2": {
+          "high": 0.44279315327678315,
+          "low": 0.11605187618794248,
+          "median": 0.2957189599628744
+        },
+        "20261106/all_data": {
+          "high": 0.47717363615663705,
+          "low": 0.12956912370150023,
+          "median": 0.3203862048525762
+        },
+        "20261106/diagnostic_filtered": {
+          "high": 0.4463765439126415,
+          "low": 0.12169447290626394,
+          "median": 0.30500305874092987
+        },
+        "20261106/direction_matched_earlier_year": {
+          "high": 0.3136815121911578,
+          "low": -0.06315881474896393,
+          "median": 0.14284755693368079
+        },
+        "20261106/global_random_2": {
+          "high": 0.48195987374628013,
+          "low": 0.16986493190678845,
+          "median": 0.3380641426446517
+        },
+        "20261107/all_data": {
+          "high": 0.38640478148772905,
+          "low": 0.06262824916951099,
+          "median": 0.2409221137763763
+        },
+        "20261107/diagnostic_filtered": {
+          "high": 0.45935817322272693,
+          "low": 0.12882139888488314,
+          "median": 0.30897499080357405
+        },
+        "20261107/direction_matched_earlier_year": {
+          "high": 0.30792246550528746,
+          "low": -0.012987492894673656,
+          "median": 0.15530935126787881
+        },
+        "20261107/global_random_2": {
+          "high": 0.49139524917407745,
+          "low": 0.1685863038592204,
+          "median": 0.3512725041330741
+        },
+        "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+          "high": 0.5706958702124398,
+          "low": 0.16494110077135665,
+          "median": 0.38032307957955835
+        },
+        "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+          "high": 0.6897573531944712,
+          "low": 0.31679482166387224,
+          "median": 0.5235828177003026
+        }
+      },
+      "optimize_rate_on_development_nonfailures": {
+        "high": 0.5,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "spearman_with_final_human_change": {
+        "high": 0.9002051282051281,
+        "low": 0.6008034188034188,
+        "median": 0.8687179487179486
+      }
+    },
+    "32": {
+      "decision_agreement_with_full_development_predictor": {
+        "high": 0.9615384615384616,
+        "low": 0.9230769230769231,
+        "median": 0.9230769230769231
+      },
+      "false_optimize_rate_on_development_failures": {
+        "high": 0.0,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "human_scored_candidates": 960,
+      "instance_cosine_intervals": {
+        "20261102/all_data": {
+          "high": 0.3368598683460684,
+          "low": 0.062289430154806015,
+          "median": 0.20340480978418507
+        },
+        "20261102/diagnostic_filtered": {
+          "high": 0.3660344325016542,
+          "low": 0.09179944011227588,
+          "median": 0.2411013436223937
+        },
+        "20261102/direction_matched_earlier_year": {
+          "high": 0.5823223267426698,
+          "low": 0.3689853941070531,
+          "median": 0.4810970853400005
+        },
+        "20261102/global_random_2": {
+          "high": 0.37018041529295453,
+          "low": 0.1032591879071759,
+          "median": 0.2401553237844476
+        },
+        "20261103/all_data": {
+          "high": 0.3529629338942199,
+          "low": 0.08277292394453493,
+          "median": 0.22282129642527487
+        },
+        "20261103/diagnostic_filtered": {
+          "high": 0.4976337183412778,
+          "low": 0.24755496073060218,
+          "median": 0.3827753194411878
+        },
+        "20261103/direction_matched_earlier_year": {
+          "high": 0.5451385181562067,
+          "low": 0.30730907353202247,
+          "median": 0.4362518179818071
+        },
+        "20261103/global_random_2": {
+          "high": 0.2551437058565442,
+          "low": 0.010486119607678954,
+          "median": 0.1359912057630501
+        },
+        "20261104/all_data": {
+          "high": 0.38819326021392175,
+          "low": 0.12143473755957306,
+          "median": 0.2635041303045148
+        },
+        "20261104/diagnostic_filtered": {
+          "high": 0.3149417612923551,
+          "low": 0.03883240003054343,
+          "median": 0.18270740010476866
+        },
+        "20261104/direction_matched_earlier_year": {
+          "high": 0.5670914297356067,
+          "low": 0.3483052923203387,
+          "median": 0.46213894942730527
+        },
+        "20261104/global_random_2": {
+          "high": 0.4406700244223059,
+          "low": 0.1805897002838866,
+          "median": 0.3134164483097678
+        },
+        "20261105/all_data": {
+          "high": 0.5273648628078302,
+          "low": 0.28133379833846484,
+          "median": 0.4140304092892565
+        },
+        "20261105/diagnostic_filtered": {
+          "high": 0.5040757885700372,
+          "low": 0.25646830532350157,
+          "median": 0.3877675219288036
+        },
+        "20261105/direction_matched_earlier_year": {
+          "high": 0.3441014874619804,
+          "low": 0.08476757835526297,
+          "median": 0.22306552197237312
+        },
+        "20261105/global_random_2": {
+          "high": 0.4571175586747888,
+          "low": 0.19805043704414768,
+          "median": 0.33372542944775585
+        },
+        "20261106/all_data": {
+          "high": 0.480239006622446,
+          "low": 0.2154347972001478,
+          "median": 0.35983087072198794
+        },
+        "20261106/diagnostic_filtered": {
+          "high": 0.4577898887297402,
+          "low": 0.20510698609820596,
+          "median": 0.34030443846723935
+        },
+        "20261106/direction_matched_earlier_year": {
+          "high": 0.2964777425517486,
+          "low": 0.013146233805521964,
+          "median": 0.1620861785291599
+        },
+        "20261106/global_random_2": {
+          "high": 0.49328024803689385,
+          "low": 0.24406790178306,
+          "median": 0.3798295585187787
+        },
+        "20261107/all_data": {
+          "high": 0.390993437357034,
+          "low": 0.13021456602524475,
+          "median": 0.26546628127519867
+        },
+        "20261107/diagnostic_filtered": {
+          "high": 0.4650113598464937,
+          "low": 0.20760923221439,
+          "median": 0.34598672067501746
+        },
+        "20261107/direction_matched_earlier_year": {
+          "high": 0.29391549805132366,
+          "low": 0.03371318664990541,
+          "median": 0.17310689069861057
+        },
+        "20261107/global_random_2": {
+          "high": 0.5095637733199555,
+          "low": 0.2567910373599153,
+          "median": 0.39316087955200674
+        },
+        "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+          "high": 0.5714086805863627,
+          "low": 0.246504806227856,
+          "median": 0.4158811358080702
+        },
+        "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+          "high": 0.7202211688909598,
+          "low": 0.42105332151332253,
+          "median": 0.583111687804337
+        }
+      },
+      "optimize_rate_on_development_nonfailures": {
+        "high": 0.5,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "spearman_with_final_human_change": {
+        "high": 0.8954188034188033,
+        "low": 0.7368376068376068,
+        "median": 0.8735042735042735
+      }
+    },
+    "64": {
+      "decision_agreement_with_full_development_predictor": {
+        "high": 0.9615384615384616,
+        "low": 0.9230769230769231,
+        "median": 0.9615384615384616
+      },
+      "false_optimize_rate_on_development_failures": {
+        "high": 0.0,
+        "low": 0.0,
+        "median": 0.0
+      },
+      "human_scored_candidates": 1920,
+      "instance_cosine_intervals": {
+        "20261102/all_data": {
+          "high": 0.30504726344382943,
+          "low": 0.12397776690334243,
+          "median": 0.2166139748575674
+        },
+        "20261102/diagnostic_filtered": {
+          "high": 0.34689209295029333,
+          "low": 0.16669059188651356,
+          "median": 0.2593125854113746
+        },
+        "20261102/direction_matched_earlier_year": {
+          "high": 0.588866191097974,
+          "low": 0.4451146489252664,
+          "median": 0.5171890000399797
+        },
+        "20261102/global_random_2": {
+          "high": 0.34457224363467154,
+          "low": 0.1664804869899062,
+          "median": 0.2550857765848529
+        },
+        "20261103/all_data": {
+          "high": 0.32956238413507094,
+          "low": 0.14322705998551594,
+          "median": 0.23786703382911883
+        },
+        "20261103/diagnostic_filtered": {
+          "high": 0.4980024545459569,
+          "low": 0.3242921901993611,
+          "median": 0.41173995203169433
+        },
+        "20261103/direction_matched_earlier_year": {
+          "high": 0.5471012802200393,
+          "low": 0.38845568954981463,
+          "median": 0.4697265901156187
+        },
+        "20261103/global_random_2": {
+          "high": 0.22399935834164786,
+          "low": 0.06839072460791927,
+          "median": 0.14396784903953463
+        },
+        "20261104/all_data": {
+          "high": 0.3738280664957059,
+          "low": 0.19125806046138188,
+          "median": 0.2833120979879418
+        },
+        "20261104/diagnostic_filtered": {
+          "high": 0.2892906967914214,
+          "low": 0.09997407014738724,
+          "median": 0.19556698165637648
+        },
+        "20261104/direction_matched_earlier_year": {
+          "high": 0.5678756347760553,
+          "low": 0.4226327235990504,
+          "median": 0.49837640762447777
+        },
+        "20261104/global_random_2": {
+          "high": 0.4208366582432523,
+          "low": 0.24949631378031567,
+          "median": 0.3375275264811241
+        },
+        "20261105/all_data": {
+          "high": 0.5258509398665995,
+          "low": 0.3642745538260163,
+          "median": 0.4475374749717237
+        },
+        "20261105/diagnostic_filtered": {
+          "high": 0.4997183210594522,
+          "low": 0.33322950671132046,
+          "median": 0.4199005810130836
+        },
+        "20261105/direction_matched_earlier_year": {
+          "high": 0.33188705018527415,
+          "low": 0.15445860029097078,
+          "median": 0.2425276334360608
+        },
+        "20261105/global_random_2": {
+          "high": 0.4423427358406925,
+          "low": 0.2700472362713548,
+          "median": 0.35874115513333016
+        },
+        "20261106/all_data": {
+          "high": 0.47601087324033103,
+          "low": 0.2959736180030329,
+          "median": 0.38623936329953273
+        },
+        "20261106/diagnostic_filtered": {
+          "high": 0.4564645124672979,
+          "low": 0.27824400077800904,
+          "median": 0.3689402517347803
+        },
+        "20261106/direction_matched_earlier_year": {
+          "high": 0.2678366944078785,
+          "low": 0.07800665167808501,
+          "median": 0.1718545552616668
+        },
+        "20261106/global_random_2": {
+          "high": 0.4877638103139293,
+          "low": 0.32510596490501353,
+          "median": 0.40955818187889653
+        },
+        "20261107/all_data": {
+          "high": 0.3715506427162559,
+          "low": 0.19566177854750685,
+          "median": 0.2850577663294691
+        },
+        "20261107/diagnostic_filtered": {
+          "high": 0.46371273523512174,
+          "low": 0.28428425419968595,
+          "median": 0.37476342855173406
+        },
+        "20261107/direction_matched_earlier_year": {
+          "high": 0.27002549760283473,
+          "low": 0.09831078270845214,
+          "median": 0.1848965218114858
+        },
+        "20261107/global_random_2": {
+          "high": 0.5041742792421028,
+          "low": 0.3377039272747136,
+          "median": 0.4238241442867866
+        },
+        "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+          "high": 0.5553723589498609,
+          "low": 0.3504455911201631,
+          "median": 0.4526146136077853
+        },
+        "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+          "high": 0.7151232527686361,
+          "low": 0.5410723606110968,
+          "median": 0.6288959608255533
+        }
+      },
+      "optimize_rate_on_development_nonfailures": {
+        "high": 0.5,
+        "low": 0.0,
+        "median": 0.5
+      },
+      "spearman_with_final_human_change": {
+        "high": 0.894017094017094,
+        "low": 0.8177606837606837,
+        "median": 0.8769230769230769
+      }
+    }
+  },
+  "claim_boundary": "WMT26 development outcomes were already viewed; no confirmation outcomes were accessed.",
+  "development_cosine_threshold": 0.6,
+  "development_nonfailure_count": 2,
+  "frozen_confirmation_outcomes_accessed": false,
+  "full_development_cosines": [
+    0.13751714557028805,
+    0.20051373079611529,
+    0.18048755635155914,
+    0.5180753759470741,
+    0.18384344954705606,
+    0.34827332932462146,
+    0.060026261637105956,
+    0.4175140321624832,
+    0.2455362850000318,
+    0.13299904523522046,
+    0.28349970173430233,
+    0.4570313020969746,
+    0.4307606442267575,
+    0.35764730180352095,
+    0.3128131781647428,
+    0.25337254973880635,
+    0.3136238285456125,
+    0.3373958348222097,
+    0.3784510482057926,
+    0.08183457664077089,
+    0.24836630771178134,
+    0.33100675222571235,
+    0.36885039850465784,
+    0.15705047260633875,
+    0.7116587992445116,
+    0.8502719710341922
+  ],
+  "full_development_outcomes": [
+    -34.55428123474121,
+    -24.95502471923828,
+    -27.899059295654297,
+    -17.038856506347656,
+    -27.677719116210938,
+    -19.936771392822266,
+    -35.543291091918945,
+    -20.767253875732422,
+    -26.262279510498047,
+    -30.39031219482422,
+    -20.42434310913086,
+    -19.94440460205078,
+    -24.834583282470703,
+    -20.425037384033203,
+    -26.282032012939453,
+    -25.301334381103516,
+    -24.764911651611328,
+    -24.637405395507812,
+    -24.640830993652344,
+    -34.81351661682129,
+    -27.815383911132812,
+    -20.322845458984375,
+    -24.68450164794922,
+    -36.43676567077637,
+    1.9524154663085938,
+    1.9599990844726562
+  ],
+  "instance_order": [
+    "20261102/all_data",
+    "20261102/diagnostic_filtered",
+    "20261102/global_random_2",
+    "20261102/direction_matched_earlier_year",
+    "20261103/all_data",
+    "20261103/diagnostic_filtered",
+    "20261103/global_random_2",
+    "20261103/direction_matched_earlier_year",
+    "20261104/all_data",
+    "20261104/diagnostic_filtered",
+    "20261104/global_random_2",
+    "20261104/direction_matched_earlier_year",
+    "20261105/all_data",
+    "20261105/diagnostic_filtered",
+    "20261105/global_random_2",
+    "20261105/direction_matched_earlier_year",
+    "20261106/all_data",
+    "20261106/diagnostic_filtered",
+    "20261106/global_random_2",
+    "20261106/direction_matched_earlier_year",
+    "20261107/all_data",
+    "20261107/diagnostic_filtered",
+    "20261107/global_random_2",
+    "20261107/direction_matched_earlier_year",
+    "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da",
+    "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl"
+  ],
+  "replicates": 500,
+  "reward_instance_count": 26,
+  "sample_seed": 20261130,
+  "sampling_rule": "one uniformly sampled segment from each of uniformly sampled distinct training documents; full unlabeled pool for reward gradient and sampled human labels for human gradient",
+  "status": "exploratory_development_complete",
+  "threshold_rationale": "Round threshold chosen between the largest failing and smallest nonfailing full-development cosine; exploratory and not an uncertainty guarantee.",
+  "training_document_count": 134
+}

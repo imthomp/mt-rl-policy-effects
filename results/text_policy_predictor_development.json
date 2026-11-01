@@ -1,0 +1,636 @@
+{
+  "claim_boundary": "Post hoc WMT26 development analysis under the source-candidate-text policy; not confirmation.",
+  "document_split_by_domain": {
+    "news": {
+      "test_documents": 8,
+      "train_documents": 20
+    },
+    "social": {
+      "test_documents": 14,
+      "train_documents": 34
+    },
+    "speech": {
+      "test_documents": 34,
+      "train_documents": 80
+    }
+  },
+  "external_single_checkpoint_count": 2,
+  "frozen_confirmation_outcomes_accessed": false,
+  "heldout_systems": [
+    "Gemini 3.1 Pro",
+    "GoogleTranslate",
+    "Lumen",
+    "Mistral Medium 3.5",
+    "Qingqiu-MT-9B",
+    "Qwen 3.5 - 9b",
+    "SRPOL",
+    "SalamandraTA",
+    "TransCore",
+    "UvA-MT"
+  ],
+  "learning_rate": 0.5,
+  "optimization_steps": 200,
+  "policy": "frozen XLM-R source-candidate embeddings with one shared linear scorer and no system identity",
+  "reward_instance_count": 26,
+  "reward_seed_count": 6,
+  "robustness": {
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20261129,
+    "leave_one_reward_seed_out": {
+      "20261102": {
+        "between_system_eta_squared": -0.3596837944664032,
+        "human_gradient_dot_reward_gradient": 0.9683794466403164,
+        "human_reward_gradient_cosine": 0.7583286278938454,
+        "initial_system_logit_gradient_norm": -0.2885375494071147,
+        "system_mean_range": -0.3754940711462451,
+        "top_system_margin": -0.5460191981931113
+      },
+      "20261103": {
+        "between_system_eta_squared": -0.34387351778656133,
+        "human_gradient_dot_reward_gradient": 0.9728966685488425,
+        "human_reward_gradient_cosine": 0.805759457933371,
+        "initial_system_logit_gradient_norm": -0.30208921513269343,
+        "system_mean_range": -0.3969508752117449,
+        "top_system_margin": -0.6024844720496896
+      },
+      "20261104": {
+        "between_system_eta_squared": -0.29757199322416716,
+        "human_gradient_dot_reward_gradient": 0.9717673630717111,
+        "human_reward_gradient_cosine": 0.7628458498023717,
+        "initial_system_logit_gradient_norm": -0.23207227555053642,
+        "system_mean_range": -0.3348390739695088,
+        "top_system_margin": -0.5607001693958217
+      },
+      "20261105": {
+        "between_system_eta_squared": -0.34500282326369286,
+        "human_gradient_dot_reward_gradient": 0.9774138904573689,
+        "human_reward_gradient_cosine": 0.8023715415019763,
+        "initial_system_logit_gradient_norm": -0.3054771315640881,
+        "system_mean_range": -0.4150197628458499,
+        "top_system_margin": -0.6499153020892152
+      },
+      "20261106": {
+        "between_system_eta_squared": -0.4206662902315077,
+        "human_gradient_dot_reward_gradient": 0.961603613777527,
+        "human_reward_gradient_cosine": 0.8723884810841334,
+        "initial_system_logit_gradient_norm": -0.30208921513269343,
+        "system_mean_range": -0.383399209486166,
+        "top_system_margin": -0.6194240542066629
+      },
+      "20261107": {
+        "between_system_eta_squared": -0.38791643139469234,
+        "human_gradient_dot_reward_gradient": 0.9853190287972897,
+        "human_reward_gradient_cosine": 0.8283455674760022,
+        "initial_system_logit_gradient_norm": -0.28514963297572,
+        "system_mean_range": -0.3890457368718239,
+        "top_system_margin": -0.6103896103896105
+      },
+      "external_wmt22-cometkiwi-da": {
+        "between_system_eta_squared": -0.536923076923077,
+        "human_gradient_dot_reward_gradient": 0.9707692307692307,
+        "human_reward_gradient_cosine": 0.7715384615384615,
+        "initial_system_logit_gradient_norm": -0.5169230769230769,
+        "system_mean_range": -0.61,
+        "top_system_margin": -0.7023076923076923
+      },
+      "external_wmt23-cometkiwi-da-xl": {
+        "between_system_eta_squared": -0.5961538461538461,
+        "human_gradient_dot_reward_gradient": 0.9707692307692307,
+        "human_reward_gradient_cosine": 0.7715384615384615,
+        "initial_system_logit_gradient_norm": -0.5169230769230769,
+        "system_mean_range": -0.6284615384615384,
+        "top_system_margin": -0.81
+      }
+    },
+    "seed_clustered_intervals": {
+      "between_system_eta_squared": {
+        "high": 0.25685785536159594,
+        "low": -0.7877164843122711
+      },
+      "human_gradient_dot_reward_gradient": {
+        "high": 0.9931224209078405,
+        "low": 0.9044554455445544
+      },
+      "human_reward_gradient_cosine": {
+        "high": 0.9362232187344294,
+        "low": 0.6043722385861562
+      },
+      "initial_system_logit_gradient_norm": {
+        "high": 0.35315985130111527,
+        "low": -0.7481644640234947
+      },
+      "system_mean_range": {
+        "high": 0.2541192433041942,
+        "low": -0.8394595733994232
+      },
+      "top_system_margin": {
+        "high": -0.0664652567975831,
+        "low": -0.9141012909632573
+      }
+    }
+  },
+  "rows": [
+    {
+      "between_system_eta_squared": 0.12465537116548518,
+      "condition": "all_data",
+      "final_entropy": 1.997652292251587,
+      "final_human_cesa": 54.368186950683594,
+      "final_human_change_from_uniform": -11.632286071777344,
+      "human_gradient_dot_reward_gradient": -0.038305602967739105,
+      "human_reward_gradient_cosine": -0.7233809200332953,
+      "initial_system_logit_gradient_norm": 0.023199135437607765,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.46258455514907837,
+      "top_system_margin": 0.29061853885650635
+    },
+    {
+      "between_system_eta_squared": 0.1317142255923754,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 1.9648336172103882,
+      "final_human_cesa": 53.974464416503906,
+      "final_human_change_from_uniform": -12.026008605957031,
+      "human_gradient_dot_reward_gradient": -0.051130373030900955,
+      "human_reward_gradient_cosine": -0.718713469217111,
+      "initial_system_logit_gradient_norm": 0.03192104026675224,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.6136215925216675,
+      "top_system_margin": 0.38605085015296936
+    },
+    {
+      "between_system_eta_squared": 0.11914528817924008,
+      "condition": "global_random_2",
+      "final_entropy": 2.0487706661224365,
+      "final_human_cesa": 55.626773834228516,
+      "final_human_change_from_uniform": -10.373699188232422,
+      "human_gradient_dot_reward_gradient": -0.03261207044124603,
+      "human_reward_gradient_cosine": -0.69887850347913,
+      "initial_system_logit_gradient_norm": 0.020386088639497757,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.38903510570526123,
+      "top_system_margin": 0.22699996829032898
+    },
+    {
+      "between_system_eta_squared": 0.0908198474578368,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.227193593978882,
+      "final_human_cesa": 61.62253189086914,
+      "final_human_change_from_uniform": -4.377941131591797,
+      "human_gradient_dot_reward_gradient": -0.012571413069963455,
+      "human_reward_gradient_cosine": -0.38208838247911975,
+      "initial_system_logit_gradient_norm": 0.02074727974832058,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.2991926372051239,
+      "top_system_margin": 0.11417307704687119
+    },
+    {
+      "between_system_eta_squared": 0.12725088620742392,
+      "condition": "all_data",
+      "final_entropy": 1.991573452949524,
+      "final_human_cesa": 54.10295486450195,
+      "final_human_change_from_uniform": -11.897518157958984,
+      "human_gradient_dot_reward_gradient": -0.04004278779029846,
+      "human_reward_gradient_cosine": -0.7647426104813575,
+      "initial_system_logit_gradient_norm": 0.02208755724132061,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.4422975778579712,
+      "top_system_margin": 0.27369552850723267
+    },
+    {
+      "between_system_eta_squared": 0.13948091265269807,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 1.9930593967437744,
+      "final_human_cesa": 54.7130012512207,
+      "final_human_change_from_uniform": -11.287471771240234,
+      "human_gradient_dot_reward_gradient": -0.041978418827056885,
+      "human_reward_gradient_cosine": -0.6668026881119782,
+      "initial_system_logit_gradient_norm": 0.034213434904813766,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.5810772180557251,
+      "top_system_margin": 0.29023683071136475
+    },
+    {
+      "between_system_eta_squared": 0.044871548107880556,
+      "condition": "global_random_2",
+      "final_entropy": 2.2482962608337402,
+      "final_human_cesa": 61.946407318115234,
+      "final_human_change_from_uniform": -4.054065704345703,
+      "human_gradient_dot_reward_gradient": -0.01648896560072899,
+      "human_reward_gradient_cosine": -0.662409114146526,
+      "initial_system_logit_gradient_norm": 0.012791468761861324,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.22843250632286072,
+      "top_system_margin": 0.12504716217517853
+    },
+    {
+      "between_system_eta_squared": 0.12725915717467268,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.048215389251709,
+      "final_human_cesa": 55.781158447265625,
+      "final_human_change_from_uniform": -10.219314575195312,
+      "human_gradient_dot_reward_gradient": -0.031271424144506454,
+      "human_reward_gradient_cosine": -0.6546832927585875,
+      "initial_system_logit_gradient_norm": 0.028107089921832085,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.44813546538352966,
+      "top_system_margin": 0.19165277481079102
+    },
+    {
+      "between_system_eta_squared": 0.11036719147754487,
+      "condition": "all_data",
+      "final_entropy": 2.0537896156311035,
+      "final_human_cesa": 55.7841911315918,
+      "final_human_change_from_uniform": -10.21628189086914,
+      "human_gradient_dot_reward_gradient": -0.029455337673425674,
+      "human_reward_gradient_cosine": -0.6695158509283763,
+      "initial_system_logit_gradient_norm": 0.02082342468202114,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.3961355686187744,
+      "top_system_margin": 0.2240786999464035
+    },
+    {
+      "between_system_eta_squared": 0.1465044598657845,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 1.9370086193084717,
+      "final_human_cesa": 53.227752685546875,
+      "final_human_change_from_uniform": -12.772720336914062,
+      "human_gradient_dot_reward_gradient": -0.0575157031416893,
+      "human_reward_gradient_cosine": -0.7599955067524728,
+      "initial_system_logit_gradient_norm": 0.032179951667785645,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.669369637966156,
+      "top_system_margin": 0.43243011832237244
+    },
+    {
+      "between_system_eta_squared": 0.1201395634247252,
+      "condition": "global_random_2",
+      "final_entropy": 2.013775110244751,
+      "final_human_cesa": 54.850399017333984,
+      "final_human_change_from_uniform": -11.150074005126953,
+      "human_gradient_dot_reward_gradient": -0.03765423968434334,
+      "human_reward_gradient_cosine": -0.7056511528220508,
+      "initial_system_logit_gradient_norm": 0.024968313053250313,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.4633225202560425,
+      "top_system_margin": 0.24372121691703796
+    },
+    {
+      "between_system_eta_squared": 0.09076656927656336,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.2707901000976562,
+      "final_human_cesa": 63.22779846191406,
+      "final_human_change_from_uniform": -2.772674560546875,
+      "human_gradient_dot_reward_gradient": -0.012735404074192047,
+      "human_reward_gradient_cosine": -0.5436880388310203,
+      "initial_system_logit_gradient_norm": 0.016599848866462708,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.2465219497680664,
+      "top_system_margin": 0.09708783030509949
+    },
+    {
+      "between_system_eta_squared": 0.117731915871379,
+      "condition": "all_data",
+      "final_entropy": 2.1288838386535645,
+      "final_human_cesa": 57.90382385253906,
+      "final_human_change_from_uniform": -8.096649169921875,
+      "human_gradient_dot_reward_gradient": -0.02107916586101055,
+      "human_reward_gradient_cosine": -0.579992289860254,
+      "initial_system_logit_gradient_norm": 0.02114732563495636,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.35521388053894043,
+      "top_system_margin": 0.15198153257369995
+    },
+    {
+      "between_system_eta_squared": 0.1323229663773709,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 2.013077974319458,
+      "final_human_cesa": 54.994102478027344,
+      "final_human_change_from_uniform": -11.006370544433594,
+      "human_gradient_dot_reward_gradient": -0.03739054501056671,
+      "human_reward_gradient_cosine": -0.6766278049155374,
+      "initial_system_logit_gradient_norm": 0.02852509915828705,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.48470160365104675,
+      "top_system_margin": 0.23206639289855957
+    },
+    {
+      "between_system_eta_squared": 0.14452615451259848,
+      "condition": "global_random_2",
+      "final_entropy": 2.0047590732574463,
+      "final_human_cesa": 54.774593353271484,
+      "final_human_change_from_uniform": -11.225879669189453,
+      "human_gradient_dot_reward_gradient": -0.03698406368494034,
+      "human_reward_gradient_cosine": -0.6656654697495646,
+      "initial_system_logit_gradient_norm": 0.029273785650730133,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.5402071475982666,
+      "top_system_margin": 0.2930110692977905
+    },
+    {
+      "between_system_eta_squared": 0.11617469753617884,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.054572582244873,
+      "final_human_cesa": 56.00173568725586,
+      "final_human_change_from_uniform": -9.998737335205078,
+      "human_gradient_dot_reward_gradient": -0.029729343950748444,
+      "human_reward_gradient_cosine": -0.6062169750263592,
+      "initial_system_logit_gradient_norm": 0.025381121784448624,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.4781931936740875,
+      "top_system_margin": 0.2738136053085327
+    },
+    {
+      "between_system_eta_squared": 0.12368370254764283,
+      "condition": "all_data",
+      "final_entropy": 2.063309669494629,
+      "final_human_cesa": 55.9190673828125,
+      "final_human_change_from_uniform": -10.081405639648438,
+      "human_gradient_dot_reward_gradient": -0.02913934737443924,
+      "human_reward_gradient_cosine": -0.7014630399995408,
+      "initial_system_logit_gradient_norm": 0.02116248570382595,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.38845252990722656,
+      "top_system_margin": 0.20167188346385956
+    },
+    {
+      "between_system_eta_squared": 0.11042942611174855,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 2.023676633834839,
+      "final_human_cesa": 55.11203384399414,
+      "final_human_change_from_uniform": -10.888439178466797,
+      "human_gradient_dot_reward_gradient": -0.03509962558746338,
+      "human_reward_gradient_cosine": -0.6825305918670206,
+      "initial_system_logit_gradient_norm": 0.023028962314128876,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.4176778197288513,
+      "top_system_margin": 0.22093990445137024
+    },
+    {
+      "between_system_eta_squared": 0.12682866061750042,
+      "condition": "global_random_2",
+      "final_entropy": 2.1110823154449463,
+      "final_human_cesa": 57.288658142089844,
+      "final_human_change_from_uniform": -8.711814880371094,
+      "human_gradient_dot_reward_gradient": -0.023908883333206177,
+      "human_reward_gradient_cosine": -0.6322791623364488,
+      "initial_system_logit_gradient_norm": 0.022845150902867317,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.4027903974056244,
+      "top_system_margin": 0.1809920072555542
+    },
+    {
+      "between_system_eta_squared": 0.11814272639504067,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.0397560596466064,
+      "final_human_cesa": 55.141902923583984,
+      "final_human_change_from_uniform": -10.858570098876953,
+      "human_gradient_dot_reward_gradient": -0.0322146899998188,
+      "human_reward_gradient_cosine": -0.7751950388607574,
+      "initial_system_logit_gradient_norm": 0.017375951632857323,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.36123478412628174,
+      "top_system_margin": 0.2381882667541504
+    },
+    {
+      "between_system_eta_squared": 0.09660604977934564,
+      "condition": "all_data",
+      "final_entropy": 2.048389196395874,
+      "final_human_cesa": 55.450096130371094,
+      "final_human_change_from_uniform": -10.550376892089844,
+      "human_gradient_dot_reward_gradient": -0.030253376811742783,
+      "human_reward_gradient_cosine": -0.7093509026339102,
+      "initial_system_logit_gradient_norm": 0.018947526812553406,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.363552063703537,
+      "top_system_margin": 0.21232356131076813
+    },
+    {
+      "between_system_eta_squared": 0.137766327852272,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 2.008261203765869,
+      "final_human_cesa": 54.9759521484375,
+      "final_human_change_from_uniform": -11.024520874023438,
+      "human_gradient_dot_reward_gradient": -0.0381537564098835,
+      "human_reward_gradient_cosine": -0.6613653409962305,
+      "initial_system_logit_gradient_norm": 0.030320413410663605,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.5393909215927124,
+      "top_system_margin": 0.2842029631137848
+    },
+    {
+      "between_system_eta_squared": 0.12333903121929357,
+      "condition": "global_random_2",
+      "final_entropy": 1.9996341466903687,
+      "final_human_cesa": 54.46665573120117,
+      "final_human_change_from_uniform": -11.533817291259766,
+      "human_gradient_dot_reward_gradient": -0.03679274767637253,
+      "human_reward_gradient_cosine": -0.6968242831932931,
+      "initial_system_logit_gradient_norm": 0.02822328545153141,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.48003697395324707,
+      "top_system_margin": 0.24369417130947113
+    },
+    {
+      "between_system_eta_squared": 0.09527291169097937,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 2.0783088207244873,
+      "final_human_cesa": 56.48527145385742,
+      "final_human_change_from_uniform": -9.515201568603516,
+      "human_gradient_dot_reward_gradient": -0.026873214170336723,
+      "human_reward_gradient_cosine": -0.6429194026769965,
+      "initial_system_logit_gradient_norm": 0.018000667914748192,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.3457343578338623,
+      "top_system_margin": 0.22062881290912628
+    },
+    {
+      "between_system_eta_squared": 0.13284315553563136,
+      "condition": "wmt22-cometkiwi-da",
+      "final_entropy": 2.2797675132751465,
+      "final_human_cesa": 67.9204330444336,
+      "final_human_change_from_uniform": 1.9199600219726562,
+      "human_gradient_dot_reward_gradient": 0.041560396552085876,
+      "human_reward_gradient_cosine": 0.6493680115118446,
+      "initial_system_logit_gradient_norm": 0.03787296637892723,
+      "reward_checkpoint_kind": "external_single_checkpoint",
+      "seed": "external_wmt22-cometkiwi-da",
+      "system_mean_range": 0.6616601347923279,
+      "top_system_margin": 0.24368305504322052
+    },
+    {
+      "between_system_eta_squared": 0.15960330273084314,
+      "condition": "wmt23-cometkiwi-da-xl",
+      "final_entropy": 2.2557284832000732,
+      "final_human_cesa": 68.14128875732422,
+      "final_human_change_from_uniform": 2.1408157348632812,
+      "human_gradient_dot_reward_gradient": 0.08382000029087067,
+      "human_reward_gradient_cosine": 0.8869624724601335,
+      "initial_system_logit_gradient_norm": 0.05073767900466919,
+      "reward_checkpoint_kind": "external_single_checkpoint",
+      "seed": "external_wmt23-cometkiwi-da-xl",
+      "system_mean_range": 0.797075629234314,
+      "top_system_margin": 0.3379018306732178
+    }
+  ],
+  "spearman_with_final_human_change": {
+    "between_system_eta_squared": -0.41880341880341876,
+    "human_gradient_dot_reward_gradient": 0.974017094017094,
+    "human_reward_gradient_cosine": 0.7969230769230767,
+    "initial_system_logit_gradient_norm": -0.3483760683760683,
+    "system_mean_range": -0.44752136752136745,
+    "top_system_margin": -0.6423931623931624
+  },
+  "status": "exploratory_development_complete",
+  "table_row_trace": {
+    "20261102/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/all_data.jsonl"
+    },
+    "20261102/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/diagnostic_filtered.jsonl"
+    },
+    "20261102/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261102/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/global_random_2.jsonl"
+    },
+    "20261103/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/all_data.jsonl"
+    },
+    "20261103/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261103/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261103/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/global_random_2.jsonl"
+    },
+    "20261104/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/all_data.jsonl"
+    },
+    "20261104/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261104/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261104/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/global_random_2.jsonl"
+    },
+    "20261105/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/all_data.jsonl"
+    },
+    "20261105/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261105/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261105/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/global_random_2.jsonl"
+    },
+    "20261106/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/all_data.jsonl"
+    },
+    "20261106/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261106/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261106/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/global_random_2.jsonl"
+    },
+    "20261107/all_data": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/all_data.jsonl"
+    },
+    "20261107/diagnostic_filtered": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261107/direction_matched_earlier_year": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261107/global_random_2": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/global_random_2.jsonl"
+    },
+    "external_wmt22-cometkiwi-da/wmt22-cometkiwi-da": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/research_lab/project_16_reward_selection/strong/wmt22-cometkiwi-da.jsonl"
+    },
+    "external_wmt23-cometkiwi-da-xl/wmt23-cometkiwi-da-xl": {
+      "outcome": "computed by this script under the frozen text-policy protocol",
+      "predictors": "/home/it238/projects/research_lab/project_16_reward_selection/strong/wmt23-cometkiwi-da-xl.jsonl"
+    }
+  },
+  "train_systems": [
+    "Cohere CAT+",
+    "Command A+",
+    "DeepSeek V4 Pro",
+    "Dubformer",
+    "GLM 4 - 9B",
+    "GPT 5.5",
+    "GPT OSS 120B",
+    "GPT OSS 20B",
+    "Gemma 4 - 31B",
+    "Gemma 4 - 4B",
+    "HW-TSC",
+    "MakotoAI",
+    "Ministral 3 - 14B",
+    "PseudoRef",
+    "Qwen 3.6 - 27b",
+    "RFMT",
+    "TRIVE",
+    "Tiny Aya Global",
+    "Tower 9B",
+    "Wayfinder"
+  ],
+  "uniform_heldout_human_cesa": 66.00047302246094
+}

@@ -1,0 +1,456 @@
+{
+  "dataset_root": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation",
+  "datasets": {
+    "generalMT2023/ende/mqm_generalMT2023_ende.tsv": {
+      "accessed_fields": [
+        "doc",
+        "docSegId",
+        "globalSegId",
+        "rater",
+        "source",
+        "system",
+        "target"
+      ],
+      "all_systems": [
+        "AIRC",
+        "GPT4-5shot",
+        "Lan-BridgeMT",
+        "NLLB_Greedy",
+        "NLLB_MBR_BLEU",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-G",
+        "ONLINE-M",
+        "ONLINE-W",
+        "ONLINE-Y",
+        "ZengHuiMT",
+        "refA"
+      ],
+      "ambiguous_candidate_texts": 63,
+      "clean_machine_candidate_rows": 5256,
+      "clean_rectangular_segments": 438,
+      "cleaning_rule": "exclude reference/human systems by name prefix; retain segments with every machine system, one source-text variant, and one target-text variant per candidate",
+      "documents": 190,
+      "excluded_non_machine_systems": [
+        "refA"
+      ],
+      "fully_covered_machine_segments": 460,
+      "machine_candidate_count_distribution": [
+        {
+          "machine_candidates": 12,
+          "segments": 460
+        }
+      ],
+      "machine_candidate_count_max": 12,
+      "machine_candidate_count_mean": 12.0,
+      "machine_candidate_count_min": 12,
+      "machine_candidate_rows": 5520,
+      "machine_system_count": 12,
+      "machine_systems": [
+        "AIRC",
+        "GPT4-5shot",
+        "Lan-BridgeMT",
+        "NLLB_Greedy",
+        "NLLB_MBR_BLEU",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-G",
+        "ONLINE-M",
+        "ONLINE-W",
+        "ONLINE-Y",
+        "ZengHuiMT"
+      ],
+      "outcome_fields_accessed": [],
+      "path": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2023/ende/mqm_generalMT2023_ende.tsv",
+      "prohibited_outcome_fields": [
+        "category",
+        "severity",
+        "metadata"
+      ],
+      "rater_count_distribution": [
+        {
+          "raters": 1,
+          "segments": 5520
+        }
+      ],
+      "rater_count_max_per_machine_candidate": 1,
+      "rater_count_min_per_machine_candidate": 1,
+      "rectangular_machine_pool": true,
+      "segments": 460,
+      "segments_with_ambiguous_candidate_text": 20,
+      "sha256": "462f7d001fdf9b2a45904ae050899c52dcf41099476565139b218d588e421d5a",
+      "source_variant_segments": 4
+    },
+    "generalMT2023/zhen/mqm_generalMT2023_zhen.tsv": {
+      "accessed_fields": [
+        "doc",
+        "docSegId",
+        "globalSegId",
+        "rater",
+        "source",
+        "system",
+        "target"
+      ],
+      "all_systems": [
+        "ANVITA",
+        "GPT4-5shot",
+        "HW-TSC",
+        "IOL_Research",
+        "Lan-BridgeMT",
+        "NLLB_Greedy",
+        "NLLB_MBR_BLEU",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-G",
+        "ONLINE-M",
+        "ONLINE-W",
+        "ONLINE-Y",
+        "Yishu",
+        "ZengHuiMT",
+        "refA"
+      ],
+      "ambiguous_candidate_texts": 93,
+      "clean_machine_candidate_rows": 16950,
+      "clean_rectangular_segments": 1130,
+      "cleaning_rule": "exclude reference/human systems by name prefix; retain segments with every machine system, one source-text variant, and one target-text variant per candidate",
+      "documents": 179,
+      "excluded_non_machine_systems": [
+        "refA"
+      ],
+      "fully_covered_machine_segments": 1177,
+      "machine_candidate_count_distribution": [
+        {
+          "machine_candidates": 15,
+          "segments": 1177
+        }
+      ],
+      "machine_candidate_count_max": 15,
+      "machine_candidate_count_mean": 15.0,
+      "machine_candidate_count_min": 15,
+      "machine_candidate_rows": 17655,
+      "machine_system_count": 15,
+      "machine_systems": [
+        "ANVITA",
+        "GPT4-5shot",
+        "HW-TSC",
+        "IOL_Research",
+        "Lan-BridgeMT",
+        "NLLB_Greedy",
+        "NLLB_MBR_BLEU",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-G",
+        "ONLINE-M",
+        "ONLINE-W",
+        "ONLINE-Y",
+        "Yishu",
+        "ZengHuiMT"
+      ],
+      "outcome_fields_accessed": [],
+      "path": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2023/zhen/mqm_generalMT2023_zhen.tsv",
+      "prohibited_outcome_fields": [
+        "category",
+        "severity",
+        "metadata"
+      ],
+      "rater_count_distribution": [
+        {
+          "raters": 1,
+          "segments": 17655
+        }
+      ],
+      "rater_count_max_per_machine_candidate": 1,
+      "rater_count_min_per_machine_candidate": 1,
+      "rectangular_machine_pool": true,
+      "segments": 1177,
+      "segments_with_ambiguous_candidate_text": 47,
+      "sha256": "d368e6bd77e00c469ecf92a6f56bf07320ed2fd951661e61580bd8d49708603f",
+      "source_variant_segments": 0
+    },
+    "generalMT2024/mqm_generalMT2024_ende.tsv": {
+      "accessed_fields": [
+        "doc",
+        "docSegId",
+        "globalSegId",
+        "rater",
+        "source",
+        "system",
+        "target"
+      ],
+      "all_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "Dubformer",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN",
+        "IKUN-C",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "Mistral-Large",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-W",
+        "TranssionMT",
+        "Unbabel-Tower70B",
+        "refA",
+        "refB"
+      ],
+      "ambiguous_candidate_texts": 116,
+      "clean_machine_candidate_rows": 7905,
+      "clean_rectangular_segments": 465,
+      "cleaning_rule": "exclude reference/human systems by name prefix; retain segments with every machine system, one source-text variant, and one target-text variant per candidate",
+      "documents": 171,
+      "excluded_non_machine_systems": [
+        "refA",
+        "refB"
+      ],
+      "fully_covered_machine_segments": 483,
+      "machine_candidate_count_distribution": [
+        {
+          "machine_candidates": 15,
+          "segments": 4
+        },
+        {
+          "machine_candidates": 17,
+          "segments": 483
+        }
+      ],
+      "machine_candidate_count_max": 17,
+      "machine_candidate_count_mean": 16.983572895277206,
+      "machine_candidate_count_min": 15,
+      "machine_candidate_rows": 8271,
+      "machine_system_count": 17,
+      "machine_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "Dubformer",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN",
+        "IKUN-C",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "Mistral-Large",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-W",
+        "TranssionMT",
+        "Unbabel-Tower70B"
+      ],
+      "outcome_fields_accessed": [],
+      "path": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2024/mqm_generalMT2024_ende.tsv",
+      "prohibited_outcome_fields": [
+        "category",
+        "severity",
+        "metadata"
+      ],
+      "rater_count_distribution": [
+        {
+          "raters": 1,
+          "segments": 8271
+        }
+      ],
+      "rater_count_max_per_machine_candidate": 1,
+      "rater_count_min_per_machine_candidate": 1,
+      "rectangular_machine_pool": false,
+      "segments": 487,
+      "segments_with_ambiguous_candidate_text": 18,
+      "sha256": "4ae6c64ea3aad4a5286bf70c19c61c9d39ef2cc2da68637b26f1f91454498c20",
+      "source_variant_segments": 0
+    },
+    "generalMT2024/mqm_generalMT2024_enes.tsv": {
+      "accessed_fields": [
+        "doc",
+        "docSegId",
+        "globalSegId",
+        "rater",
+        "source",
+        "system",
+        "target"
+      ],
+      "all_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "Dubformer",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "Mistral-Large",
+        "ONLINE-B",
+        "ONLINE-W",
+        "Unbabel-Tower70B",
+        "refA"
+      ],
+      "ambiguous_candidate_texts": 1,
+      "clean_machine_candidate_rows": 8624,
+      "clean_rectangular_segments": 616,
+      "cleaning_rule": "exclude reference/human systems by name prefix; retain segments with every machine system, one source-text variant, and one target-text variant per candidate",
+      "documents": 147,
+      "excluded_non_machine_systems": [
+        "refA"
+      ],
+      "fully_covered_machine_segments": 617,
+      "machine_candidate_count_distribution": [
+        {
+          "machine_candidates": 13,
+          "segments": 6
+        },
+        {
+          "machine_candidates": 14,
+          "segments": 617
+        }
+      ],
+      "machine_candidate_count_max": 14,
+      "machine_candidate_count_mean": 13.990369181380418,
+      "machine_candidate_count_min": 13,
+      "machine_candidate_rows": 8716,
+      "machine_system_count": 14,
+      "machine_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "Dubformer",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "Mistral-Large",
+        "ONLINE-B",
+        "ONLINE-W",
+        "Unbabel-Tower70B"
+      ],
+      "outcome_fields_accessed": [],
+      "path": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2024/mqm_generalMT2024_enes.tsv",
+      "prohibited_outcome_fields": [
+        "category",
+        "severity",
+        "metadata"
+      ],
+      "rater_count_distribution": [
+        {
+          "raters": 1,
+          "segments": 8716
+        }
+      ],
+      "rater_count_max_per_machine_candidate": 1,
+      "rater_count_min_per_machine_candidate": 1,
+      "rectangular_machine_pool": false,
+      "segments": 623,
+      "segments_with_ambiguous_candidate_text": 1,
+      "sha256": "9e29aa0af6f8367ab615d6ad363145ad66a036d09decd301ec2a27827f3fa9d3",
+      "source_variant_segments": 0
+    },
+    "generalMT2024/mqm_generalMT2024_jazh.tsv": {
+      "accessed_fields": [
+        "doc",
+        "docSegId",
+        "globalSegId",
+        "rater",
+        "source",
+        "system",
+        "target"
+      ],
+      "all_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "DLUT_GTCOM",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN-C",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "NTTSU",
+        "ONLINE-B",
+        "Team-J",
+        "Unbabel-Tower70B",
+        "refA"
+      ],
+      "ambiguous_candidate_texts": 0,
+      "clean_machine_candidate_rows": 7840,
+      "clean_rectangular_segments": 560,
+      "cleaning_rule": "exclude reference/human systems by name prefix; retain segments with every machine system, one source-text variant, and one target-text variant per candidate",
+      "documents": 197,
+      "excluded_non_machine_systems": [
+        "refA"
+      ],
+      "fully_covered_machine_segments": 560,
+      "machine_candidate_count_distribution": [
+        {
+          "machine_candidates": 14,
+          "segments": 560
+        }
+      ],
+      "machine_candidate_count_max": 14,
+      "machine_candidate_count_mean": 14.0,
+      "machine_candidate_count_min": 14,
+      "machine_candidate_rows": 7840,
+      "machine_system_count": 14,
+      "machine_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "DLUT_GTCOM",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN-C",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "NTTSU",
+        "ONLINE-B",
+        "Team-J",
+        "Unbabel-Tower70B"
+      ],
+      "outcome_fields_accessed": [],
+      "path": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2024/mqm_generalMT2024_jazh.tsv",
+      "prohibited_outcome_fields": [
+        "category",
+        "severity",
+        "metadata"
+      ],
+      "rater_count_distribution": [
+        {
+          "raters": 1,
+          "segments": 7840
+        }
+      ],
+      "rater_count_max_per_machine_candidate": 1,
+      "rater_count_min_per_machine_candidate": 1,
+      "rectangular_machine_pool": true,
+      "segments": 560,
+      "segments_with_ambiguous_candidate_text": 0,
+      "sha256": "be17442ffd919859e17e1f8c5cdd2110d5f9e27e8e4c24ba3e902ba1febe0a7b",
+      "source_variant_segments": 0
+    }
+  },
+  "eligible_rectangular_datasets": [
+    "generalMT2023/ende/mqm_generalMT2023_ende.tsv",
+    "generalMT2023/zhen/mqm_generalMT2023_zhen.tsv",
+    "generalMT2024/mqm_generalMT2024_ende.tsv",
+    "generalMT2024/mqm_generalMT2024_enes.tsv",
+    "generalMT2024/mqm_generalMT2024_jazh.tsv"
+  ],
+  "license": "Apache-2.0",
+  "outcomes_unopened_for_analysis": true,
+  "prior_exposure": {
+    "amanamt_followup": "WMT23/24 were named as prospective additions, but the project handoff says these MQM files and protocols were not used.",
+    "interpretation": "Eligible for a prospectively frozen reward-selection confirmation, but not an unanticipated dataset because its existence was already documented.",
+    "reinforcement_learning": "WMT23/24 source/reference text was used only for exact-overlap filtering in the earlier NLLB/Tatoeba work; MQM outcomes were not used."
+  },
+  "repository_revision": "7fadea281aff8db61cc72fc3d469a4dca78b82a6",
+  "repository_url": "https://github.com/google/wmt-mqm-human-evaluation",
+  "status": "outcome_blind_feasibility_complete"
+}

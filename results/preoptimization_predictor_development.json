@@ -1,0 +1,613 @@
+{
+  "claim_boundary": "Post hoc predictor development on already-viewed WMT26 outcomes; not confirmation.",
+  "external_single_checkpoint_count": 2,
+  "frozen_confirmation_outcomes_accessed": false,
+  "outcome_context_split": "WMT26 test documents only",
+  "predictor_context_split": "WMT26 training documents only",
+  "reward_instance_count": 26,
+  "reward_seed_count": 6,
+  "robustness": {
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20261129,
+    "leave_one_reward_seed_out": {
+      "20261102": {
+        "between_system_eta_squared": 0.5268210050818747,
+        "human_gradient_dot_reward_gradient": 0.8464144551101074,
+        "human_reward_gradient_cosine": 0.8351214003387919,
+        "initial_system_logit_gradient_norm": 0.611518915866742,
+        "system_mean_range": 0.5211744776962168,
+        "top_system_margin": 0.21400338791643145
+      },
+      "20261103": {
+        "between_system_eta_squared": 0.33709768492377196,
+        "human_gradient_dot_reward_gradient": 0.8644833427442123,
+        "human_reward_gradient_cosine": 0.8904573687182383,
+        "initial_system_logit_gradient_norm": 0.4330886504799548,
+        "system_mean_range": 0.2298136645962733,
+        "top_system_margin": -0.08639186900056467
+      },
+      "20261104": {
+        "between_system_eta_squared": 0.6725014116318464,
+        "human_gradient_dot_reward_gradient": 0.9345002823263695,
+        "human_reward_gradient_cosine": 0.8949745906267645,
+        "initial_system_logit_gradient_norm": 0.7628458498023717,
+        "system_mean_range": 0.5415019762845851,
+        "top_system_margin": 0.17221908526256355
+      },
+      "20261105": {
+        "between_system_eta_squared": 0.4929418407679278,
+        "human_gradient_dot_reward_gradient": 0.9390175042348957,
+        "human_reward_gradient_cosine": 0.9232072275550537,
+        "initial_system_logit_gradient_norm": 0.6160361377752683,
+        "system_mean_range": 0.41050254093732363,
+        "top_system_margin": 0.050254093732354614
+      },
+      "20261106": {
+        "between_system_eta_squared": 0.44325239977413894,
+        "human_gradient_dot_reward_gradient": 0.9062676453980804,
+        "human_reward_gradient_cosine": 0.8994918125352909,
+        "initial_system_logit_gradient_norm": 0.5256916996047432,
+        "system_mean_range": 0.365330321852061,
+        "top_system_margin": 0.06493506493506496
+      },
+      "20261107": {
+        "between_system_eta_squared": 0.3359683794466404,
+        "human_gradient_dot_reward_gradient": 0.8825522303783175,
+        "human_reward_gradient_cosine": 0.9062676453980804,
+        "initial_system_logit_gradient_norm": 0.4918125352907962,
+        "system_mean_range": 0.2693393562958781,
+        "top_system_margin": -0.08300395256916997
+      },
+      "external_wmt22-cometkiwi-da": {
+        "between_system_eta_squared": 0.3815384615384615,
+        "human_gradient_dot_reward_gradient": 0.8807692307692306,
+        "human_reward_gradient_cosine": 0.8746153846153846,
+        "initial_system_logit_gradient_norm": 0.5030769230769231,
+        "system_mean_range": 0.28076923076923077,
+        "top_system_margin": -0.07846153846153846
+      },
+      "external_wmt23-cometkiwi-da-xl": {
+        "between_system_eta_squared": 0.3815384615384615,
+        "human_gradient_dot_reward_gradient": 0.8807692307692306,
+        "human_reward_gradient_cosine": 0.8746153846153846,
+        "initial_system_logit_gradient_norm": 0.5030769230769231,
+        "system_mean_range": 0.28076923076923077,
+        "top_system_margin": -0.07846153846153846
+      }
+    },
+    "seed_clustered_intervals": {
+      "between_system_eta_squared": {
+        "high": 0.8631832244757648,
+        "low": -0.07920110192837465
+      },
+      "human_gradient_dot_reward_gradient": {
+        "high": 0.9802823946221546,
+        "low": 0.6990663862913334
+      },
+      "human_reward_gradient_cosine": {
+        "high": 0.9742446755819711,
+        "low": 0.7683168316831682
+      },
+      "initial_system_logit_gradient_norm": {
+        "high": 0.9533498759305211,
+        "low": 0.02840059790732436
+      },
+      "system_mean_range": {
+        "high": 0.9016641452344932,
+        "low": -0.14603960396039603
+      },
+      "top_system_margin": {
+        "high": 0.6235673424612701,
+        "low": -0.4414103007258901
+      }
+    }
+  },
+  "rows": [
+    {
+      "between_system_eta_squared": 0.10168928483457793,
+      "condition": "all_data",
+      "final_entropy": 0.10316262394189835,
+      "final_human_cesa": 31.71256446838379,
+      "final_human_change_from_uniform": -34.55428123474121,
+      "final_standardized_proxy": 0.43642759323120117,
+      "human_gradient_dot_reward_gradient": 0.007210159208625555,
+      "human_reward_gradient_cosine": 0.13751714557028805,
+      "initial_system_logit_gradient_norm": 0.016668444499373436,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.46567508578300476,
+      "top_system_margin": 0.292486310005188
+    },
+    {
+      "between_system_eta_squared": 0.11057065951864746,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.33185136318206787,
+      "final_human_cesa": 41.31182098388672,
+      "final_human_change_from_uniform": -24.95502471923828,
+      "final_standardized_proxy": 0.7172420620918274,
+      "human_gradient_dot_reward_gradient": 0.015110478736460209,
+      "human_reward_gradient_cosine": 0.20051373079611529,
+      "initial_system_logit_gradient_norm": 0.023339463397860527,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.6190011501312256,
+      "top_system_margin": 0.39157211780548096
+    },
+    {
+      "between_system_eta_squared": 0.09745959253797729,
+      "condition": "global_random_2",
+      "final_entropy": 0.5326724052429199,
+      "final_human_cesa": 38.3677864074707,
+      "final_human_change_from_uniform": -27.899059295654297,
+      "final_standardized_proxy": 0.3861018717288971,
+      "human_gradient_dot_reward_gradient": 0.008436291478574276,
+      "human_reward_gradient_cosine": 0.18048755635155914,
+      "initial_system_logit_gradient_norm": 0.01477308664470911,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.3917279839515686,
+      "top_system_margin": 0.22745509445667267
+    },
+    {
+      "between_system_eta_squared": 0.08642378007975524,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.2838652729988098,
+      "final_human_cesa": 49.227989196777344,
+      "final_human_change_from_uniform": -17.038856506347656,
+      "final_standardized_proxy": 0.3326836824417114,
+      "human_gradient_dot_reward_gradient": 0.02601144090294838,
+      "human_reward_gradient_cosine": 0.5180753759470741,
+      "initial_system_logit_gradient_norm": 0.016235169023275375,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261102",
+      "system_mean_range": 0.30026882886886597,
+      "top_system_margin": 0.111808180809021
+    },
+    {
+      "between_system_eta_squared": 0.10452551586384669,
+      "condition": "all_data",
+      "final_entropy": 0.670502781867981,
+      "final_human_cesa": 38.58912658691406,
+      "final_human_change_from_uniform": -27.677719116210938,
+      "final_standardized_proxy": 0.3960980772972107,
+      "human_gradient_dot_reward_gradient": 0.009318714030086994,
+      "human_reward_gradient_cosine": 0.18384344954705606,
+      "initial_system_logit_gradient_norm": 0.016082050278782845,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.44501274824142456,
+      "top_system_margin": 0.27545952796936035
+    },
+    {
+      "between_system_eta_squared": 0.11761067586278931,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.4827682077884674,
+      "final_human_cesa": 46.330074310302734,
+      "final_human_change_from_uniform": -19.936771392822266,
+      "final_standardized_proxy": 0.6163486838340759,
+      "human_gradient_dot_reward_gradient": 0.02785978466272354,
+      "human_reward_gradient_cosine": 0.34827332932462146,
+      "initial_system_logit_gradient_norm": 0.02547890692949295,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.5850100517272949,
+      "top_system_margin": 0.2916768789291382
+    },
+    {
+      "between_system_eta_squared": 0.03588286444714727,
+      "condition": "global_random_2",
+      "final_entropy": 0.34230759739875793,
+      "final_human_cesa": 30.723554611206055,
+      "final_human_change_from_uniform": -35.543291091918945,
+      "final_standardized_proxy": 0.17344297468662262,
+      "human_gradient_dot_reward_gradient": 0.0018281706143170595,
+      "human_reward_gradient_cosine": 0.060026261637105956,
+      "initial_system_logit_gradient_norm": 0.009360496886074543,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.22969794273376465,
+      "top_system_margin": 0.12220335006713867
+    },
+    {
+      "between_system_eta_squared": 0.11143028598755049,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.47310248017311096,
+      "final_human_cesa": 45.49959182739258,
+      "final_human_change_from_uniform": -20.767253875732422,
+      "final_standardized_proxy": 0.4777860939502716,
+      "human_gradient_dot_reward_gradient": 0.027831461280584335,
+      "human_reward_gradient_cosine": 0.4175140321624832,
+      "initial_system_logit_gradient_norm": 0.021544475108385086,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261103",
+      "system_mean_range": 0.4519386887550354,
+      "top_system_margin": 0.19105122983455658
+    },
+    {
+      "between_system_eta_squared": 0.09468501870155971,
+      "condition": "all_data",
+      "final_entropy": 0.43388286232948303,
+      "final_human_cesa": 40.00456619262695,
+      "final_human_change_from_uniform": -26.262279510498047,
+      "final_standardized_proxy": 0.3840682804584503,
+      "human_gradient_dot_reward_gradient": 0.011941677890717983,
+      "human_reward_gradient_cosine": 0.2455362850000318,
+      "initial_system_logit_gradient_norm": 0.01548532210290432,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.398343950510025,
+      "top_system_margin": 0.2271793931722641
+    },
+    {
+      "between_system_eta_squared": 0.12051646632802054,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.3664076030254364,
+      "final_human_cesa": 35.87653350830078,
+      "final_human_change_from_uniform": -30.39031219482422,
+      "final_standardized_proxy": 0.6808689832687378,
+      "human_gradient_dot_reward_gradient": 0.009942778386175632,
+      "human_reward_gradient_cosine": 0.13299904523522046,
+      "initial_system_logit_gradient_norm": 0.023420529440045357,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.6744095087051392,
+      "top_system_margin": 0.43884825706481934
+    },
+    {
+      "between_system_eta_squared": 0.1041912938766152,
+      "condition": "global_random_2",
+      "final_entropy": 0.29716843366622925,
+      "final_human_cesa": 45.84250259399414,
+      "final_human_change_from_uniform": -20.42434310913086,
+      "final_standardized_proxy": 0.5025551319122314,
+      "human_gradient_dot_reward_gradient": 0.016466794535517693,
+      "human_reward_gradient_cosine": 0.28349970173430233,
+      "initial_system_logit_gradient_norm": 0.01836860552430153,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.46693187952041626,
+      "top_system_margin": 0.24436093866825104
+    },
+    {
+      "between_system_eta_squared": 0.07976433758565157,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.12445328384637833,
+      "final_human_cesa": 46.32244110107422,
+      "final_human_change_from_uniform": -19.94440460205078,
+      "final_standardized_proxy": 0.26431721448898315,
+      "human_gradient_dot_reward_gradient": 0.018000008538365364,
+      "human_reward_gradient_cosine": 0.4570313020969746,
+      "initial_system_logit_gradient_norm": 0.012650256976485252,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261104",
+      "system_mean_range": 0.24713347852230072,
+      "top_system_margin": 0.0954713225364685
+    },
+    {
+      "between_system_eta_squared": 0.10168771053554788,
+      "condition": "all_data",
+      "final_entropy": 0.36157694458961487,
+      "final_human_cesa": 41.4322624206543,
+      "final_human_change_from_uniform": -24.834583282470703,
+      "final_standardized_proxy": 0.3286004960536957,
+      "human_gradient_dot_reward_gradient": 0.020800461992621422,
+      "human_reward_gradient_cosine": 0.4307606442267575,
+      "initial_system_logit_gradient_norm": 0.015727326273918152,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.3565969467163086,
+      "top_system_margin": 0.15305006504058838
+    },
+    {
+      "between_system_eta_squared": 0.11254494753267781,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.3441768288612366,
+      "final_human_cesa": 45.8418083190918,
+      "final_human_change_from_uniform": -20.425037384033203,
+      "final_standardized_proxy": 0.5496898889541626,
+      "human_gradient_dot_reward_gradient": 0.023920230567455292,
+      "human_reward_gradient_cosine": 0.35764730180352095,
+      "initial_system_logit_gradient_norm": 0.021185975521802902,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.4890143871307373,
+      "top_system_margin": 0.23198498785495758
+    },
+    {
+      "between_system_eta_squared": 0.12426500757441483,
+      "condition": "global_random_2",
+      "final_entropy": 0.3441217541694641,
+      "final_human_cesa": 39.98481369018555,
+      "final_human_change_from_uniform": -26.282032012939453,
+      "final_standardized_proxy": 0.48414987325668335,
+      "human_gradient_dot_reward_gradient": 0.020901499316096306,
+      "human_reward_gradient_cosine": 0.3128131781647428,
+      "initial_system_logit_gradient_norm": 0.021656125783920288,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.5439224243164062,
+      "top_system_margin": 0.29456210136413574
+    },
+    {
+      "between_system_eta_squared": 0.1006571589493244,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.4433789849281311,
+      "final_human_cesa": 40.965511322021484,
+      "final_human_change_from_uniform": -25.301334381103516,
+      "final_standardized_proxy": 0.4929797351360321,
+      "human_gradient_dot_reward_gradient": 0.015285764820873737,
+      "human_reward_gradient_cosine": 0.25337254973880635,
+      "initial_system_logit_gradient_norm": 0.018978822976350784,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261105",
+      "system_mean_range": 0.4813939929008484,
+      "top_system_margin": 0.2783490717411041
+    },
+    {
+      "between_system_eta_squared": 0.10833999384208393,
+      "condition": "all_data",
+      "final_entropy": 0.3401663303375244,
+      "final_human_cesa": 41.50193405151367,
+      "final_human_change_from_uniform": -24.764911651611328,
+      "final_standardized_proxy": 0.35598695278167725,
+      "human_gradient_dot_reward_gradient": 0.015500927343964577,
+      "human_reward_gradient_cosine": 0.3136238285456125,
+      "initial_system_logit_gradient_norm": 0.01589365489780903,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.39039146900177,
+      "top_system_margin": 0.20534197986125946
+    },
+    {
+      "between_system_eta_squared": 0.09867283167117485,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.3403986990451813,
+      "final_human_cesa": 41.62944030761719,
+      "final_human_change_from_uniform": -24.637405395507812,
+      "final_standardized_proxy": 0.39916202425956726,
+      "human_gradient_dot_reward_gradient": 0.01855463534593582,
+      "human_reward_gradient_cosine": 0.3373958348222097,
+      "initial_system_logit_gradient_norm": 0.017598755657672882,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.4194372296333313,
+      "top_system_margin": 0.22507333755493164
+    },
+    {
+      "between_system_eta_squared": 0.11260023033151408,
+      "condition": "global_random_2",
+      "final_entropy": 0.5017354488372803,
+      "final_human_cesa": 41.626014709472656,
+      "final_human_change_from_uniform": -24.640830993652344,
+      "final_standardized_proxy": 0.3689914643764496,
+      "human_gradient_dot_reward_gradient": 0.01983032189309597,
+      "human_reward_gradient_cosine": 0.3784510482057926,
+      "initial_system_logit_gradient_norm": 0.017089059576392174,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.40447741746902466,
+      "top_system_margin": 0.1811739206314087
+    },
+    {
+      "between_system_eta_squared": 0.09474129415867757,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.15747320652008057,
+      "final_human_cesa": 31.45332908630371,
+      "final_human_change_from_uniform": -34.81351661682129,
+      "final_standardized_proxy": 0.28400719165802,
+      "human_gradient_dot_reward_gradient": 0.0032421418000012636,
+      "human_reward_gradient_cosine": 0.08183457664077089,
+      "initial_system_logit_gradient_norm": 0.012496614828705788,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261106",
+      "system_mean_range": 0.36330699920654297,
+      "top_system_margin": 0.2416100949048996
+    },
+    {
+      "between_system_eta_squared": 0.0822693714938085,
+      "condition": "all_data",
+      "final_entropy": 0.49512481689453125,
+      "final_human_cesa": 38.45146179199219,
+      "final_human_change_from_uniform": -27.815383911132812,
+      "final_standardized_proxy": 0.32451218366622925,
+      "human_gradient_dot_reward_gradient": 0.010949751362204552,
+      "human_reward_gradient_cosine": 0.24836630771178134,
+      "initial_system_logit_gradient_norm": 0.013928948901593685,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.36594313383102417,
+      "top_system_margin": 0.2114003747701645
+    },
+    {
+      "between_system_eta_squared": 0.12170701894393937,
+      "condition": "diagnostic_filtered",
+      "final_entropy": 0.2929103672504425,
+      "final_human_cesa": 45.944000244140625,
+      "final_human_change_from_uniform": -20.322845458984375,
+      "final_standardized_proxy": 0.6457530856132507,
+      "human_gradient_dot_reward_gradient": 0.023819949477910995,
+      "human_reward_gradient_cosine": 0.33100675222571235,
+      "initial_system_logit_gradient_norm": 0.022860275581479073,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.5431009531021118,
+      "top_system_margin": 0.28946125507354736
+    },
+    {
+      "between_system_eta_squared": 0.10621186167901517,
+      "condition": "global_random_2",
+      "final_entropy": 0.31452226638793945,
+      "final_human_cesa": 41.58234405517578,
+      "final_human_change_from_uniform": -24.68450164794922,
+      "final_standardized_proxy": 0.49515292048454285,
+      "human_gradient_dot_reward_gradient": 0.024017926305532455,
+      "human_reward_gradient_cosine": 0.36885039850465784,
+      "initial_system_logit_gradient_norm": 0.020871255546808243,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.48273760080337524,
+      "top_system_margin": 0.24458375573158264
+    },
+    {
+      "between_system_eta_squared": 0.0833717120288369,
+      "condition": "direction_matched_earlier_year",
+      "final_entropy": 0.5615953207015991,
+      "final_human_cesa": 29.830080032348633,
+      "final_human_change_from_uniform": -36.43676567077637,
+      "final_standardized_proxy": 0.26661527156829834,
+      "human_gradient_dot_reward_gradient": 0.006637156940996647,
+      "human_reward_gradient_cosine": 0.15705047260633875,
+      "initial_system_logit_gradient_norm": 0.013433059677481651,
+      "reward_checkpoint_kind": "project_multi_seed",
+      "seed": "20261107",
+      "system_mean_range": 0.3469845652580261,
+      "top_system_margin": 0.2226395308971405
+    },
+    {
+      "between_system_eta_squared": 0.15501727122617462,
+      "condition": "wmt22-cometkiwi-da",
+      "final_entropy": 0.03053872287273407,
+      "final_human_cesa": 68.2192611694336,
+      "final_human_change_from_uniform": 1.9524154663085938,
+      "final_standardized_proxy": 0.2852237820625305,
+      "human_gradient_dot_reward_gradient": 0.07662057131528854,
+      "human_reward_gradient_cosine": 0.7116587992445116,
+      "initial_system_logit_gradient_norm": 0.033656440675258636,
+      "reward_checkpoint_kind": "external_single_checkpoint",
+      "seed": "external_wmt22-cometkiwi-da",
+      "system_mean_range": 0.8605033159255981,
+      "top_system_margin": 0.29981574416160583
+    },
+    {
+      "between_system_eta_squared": 0.1508396249139863,
+      "condition": "wmt23-cometkiwi-da-xl",
+      "final_entropy": 0.03847018629312515,
+      "final_human_cesa": 68.22684478759766,
+      "final_human_change_from_uniform": 1.9599990844726562,
+      "final_standardized_proxy": 0.45635029673576355,
+      "human_gradient_dot_reward_gradient": 0.10644898563623428,
+      "human_reward_gradient_cosine": 0.8502719710341922,
+      "initial_system_logit_gradient_norm": 0.04049546271562576,
+      "reward_checkpoint_kind": "external_single_checkpoint",
+      "seed": "external_wmt23-cometkiwi-da-xl",
+      "system_mean_range": 0.814388632774353,
+      "top_system_margin": 0.35133716464042664
+    }
+  ],
+  "spearman_with_final_human_change": {
+    "between_system_eta_squared": 0.44957264957264953,
+    "human_gradient_dot_reward_gradient": 0.894017094017094,
+    "human_reward_gradient_cosine": 0.8885470085470085,
+    "initial_system_logit_gradient_norm": 0.5582905982905982,
+    "system_mean_range": 0.35999999999999993,
+    "top_system_margin": 0.017435897435897435
+  },
+  "status": "exploratory_development_complete",
+  "table_row_trace": {
+    "20261102/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261102.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/all_data.jsonl"
+    },
+    "20261102/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261102.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/diagnostic_filtered.jsonl"
+    },
+    "20261102/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261102.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261102/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261102.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/wmt26_predictions/global_random_2.jsonl"
+    },
+    "20261103/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261103.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/all_data.jsonl"
+    },
+    "20261103/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261103.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261103/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261103.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261103/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261103.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261103/predictions/global_random_2.jsonl"
+    },
+    "20261104/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261104.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/all_data.jsonl"
+    },
+    "20261104/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261104.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261104/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261104.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261104/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261104.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261104/predictions/global_random_2.jsonl"
+    },
+    "20261105/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261105.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/all_data.jsonl"
+    },
+    "20261105/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261105.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261105/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261105.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261105/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261105.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261105/predictions/global_random_2.jsonl"
+    },
+    "20261106/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261106.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/all_data.jsonl"
+    },
+    "20261106/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261106.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261106/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261106.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261106/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261106.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261106/predictions/global_random_2.jsonl"
+    },
+    "20261107/all_data": {
+      "outcome": "results/bandit_seeds/seed_20261107.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/all_data.jsonl"
+    },
+    "20261107/diagnostic_filtered": {
+      "outcome": "results/bandit_seeds/seed_20261107.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/diagnostic_filtered.jsonl"
+    },
+    "20261107/direction_matched_earlier_year": {
+      "outcome": "results/bandit_seeds/seed_20261107.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/direction_matched_earlier_year.jsonl"
+    },
+    "20261107/global_random_2": {
+      "outcome": "results/bandit_seeds/seed_20261107.json",
+      "predictors": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/seeds/20261107/predictions/global_random_2.jsonl"
+    },
+    "external/wmt22-cometkiwi-da": {
+      "outcome": "/home/it238/projects/research_lab/project_16_reward_selection/results/strong.json",
+      "predictors": "/home/it238/projects/research_lab/project_16_reward_selection/strong/wmt22-cometkiwi-da.jsonl"
+    },
+    "external/wmt23-cometkiwi-da-xl": {
+      "outcome": "/home/it238/projects/research_lab/project_16_reward_selection/results/strong.json",
+      "predictors": "/home/it238/projects/research_lab/project_16_reward_selection/strong/wmt23-cometkiwi-da-xl.jsonl"
+    }
+  },
+  "uniform_human_cesa": 66.2668457
+}
