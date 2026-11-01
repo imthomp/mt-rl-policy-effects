@@ -212,25 +212,38 @@ def tabular_metrics(
     }
 
 
-def gradient_audit(rewards: torch.Tensor, probabilities: torch.Tensor, seed: int) -> dict[str, float]:
+def gradient_audit(
+    rewards: torch.Tensor,
+    probabilities: torch.Tensor,
+    features: torch.Tensor,
+    seed: int,
+) -> dict[str, float]:
     expected = (probabilities * rewards).sum(-1, keepdim=True)
-    exact = probabilities * (rewards - expected)
+    exact_logits = probabilities * (rewards - expected)
     generator = torch.Generator(device=probabilities.device).manual_seed(seed)
     actions = torch.multinomial(probabilities, AUDIT_DRAWS, replacement=True, generator=generator).T
     selected = rewards.gather(1, actions.T).T
     one_hot = torch.nn.functional.one_hot(actions, probabilities.shape[1]).float()
-    estimates = selected[..., None] * (one_hot - probabilities[None, ...])
+    logit_estimates = selected[..., None] * (one_hot - probabilities[None, ...])
+    context_count = features.shape[0]
+    exact_weight = features.T @ exact_logits / context_count
+    exact_bias = exact_logits.mean(0)
+    exact = torch.cat((exact_weight.flatten(), exact_bias))
+    weight_estimates = torch.einsum("cf,rca->rfa", features, logit_estimates) / context_count
+    bias_estimates = logit_estimates.mean(1)
+    estimates = torch.cat((weight_estimates.flatten(1), bias_estimates), dim=1)
     mean_estimate = estimates.mean(0)
     bias_norm = torch.linalg.vector_norm(mean_estimate - exact)
     exact_norm = torch.linalg.vector_norm(exact)
-    cosine = torch.nn.functional.cosine_similarity(mean_estimate.flatten(), exact.flatten(), dim=0)
-    variance = ((estimates - mean_estimate) ** 2).sum((-1, -2)).mean()
+    cosine = torch.nn.functional.cosine_similarity(mean_estimate, exact, dim=0)
+    variance = ((estimates - mean_estimate) ** 2).sum(-1).mean()
     return {
         "mean_gradient_bias_norm": float(bias_norm),
         "relative_bias_norm": float(bias_norm / exact_norm.clamp_min(1e-12)),
         "estimator_variance": float(variance),
         "mean_gradient_cosine": float(cosine),
         "exact_gradient_norm": float(exact_norm),
+        "gradient_space": "shared contextual policy parameters",
     }
 
 
@@ -316,7 +329,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             weights, bias = exact[step]
             probabilities = torch.softmax(features[train_indices] @ weights + bias, dim=-1)
             audits[str(step)] = gradient_audit(
-                reward_std[train_indices], probabilities, SPLIT_SEED + condition_index * 1000 + step
+                reward_std[train_indices],
+                probabilities,
+                features[train_indices],
+                SPLIT_SEED + condition_index * 1000 + step,
             )
         tabular_exact = train_tabular_policy(
             reward_std[train_indices], sampled=False, seed=None
