@@ -42,6 +42,7 @@ venv/
 /artifacts/diagnostics/
 /artifacts/runs/
 /artifacts/reward_models/
+/artifacts/bandit/
 /artifacts/logs/*
 !/artifacts/logs/.gitkeep
 *.out

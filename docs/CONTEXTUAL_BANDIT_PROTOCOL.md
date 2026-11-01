@@ -11,7 +11,10 @@ algorithm.
 The main environment is the frozen WMT26 Simplified-Chinese-to-Japanese cESA
 pool. A context is one source segment and an action is one released system
 translation for that segment. The policy cannot generate an action outside the
-released candidate pool.
+released candidate pool. The released `Human (postediting)` output is excluded
+from the action set: it is an evaluation artifact rather than a deployable MT
+system. The runner asserts that this named exclusion is present before building
+the rectangular machine-system environment.
 
 ## Frozen split and features
 
@@ -85,8 +88,9 @@ Raw proxy reward is retained for condition-specific interpretation but is not
 used as a shared horizontal scale across reward checkpoints.
 
 The fixed evaluation baselines are uniform selection, direct proxy-best
-selection, and the human-best candidate ceiling. Human-best is an evaluation
-ceiling only and is never available to the learned policy.
+selection, and the best human-scored machine candidate for each source as an
+evaluation ceiling. The released human-postedited output and human scores are
+never available as actions or learning signals to the learned policy.
 
 ## Interpretation
 

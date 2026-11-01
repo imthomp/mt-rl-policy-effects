@@ -27,6 +27,7 @@ RECORD_EVERY = 10
 POLICY_SEEDS = tuple(range(20261110, 20261115))
 AUDIT_STEPS = (0, 50, 100, 200)
 AUDIT_DRAWS = 256
+EXCLUDED_ACTIONS = ("Human (postediting)",)
 
 
 def hash_features(text: str, dimensions: int = HASH_FEATURES) -> np.ndarray:
@@ -55,6 +56,16 @@ def load_sources(campaign_archive: Path) -> dict[str, str]:
     }
 
 
+def machine_candidate_keys(
+    all_keys: set[tuple[str, str]],
+) -> set[tuple[str, str]]:
+    observed_actions = {system for _, system in all_keys}
+    missing_exclusions = set(EXCLUDED_ACTIONS) - observed_actions
+    if missing_exclusions:
+        raise ValueError(f"Expected excluded actions are absent: {sorted(missing_exclusions)}")
+    return {(context, action) for context, action in all_keys if action not in EXCLUDED_ACTIONS}
+
+
 def read_environment(
     prediction_root: Path, campaign_archive: Path
 ) -> tuple[list[str], list[str], np.ndarray, dict[str, np.ndarray], list[str]]:
@@ -64,9 +75,10 @@ def read_environment(
         path = prediction_root / f"{condition}.jsonl"
         rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()[1:]]
         by_condition[condition] = {(row["segment_key"], row["system_id"]): row for row in rows}
-    keys = set(by_condition[CONDITIONS[0]])
-    if any(set(by_condition[condition]) != keys for condition in CONDITIONS[1:]):
+    all_keys = set(by_condition[CONDITIONS[0]])
+    if any(set(by_condition[condition]) != all_keys for condition in CONDITIONS[1:]):
         raise ValueError("Reward conditions do not share the same candidate environment")
+    keys = machine_candidate_keys(all_keys)
     contexts = sorted({segment for segment, _ in keys})
     actions = sorted({system for _, system in keys})
     if any((context, action) not in keys for context in contexts for action in actions):
@@ -291,6 +303,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "policy_seeds": list(POLICY_SEEDS),
             "audit_steps": list(AUDIT_STEPS),
             "audit_draws": AUDIT_DRAWS,
+            "excluded_actions": list(EXCLUDED_ACTIONS),
+            "exclusion_reason": "human-postedited output is an evaluation artifact, not a deployable MT action",
         },
         "environment": {
             "contexts": len(contexts), "actions": len(actions),

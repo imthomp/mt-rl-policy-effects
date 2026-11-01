@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from run_contextual_bandit import document_split, hash_features
+from run_contextual_bandit import document_split, hash_features, machine_candidate_keys
 
 
 class ContextualBanditTests(unittest.TestCase):
@@ -21,6 +21,20 @@ class ContextualBanditTests(unittest.TestCase):
         train_docs = {contexts[index].rsplit("_###_", 1)[0] for index in train}
         test_docs = {contexts[index].rsplit("_###_", 1)[0] for index in test}
         self.assertFalse(train_docs & test_docs)
+
+    def test_human_postedited_output_is_not_a_bandit_action(self):
+        keys = {
+            ("source-a", "System A"),
+            ("source-a", "Human (postediting)"),
+            ("source-b", "System A"),
+            ("source-b", "Human (postediting)"),
+        }
+        filtered = machine_candidate_keys(keys)
+        self.assertEqual(filtered, {("source-a", "System A"), ("source-b", "System A")})
+
+    def test_missing_frozen_exclusion_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, "Expected excluded actions are absent"):
+            machine_candidate_keys({("source-a", "System A")})
 
 
 if __name__ == "__main__":

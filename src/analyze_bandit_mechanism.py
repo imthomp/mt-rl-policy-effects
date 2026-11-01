@@ -67,6 +67,14 @@ def policy_statistics(probabilities: np.ndarray, reward: np.ndarray, human: np.n
     }
 
 
+def reward_tilt(alpha: float, standardized_reward: np.ndarray) -> np.ndarray:
+    logits = alpha * standardized_reward
+    logits -= logits.max(1, keepdims=True)
+    probabilities = np.exp(logits)
+    probabilities /= probabilities.sum(1, keepdims=True)
+    return probabilities
+
+
 def analyze(args: argparse.Namespace) -> dict[str, Any]:
     artifact = np.load(args.probabilities, allow_pickle=False)
     contexts = artifact["contexts"].tolist()
@@ -116,19 +124,31 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
         alphas = np.concatenate(([0.0], np.geomspace(0.001, 100.0, 400)))
         tilt_rows = []
         for alpha in alphas:
-            logits = alpha * standardized[test]
-            logits -= logits.max(1, keepdims=True)
-            tilted = np.exp(logits)
-            tilted /= tilted.sum(1, keepdims=True)
+            tilted = reward_tilt(float(alpha), standardized[test])
+            entropy = float(-(tilted * np.log(np.clip(tilted, 1e-30, None))).sum(1).mean())
             tilt_rows.append(
                 {
                     "alpha": float(alpha),
                     "standardized_proxy": float((tilted * standardized[test]).sum(1).mean()),
                     "human_cesa": float((tilted * human[test]).sum(1).mean()),
-                    "entropy": float(-(tilted * np.log(np.clip(tilted, 1e-30, None))).sum(1).mean()),
+                    "entropy": entropy,
+                    "kl_from_uniform": float(math.log(len(actions)) - entropy),
                 }
             )
-        matched = min(tilt_rows, key=lambda row: abs(row["standardized_proxy"] - policy["standardized_proxy"]))
+        matched_proxy = min(
+            tilt_rows, key=lambda row: abs(row["standardized_proxy"] - policy["standardized_proxy"])
+        )
+        matched_entropy = min(tilt_rows, key=lambda row: abs(row["entropy"] - policy["entropy"]))
+
+        def matched_tilt_result(matched: dict[str, float], seed_offset: int) -> dict[str, Any]:
+            tilted = reward_tilt(matched["alpha"], standardized[test])
+            tilted_human = (tilted * human[test]).sum(1)
+            return {
+                **matched,
+                "exact_minus_tilt_human": cluster_interval(
+                    expected_human - tilted_human, test_docs, seed_offset
+                ),
+            }
         mean_action_probability = probabilities.mean(0)
         top = np.argsort(mean_action_probability)[::-1][:5]
         permutation = np.random.default_rng(BOOTSTRAP_SEED).permutation(len(actions))
@@ -163,8 +183,12 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
             },
             "domain_routed_systems": domain_actions,
             "domain_routed_human": cluster_interval(domain_human, test_docs, 400 + condition_index),
-            "reward_tilt_matched_proxy": matched,
-            "exact_minus_matched_tilt_human": policy["human_cesa"] - matched["human_cesa"],
+            "reward_tilt_matched_proxy": matched_tilt_result(
+                matched_proxy, 600 + condition_index
+            ),
+            "reward_tilt_matched_entropy_and_kl": matched_tilt_result(
+                matched_entropy, 700 + condition_index
+            ),
             "top_mean_action_probabilities": [
                 {"system": actions[index], "probability": float(mean_action_probability[index])}
                 for index in top
@@ -179,6 +203,22 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
                 5000 + len(result["paired_exact_condition_differences"]),
             )
     return result
+
+
+def validate_reconstruction(path: Path, result: dict[str, Any]) -> None:
+    root = json.loads(path.read_text())
+    recorded_conditions = root["contextual_bandit"]["conditions"]
+    fields = ("human_cesa", "raw_proxy", "standardized_proxy", "entropy")
+    for condition in CONDITIONS:
+        recorded = recorded_conditions[condition]["trajectories"]["exact"][-1]["test"]
+        reconstructed = result["conditions"][condition]["exact_policy"]
+        for field in fields:
+            if not math.isclose(recorded[field], reconstructed[field], abs_tol=1e-5):
+                raise AssertionError(
+                    f"Independent reconstruction mismatch for {condition}.{field}: "
+                    f"{reconstructed[field]} versus {recorded[field]}"
+                )
+    result["independent_reconstruction_matches_recorded_metrics"] = True
 
 
 def merge_ssot(path: Path, result: dict[str, Any]) -> None:
@@ -201,6 +241,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     result = analyze(args)
+    validate_reconstruction(args.output, result)
     merge_ssot(args.output, result)
     print(json.dumps(result, indent=2, sort_keys=True))
 
