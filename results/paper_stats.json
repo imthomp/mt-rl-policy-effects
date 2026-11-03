@@ -36389,6 +36389,14 @@
     },
     "status": "design_frozen_fresh_confirmation_manifest_pending"
   },
+  "safe_pressure_protocol_amendment_1": {
+    "amendment": "Replace the label-free initial_concentration_rate diagnostic with normalized KL after one frozen exact-gradient update.",
+    "human_outcomes_accessed": false,
+    "justification": "KL from the uniform policy has zero first derivative at the uniform policy, so the originally named first-order KL change is identically zero. The one-update quantity is the first nonzero, operational concentration diagnostic and uses no human outcome.",
+    "protocol": "results/safe_pressure_protocol.json",
+    "scope": "Label-free secondary mechanism diagnostic only; the primary selector, pressure grid, baselines, endpoint, and success criterion are unchanged.",
+    "status": "mathematical_correction_frozen_before_policy_artifacts"
+  },
   "safe_pressure_reward_plan": {
     "all_runs_reported": true,
     "condition_aliases": {

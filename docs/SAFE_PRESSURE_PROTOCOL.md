@@ -50,6 +50,12 @@ concentration rate, the top-two reward gap, and disagreement across reward
 seeds. These are prespecified mechanism diagnostics in this protocol version.
 They cannot replace the primary selector after evaluation outcomes are seen.
 
+The initial concentration diagnostic was corrected prospectively in
+`results/safe_pressure_protocol_amendment_1.json`. The derivative of KL at the
+uniform policy is identically zero, so the implementation records normalized KL
+after one frozen exact-gradient update. This correction changes no decision,
+endpoint, baseline, pressure target, or success criterion.
+
 ## Baselines and endpoint
 
 Baselines retain the initial policy, optimize to fixed pressure, optimize to the
