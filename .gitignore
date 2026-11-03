@@ -43,6 +43,8 @@ venv/
 !/scripts/slurm/run_safe_pressure_reward_scoring.sbatch
 !/scripts/slurm/run_safe_pressure_text_encoding.sbatch
 !/scripts/slurm/run_safe_pressure_policies.sbatch
+!/scripts/slurm/run_safe_pressure_calibration.sbatch
+!/scripts/slurm/run_safe_pressure_evaluation.sbatch
 
 # Model outputs, local logs, and diagnostics may contain generated text
 /artifacts/diagnostics/
