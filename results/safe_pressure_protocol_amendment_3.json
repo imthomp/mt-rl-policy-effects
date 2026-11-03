@@ -1,0 +1,8 @@
+{
+  "amendment": "Define best-of-N as a direct candidate-selection baseline. Calibration chooses among uniform selection and each structurally valid frozen N; evaluation applies the chosen N to the held-out-system candidate pool.",
+  "human_outcomes_accessed": false,
+  "justification": "The original protocol named best-of-N but did not define which policy-pressure checkpoint an optimize decision would receive. Direct best-of-N is the standard procedure and avoids introducing an outcome-dependent pressure target.",
+  "protocol": "results/safe_pressure_protocol.json",
+  "scope": "Clarifies the prespecified best-of-N baseline only; the primary pressure selector, endpoint, pressure grid, and success criterion are unchanged.",
+  "status": "baseline_definition_frozen_before_policy_artifacts"
+}

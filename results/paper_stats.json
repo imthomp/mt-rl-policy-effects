@@ -36397,6 +36397,22 @@
     "scope": "Label-free secondary mechanism diagnostic only; the primary selector, pressure grid, baselines, endpoint, and success criterion are unchanged.",
     "status": "mathematical_correction_frozen_before_policy_artifacts"
   },
+  "safe_pressure_protocol_amendment_2": {
+    "amendment": "Treat a best-of-N subset size larger than the frozen train-system action count as structurally unavailable and select only among valid prespecified sizes.",
+    "human_outcomes_accessed": false,
+    "justification": "The frozen balanced system split has seven train-system actions, so the prespecified N=8 baseline cannot be defined. N=2 and N=4 remain unchanged. No replacement N is introduced.",
+    "protocol": "results/safe_pressure_protocol.json",
+    "scope": "Best-of-N baseline feasibility only; the primary selector, pressure grid, endpoint, and success criterion are unchanged.",
+    "status": "structural_correction_frozen_before_policy_artifacts"
+  },
+  "safe_pressure_protocol_amendment_3": {
+    "amendment": "Define best-of-N as a direct candidate-selection baseline. Calibration chooses among uniform selection and each structurally valid frozen N; evaluation applies the chosen N to the held-out-system candidate pool.",
+    "human_outcomes_accessed": false,
+    "justification": "The original protocol named best-of-N but did not define which policy-pressure checkpoint an optimize decision would receive. Direct best-of-N is the standard procedure and avoids introducing an outcome-dependent pressure target.",
+    "protocol": "results/safe_pressure_protocol.json",
+    "scope": "Clarifies the prespecified best-of-N baseline only; the primary pressure selector, endpoint, pressure grid, and success criterion are unchanged.",
+    "status": "baseline_definition_frozen_before_policy_artifacts"
+  },
   "safe_pressure_reward_plan": {
     "all_runs_reported": true,
     "condition_aliases": {

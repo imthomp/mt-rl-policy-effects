@@ -1,0 +1,8 @@
+{
+  "amendment": "Treat a best-of-N subset size larger than the frozen train-system action count as structurally unavailable and select only among valid prespecified sizes.",
+  "human_outcomes_accessed": false,
+  "justification": "The frozen balanced system split has seven train-system actions, so the prespecified N=8 baseline cannot be defined. N=2 and N=4 remain unchanged. No replacement N is introduced.",
+  "protocol": "results/safe_pressure_protocol.json",
+  "scope": "Best-of-N baseline feasibility only; the primary selector, pressure grid, endpoint, and success criterion are unchanged.",
+  "status": "structural_correction_frozen_before_policy_artifacts"
+}
