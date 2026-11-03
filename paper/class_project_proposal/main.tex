@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.78in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Generated from results/paper_stats.json by the paper-statistics builder.
+\input{../reward_overoptimization_acl/generated_stats}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=1.35em,itemsep=0.15em,topsep=0.2em}
+\pagestyle{plain}
+
+\newcommand{\field}[1]{\vspace{0.25em}\textbf{#1}\quad}
+
+\title{Can We Predict When Optimizing a Translation Reward Will Hurt?}
+\author{Isaac Thompson\\Reinforcement Learning Project Proposal}
+\date{\today}
+
+\begin{document}
+\maketitle
+\vspace{-1.7em}
+
+\field{Topic:}
+Reward modeling, proxy objectives, and policy-gradient learning in machine
+translation.
+
+\field{Question:}
+Can the sign of a pre-optimization gradient-alignment test predict whether
+policy-gradient optimization of a learned machine-translation reward will
+improve or reduce independently measured human quality on new reward models
+and held-out data?
+
+\field{Why this question matters:}
+Policy-gradient methods optimize the reward they are given.  In realistic
+applications, that reward is often a learned proxy for the outcome people
+actually care about.  An unbiased, low-variance gradient estimator can
+therefore work exactly as intended while moving the policy in a harmful
+direction.  Machine translation provides a useful test bed because the policy
+can choose among real system outputs, learned reward scores are available, and
+held-out human judgments can evaluate the selected translations without
+entering the learning signal.
+
+\field{Preliminary evidence:}
+I have already built the finite-action bandit and compared exact policy-gradient
+updates with sampled REINFORCE.  The learned proxy rewards increase, but after
+extended optimization all \SeedCellsBelowFinal{} of \SeedCells{} independently
+trained learned-reward instances finish below uniform selection in human
+quality.  The failure also persists after replacing system-identity logits
+with a shared source--candidate-text scorer: under the all-data reward, held-out
+human quality changes by \AllTextChange{} points
+$[\AllTextLow{},\AllTextHigh{}]$ on unseen documents and systems.  A
+retrospective analysis suggests that the initial alignment between the reward
+gradient and a human-quality gradient may predict the direction of this
+failure.  These are development findings used to form the hypothesis, rather
+than prospective confirmation.
+
+\field{MDP:}
+This is a contextual bandit, or a one-decision MDP.
+\begin{itemize}
+    \item \textbf{State/observation:} a source sentence and the candidate
+    translations available for that source.
+    \item \textbf{Action:} select one candidate translation produced by a
+    machine-translation system.
+    \item \textbf{Transition:} the episode terminates immediately after the
+    selection.
+    \item \textbf{Reward:} the score from a learned translation reward model.
+    Human ratings are reserved for evaluation and never supplied as reward.
+    \item \textbf{Horizon/discount:} a single decision, so discounting is
+    irrelevant.
+\end{itemize}
+
+\field{Data and feedback available:}
+The development study uses released shared-task sources, candidate system
+outputs, and human judgments.  The prospective test uses new reward-training
+seeds and two separate human-rated candidate datasets.  Within each dataset,
+calibration documents supply the small amount of human feedback needed for the
+alignment test.  Disjoint documents and systems supply final evaluation.  Human
+scores never enter reward optimization, checkpoint selection, or stopping.
+
+\field{Main course connection / assumption under study:}
+The main connection is the score-function estimator and REINFORCE.  The key
+assumption under study is that the scalar reward is aligned with the desired
+outcome.  Because every action can be enumerated in this finite environment, I
+can compute the exact expected objective
+\[
+J_r(\theta\mid x)=\sum_{a}\pi_\theta(a\mid x)r(x,a)
+\]
+and its exact gradient.  This creates a known reference for checking sampled
+REINFORCE updates and separates estimator error from reward misspecification.
+
+\field{Method I will try first:}
+Before reading confirmation outcomes, I have frozen a decision rule.  For each
+new reward checkpoint, I compute the cosine between its initial policy-gradient
+direction and a human-quality gradient estimated from the calibration sample.
+If the cosine is positive, the rule optimizes a shared source--candidate-text
+policy; otherwise it keeps the initial uniform policy.  Exact finite-action
+gradients isolate reward alignment from estimator noise, while the completed
+REINFORCE comparison connects the result to sampled policy gradients.  The
+same frozen rule is then evaluated on disjoint documents and unseen systems.
+
+\field{Baseline:}
+The decision baselines are always optimize, always retain the initial policy,
+and a cheap best-of-$N$ screening rule on the same calibration candidate pool.
+Uniform selection remains the initial policy, and the human-best candidate is
+reported only as an evaluation ceiling.
+
+\field{What I will measure:}
+The primary outcome is decision regret: the human-quality loss relative to the
+better of keeping the initial policy and optimizing it.  I will compare mean
+regret, harmful optimize decisions, and missed beneficial optimizations across
+the frozen alignment rule and all baselines.  Supporting plots show held-out
+human quality and proxy reward against matched policy displacement.  Uncertainty
+is aggregated over reward-training seeds and evaluation documents.
+
+\field{What I expect to teach the class:}
+REINFORCE can be mathematically correct and reliably increase its stated reward
+while harming the outcome that motivated the reward.  The completed experiments
+separate estimator correctness from objective validity.  The prospective test
+then asks a practical follow-up: whether a small, pre-optimization alignment
+check can tell us when the safest action is to leave the policy alone.
+
+\end{document}

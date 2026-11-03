@@ -1,0 +1,1285 @@
+{
+  "calibration": "results/text_policy_predictor_confirmation_calibration.json",
+  "claim_boundary": "Prospective confirmation for fixed-pool source-candidate-text selection; not a safeguard claim for generative RL.",
+  "complete_secondary_hierarchical_bootstrap": {
+    "contrasts": {
+      "sign_screen_minus_always_keep_initial": {
+        "high": 0.04975305032858755,
+        "low": -0.14228982875136711,
+        "mean": -0.046065764993720795
+      },
+      "sign_screen_minus_always_optimize": {
+        "high": 0.09308173448942493,
+        "low": 0.02853305084412799,
+        "mean": 0.05886455409863919
+      },
+      "sign_screen_minus_best_of_n_screen": {
+        "high": 0.09308173448942493,
+        "low": 0.02853305084412799,
+        "mean": 0.05886455409863919
+      }
+    },
+    "interval_level": 0.95,
+    "methods": {
+      "always_keep_initial": {
+        "high": 0.20326835977467836,
+        "low": 0.05577069123819156
+      },
+      "always_optimize": {
+        "high": 0.05924362185608546,
+        "low": 0.0
+      },
+      "best_of_n_screen": {
+        "high": 0.05924362185608546,
+        "low": 0.0
+      },
+      "sign_screen": {
+        "high": 0.12463579476282155,
+        "low": 0.031210398383058
+      }
+    },
+    "resamples": 10000,
+    "seed": 20261206,
+    "specification_source": "results/text_policy_predictor_protocol.json when present; otherwise pre-outcome constants in src/freeze_text_predictor_protocol.py",
+    "target_kl_nats": 0.1
+  },
+  "complete_secondary_summary": {
+    "beneficial": 24,
+    "failures": 0,
+    "learned_reward_cells": 24,
+    "methods": {
+      "always_keep_initial": {
+        "mean_decision_regret": 0.10290403446803491,
+        "mean_selected_human_change": 0.0
+      },
+      "always_optimize": {
+        "mean_decision_regret": 0.0,
+        "mean_selected_human_change": 0.10290403446803491
+      },
+      "best_of_n_screen": {
+        "mean_decision_regret": 0.0,
+        "mean_selected_human_change": 0.10290403446803491
+      },
+      "sign_screen": {
+        "mean_decision_regret": 0.05862949105600516,
+        "mean_selected_human_change": 0.04427454341202974
+      }
+    },
+    "reachable_cells": 24,
+    "sign_screen_false_keep_rate": 0.4166666666666667,
+    "sign_screen_false_optimize_rate": NaN,
+    "target_kl_nats": 0.1,
+    "unreachable_cells": 0
+  },
+  "datasets": {
+    "wmt23_zh_en": {
+      "dataset": "wmt23_zh_en",
+      "evaluation_documents": 115,
+      "evaluation_outcomes_accessed": true,
+      "evaluation_segments": 695,
+      "heldout_systems": [
+        "IOL_Research",
+        "NLLB_MBR_BLEU",
+        "ONLINE-A",
+        "ONLINE-B",
+        "ONLINE-M"
+      ],
+      "human_score_metadata": {
+        "attention_check_rows_excluded": 138,
+        "candidate_scores": 3475,
+        "error_rows_used": 9660,
+        "raters": 8,
+        "segments": 695,
+        "systems": 5
+      },
+      "human_source": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2023/zhen/mqm_generalMT2023_zhen.tsv",
+      "rows": [
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/all_data",
+          "condition": "all_data",
+          "decision_regret": {
+            "always_keep_initial": 0.3187670111656189,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.3187670111656189
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.3187670111656189,
+            "best_of_n_screen": 0.3187670111656189,
+            "oracle": 0.3187670111656189,
+            "sign_screen": 0.0
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.539636611938477,
+              "human_change_from_uniform": 0.17924121022224426,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.400110721588135,
+              "human_change_from_uniform": 0.3187670111656189,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.3187670111656189,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.65663480758667,
+              "human_change_from_uniform": 0.06224243342876434,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": {
+            "always_keep_initial": 0.3364049196243286,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.3364049196243286
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.3364049196243286,
+            "best_of_n_screen": 0.3364049196243286,
+            "oracle": 0.3364049196243286,
+            "sign_screen": 0.0
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.532683372497559,
+              "human_change_from_uniform": 0.18619459867477417,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.382472991943359,
+              "human_change_from_uniform": 0.3364049196243286,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.3364049196243286,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": {
+            "always_keep_initial": 0.2998620271682739,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.2998620271682739
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.2998620271682739,
+            "best_of_n_screen": 0.2998620271682739,
+            "oracle": 0.2998620271682739,
+            "sign_screen": 0.0
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.552999019622803,
+              "human_change_from_uniform": 0.16587866842746735,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.419015884399414,
+              "human_change_from_uniform": 0.2998620271682739,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.2998620271682739,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/all_data",
+          "condition": "all_data",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.589715957641602,
+              "human_change_from_uniform": 0.12916199862957,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.574075222015381,
+              "human_change_from_uniform": 0.14480212330818176,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": {
+            "always_keep_initial": 0.20509852468967438,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.20509852468967438
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.20509852468967438,
+            "best_of_n_screen": 0.20509852468967438,
+            "oracle": 0.20509852468967438,
+            "sign_screen": 0.0
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.631945610046387,
+              "human_change_from_uniform": 0.08693210035562515,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.513779163360596,
+              "human_change_from_uniform": 0.20509852468967438,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.20509852468967438,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": {
+            "always_keep_initial": 0.38684722781181335,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.38684722781181335
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.38684722781181335,
+            "best_of_n_screen": 0.38684722781181335,
+            "oracle": 0.38684722781181335,
+            "sign_screen": 0.0
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.519649028778076,
+              "human_change_from_uniform": 0.19922876358032227,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.332030773162842,
+              "human_change_from_uniform": 0.38684722781181335,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.38684722781181335,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/all_data",
+          "condition": "all_data",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.560736179351807,
+              "human_change_from_uniform": 0.15814146399497986,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.587155818939209,
+              "human_change_from_uniform": 0.13172194361686707,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.597173690795898,
+              "human_change_from_uniform": 0.12170394510030746,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.572025299072266,
+              "human_change_from_uniform": 0.14685256779193878,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt22-cometkiwi-da",
+          "condition": "wmt22-cometkiwi-da",
+          "decision_regret": {
+            "always_keep_initial": 0.3221588730812073,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.3221588730812073,
+            "best_of_n_screen": 0.3221588730812073,
+            "oracle": 0.3221588730812073,
+            "sign_screen": 0.3221588730812073
+          },
+          "kind": "external_single_checkpoint",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.546091079711914,
+              "human_change_from_uniform": 0.1727866232395172,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.396718978881836,
+              "human_change_from_uniform": 0.3221588730812073,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.3221588730812073,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt23-cometkiwi-da-xl",
+          "condition": "wmt23-cometkiwi-da-xl",
+          "decision_regret": {
+            "always_keep_initial": 0.3150829076766968,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.3150829076766968,
+            "best_of_n_screen": 0.3150829076766968,
+            "oracle": 0.3150829076766968,
+            "sign_screen": 0.3150829076766968
+          },
+          "kind": "external_single_checkpoint",
+          "policy_trace": "results/confirmation_policy_wmt23_zh_en.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.718877792358398,
+              "human_change_from_uniform": -1.1715368231079992e-07,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.1": {
+              "expected_human_quality": -4.544406414031982,
+              "human_change_from_uniform": 0.17447122931480408,
+              "uniform_human_quality": -4.718877792358398
+            },
+            "0.25": {
+              "expected_human_quality": -4.403794765472412,
+              "human_change_from_uniform": 0.3150829076766968,
+              "uniform_human_quality": -4.718877792358398
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.3150829076766968,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        }
+      ]
+    },
+    "wmt24_ja_zh": {
+      "dataset": "wmt24_ja_zh",
+      "evaluation_documents": 133,
+      "evaluation_outcomes_accessed": true,
+      "evaluation_segments": 341,
+      "heldout_systems": [
+        "DLUT_GTCOM",
+        "IOL_Research",
+        "Llama3-70B",
+        "MSLC",
+        "ONLINE-B"
+      ],
+      "human_score_metadata": {
+        "attention_check_rows_excluded": 0,
+        "candidate_scores": 1705,
+        "error_rows_used": 3143,
+        "raters": 8,
+        "segments": 341,
+        "systems": 5
+      },
+      "human_source": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation/generalMT2024/mqm_generalMT2024_jazh.tsv",
+      "rows": [
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/all_data",
+          "condition": "all_data",
+          "decision_regret": {
+            "always_keep_initial": 0.11706587672233582,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.11706587672233582,
+            "best_of_n_screen": 0.11706587672233582,
+            "oracle": 0.11706587672233582,
+            "sign_screen": 0.11706587672233582
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.845689296722412,
+              "human_change_from_uniform": 0.08187644928693771,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.810500144958496,
+              "human_change_from_uniform": 0.11706587672233582,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.11706587672233582,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": {
+            "always_keep_initial": 0.02172473445534706,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.02172473445534706,
+            "best_of_n_screen": 0.02172473445534706,
+            "oracle": 0.02172473445534706,
+            "sign_screen": 0.02172473445534706
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.903719902038574,
+              "human_change_from_uniform": 0.02384614758193493,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.90584135055542,
+              "human_change_from_uniform": 0.02172473445534706,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.02172473445534706,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.0067215412855148315,
+            "best_of_n_screen": 0.0067215412855148315,
+            "sign_screen": 0.0067215412855148315
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": -0.0067215412855148315,
+            "best_of_n_screen": -0.0067215412855148315,
+            "oracle": 0.0,
+            "sign_screen": -0.0067215412855148315
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.911613941192627,
+              "human_change_from_uniform": 0.015951821580529213,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.9342875480651855,
+              "human_change_from_uniform": -0.0067215412855148315,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": true,
+          "primary_human_change": -0.0067215412855148315,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": {
+            "always_keep_initial": 0.13669785857200623,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.13669785857200623,
+            "best_of_n_screen": 0.13669785857200623,
+            "oracle": 0.13669785857200623,
+            "sign_screen": 0.13669785857200623
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.827382564544678,
+              "human_change_from_uniform": 0.10018325597047806,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.790868282318115,
+              "human_change_from_uniform": 0.13669785857200623,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.13669785857200623,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/all_data",
+          "condition": "all_data",
+          "decision_regret": {
+            "always_keep_initial": 0.1453484296798706,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.1453484296798706,
+            "best_of_n_screen": 0.1453484296798706,
+            "oracle": 0.1453484296798706,
+            "sign_screen": 0.1453484296798706
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.851423740386963,
+              "human_change_from_uniform": 0.07614213973283768,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.782217502593994,
+              "human_change_from_uniform": 0.1453484296798706,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.1453484296798706,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": {
+            "always_keep_initial": 0.027418846264481544,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.027418846264481544,
+            "best_of_n_screen": 0.027418846264481544,
+            "oracle": 0.027418846264481544,
+            "sign_screen": 0.027418846264481544
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.916007041931152,
+              "human_change_from_uniform": 0.011559047736227512,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.900147438049316,
+              "human_change_from_uniform": 0.027418846264481544,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.027418846264481544,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": {
+            "always_keep_initial": 0.1319257766008377,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.1319257766008377,
+            "best_of_n_screen": 0.1319257766008377,
+            "oracle": 0.1319257766008377,
+            "sign_screen": 0.1319257766008377
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.838228702545166,
+              "human_change_from_uniform": 0.08933692425489426,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.795639991760254,
+              "human_change_from_uniform": 0.1319257766008377,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.1319257766008377,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": {
+            "always_keep_initial": 0.18303100764751434,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.18303100764751434,
+            "best_of_n_screen": 0.18303100764751434,
+            "oracle": 0.18303100764751434,
+            "sign_screen": 0.18303100764751434
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.811275959014893,
+              "human_change_from_uniform": 0.11628977209329605,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.744534969329834,
+              "human_change_from_uniform": 0.18303100764751434,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.18303100764751434,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/all_data",
+          "condition": "all_data",
+          "decision_regret": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.03499487042427063,
+            "best_of_n_screen": 0.03499487042427063,
+            "sign_screen": 0.03499487042427063
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": -0.03499487042427063,
+            "best_of_n_screen": -0.03499487042427063,
+            "oracle": 0.0,
+            "sign_screen": -0.03499487042427063
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.919811725616455,
+              "human_change_from_uniform": 0.0077544404193758965,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.962560653686523,
+              "human_change_from_uniform": -0.03499487042427063,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": true,
+          "primary_human_change": -0.03499487042427063,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "decision_regret": {
+            "always_keep_initial": 0.037105247378349304,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.037105247378349304,
+            "best_of_n_screen": 0.037105247378349304,
+            "oracle": 0.037105247378349304,
+            "sign_screen": 0.037105247378349304
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.908934116363525,
+              "human_change_from_uniform": 0.018631886690855026,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.89046049118042,
+              "human_change_from_uniform": 0.037105247378349304,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.037105247378349304,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "decision_regret": {
+            "always_keep_initial": 0.11484097689390182,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.11484097689390182,
+            "best_of_n_screen": 0.11484097689390182,
+            "oracle": 0.11484097689390182,
+            "sign_screen": 0.11484097689390182
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.87054443359375,
+              "human_change_from_uniform": 0.05702171474695206,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.81272554397583,
+              "human_change_from_uniform": 0.11484097689390182,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.11484097689390182,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/global_random_2",
+          "condition": "global_random_2",
+          "decision_regret": {
+            "always_keep_initial": 0.2752879559993744,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.2752879559993744,
+            "best_of_n_screen": 0.2752879559993744,
+            "oracle": 0.2752879559993744,
+            "sign_screen": 0.2752879559993744
+          },
+          "kind": "new_learned_reward",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.768564701080322,
+              "human_change_from_uniform": 0.1590014100074768,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.652277946472168,
+              "human_change_from_uniform": 0.2752879559993744,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.2752879559993744,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt22-cometkiwi-da",
+          "condition": "wmt22-cometkiwi-da",
+          "decision_regret": {
+            "always_keep_initial": 0.6141258478164673,
+            "always_optimize": 0.0,
+            "best_of_n_screen": 0.0,
+            "sign_screen": 0.0
+          },
+          "decision_values": {
+            "always_keep_initial": 0.0,
+            "always_optimize": 0.6141258478164673,
+            "best_of_n_screen": 0.6141258478164673,
+            "oracle": 0.6141258478164673,
+            "sign_screen": 0.6141258478164673
+          },
+          "kind": "external_single_checkpoint",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.56689977645874,
+              "human_change_from_uniform": 0.36066633462905884,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.25": {
+              "expected_human_quality": -4.313439846038818,
+              "human_change_from_uniform": 0.6141258478164673,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": false,
+          "primary_human_change": 0.6141258478164673,
+          "primary_target_reached": true,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt23-cometkiwi-da-xl",
+          "condition": "wmt23-cometkiwi-da-xl",
+          "decision_regret": null,
+          "decision_values": null,
+          "kind": "external_single_checkpoint",
+          "policy_trace": "results/confirmation_policy_wmt24_ja_zh.json",
+          "pressure": {
+            "0.0": {
+              "expected_human_quality": -4.927566051483154,
+              "human_change_from_uniform": -6.781994699167626e-08,
+              "uniform_human_quality": -4.927565574645996
+            },
+            "0.1": {
+              "expected_human_quality": -4.255068302154541,
+              "human_change_from_uniform": 0.6724973320960999,
+              "uniform_human_quality": -4.927565574645996
+            }
+          },
+          "primary_failure": null,
+          "primary_human_change": null,
+          "primary_target_reached": false,
+          "probability_trace": "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        }
+      ]
+    }
+  },
+  "evaluation_outcomes_accessed": true,
+  "frozen_success_criterion": "the frozen sign screen has lower mean decision regret than both always-optimize and the frozen best-of-N screen on new learned-reward checkpoints",
+  "frozen_success_criterion_fully_evaluable": false,
+  "frozen_success_criterion_met": null,
+  "hierarchical_bootstrap": {
+    "contrasts": {
+      "sign_screen_minus_always_keep_initial": {
+        "high": 0.1289279919271627,
+        "low": -0.28868367284025565,
+        "mean": -0.07327786677280346
+      },
+      "sign_screen_minus_always_optimize": {
+        "high": 0.1498868180969436,
+        "low": 0.0,
+        "mean": 0.08772442623150245
+      },
+      "sign_screen_minus_best_of_n_screen": {
+        "high": 0.1498868180969436,
+        "low": 0.0,
+        "mean": 0.08772442623150245
+      }
+    },
+    "interval_level": 0.95,
+    "methods": {
+      "always_keep_initial": {
+        "high": 0.370047571491879,
+        "low": 0.06038577986540851
+      },
+      "always_optimize": {
+        "high": 0.13367318924095417,
+        "low": 0.0
+      },
+      "best_of_n_screen": {
+        "high": 0.13367318924095417,
+        "low": 0.0
+      },
+      "sign_screen": {
+        "high": 0.22614531005662133,
+        "low": 0.03046950798382164
+      }
+    },
+    "resamples": 10000,
+    "seed": 20261206,
+    "specification_source": "results/text_policy_predictor_protocol.json when present; otherwise pre-outcome constants in src/freeze_text_predictor_protocol.py",
+    "target_kl_nats": 0.25
+  },
+  "learned_reward_summary": {
+    "beneficial": 15,
+    "failures": 2,
+    "learned_reward_cells": 24,
+    "methods": {
+      "always_keep_initial": {
+        "mean_decision_regret": 0.16102508356904283,
+        "mean_selected_human_change": 0.0
+      },
+      "always_optimize": {
+        "mean_decision_regret": 0.0024539065711638506,
+        "mean_selected_human_change": 0.15857117699787898
+      },
+      "best_of_n_screen": {
+        "mean_decision_regret": 0.0024539065711638506,
+        "mean_selected_human_change": 0.15857117699787898
+      },
+      "sign_screen": {
+        "mean_decision_regret": 0.0934527130687938,
+        "mean_selected_human_change": 0.06757237050024902
+      }
+    },
+    "reachable_cells": 17,
+    "sign_screen_false_keep_rate": 0.3333333333333333,
+    "sign_screen_false_optimize_rate": 1.0,
+    "target_kl_nats": 0.25,
+    "unreachable_cells": 7
+  },
+  "policy_artifact_hashes_before_outcome_access": {
+    "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz": "86a62ef6b566d7b7d6035f1af59746a568d4f71c8744405bf057e50d9f9dc702",
+    "artifacts/bandit/confirmation/wmt24_ja_zh_policy_probabilities.npz": "3f1ef031f21deb29c099c092ca39e014a3f7012aedf831a6899cdf3252802f68",
+    "results/confirmation_policy_wmt23_zh_en.json": "2cd6b8bf05c83e2f0f3c9761d14de5c5b72d7b593ec6006914931127ffe543db",
+    "results/confirmation_policy_wmt24_ja_zh.json": "68b3027d4479b9fdc56860e91d828c8cfb95da5f94021fadefec4fbe432256cd",
+    "results/text_policy_predictor_confirmation_calibration.json": "98992e7b01804d664770eaac81e9cac38f8f775e4bd1d259da9d6917c4be87bd",
+    "results/text_policy_predictor_protocol.json": "3b1693cb51be5ce7b6290fc2fe386e7853ed2728746f0fb8ad18909079134fe8"
+  },
+  "primary_pressure_nats": 0.25,
+  "protocol": "results/text_policy_predictor_protocol.json",
+  "status": "prospective_confirmation_complete"
+}

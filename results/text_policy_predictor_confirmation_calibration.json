@@ -1,0 +1,491 @@
+{
+  "datasets": {
+    "wmt23_zh_en": {
+      "calibration_outcomes_opened": true,
+      "calibration_segments": 64,
+      "dataset": "wmt23_zh_en",
+      "embedding_path": "/home/it238/projects/reinforcement-learning/artifacts/bandit/confirmation/wmt23_zh_en_text_embeddings.npz",
+      "evaluation_outcomes_accessed": false,
+      "human_score_metadata": {
+        "attention_check_rows_excluded": 37,
+        "candidate_scores": 640,
+        "error_rows_used": 1399,
+        "raters": 8,
+        "segments": 64,
+        "systems": 10
+      },
+      "optimization_segments": 411,
+      "rows": [
+        {
+          "best_of_n_human_change": {
+            "2": 0.47234342266165186,
+            "4": 0.6768598216585815,
+            "8": 0.6487323310866486
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/all_data",
+          "condition": "all_data",
+          "gradient_cosine": -0.02831201778948175,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.395850381537457,
+            "4": 0.6931470222189091,
+            "8": 0.9510934367135633
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": -0.020427671528854,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.4463017548114294,
+            "4": 0.6256024061876815,
+            "8": 0.6448087477474473
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": -0.05797437190933446,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.29053784493589774,
+            "4": 0.37965744256507605,
+            "8": 0.47376703450572677
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": -0.08015658262046653,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.429426772025181,
+            "4": 0.7019788765974226,
+            "8": 0.9177601164847147
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/all_data",
+          "condition": "all_data",
+          "gradient_cosine": -0.05624163926903675,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.39206564526830334,
+            "4": 0.6198211049195379,
+            "8": 0.6684892697376199
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": -0.0157549751992891,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.17741287259559613,
+            "4": 0.2552080651803408,
+            "8": 0.2315101275453344
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": -0.12393823665632293,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.42269066389417276,
+            "4": 0.6036530210403726,
+            "8": 0.8126211901253555
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": -0.05619132577096301,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.4011281567218248,
+            "4": 0.5042258794419467,
+            "8": 0.36765595007454976
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/all_data",
+          "condition": "all_data",
+          "gradient_cosine": 0.1356161696619583,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.40487818003748544,
+            "4": 0.5967556701507419,
+            "8": 0.7323781933810096
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": -0.0069100094426689,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.3498434297798667,
+            "4": 0.5481098138188827,
+            "8": 0.4770309838640969
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": -0.1032186031034781,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "keep_initial"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.3943573217256926,
+            "4": 0.587254190875683,
+            "8": 0.523350399103947
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": 0.03892481347252139,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.5373086844629142,
+            "4": 0.8301782688940875,
+            "8": 1.0448781675077043
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt22-cometkiwi-da",
+          "condition": "wmt22-cometkiwi-da",
+          "gradient_cosine": 0.2614203941825811,
+          "kind": "external_single_checkpoint",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.4995309368823655,
+            "4": 0.7444341925438493,
+            "8": 0.9182115485018585
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt23-cometkiwi-da-xl",
+          "condition": "wmt23-cometkiwi-da-xl",
+          "gradient_cosine": 0.26301720922155936,
+          "kind": "external_single_checkpoint",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        }
+      ],
+      "table_row_trace": {
+        "20261203/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/all_data.jsonl",
+        "20261203/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+        "20261203/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+        "20261203/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/global_random_2.jsonl",
+        "20261204/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/all_data.jsonl",
+        "20261204/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+        "20261204/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+        "20261204/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/global_random_2.jsonl",
+        "20261205/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/all_data.jsonl",
+        "20261205/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+        "20261205/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+        "20261205/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/global_random_2.jsonl",
+        "external/wmt22-cometkiwi-da": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt23_zh_en/wmt22-cometkiwi-da.jsonl",
+        "external/wmt23-cometkiwi-da-xl": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt23_zh_en/wmt23-cometkiwi-da-xl.jsonl"
+      },
+      "train_systems": [
+        "ANVITA",
+        "GPT4-5shot",
+        "HW-TSC",
+        "Lan-BridgeMT",
+        "NLLB_Greedy",
+        "ONLINE-G",
+        "ONLINE-W",
+        "ONLINE-Y",
+        "Yishu",
+        "ZengHuiMT"
+      ]
+    },
+    "wmt24_ja_zh": {
+      "calibration_outcomes_opened": true,
+      "calibration_segments": 64,
+      "dataset": "wmt24_ja_zh",
+      "embedding_path": "/home/it238/projects/reinforcement-learning/artifacts/bandit/confirmation/wmt24_ja_zh_text_embeddings.npz",
+      "evaluation_outcomes_accessed": false,
+      "human_score_metadata": {
+        "attention_check_rows_excluded": 0,
+        "candidate_scores": 576,
+        "error_rows_used": 1086,
+        "raters": 8,
+        "segments": 64,
+        "systems": 9
+      },
+      "optimization_segments": 219,
+      "rows": [
+        {
+          "best_of_n_human_change": {
+            "2": 1.2977864573476836,
+            "4": 1.7167162724945229,
+            "8": 2.37864584941417
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/all_data",
+          "condition": "all_data",
+          "gradient_cosine": 0.16989565327313066,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.4101996547542512,
+            "4": 2.0849826984340325,
+            "8": 2.508506932237651
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": 0.2138789128496549,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.3263888923684135,
+            "4": 1.6687004110281123,
+            "8": 1.4727430391358212
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": 0.12166113026539703,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.1851128591224551,
+            "4": 1.6143725275614997,
+            "8": 2.133854189189151
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261203/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": 0.10241512629136165,
+          "kind": "new_learned_reward",
+          "seed": 20261203,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.4114583821501583,
+            "4": 1.775992071183282,
+            "8": 1.4553819944849238
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/all_data",
+          "condition": "all_data",
+          "gradient_cosine": 0.256039993673164,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.7316840462153777,
+            "4": 0.6691096119466238,
+            "8": -0.14357638778164983
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": 0.04867603717690001,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.0608940926613286,
+            "4": 1.3357762875384651,
+            "8": 0.8539930749684572
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": 0.21239881321034612,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.1087673577712849,
+            "4": 1.7190724565880373,
+            "8": 1.8824652729090303
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261204/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": 0.17951568411542265,
+          "kind": "new_learned_reward",
+          "seed": 20261204,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.4483073181472719,
+            "4": 1.8524305850150995,
+            "8": 2.133854172891006
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/all_data",
+          "condition": "all_data",
+          "gradient_cosine": 0.24950288241498614,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.2524305608822033,
+            "4": 1.6422619090299122,
+            "8": 1.8824652758194134
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/diagnostic_filtered",
+          "condition": "diagnostic_filtered",
+          "gradient_cosine": 0.06808957987084811,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.1829861094010994,
+            "4": 1.7003224479121855,
+            "8": 1.7800347610609606
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/direction_matched_earlier_year",
+          "condition": "direction_matched_earlier_year",
+          "gradient_cosine": 0.066133196334436,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.2130208685994148,
+            "4": 1.618055570870638,
+            "8": 1.7262152953771874
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "20261205/global_random_2",
+          "condition": "global_random_2",
+          "gradient_cosine": 0.22978099746342742,
+          "kind": "new_learned_reward",
+          "seed": 20261205,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 1.6790364565094933,
+            "4": 2.0933903573568386,
+            "8": 2.5590277705341578
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt22-cometkiwi-da",
+          "condition": "wmt22-cometkiwi-da",
+          "gradient_cosine": 0.34457834502638435,
+          "kind": "external_single_checkpoint",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        },
+        {
+          "best_of_n_human_change": {
+            "2": 0.9567708575050347,
+            "4": 1.6042162740050117,
+            "8": 2.5196180536877364
+          },
+          "best_of_n_screen_decision": "optimize",
+          "checkpoint": "external/wmt23-cometkiwi-da-xl",
+          "condition": "wmt23-cometkiwi-da-xl",
+          "gradient_cosine": 0.29586280987753405,
+          "kind": "external_single_checkpoint",
+          "seed": null,
+          "sign_screen_decision": "optimize"
+        }
+      ],
+      "table_row_trace": {
+        "20261203/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt24_ja_zh/all_data.jsonl",
+        "20261203/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt24_ja_zh/diagnostic_filtered.jsonl",
+        "20261203/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt24_ja_zh/direction_matched_earlier_year.jsonl",
+        "20261203/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt24_ja_zh/global_random_2.jsonl",
+        "20261204/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt24_ja_zh/all_data.jsonl",
+        "20261204/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt24_ja_zh/diagnostic_filtered.jsonl",
+        "20261204/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt24_ja_zh/direction_matched_earlier_year.jsonl",
+        "20261204/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt24_ja_zh/global_random_2.jsonl",
+        "20261205/all_data": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt24_ja_zh/all_data.jsonl",
+        "20261205/diagnostic_filtered": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt24_ja_zh/diagnostic_filtered.jsonl",
+        "20261205/direction_matched_earlier_year": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt24_ja_zh/direction_matched_earlier_year.jsonl",
+        "20261205/global_random_2": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt24_ja_zh/global_random_2.jsonl",
+        "external/wmt22-cometkiwi-da": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt24_ja_zh/wmt22-cometkiwi-da.jsonl",
+        "external/wmt23-cometkiwi-da-xl": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt24_ja_zh/wmt23-cometkiwi-da-xl.jsonl"
+      },
+      "train_systems": [
+        "Aya23",
+        "Claude-3.5",
+        "CommandR-plus",
+        "GPT-4",
+        "Gemini-1.5-Pro",
+        "IKUN-C",
+        "NTTSU",
+        "Team-J",
+        "Unbabel-Tower70B"
+      ]
+    }
+  },
+  "evaluation_outcomes_accessed": false,
+  "manifest": "results/predictor_confirmation_manifest.json",
+  "protocol": "results/text_policy_predictor_protocol.json",
+  "status": "calibration_decisions_frozen_evaluation_outcomes_sealed"
+}

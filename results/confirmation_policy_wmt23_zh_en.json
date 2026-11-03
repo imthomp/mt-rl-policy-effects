@@ -1,0 +1,764 @@
+{
+  "dataset": "wmt23_zh_en",
+  "evaluation_outcomes_accessed": false,
+  "evaluation_segments": 695,
+  "heldout_systems": [
+    "IOL_Research",
+    "NLLB_MBR_BLEU",
+    "ONLINE-A",
+    "ONLINE-B",
+    "ONLINE-M"
+  ],
+  "optimization_segments": 411,
+  "probabilities_output": "artifacts/bandit/confirmation/wmt23_zh_en_policy_probabilities.npz",
+  "rows": [
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261203/all_data",
+      "condition": "all_data",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 1.160187679261071e-08
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10000654837734668,
+          "reached": true,
+          "step": 1265,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.202578544616699,
+          "train_standardized_proxy": 0.04125728830695152
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.2500352539742705,
+          "reached": true,
+          "step": 3239,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.0525498390197754,
+          "train_standardized_proxy": 0.06834612786769867
+        },
+        "0.5": {
+          "final_kl_nats": 0.33083089968807666,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.33083089968807666,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r000_k000",
+        "0.1": "r000_k001",
+        "0.25": "r000_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/all_data.jsonl",
+      "reward_train_mean": 0.08976053446531296,
+      "reward_train_std": 0.21172171831130981,
+      "seed": 20261203,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261203/diagnostic_filtered",
+      "condition": "diagnostic_filtered",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 7.889276787409472e-08
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10003062865383594,
+          "reached": true,
+          "step": 1459,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.20255446434021,
+          "train_standardized_proxy": 0.04253166913986206
+        },
+        "0.25": {
+          "final_kl_nats": 0.2241992630685088,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.2241992630685088,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.2241992630685088,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r001_k000",
+        "0.1": "r001_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+      "reward_train_mean": 0.2515046298503876,
+      "reward_train_std": 0.32359984517097473,
+      "seed": 20261203,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261203/direction_matched_earlier_year",
+      "condition": "direction_matched_earlier_year",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 0.0
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1000234760964629,
+          "reached": true,
+          "step": 1836,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.202561616897583,
+          "train_standardized_proxy": 0.04325069487094879
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.25000759741909473,
+          "reached": true,
+          "step": 4486,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.052577495574951,
+          "train_standardized_proxy": 0.069626085460186
+        },
+        "0.5": {
+          "final_kl_nats": 0.2726809658730742,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.2726809658730742,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r002_k000",
+        "0.1": "r002_k001",
+        "0.25": "r002_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+      "reward_train_mean": 0.06619782000780106,
+      "reward_train_std": 0.2069234699010849,
+      "seed": 20261203,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261203/global_random_2",
+      "condition": "global_random_2",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 1.160187679261071e-08
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10004111907131641,
+          "reached": true,
+          "step": 1298,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025439739227295,
+          "train_standardized_proxy": 0.03714986890554428
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.25002690932400196,
+          "reached": true,
+          "step": 3250,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.052558183670044,
+          "train_standardized_proxy": 0.06077603995800018
+        },
+        "0.5": {
+          "final_kl_nats": 0.3281842150414702,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.3281842150414702,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r003_k000",
+        "0.1": "r003_k001",
+        "0.25": "r003_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261203/predictions/wmt23_zh_en/global_random_2.jsonl",
+      "reward_train_mean": 0.06489429622888565,
+      "reward_train_std": 0.15830819308757782,
+      "seed": 20261203,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261204/all_data",
+      "condition": "all_data",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 2.320375447339984e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10003158232815235,
+          "reached": true,
+          "step": 2157,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025535106658936,
+          "train_standardized_proxy": 0.04851910099387169
+        },
+        "0.25": {
+          "final_kl_nats": 0.19452592513210742,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.19452592513210742,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.19452592513210742,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r004_k000",
+        "0.1": "r004_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/all_data.jsonl",
+      "reward_train_mean": 0.024329926818609238,
+      "reward_train_std": 0.24303090572357178,
+      "seed": 20261204,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261204/diagnostic_filtered",
+      "condition": "diagnostic_filtered",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 2.7844505368079808e-08
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10002657553799121,
+          "reached": true,
+          "step": 2165,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025585174560547,
+          "train_standardized_proxy": 0.049596454948186874
+        },
+        "0.25": {
+          "final_kl_nats": 0.1976368107522246,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.1976368107522246,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.1976368107522246,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r005_k000",
+        "0.1": "r005_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+      "reward_train_mean": 0.1067134216427803,
+      "reward_train_std": 0.30254295468330383,
+      "seed": 20261204,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261204/direction_matched_earlier_year",
+      "condition": "direction_matched_earlier_year",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 6.961126342019952e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10002943656094043,
+          "reached": true,
+          "step": 1576,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025556564331055,
+          "train_standardized_proxy": 0.04555441066622734
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.25000855109341114,
+          "reached": true,
+          "step": 4584,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.0525765419006348,
+          "train_standardized_proxy": 0.07487520575523376
+        },
+        "0.5": {
+          "final_kl_nats": 0.26450845381863086,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.26450845381863086,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r006_k000",
+        "0.1": "r006_k001",
+        "0.25": "r006_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+      "reward_train_mean": -0.0018742990214377642,
+      "reward_train_std": 0.2280111461877823,
+      "seed": 20261204,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261204/global_random_2",
+      "condition": "global_random_2",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 1.160187723669992e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1000101246560332,
+          "reached": true,
+          "step": 1459,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025749683380127,
+          "train_standardized_proxy": 0.052432529628276825
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.25001045844204395,
+          "reached": true,
+          "step": 4895,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.052574634552002,
+          "train_standardized_proxy": 0.0933631956577301
+        },
+        "0.5": {
+          "final_kl_nats": 0.2533878960335967,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.2533878960335967,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r007_k000",
+        "0.1": "r007_k001",
+        "0.25": "r007_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261204/predictions/wmt23_zh_en/global_random_2.jsonl",
+      "reward_train_mean": 0.1511101871728897,
+      "reward_train_std": 0.2020845264196396,
+      "seed": 20261204,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261205/all_data",
+      "condition": "all_data",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 2.320375447339984e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10000797888882129,
+          "reached": true,
+          "step": 4094,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025771141052246,
+          "train_standardized_proxy": 0.054759301245212555
+        },
+        "0.25": {
+          "final_kl_nats": 0.12033793112881153,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.12033793112881153,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.12033793112881153,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r008_k000",
+        "0.1": "r008_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/all_data.jsonl",
+      "reward_train_mean": 0.11848216503858566,
+      "reward_train_std": 0.27627822756767273,
+      "seed": 20261205,
+      "sign_screen_decision": "optimize"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261205/diagnostic_filtered",
+      "condition": "diagnostic_filtered",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": -1.160187679261071e-08
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10005327841885059,
+          "reached": true,
+          "step": 1862,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025318145751953,
+          "train_standardized_proxy": 0.049531009048223495
+        },
+        "0.25": {
+          "final_kl_nats": 0.22427961012966602,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.22427961012966602,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.22427961012966602,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r009_k000",
+        "0.1": "r009_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/diagnostic_filtered.jsonl",
+      "reward_train_mean": 0.14217612147331238,
+      "reward_train_std": 0.33432355523109436,
+      "seed": 20261205,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261205/direction_matched_earlier_year",
+      "condition": "direction_matched_earlier_year",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": -3.480563171009976e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10002180716640918,
+          "reached": true,
+          "step": 2263,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025632858276367,
+          "train_standardized_proxy": 0.042750950902700424
+        },
+        "0.25": {
+          "final_kl_nats": 0.19611212393887012,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.19611212393887012,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.19611212393887012,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r010_k000",
+        "0.1": "r010_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/direction_matched_earlier_year.jsonl",
+      "reward_train_mean": 0.06394420564174652,
+      "reward_train_std": 0.15170815587043762,
+      "seed": 20261205,
+      "sign_screen_decision": "keep_initial"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "20261205/global_random_2",
+      "condition": "global_random_2",
+      "kind": "new_learned_reward",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 3.480563171009976e-09
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10000654837734668,
+          "reached": true,
+          "step": 4205,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.202578544616699,
+          "train_standardized_proxy": 0.04155074059963226
+        },
+        "0.25": {
+          "final_kl_nats": 0.11109706542141407,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.25
+        },
+        "0.5": {
+          "final_kl_nats": 0.11109706542141407,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.11109706542141407,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r011_k000",
+        "0.1": "r011_k001"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/20261205/predictions/wmt23_zh_en/global_random_2.jsonl",
+      "reward_train_mean": 0.10089617967605591,
+      "reward_train_std": 0.27732035517692566,
+      "seed": 20261205,
+      "sign_screen_decision": "optimize"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "external/wmt22-cometkiwi-da",
+      "condition": "wmt22-cometkiwi-da",
+      "kind": "external_single_checkpoint",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": -1.1369839825192685e-07
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10004827162868946,
+          "reached": true,
+          "step": 1469,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.2025368213653564,
+          "train_standardized_proxy": 0.1116211786866188
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.2500211872781035,
+          "reached": true,
+          "step": 4067,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.0525639057159424,
+          "train_standardized_proxy": 0.1693921834230423
+        },
+        "0.5": {
+          "final_kl_nats": 0.284826485129666,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.284826485129666,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r012_k000",
+        "0.1": "r012_k001",
+        "0.25": "r012_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt23_zh_en/wmt22-cometkiwi-da.jsonl",
+      "reward_train_mean": 0.7721846103668213,
+      "reward_train_std": 0.08804398030042648,
+      "seed": null,
+      "sign_screen_decision": "optimize"
+    },
+    {
+      "best_of_n_screen_decision": "optimize",
+      "checkpoint": "external/wmt23-cometkiwi-da-xl",
+      "condition": "wmt23-cometkiwi-da-xl",
+      "kind": "external_single_checkpoint",
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": 2.0644314258078111e-07,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "train_entropy": 2.3025848865509033,
+          "train_standardized_proxy": 2.877265501410875e-07
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.10003253600246875,
+          "reached": true,
+          "step": 1722,
+          "target_kl_nats": 0.1,
+          "train_entropy": 2.202552556991577,
+          "train_standardized_proxy": 0.10456079244613647
+        },
+        "0.25": {
+          "achieved_kl_nats": 0.2500357308114287,
+          "reached": true,
+          "step": 4607,
+          "target_kl_nats": 0.25,
+          "train_entropy": 2.052549362182617,
+          "train_standardized_proxy": 0.1630716174840927
+        },
+        "0.5": {
+          "final_kl_nats": 0.26508447310574024,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 0.5
+        },
+        "1.0": {
+          "final_kl_nats": 0.26508447310574024,
+          "maximum_steps": 5000,
+          "reached": false,
+          "target_kl_nats": 1.0
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": "r013_k000",
+        "0.1": "r013_k001",
+        "0.25": "r013_k002"
+      },
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/confirmation/external/predictions/wmt23_zh_en/wmt23-cometkiwi-da-xl.jsonl",
+      "reward_train_mean": 0.659286618232727,
+      "reward_train_std": 0.14140766859054565,
+      "seed": null,
+      "sign_screen_decision": "optimize"
+    }
+  ],
+  "status": "policy_trajectories_fixed_evaluation_outcomes_sealed",
+  "train_systems": [
+    "ANVITA",
+    "GPT4-5shot",
+    "HW-TSC",
+    "Lan-BridgeMT",
+    "NLLB_Greedy",
+    "ONLINE-G",
+    "ONLINE-W",
+    "ONLINE-Y",
+    "Yishu",
+    "ZengHuiMT"
+  ]
+}

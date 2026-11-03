@@ -41,8 +41,13 @@ def load_mqm_quality(
     action_set = set(actions)
     penalties: dict[tuple[str, str, str], float] = defaultdict(float)
     rows_used = 0
+    attention_check_rows_excluded = 0
     with path.open(encoding="utf-8", newline="") as handle:
-        reader = csv.reader(handle, delimiter="\t")
+        # The released files are TSV, not CSV: translation text can begin with
+        # an unescaped quote.  Disabling CSV quote semantics preserves the tab
+        # columns for those rows instead of swallowing category and severity
+        # into the target field.
+        reader = csv.reader(handle, delimiter="\t", quoting=csv.QUOTE_NONE)
         header = next(reader)
         identifiers = {
             name: header.index(name)
@@ -64,6 +69,13 @@ def load_mqm_quality(
             if segment not in allowed or system not in action_set:
                 continue
             rater = row[identifiers["rater"]]
+            # Anthea inserts hands-on-the-wheel (HOTW) attention checks into
+            # displayed translations.  Found/Missed HOTW rows describe rater
+            # behavior on that synthetic check; they are not MQM translation
+            # errors and therefore do not receive an error penalty.
+            if row[severity_index].strip().casefold() == "hotw-test":
+                attention_check_rows_excluded += 1
+                continue
             penalties[(segment, system, rater)] += error_penalty(
                 row[category_index], row[severity_index]
             )
@@ -91,4 +103,5 @@ def load_mqm_quality(
         "candidate_scores": len(expected),
         "raters": len({rater for _, _, rater in penalties}),
         "error_rows_used": rows_used,
+        "attention_check_rows_excluded": attention_check_rows_excluded,
     }

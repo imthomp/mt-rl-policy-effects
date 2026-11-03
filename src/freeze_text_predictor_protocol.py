@@ -15,6 +15,8 @@ MAX_OPTIMIZATION_STEPS = 5000
 LEARNING_RATE = 0.5
 BEST_OF_N_GRID = (2, 4, 8)
 PRIMARY_BEST_OF_N = 4
+CONFIRMATION_BOOTSTRAP_SEED = 20261206
+CONFIRMATION_BOOTSTRAP_RESAMPLES = 10_000
 
 
 def build(root: Path) -> dict[str, Any]:
@@ -149,6 +151,9 @@ def build(root: Path) -> dict[str, Any]:
             "primary_unit": "reward checkpoint crossed with confirmation dataset",
             "paired_reporting": "show every row and pair decisions/outcomes within checkpoint and dataset",
             "uncertainty": "hierarchical bootstrap over reward-training seed and evaluation document; external controls reported separately",
+            "bootstrap_seed": CONFIRMATION_BOOTSTRAP_SEED,
+            "bootstrap_resamples": CONFIRMATION_BOOTSTRAP_RESAMPLES,
+            "interval_level": 0.95,
             "success_criterion": (
                 "the frozen sign screen has lower mean decision regret than both always-optimize "
                 "and the frozen best-of-N screen on new learned-reward checkpoints"

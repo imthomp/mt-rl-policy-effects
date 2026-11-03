@@ -41,6 +41,7 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
     text_mechanism = root["text_policy_mechanism"]
     horizon = root["bandit_horizon"]
     seeds = root["bandit_seed_replication"]
+    confirmation = root["text_policy_predictor_confirmation"]
 
     wmt25_first = str(wmt25["pool_sizes"][0])
     wmt25_full = str(wmt25["candidate_pool_size"])
@@ -87,10 +88,11 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
         }
 
     result = {
-        "status": "initial_manuscript_draft",
+        "status": "prospective_confirmation_integrated",
         "claim_boundary": (
-            "Reward optimization is sensitive to reward-training composition; "
-            "metric-annotation disagreement filtering is not established as superior to matched removal."
+            "Reward overoptimization appears under sufficient pressure, but the "
+            "prospective gradient-alignment screen does not improve the frozen "
+            "optimize-or-stop decision; claims remain limited to fixed candidate pools."
         ),
         "diagnostic": {
             "definition": "Spearman(COMET,BLEURT) minus Spearman(COMET,DA)",
@@ -153,6 +155,7 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
         },
         "conditions": conditions,
         "targeted_contrasts": targeted_contrasts,
+        "predictor_confirmation": confirmation,
     }
     result["table_row_trace"] = validate_table_rows(result)
     return result
@@ -165,6 +168,7 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
         "bandit": {},
         "text_policy": {},
         "targeted_contrasts": {},
+        "predictor_confirmation": {},
     }
     for condition in CONDITIONS:
         row = result["conditions"][condition]
@@ -204,6 +208,24 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
             f"wmt25_best_of_n...diagnostic_filtered_minus_{comparator}; "
             f"wmt26_best_of_n...diagnostic_filtered_minus_{comparator}"
         )
+    confirmation = result["predictor_confirmation"]
+    for dataset_name, dataset in confirmation["datasets"].items():
+        for row in dataset["rows"]:
+            required = {
+                "checkpoint",
+                "pressure",
+                "policy_trace",
+                "probability_trace",
+                "primary_target_reached",
+            }
+            if not required <= set(row):
+                raise AssertionError(
+                    f"Incomplete confirmation row: {dataset_name}/{row.get('checkpoint')}"
+                )
+            traces["predictor_confirmation"][f"{dataset_name}/{row['checkpoint']}"] = (
+                f"{row['policy_trace']}; {row['probability_trace']}; "
+                f"{dataset['human_source']}"
+            )
     return traces
 
 
@@ -301,6 +323,44 @@ def render_macros(path: Path, result: dict[str, Any]) -> None:
     macros["SeedEntropySpearman"] = f"{result['seeds']['spearman_entropy_human_frozen']:.2f}"
     macros["HorizonFinalStep"] = f"{result['horizon']['final_step']:,}"
     macros["HorizonMatchedEntropy"] = f"{result['horizon']['matched_entropy']:.2f}"
+    confirmation = result["predictor_confirmation"]
+    primary = confirmation["learned_reward_summary"]
+    secondary = confirmation["complete_secondary_summary"]
+    primary_bootstrap = confirmation["hierarchical_bootstrap"]
+    secondary_bootstrap = confirmation["complete_secondary_hierarchical_bootstrap"]
+    macros["ConfirmCells"] = str(primary["learned_reward_cells"])
+    macros["ConfirmDatasets"] = str(len(confirmation["datasets"]))
+    macros["ConfirmNewRewardSeeds"] = str(
+        len(
+            {
+                row["seed"]
+                for dataset in confirmation["datasets"].values()
+                for row in dataset["rows"]
+                if row["kind"] == "new_learned_reward"
+            }
+        )
+    )
+    macros["ConfirmPrimaryTarget"] = f"{primary['target_kl_nats']:.2f}"
+    macros["ConfirmPrimaryReachable"] = str(primary["reachable_cells"])
+    macros["ConfirmPrimaryUnreachable"] = str(primary["unreachable_cells"])
+    macros["ConfirmPrimaryBeneficial"] = str(primary["beneficial"])
+    macros["ConfirmPrimaryFailures"] = str(primary["failures"])
+    macros["ConfirmPrimarySignRegret"] = f"{primary['methods']['sign_screen']['mean_decision_regret']:.3f}"
+    macros["ConfirmPrimaryOptimizeRegret"] = f"{primary['methods']['always_optimize']['mean_decision_regret']:.3f}"
+    macros["ConfirmSecondaryTarget"] = f"{secondary['target_kl_nats']:.2f}"
+    macros["ConfirmSecondaryBeneficial"] = str(secondary["beneficial"])
+    macros["ConfirmSecondaryFailures"] = str(secondary["failures"])
+    macros["ConfirmSecondarySignRegret"] = f"{secondary['methods']['sign_screen']['mean_decision_regret']:.3f}"
+    macros["ConfirmSecondaryOptimizeRegret"] = f"{secondary['methods']['always_optimize']['mean_decision_regret']:.3f}"
+    macros["ConfirmSecondarySignFalseKeep"] = f"{secondary['sign_screen_false_keep_rate']:.2f}"
+    secondary_contrast = secondary_bootstrap["contrasts"]["sign_screen_minus_always_optimize"]
+    macros["ConfirmSecondaryRegretGap"] = f"{secondary_contrast['mean']:.3f}"
+    macros["ConfirmSecondaryRegretGapLow"] = f"{secondary_contrast['low']:.3f}"
+    macros["ConfirmSecondaryRegretGapHigh"] = f"{secondary_contrast['high']:.3f}"
+    primary_contrast = primary_bootstrap["contrasts"]["sign_screen_minus_always_optimize"]
+    macros["ConfirmPrimaryRegretGap"] = f"{primary_contrast['mean']:.3f}"
+    macros["ConfirmPrimaryRegretGapLow"] = f"{primary_contrast['low']:.3f}"
+    macros["ConfirmPrimaryRegretGapHigh"] = f"{primary_contrast['high']:.3f}"
     for comparator, row in result["targeted_contrasts"].items():
         name = macro_name(comparator)
         for endpoint, prefix in (("wmt25_full", "Primary"), ("wmt26_full", "External")):

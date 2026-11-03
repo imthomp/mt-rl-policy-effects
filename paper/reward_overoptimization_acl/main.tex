@@ -11,7 +11,7 @@
 
 \input{generated_stats}
 
-\title{Optimizing What the Labels Teach: Auditing Machine Translation Rewards under Metric--Annotation Disagreement}
+\title{Can We Predict When Optimizing a Translation Reward Will Hurt?}
 
 \author{Anonymous ACL submission}
 
@@ -19,25 +19,24 @@
 \maketitle
 
 \begin{abstract}
-Learned machine translation rewards inherit the strengths and artifacts of
-their human training labels.  Motivated by AmanaMT's finding that apparent
-metric failures can reflect annotation protocol, we ask whether removing
-dataset slices with strong metric--annotation disagreement makes rewards more
-reliable under optimization.  We train otherwise matched reward models on all
-available direct-assessment labels, after targeted slice exclusion, and after
-two matched-removal controls.  Increasing best-of-$N$ pressure lowers held-out
-human quality for every reward on both expert MQM and cESA candidate pools.
-Targeted filtering sometimes improves over the all-data reward but does not
-reliably beat matched removal.  In a finite-action contextual bandit, exact
-policy-gradient optimization of three rewards sharply reduces held-out cESA.
-A direction-matched reward appears to avoid this, but the contrast is a
-reward-seed effect: across retrained seeds and longer optimization, every
-reward instance falls below uniform selection.  Mechanism analysis shows that the failing
-policies learn strong preferences for one translation system, yet a policy
-with no system identity also loses quality on unseen systems.  The results
-establish reward overoptimization, but not disagreement filtering or any
-tested training composition as a remedy.  We release an exactly checkable bandit implementation and
-source-traced paper statistics.
+Learned machine translation rewards can improve their assigned score while
+reducing human-rated quality.  We first test whether removing training slices
+with strong metric--annotation disagreement prevents this failure.  Increasing
+best-of-$N$ pressure lowers held-out quality for every reward, targeted removal
+does not reliably beat matched removal, and exact policy optimization eventually
+harms every retrained reward instance.  The failure persists with a
+source--candidate-text policy evaluated on unseen documents and systems.
+Motivated by a successful post-hoc analysis, we then freeze a prospective
+screen: optimize only when the initial reward gradient has positive cosine with
+a human-quality gradient estimated from a bounded calibration sample.  On new
+reward seeds and separate MQM datasets, the screen does not confirm.  At the
+complete lower-pressure comparison, every learned-reward optimization improves
+human quality, while the screen unnecessarily retains the initial policy and
+incurs greater regret than always optimizing or a frozen best-of-$N$ screen.
+The prespecified primary pressure is unreachable for several policies and is
+therefore inconclusive.  The study provides an exactly checkable test bed and a
+prospective negative result: a locally plausible alignment diagnostic can fail
+under document and system shift.
 \end{abstract}
 
 \section{Introduction}
@@ -60,10 +59,11 @@ of reference-based direct assessment \citep{freitag-etal-2022-results}.
 Reward-model benchmarks increasingly evaluate whether pre-optimization tests
 predict downstream selection or training behavior
 \citep{zhou-etal-2025-rmb,malik-etal-2025-rewardbench2,kim-etal-2025-rethinking}.
-Our contribution is narrower than establishing
-that development accuracy can fail: we give an exactly checkable MT test bed,
-trace failure across reward-training seeds and optimization pressure, and test
-whether it persists when complete translation systems are held out.
+Our contribution is narrower than establishing that development accuracy can
+fail: we give an exactly checkable MT test bed, trace failure across
+reward-training seeds and optimization pressure, test whether it persists when
+complete translation systems are held out, and prospectively evaluate a frozen
+pre-optimization screening decision.
 
 We turn that diagnosis into a falsifiable intervention: remove language-pair
 by year slices where two automatic metrics agree much more strongly with each
@@ -71,13 +71,12 @@ other than one agrees with direct-assessment labels.  We ask whether this
 targeted removal produces rewards that retain human quality under increasing
 optimization pressure, beyond simply training on fewer labels.
 
-Our answer is negative but informative.  All learned rewards exhibit offline
-overoptimization.  The targeted condition does not consistently outperform
-matched controls, and an earlier-year direction-matched control that first
-appears safe does not replicate across reward seeds.  This shifts the conclusion
-from ``bad labels can be detected and removed'' to a narrower one: every tested
-reward fails under enough optimization, and the present diagnostic does not
-identify a sufficient correction.
+Both interventions receive negative answers.  All learned rewards exhibit
+offline overoptimization, and targeted filtering does not consistently
+outperform matched controls.  The prospective gradient-alignment screen also
+fails to improve the optimize-or-stop decision on new rewards and datasets.
+Together, these results show why post-hoc reward diagnostics require prospective
+testing under the same shifts faced by policy optimization.
 
 \section{Metric--annotation disagreement}
 
@@ -289,6 +288,67 @@ summarize REINFORCE runs.  Held-out proxy reward rises while human cESA falls.}
 \label{fig:textpolicy}
 \end{figure*}
 
+\section{Prospective failure screening}
+
+The development results suggest a practical decision problem: before optimizing
+a reward, decide whether to optimize it or retain the initial policy.  In a
+post-hoc analysis, the cosine between the reward gradient and a human-quality
+gradient at initialization separated harmful learned rewards from two stronger
+external rewards.  We therefore froze the cosine's theoretically defined sign
+as a screen: optimize only when the estimated cosine is positive.  A bounded,
+document-disjoint calibration sample estimates the human gradient; the reward
+gradient uses the full calibration-document pool.  Human outcomes never select
+an optimization checkpoint.
+
+We prospectively test the unchanged rule on \ConfirmNewRewardSeeds{} new reward
+seeds crossed with \ConfirmDatasets{} separate MQM datasets.  Calibration and
+evaluation documents are disjoint, and the shared text policy trains and
+evaluates on disjoint systems.  Baselines always optimize, always keep the
+initial policy, or use a frozen best-of-$N$ calibration screen.  The outcome is
+decision regret relative to the better of optimization and the initial policy
+at a prespecified policy displacement measured by KL from uniform.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+KL target & Reached & Better & Worse & Screen / optimize regret \\
+\midrule
+\ConfirmPrimaryTarget{} & \ConfirmPrimaryReachable{}/\ConfirmCells{} &
+\ConfirmPrimaryBeneficial{} & \ConfirmPrimaryFailures{} &
+\ConfirmPrimarySignRegret{} / \ConfirmPrimaryOptimizeRegret{} \\
+\ConfirmSecondaryTarget{} & \ConfirmCells{}/\ConfirmCells{} &
+\ConfirmSecondaryBeneficial{} & \ConfirmSecondaryFailures{} &
+\ConfirmSecondarySignRegret{} / \ConfirmSecondaryOptimizeRegret{} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Prospective learned-reward confirmation.  ``Better'' and ``Worse''
+count optimization outcomes relative to the initial policy.  Regret is mean
+human-quality loss relative to the better decision.}
+\label{tab:confirmation}
+\end{table}
+
+The frozen primary target is not fully evaluable: only
+\ConfirmPrimaryReachable{} of \ConfirmCells{} learned-reward cells reach it
+within the optimization budget.  On those cells, the sign screen has regret
+\ConfirmPrimarySignRegret{}, versus \ConfirmPrimaryOptimizeRegret{} for always
+optimizing; their bootstrap regret difference is \ConfirmPrimaryRegretGap{}
+$[\ConfirmPrimaryRegretGapLow{},\ConfirmPrimaryRegretGapHigh{}]$.  We do not
+impute outcomes for the \ConfirmPrimaryUnreachable{} unreachable cells and do
+not declare the frozen success criterion met.
+
+The prespecified lower KL target is reached by every learned reward and gives a
+complete secondary comparison.  Every optimization improves held-out human
+quality, but the sign screen retains the initial policy in a fraction
+\ConfirmSecondarySignFalseKeep{} of cells.  Its regret exceeds always optimizing
+by \ConfirmSecondaryRegretGap{}
+$[\ConfirmSecondaryRegretGapLow{},\ConfirmSecondaryRegretGapHigh{}]$; the frozen
+best-of-$N$ screen makes the same optimize decisions as always optimizing.  The
+post-hoc development pattern therefore does not transfer prospectively.
+
 \section{Discussion}
 
 The study supports two conclusions.  First, modest development correlation
@@ -296,7 +356,7 @@ does not prevent substantial overoptimization under either best-of-$N$ or
 policy gradients, even without system identity.  Second, an apparently safe
 reward can be an unfinished optimization: reward seed changes when failure
 arrives, and no tested condition prevents it.  What the study does not show
-is equally important.  The diagnostic
+is equally important.  The annotation diagnostic
 flags dataset slices, not individual wrong labels; filtering does not reliably
 beat matched removal; and a single checkpoint per condition would have
 mistaken reward-training variability for a data effect, as our first run did.
@@ -304,19 +364,22 @@ mistaken reward-training variability for a data effect, as our first run did.
 The bandit offers an exact RL test bed but cannot generate translations outside
 its candidate pool.  Holding out complete systems shows that direct system
 identity is not necessary for failure, but textual style may still reveal a
-system indirectly.  A prospective next experiment should ask whether cheap
-pre-optimization diagnostics predict failure at matched entropy or KL across
-new reward seeds and untouched human-rated data.  Generative RL would
-additionally require independent evaluation of newly produced translations.
+system indirectly.  The prospective experiment adds a complementary warning:
+local gradient alignment estimated from a calibration sample need not predict
+the sign of human-quality change after document and system shift.  At low
+pressure, the failed screen is actively conservative---it rejects beneficial
+updates rather than preventing harm.  Generative RL would additionally require
+independent evaluation of newly produced translations.
 
 \section{Conclusion}
 
-Optimizing learned MT rewards consistently exposes weaknesses that ordinary
-development correlation obscures.  Metric--annotation disagreement is useful
-for defining a targeted audit, but the present evidence does not validate it
-as a filtering remedy.  The most robust finding is broader: every tested reward
-loses human-rated quality under enough optimization, so a short run that looks
-safe is not evidence of a safe reward.
+Optimizing learned MT rewards exposes weaknesses that ordinary development
+correlation obscures, but the direction of the effect depends on optimization
+pressure and evaluation distribution.  Metric--annotation disagreement does
+not yield a validated filtering remedy, and a promising post-hoc
+gradient-alignment screen fails prospectively.  The most robust lesson is
+methodological: reward safeguards should be frozen and tested as decisions on
+new reward instances, with retaining the initial policy as an explicit option.
 
 \section*{Limitations}
 
@@ -327,6 +390,12 @@ human protocols.  Offline best-of-$N$ and text-policy results use one reward-tra
 condition, so their intervals omit reward-training variability.  The
 contextual policy selects among fixed systems and its test set is
 source-disjoint, not an untouched confirmation set for the broader hypothesis.
+The prospective confirmation uses only \ConfirmDatasets{} evaluation datasets,
+and its primary KL target is unreachable for \ConfirmPrimaryUnreachable{}
+learned-reward cells.  The complete lower-pressure result is secondary and
+should not be substituted for the inconclusive primary criterion.  The
+alignment screen consumes a bounded sample of human labels and is not a
+label-free safeguard.
 
 \section*{Ethical Considerations}
 

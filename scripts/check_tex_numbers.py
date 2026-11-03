@@ -11,6 +11,13 @@ NUMBER = re.compile(r"(?<![A-Za-z\\])[-+]?\d+(?:\.\d+)?(?:e[-+]?\d+)?", re.IGNOR
 STRUCTURAL_EXCEPTIONS = (
     re.compile(r"\\documentclass\[11pt\]"),
     re.compile(r"\\usepackage\[utf8\]\{inputenc\}"),
+    # Page geometry and spacing are document layout, not empirical claims.
+    re.compile(r"\\usepackage\[margin=[^]]+\]\{geometry\}"),
+    re.compile(r"\\setlength\{\\(?:parindent|parskip)\}\{[^}]+\}"),
+    re.compile(r"\\setlist\[itemize\]\{[^}]+\}"),
+    re.compile(r"\\vspace\{[^}]+\}"),
+    # LaTeX's [1] here declares the number of command arguments.
+    re.compile(r"\\newcommand\{\\field\}\[1\]\{.*\}"),
     re.compile(r"\\cite[a-zA-Z*]*\{[^}]+\}"),
     # Mathematical zero vector in an analytic identity, not an empirical quantity.
     re.compile(r"\\mathbf\{0\}"),
