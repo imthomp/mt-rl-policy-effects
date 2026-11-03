@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import re
 from collections import defaultdict
@@ -24,19 +25,42 @@ def load_candidates(
     source_path: Path, manifest_path: Path, dataset_name: str
 ) -> tuple[dict[str, Any], list[dict[str, str]]]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    dataset = manifest["datasets"][dataset_name]
-    if sha256_file(source_path) != dataset["source_sha256"]:
+    if "datasets" in manifest:
+        dataset = manifest["datasets"][dataset_name]
+        source_sha256 = dataset["source_sha256"]
+        included = set(dataset["included_segment_ids"])
+        machine_systems = dataset["machine_systems"]
+        excluded = dataset["excluded_non_machine_systems"]
+        frozen_source_hashes = None
+        frozen_candidate_hashes = None
+        candidate_content_sha256 = dataset["candidate_content_sha256"]
+    else:
+        if manifest.get("dataset") != dataset_name:
+            raise ValueError("Dataset name differs from safe-pressure manifest")
+        dataset = manifest
+        source_sha256 = dataset["sources"]["human_mqm"]["sha256"]
+        split = dataset["split"]
+        included = set(split["calibration_optimization_segments"]) | set(
+            split["evaluation_segments"]
+        )
+        machine_systems = sorted(split["train_systems"] + split["heldout_systems"])
+        excluded = dataset["cleaning"]["excluded_systems"]
+        frozen_source_hashes = dataset["cleaning"]["source_text_hashes"]
+        frozen_candidate_hashes = dataset["cleaning"]["candidate_text_hashes"]
+        candidate_content_sha256 = hashlib.sha256(
+            json.dumps(
+                frozen_candidate_hashes, sort_keys=True, separators=(",", ":")
+            ).encode()
+        ).hexdigest()
+    if sha256_file(source_path) != source_sha256:
         raise ValueError("MQM source hash differs from frozen manifest")
-    included = set(dataset["included_segment_ids"])
-    machine_systems = dataset["machine_systems"]
-    excluded = dataset["excluded_non_machine_systems"]
     if "refA" not in excluded:
         raise ValueError("Frozen confirmation scorer requires refA")
     sources: dict[str, set[str]] = defaultdict(set)
     targets: dict[tuple[str, str], set[str]] = defaultdict(set)
     accessed = ("system", "doc", "docSegId", "globalSegId", "source", "target")
     with source_path.open(encoding="utf-8", newline="") as handle:
-        reader = csv.reader(handle, delimiter="\t")
+        reader = csv.reader(handle, delimiter="\t", quoting=csv.QUOTE_NONE)
         header = next(reader)
         index = {name: header.index(name) for name in accessed}
         for row_number, row in enumerate(reader, 2):
@@ -55,18 +79,27 @@ def load_candidates(
         if len(sources[segment]) != 1 or len(targets[(segment, "refA")]) != 1:
             raise ValueError(f"Ambiguous source/reference in frozen segment: {segment}")
         source = next(iter(sources[segment]))
+        if frozen_source_hashes is not None:
+            observed = hashlib.sha256(source.encode()).hexdigest()
+            if observed != frozen_source_hashes[segment]:
+                raise ValueError(f"Frozen source text differs: {segment}")
         reference = next(iter(targets[(segment, "refA")]))
         for system in machine_systems:
             values = targets[(segment, system)]
             if len(values) != 1:
                 raise ValueError(f"Ambiguous candidate in frozen segment: {segment}/{system}")
+            hypothesis = next(iter(values))
+            if frozen_candidate_hashes is not None:
+                observed = hashlib.sha256(hypothesis.encode()).hexdigest()
+                if observed != frozen_candidate_hashes[f"{segment}|{system}"]:
+                    raise ValueError(f"Frozen candidate text differs: {segment}/{system}")
             rows.append(
                 {
                     "row_key": f"{segment}|{system}",
                     "segment_key": segment,
                     "system_id": system,
                     "source": source,
-                    "hypothesis": next(iter(values)),
+                    "hypothesis": hypothesis,
                     "reference": reference,
                 }
             )
@@ -76,8 +109,8 @@ def load_candidates(
     metadata = {
         "dataset_name": dataset_name,
         "source_path": str(source_path),
-        "source_sha256": dataset["source_sha256"],
-        "candidate_content_sha256": dataset["candidate_content_sha256"],
+        "source_sha256": source_sha256,
+        "candidate_content_sha256": candidate_content_sha256,
         "segments": len(included),
         "systems": len(machine_systems),
         "rows": len(rows),
