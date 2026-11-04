@@ -76,3 +76,28 @@ quality measure for new outputs, so step 1 is validating an LLM MQM judge.
 - Interpretation: a ~30B local LLM judge is not a better segment-level referee
   than the rewards themselves, though it tracks system-level quality. Under the
   frozen protocol it cannot be used for headline claims.
+
+### GRPO pilot launched; judge v2 also fails
+- Prospective GRPO predictions frozen in `results/grpo_pilot_protocol.json`
+  (commit b850cf9) before any GRPO code existed. P1: XCOMET-XL-QE run's
+  untranslated rate rises by >= 0.10 and exceeds both CometKiwi runs. P2:
+  CometKiwi-23-XL run's rate rises by <= 0.02. P3: ordering XCOMET >
+  CK22 > CK23. Single seed, Qwen2.5-1.5B-Instruct en->es, 500 steps.
+- GRPO env `~/.venvs/grpo` (torch 2.6 cu124, transformers 4.57.6, TRL 0.25.1,
+  COMET). Needed `setuptools<81` (torchmetrics imports pkg_resources),
+  `pyarrow==19.0.1` (newer pyarrow needs NumPy 2; COMET pins 1.26), and
+  `OPENSSL_CONF=/dev/null` (uv's bundled OpenSSL can't parse the cluster's
+  system config). Smoke test: ~34 s/step. Runs submitted as job 15035484.
+- Judge v2 (`results/llm_judge_protocol_v2.json`): 450 segments disjoint from
+  v1, gpt-oss-20b at 4096 tokens, hybrids with `src/hack_guards.py`, same
+  thresholds. Result: not accepted. Selected Gemma-2-27B (judge-only, mean
+  acc_eq 0.545; all six candidates within 0.535–0.545, vs 0.49–0.56 for
+  the external QE rewards). A2 0.98 pass; A3 Spearman 0.599 (< 0.60) fail;
+  A5 fail (source copy 0.018). gpt-oss still ineligible (parse 0.73–0.88).
+  Only gpt-oss+guards would clear 0.90 on every T4 type. Guard
+  false-positive rate on good real candidates: 0.001 zh-en, 0.010 en-es,
+  0.060 ja-zh.
+- Decision: stop iterating on judges (two frozen attempts; a third would be
+  a forking path). Local ~30B judges are not better than the rewards at
+  segment level. The GRPO predictions use deterministic indicators and do
+  not need a judge. Quality claims need human evaluation.

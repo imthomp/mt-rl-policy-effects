@@ -15171,6 +15171,1834 @@
     },
     "threshold": 0.9
   },
+  "llm_judge_validation_v2": {
+    "T3": {
+      "cells": [
+        {
+          "human_gain": 0.127269322619682,
+          "human_gain_ci95": [
+            0.03275856150359954,
+            0.22065283957918327
+          ],
+          "judge_gain": 0.17448346000070356,
+          "judge_gain_ci95": [
+            0.09912695503382014,
+            0.2588056844105337
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.13004002396302342,
+          "human_gain_ci95": [
+            0.08182300509465876,
+            0.18136372609689594
+          ],
+          "judge_gain": 0.17617827055083943,
+          "judge_gain_ci95": [
+            0.13056331773889615,
+            0.2265047675125088
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.19580013246180758,
+          "human_gain_ci95": [
+            0.12099372769100272,
+            0.27111249393101794
+          ],
+          "judge_gain": 0.16513511389155128,
+          "judge_gain_ci95": [
+            0.07957494614863846,
+            0.2529106686560015
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.16298701557976059,
+          "human_gain_ci95": [
+            0.12193794389592114,
+            0.20711895403601557
+          ],
+          "judge_gain": 0.16935837519681937,
+          "judge_gain_ci95": [
+            0.12180157737270825,
+            0.2213319340451941
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.17720091744855374,
+          "human_gain_ci95": [
+            0.08463651232057114,
+            0.26611318910765536
+          ],
+          "judge_gain": 0.1692820174247271,
+          "judge_gain_ci95": [
+            0.09060278818872697,
+            0.2568488019597583
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.12407909819176857,
+          "human_gain_ci95": [
+            0.07809969360356803,
+            0.16860831445780683
+          ],
+          "judge_gain": 0.1741127374840235,
+          "judge_gain_ci95": [
+            0.12636437733407457,
+            0.22691949101265796
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.11819749146691187,
+          "human_gain_ci95": [
+            0.0352630777992005,
+            0.19911098284158826
+          ],
+          "judge_gain": 0.1497302935500974,
+          "judge_gain_ci95": [
+            0.0603170681532324,
+            0.23005895010378602
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.13803990778546577,
+          "human_gain_ci95": [
+            0.09440192143403135,
+            0.18149590125290457
+          ],
+          "judge_gain": 0.17985530339102118,
+          "judge_gain_ci95": [
+            0.13097958060922515,
+            0.234724275042312
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261203:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.14765052569010173,
+          "human_gain_ci95": [
+            0.027539929236203072,
+            0.24684976202209183
+          ],
+          "judge_gain": 0.16359605691016638,
+          "judge_gain_ci95": [
+            0.071876526125641,
+            0.2519644336230023
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.12363331371951439,
+          "human_gain_ci95": [
+            0.07654752448820437,
+            0.16588504378011124
+          ],
+          "judge_gain": 0.16931856767904685,
+          "judge_gain_ci95": [
+            0.12100497575055093,
+            0.22132185766938342
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.16530370684762224,
+          "human_gain_ci95": [
+            0.07600945649608919,
+            0.25325530968317794
+          ],
+          "judge_gain": 0.22398979290191598,
+          "judge_gain_ci95": [
+            0.143473884415492,
+            0.30156795512248363
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.15137517962815986,
+          "human_gain_ci95": [
+            0.1080310944516936,
+            0.19489826933204177
+          ],
+          "judge_gain": 0.19044498007404836,
+          "judge_gain_ci95": [
+            0.14377562106762942,
+            0.23793773665349754
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.2229778405789676,
+          "human_gain_ci95": [
+            0.15575703659525503,
+            0.29452727275625845
+          ],
+          "judge_gain": 0.18522835781518665,
+          "judge_gain_ci95": [
+            0.11543554383600942,
+            0.2577630445582838
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.153642298645231,
+          "human_gain_ci95": [
+            0.10719736028954892,
+            0.19813200018623167
+          ],
+          "judge_gain": 0.18537894361019067,
+          "judge_gain_ci95": [
+            0.14001367596281333,
+            0.23503091429354364
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1793503209033568,
+          "human_gain_ci95": [
+            0.10501229156020739,
+            0.24851649313899532
+          ],
+          "judge_gain": 0.1807964437299025,
+          "judge_gain_ci95": [
+            0.10346951831101835,
+            0.2541542409474883
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1527478648751507,
+          "human_gain_ci95": [
+            0.10473657437386619,
+            0.20565801489899457
+          ],
+          "judge_gain": 0.18866002058188114,
+          "judge_gain_ci95": [
+            0.13839914312385596,
+            0.24216831401259914
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261204:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.11983434380063192,
+          "human_gain_ci95": [
+            0.009462414747344675,
+            0.21564309538743864
+          ],
+          "judge_gain": 0.15071357995487103,
+          "judge_gain_ci95": [
+            0.06013437638933099,
+            0.2390568757391214
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1377731624972792,
+          "human_gain_ci95": [
+            0.0935745669418429,
+            0.18725765410223344
+          ],
+          "judge_gain": 0.17072773084030965,
+          "judge_gain_ci95": [
+            0.12072021419117768,
+            0.2201102921672981
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.127312720643042,
+          "human_gain_ci95": [
+            0.017168884757628244,
+            0.23405621151811354
+          ],
+          "judge_gain": 0.198524100071039,
+          "judge_gain_ci95": [
+            0.11094805269306421,
+            0.28694335116742625
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1513087115806667,
+          "human_gain_ci95": [
+            0.10716808936344295,
+            0.1963785421482212
+          ],
+          "judge_gain": 0.1856349415496869,
+          "judge_gain_ci95": [
+            0.13700933014329164,
+            0.23899470924793537
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.15707075744969842,
+          "human_gain_ci95": [
+            0.06529176353880041,
+            0.2391849729050981
+          ],
+          "judge_gain": 0.19109387497757552,
+          "judge_gain_ci95": [
+            0.11495017086576896,
+            0.27397893367839976
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.13710925852988162,
+          "human_gain_ci95": [
+            0.09248452959136962,
+            0.184815449087141
+          ],
+          "judge_gain": 0.17442566445431265,
+          "judge_gain_ci95": [
+            0.1282449897083124,
+            0.2238765184333653
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.12082770299614513,
+          "human_gain_ci95": [
+            0.02220803454559491,
+            0.20919541680395762
+          ],
+          "judge_gain": 0.23873908897352072,
+          "judge_gain_ci95": [
+            0.15821869157090102,
+            0.31677547690924046
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1329731345670245,
+          "human_gain_ci95": [
+            0.08602106324043246,
+            0.17941669219600265
+          ],
+          "judge_gain": 0.19512526049759826,
+          "judge_gain_ci95": [
+            0.14894895826238508,
+            0.24514815440561166
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "trained:20261205:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.19625448394133815,
+          "human_gain_ci95": [
+            0.1032827745987067,
+            0.2972996258815322
+          ],
+          "judge_gain": 0.22707843128031113,
+          "judge_gain_ci95": [
+            0.13832206976458072,
+            0.3199978413750165
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:XCOMET-XL",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.17456201056510368,
+          "human_gain_ci95": [
+            0.12047922768066799,
+            0.23107844295831734
+          ],
+          "judge_gain": 0.20598328557737974,
+          "judge_gain_ci95": [
+            0.15392904264289084,
+            0.26384310993873905
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:XCOMET-XL",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.2964585493717511,
+          "human_gain_ci95": [
+            0.20797427468211033,
+            0.39290211848341167
+          ],
+          "judge_gain": 0.30222220363081376,
+          "judge_gain_ci95": [
+            0.22236755355510873,
+            0.3865342219484924
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.214273637638145,
+          "human_gain_ci95": [
+            0.16254585674882713,
+            0.26961310540795835
+          ],
+          "judge_gain": 0.24379118810818187,
+          "judge_gain_ci95": [
+            0.19356058675735002,
+            0.29875189400745034
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.25623225419653667,
+          "human_gain_ci95": [
+            0.14939172980119902,
+            0.36601354903152167
+          ],
+          "judge_gain": 0.326308581108797,
+          "judge_gain_ci95": [
+            0.24629300864659917,
+            0.4175477266077437
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.19778638868427512,
+          "human_gain_ci95": [
+            0.14637996525015767,
+            0.25019263779813006
+          ],
+          "judge_gain": 0.23519517589707278,
+          "judge_gain_ci95": [
+            0.18630184170774494,
+            0.28866650382458037
+          ],
+          "pool": "wmt23_zh_en",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.06976456888896602,
+          "human_gain_ci95": [
+            -0.05289061828370798,
+            0.17611299707336542
+          ],
+          "judge_gain": 0.10531702882862852,
+          "judge_gain_ci95": [
+            0.04064707685864688,
+            0.17399854686442368
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:all_data",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.09931935072124655,
+          "human_gain_ci95": [
+            0.0533936537859732,
+            0.14025950440745294
+          ],
+          "judge_gain": 0.0945175623282748,
+          "judge_gain_ci95": [
+            0.05755462786833649,
+            0.13372270601132666
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:all_data",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.04296476498649736,
+          "human_gain_ci95": [
+            -0.0882053863361409,
+            0.1497704914120895
+          ],
+          "judge_gain": 0.08953557802556188,
+          "judge_gain_ci95": [
+            0.022731611279564638,
+            0.1519140585675245
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.08716637789301343,
+          "human_gain_ci95": [
+            0.042278606911039095,
+            0.1298364081680515
+          ],
+          "judge_gain": 0.07951241163598065,
+          "judge_gain_ci95": [
+            0.03905403292784935,
+            0.1236419566385834
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.06728310556466334,
+          "human_gain_ci95": [
+            -0.053330191786870165,
+            0.1708700195638745
+          ],
+          "judge_gain": 0.023709949896368532,
+          "judge_gain_ci95": [
+            -0.0791711728354525,
+            0.1059989433695018
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:global_random_2",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.08124144005487995,
+          "human_gain_ci95": [
+            0.04017826263916231,
+            0.12157458137232191
+          ],
+          "judge_gain": 0.0742543193028952,
+          "judge_gain_ci95": [
+            0.028745672384871933,
+            0.11470408875131803
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270111:global_random_2",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.12832710334250863,
+          "human_gain_ci95": [
+            0.04721692964007028,
+            0.20293407066147084
+          ],
+          "judge_gain": 0.08470452165727617,
+          "judge_gain_ci95": [
+            0.025187994693488685,
+            0.15345969839201976
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:all_data",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11195126332396041,
+          "human_gain_ci95": [
+            0.07194955808113082,
+            0.15145179643442028
+          ],
+          "judge_gain": 0.07234881242259003,
+          "judge_gain_ci95": [
+            0.031417808643526245,
+            0.11188108086425486
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:all_data",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.10117280467942528,
+          "human_gain_ci95": [
+            0.002266403169529714,
+            0.18844468814594742
+          ],
+          "judge_gain": 0.05688717980334463,
+          "judge_gain_ci95": [
+            -0.045466204692689825,
+            0.14841452483407802
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11004707281962373,
+          "human_gain_ci95": [
+            0.06447841986719467,
+            0.15542278228923292
+          ],
+          "judge_gain": 0.08623824198429722,
+          "judge_gain_ci95": [
+            0.04527443682147417,
+            0.12973278370088495
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.06500015930630493,
+          "human_gain_ci95": [
+            -0.06427864430353387,
+            0.16948489036923267
+          ],
+          "judge_gain": 0.09062107464164582,
+          "judge_gain_ci95": [
+            0.024966422169930898,
+            0.15930557481100166
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:global_random_2",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.09903244960030151,
+          "human_gain_ci95": [
+            0.05388569912433128,
+            0.14497962280324006
+          ],
+          "judge_gain": 0.07897445976653275,
+          "judge_gain_ci95": [
+            0.04117800159798642,
+            0.1213168364559868
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270112:global_random_2",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.1716699960736616,
+          "human_gain_ci95": [
+            0.09339046303473138,
+            0.24413227009090527
+          ],
+          "judge_gain": 0.12051398145380379,
+          "judge_gain_ci95": [
+            0.058337391353898545,
+            0.18634338695217395
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:all_data",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.13523355371364468,
+          "human_gain_ci95": [
+            0.09420900300558421,
+            0.17614537260884536
+          ],
+          "judge_gain": 0.08515296781174228,
+          "judge_gain_ci95": [
+            0.04714694003343584,
+            0.12462118502950327
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:all_data",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11939383537501906,
+          "human_gain_ci95": [
+            0.03953680065135356,
+            0.19471688211042287
+          ],
+          "judge_gain": 0.09209623670965736,
+          "judge_gain_ci95": [
+            0.02524217011984086,
+            0.15848061726366827
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11219172480493683,
+          "human_gain_ci95": [
+            0.0689995336634507,
+            0.1549040011047684
+          ],
+          "judge_gain": 0.07464379011673489,
+          "judge_gain_ci95": [
+            0.03318873788392183,
+            0.11823928643868756
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.1428188491564361,
+          "human_gain_ci95": [
+            0.05872205709581921,
+            0.21669839322661713
+          ],
+          "judge_gain": 0.08405242845200964,
+          "judge_gain_ci95": [
+            0.014105889359778152,
+            0.148018298688317
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:global_random_2",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.1141613604958485,
+          "human_gain_ci95": [
+            0.0732667003039209,
+            0.1570498306076429
+          ],
+          "judge_gain": 0.07417168153187131,
+          "judge_gain_ci95": [
+            0.03166614737984715,
+            0.11465532009299269
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270113:global_random_2",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11211487629039797,
+          "human_gain_ci95": [
+            0.02792827889042533,
+            0.1846917702802403
+          ],
+          "judge_gain": 0.03659674305654465,
+          "judge_gain_ci95": [
+            -0.0622797719211044,
+            0.11779815242010147
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:all_data",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11198943968279584,
+          "human_gain_ci95": [
+            0.07294494879479661,
+            0.15213133975333143
+          ],
+          "judge_gain": 0.0793909574691461,
+          "judge_gain_ci95": [
+            0.04298271097366891,
+            0.11537835192992972
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:all_data",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.06380905691063964,
+          "human_gain_ci95": [
+            -0.06503206383476022,
+            0.16959029347805554
+          ],
+          "judge_gain": 0.09462906214718657,
+          "judge_gain_ci95": [
+            0.02661017418857231,
+            0.16686498517394452
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.1194979527172975,
+          "human_gain_ci95": [
+            0.07378462623878822,
+            0.16610415977537454
+          ],
+          "judge_gain": 0.09028079165315649,
+          "judge_gain_ci95": [
+            0.051683486035276366,
+            0.1336599234106742
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.12038642070474014,
+          "human_gain_ci95": [
+            0.03516233530536859,
+            0.20078937735975222
+          ],
+          "judge_gain": 0.10281203663766558,
+          "judge_gain_ci95": [
+            0.04383497763500332,
+            0.16371913248079348
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:global_random_2",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.11764912619655334,
+          "human_gain_ci95": [
+            0.07153614199439583,
+            0.16296849248375575
+          ],
+          "judge_gain": 0.08856433396706109,
+          "judge_gain_ci95": [
+            0.0502395035986705,
+            0.13010225475605938
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270114:global_random_2",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.05090544762426584,
+          "human_gain_ci95": [
+            -0.05331955694405172,
+            0.14336122614017655
+          ],
+          "judge_gain": 0.018699965514442606,
+          "judge_gain_ci95": [
+            -0.10718125992185534,
+            0.11878185887731454
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:all_data",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.10489937920487989,
+          "human_gain_ci95": [
+            0.06785125159061772,
+            0.14291377773009437
+          ],
+          "judge_gain": 0.06680782753149751,
+          "judge_gain_ci95": [
+            0.017255297673713015,
+            0.11387905126334145
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:all_data",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.077185325877833,
+          "human_gain_ci95": [
+            -0.028504923701025177,
+            0.16708874211731808
+          ],
+          "judge_gain": 0.07625911941345818,
+          "judge_gain_ci95": [
+            -0.025814540954585397,
+            0.15986442664027123
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.10350123203714093,
+          "human_gain_ci95": [
+            0.06180595493113846,
+            0.14507160138553382
+          ],
+          "judge_gain": 0.08680636275736586,
+          "judge_gain_ci95": [
+            0.041293601329192076,
+            0.13142288808501798
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.09805325078601625,
+          "human_gain_ci95": [
+            -0.023331072669854146,
+            0.19739331755306372
+          ],
+          "judge_gain": 0.06820139453252734,
+          "judge_gain_ci95": [
+            -0.0323146974767782,
+            0.15163940406658685
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:global_random_2",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.10828748973511824,
+          "human_gain_ci95": [
+            0.06005090838797507,
+            0.1528177002791775
+          ],
+          "judge_gain": 0.056952161119254066,
+          "judge_gain_ci95": [
+            0.009677151309404008,
+            0.09745843261431528
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "trained:20270115:global_random_2",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.16477661821327833,
+          "human_gain_ci95": [
+            0.0966315586381804,
+            0.23385990725480307
+          ],
+          "judge_gain": -0.04627915376513729,
+          "judge_gain_ci95": [
+            -0.14936953955173005,
+            0.04289167943510532
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:XCOMET-XL",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.15955255535430135,
+          "human_gain_ci95": [
+            0.11635732745699877,
+            0.2063144343656469
+          ],
+          "judge_gain": 0.05627601620741428,
+          "judge_gain_ci95": [
+            0.014707845183879941,
+            0.09707508733915537
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:XCOMET-XL",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.16803588766408767,
+          "human_gain_ci95": [
+            0.08027649333472921,
+            0.25317129566197794
+          ],
+          "judge_gain": 0.12141657387816666,
+          "judge_gain_ci95": [
+            0.06690893784733286,
+            0.17680493335391842
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.15727668246459292,
+          "human_gain_ci95": [
+            0.11920734964640481,
+            0.19987382233675494
+          ],
+          "judge_gain": 0.11755673376294065,
+          "judge_gain_ci95": [
+            0.08682344085930493,
+            0.1525379209084167
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.16968482541421953,
+          "human_gain_ci95": [
+            0.09567872671449903,
+            0.23969990393401983
+          ],
+          "judge_gain": 0.03001616833266574,
+          "judge_gain_ci95": [
+            -0.0682839002277058,
+            0.1045882947908527
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "top1",
+          "segments": 150
+        },
+        {
+          "human_gain": 0.16374980637310352,
+          "human_gain_ci95": [
+            0.1186346092361404,
+            0.21171563718227648
+          ],
+          "judge_gain": 0.08444081485364545,
+          "judge_gain_ci95": [
+            0.04972609072615158,
+            0.12213105137114155
+          ],
+          "pool": "wmt24_en_es_mqm",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "best_of_4",
+          "segments": 150
+        },
+        {
+          "human_gain": -0.11456105297824724,
+          "human_gain_ci95": [
+            -0.29047092495462573,
+            0.02729806736754563
+          ],
+          "judge_gain": -0.02090102939602977,
+          "judge_gain_ci95": [
+            -0.14343271050323506,
+            0.09655074164198012
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.030189546125170334,
+          "human_gain_ci95": [
+            -0.026013026176584103,
+            0.08172032607637988
+          ],
+          "judge_gain": 0.08004953051292242,
+          "judge_gain_ci95": [
+            0.026767777311208548,
+            0.12984585645840307
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.06545891888375448,
+          "human_gain_ci95": [
+            -0.27740232799369136,
+            0.10828366999260484
+          ],
+          "judge_gain": 0.008118115981473462,
+          "judge_gain_ci95": [
+            -0.11471024664496056,
+            0.11463337207121409
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.07093986502132121,
+          "human_gain_ci95": [
+            0.015766163975205773,
+            0.12120765213255115
+          ],
+          "judge_gain": 0.07506598210130347,
+          "judge_gain_ci95": [
+            0.02929725173623107,
+            0.1206435308364194
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.00822208545598598,
+          "human_gain_ci95": [
+            -0.11340176795879368,
+            0.11794715215907083
+          ],
+          "judge_gain": 0.04688544029161367,
+          "judge_gain_ci95": [
+            -0.06022931672794384,
+            0.14405002138011067
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.061949596274603475,
+          "human_gain_ci95": [
+            0.016082234990027523,
+            0.11023454462186272
+          ],
+          "judge_gain": 0.10235993178526327,
+          "judge_gain_ci95": [
+            0.0632369369709956,
+            0.14247659548195687
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.008305497914972017,
+          "human_gain_ci95": [
+            -0.13285191479140854,
+            0.12834287634356692
+          ],
+          "judge_gain": 0.12016582585169709,
+          "judge_gain_ci95": [
+            0.039830739143434726,
+            0.20134130057033703
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.0627843737455425,
+          "human_gain_ci95": [
+            0.02126435269926317,
+            0.10518431938722907
+          ],
+          "judge_gain": 0.10804431016293543,
+          "judge_gain_ci95": [
+            0.0642253489250316,
+            0.15339459719044507
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261203:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.06518087767489443,
+          "human_gain_ci95": [
+            -0.23756955323316986,
+            0.0673300887962918
+          ],
+          "judge_gain": 0.03361552041510494,
+          "judge_gain_ci95": [
+            -0.09000709541534196,
+            0.14032502567319247
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.032836037610533574,
+          "human_gain_ci95": [
+            -0.026360861577127716,
+            0.08325764894814963
+          ],
+          "judge_gain": 0.1026622597001372,
+          "judge_gain_ci95": [
+            0.061238673365483304,
+            0.14274241831787607
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.0605931924990238,
+          "human_gain_ci95": [
+            -0.2358625768641307,
+            0.07373884696232991
+          ],
+          "judge_gain": 0.08382145931094064,
+          "judge_gain_ci95": [
+            -0.025803594653408708,
+            0.1834122683568407
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.04957172791577652,
+          "human_gain_ci95": [
+            -0.001641826848472464,
+            0.09712783527922911
+          ],
+          "judge_gain": 0.09554005406078522,
+          "judge_gain_ci95": [
+            0.05181071356572405,
+            0.14216050005793054
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.035486042400156716,
+          "human_gain_ci95": [
+            -0.19169880789450455,
+            0.08372987206708754
+          ],
+          "judge_gain": 0.03293934615388155,
+          "judge_gain_ci95": [
+            -0.08064630798653089,
+            0.13123380235834234
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.03995899755040046,
+          "human_gain_ci95": [
+            -0.015673527283515093,
+            0.09137140346909246
+          ],
+          "judge_gain": 0.09692738778997109,
+          "judge_gain_ci95": [
+            0.05704352629802517,
+            0.13716735393472826
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.06309556591436653,
+          "human_gain_ci95": [
+            -0.22356996332642629,
+            0.06763037407620269
+          ],
+          "judge_gain": 0.11078390797722275,
+          "judge_gain_ci95": [
+            0.01709105911119447,
+            0.2064642261896325
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.043925575248779034,
+          "human_gain_ci95": [
+            -0.011725839994937636,
+            0.09466111688910522
+          ],
+          "judge_gain": 0.11391152353898033,
+          "judge_gain_ci95": [
+            0.0719830103231214,
+            0.1559372135846201
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261204:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.026811147114310308,
+          "human_gain_ci95": [
+            -0.1667081383457791,
+            0.0974139835611462
+          ],
+          "judge_gain": 0.045820465830186854,
+          "judge_gain_ci95": [
+            -0.06065014464650257,
+            0.15911008242685729
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:all_data",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.041398827765389085,
+          "human_gain_ci95": [
+            -0.012559362847064173,
+            0.0953577744410963
+          ],
+          "judge_gain": 0.11096505422868937,
+          "judge_gain_ci95": [
+            0.06807641873587299,
+            0.15666142495523355
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:all_data",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.011157408891751869,
+          "human_gain_ci95": [
+            -0.13484085532094933,
+            0.09645642878600996
+          ],
+          "judge_gain": 0.026572038527361418,
+          "judge_gain_ci95": [
+            -0.09327240330791496,
+            0.13447692328296906
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:diagnostic_filtered",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.022919940782617013,
+          "human_gain_ci95": [
+            -0.0362814754259868,
+            0.07761535928805738
+          ],
+          "judge_gain": 0.08076219578020956,
+          "judge_gain_ci95": [
+            0.03662760282003402,
+            0.1256879487229816
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:diagnostic_filtered",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.03982349083918458,
+          "human_gain_ci95": [
+            -0.24201588420916853,
+            0.11167617274723454
+          ],
+          "judge_gain": 0.004793592530458524,
+          "judge_gain_ci95": [
+            -0.11838769884913637,
+            0.12301270060955315
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:direction_matched_earlier_year",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.0340009925746563,
+          "human_gain_ci95": [
+            -0.02018028762868227,
+            0.0839205775702179
+          ],
+          "judge_gain": 0.06113733834826823,
+          "judge_gain_ci95": [
+            0.020233102552509208,
+            0.10221157501773549
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:direction_matched_earlier_year",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.08603399179371966,
+          "human_gain_ci95": [
+            -0.24703165310403066,
+            0.06612358804973026
+          ],
+          "judge_gain": 0.020641426777881413,
+          "judge_gain_ci95": [
+            -0.09572650332935953,
+            0.13081994748685258
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:global_random_2",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.02695276507784156,
+          "human_gain_ci95": [
+            -0.027695617675373266,
+            0.08238903645507814
+          ],
+          "judge_gain": 0.09818484984562843,
+          "judge_gain_ci95": [
+            0.052649804055562126,
+            0.14343626707458373
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "trained:20261205:global_random_2",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": -0.0538725311407182,
+          "human_gain_ci95": [
+            -0.29163735902180254,
+            0.1297836778307011
+          ],
+          "judge_gain": 0.2060721558014098,
+          "judge_gain_ci95": [
+            0.11725425168164356,
+            0.2870989124310485
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:XCOMET-XL",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.07566964019226195,
+          "human_gain_ci95": [
+            0.0157019156638834,
+            0.12776236991955245
+          ],
+          "judge_gain": 0.16476249338851176,
+          "judge_gain_ci95": [
+            0.12628821381077343,
+            0.20272377739305636
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:XCOMET-XL",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.09805730236700183,
+          "human_gain_ci95": [
+            -0.0011163862313873423,
+            0.1842789723815017
+          ],
+          "judge_gain": 0.18720568645923974,
+          "judge_gain_ci95": [
+            0.11222666462075716,
+            0.2688779782038902
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.14054967201175442,
+          "human_gain_ci95": [
+            0.10223475392071943,
+            0.1821641376670487
+          ],
+          "judge_gain": 0.1790974637200581,
+          "judge_gain_ci95": [
+            0.14233264739932097,
+            0.2179714542103027
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:wmt22-cometkiwi-da",
+          "rule": "best_of_4",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.1611310220893926,
+          "human_gain_ci95": [
+            0.07129833688899134,
+            0.2439384915618889
+          ],
+          "judge_gain": 0.2123931776898105,
+          "judge_gain_ci95": [
+            0.1378131691002686,
+            0.29262588235777603
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "top1",
+          "segments": 148
+        },
+        {
+          "human_gain": 0.16457289018127783,
+          "human_gain_ci95": [
+            0.12166205733059059,
+            0.21259738380202095
+          ],
+          "judge_gain": 0.19579102241808202,
+          "judge_gain_ci95": [
+            0.15240282357459908,
+            0.24330800198290042
+          ],
+          "pool": "wmt24_ja_zh",
+          "reward": "external:wmt23-cometkiwi-da-xl",
+          "rule": "best_of_4",
+          "segments": 148
+        }
+      ],
+      "cells_human_significant": 65,
+      "cells_human_significant_negative": 0,
+      "cells_total": 96,
+      "negative_detection_rate": null,
+      "sign_agreement_significant": 0.9846153846153847,
+      "spearman_all_cells": 0.5992946283233858
+    },
+    "T4": {
+      "gemma-2-27b": {
+        "appended_unrelated": {
+          "n": 440,
+          "rate": 0.990909090909091
+        },
+        "repetition": {
+          "n": 439,
+          "rate": 0.8656036446469249
+        },
+        "source_copy": {
+          "n": 449,
+          "rate": 0.017817371937639197
+        },
+        "truncation_half": {
+          "n": 449,
+          "rate": 0.8374164810690423
+        },
+        "unrelated_fluent": {
+          "n": 427,
+          "rate": 0.9484777517564403
+        }
+      },
+      "gemma-2-27b+guards": {
+        "appended_unrelated": {
+          "n": 440,
+          "rate": 0.990909090909091
+        },
+        "repetition": {
+          "n": 439,
+          "rate": 0.8747152619589977
+        },
+        "source_copy": {
+          "n": 449,
+          "rate": 0.9977728285077951
+        },
+        "truncation_half": {
+          "n": 449,
+          "rate": 0.9064587973273942
+        },
+        "unrelated_fluent": {
+          "n": 427,
+          "rate": 0.9648711943793911
+        }
+      },
+      "gpt-oss-20b": {
+        "appended_unrelated": {
+          "n": 338,
+          "rate": 0.908284023668639
+        },
+        "repetition": {
+          "n": 331,
+          "rate": 0.9003021148036254
+        },
+        "source_copy": {
+          "n": 371,
+          "rate": 0.954177897574124
+        },
+        "truncation_half": {
+          "n": 345,
+          "rate": 0.855072463768116
+        },
+        "unrelated_fluent": {
+          "n": 364,
+          "rate": 0.978021978021978
+        }
+      },
+      "gpt-oss-20b+guards": {
+        "appended_unrelated": {
+          "n": 338,
+          "rate": 0.908284023668639
+        },
+        "repetition": {
+          "n": 331,
+          "rate": 0.9123867069486404
+        },
+        "source_copy": {
+          "n": 371,
+          "rate": 1.0
+        },
+        "truncation_half": {
+          "n": 345,
+          "rate": 0.9101449275362319
+        },
+        "unrelated_fluent": {
+          "n": 364,
+          "rate": 0.9917582417582418
+        }
+      },
+      "qwen2.5-32b": {
+        "appended_unrelated": {
+          "n": 448,
+          "rate": 0.8995535714285714
+        },
+        "repetition": {
+          "n": 446,
+          "rate": 0.6636771300448431
+        },
+        "source_copy": {
+          "n": 448,
+          "rate": 0.9375
+        },
+        "truncation_half": {
+          "n": 449,
+          "rate": 0.6993318485523385
+        },
+        "unrelated_fluent": {
+          "n": 445,
+          "rate": 0.9820224719101124
+        }
+      },
+      "qwen2.5-32b+guards": {
+        "appended_unrelated": {
+          "n": 448,
+          "rate": 0.8995535714285714
+        },
+        "repetition": {
+          "n": 446,
+          "rate": 0.679372197309417
+        },
+        "source_copy": {
+          "n": 448,
+          "rate": 0.9977678571428571
+        },
+        "truncation_half": {
+          "n": 449,
+          "rate": 0.8285077951002228
+        },
+        "unrelated_fluent": {
+          "n": 445,
+          "rate": 0.9887640449438202
+        }
+      }
+    },
+    "candidates_mean_T1": {
+      "gemma-2-27b": 0.5452097715431946,
+      "gemma-2-27b+guards": 0.5425193706440957,
+      "gpt-oss-20b": 0.5420599741416022,
+      "gpt-oss-20b+guards": 0.5387494100026841,
+      "qwen2.5-32b": 0.5373538028822935,
+      "qwen2.5-32b+guards": 0.5354923401451998
+    },
+    "decision": {
+      "A1": true,
+      "A2": true,
+      "A3": false,
+      "A4": "underpowered",
+      "A5": false,
+      "G1": null,
+      "accepted": false,
+      "complete": true,
+      "judges_missing": [],
+      "selected": "gemma-2-27b"
+    },
+    "eligible": [
+      "gemma-2-27b",
+      "gemma-2-27b+guards",
+      "qwen2.5-32b",
+      "qwen2.5-32b+guards"
+    ],
+    "pools": {
+      "wmt23_zh_en": {
+        "G1_guard_false_positive": 0.0008424599831508003,
+        "T0_parse_rate": {
+          "gemma-2-27b": 0.9973333333333333,
+          "gemma-2-27b+guards": 0.9973333333333333,
+          "gpt-oss-20b": 0.884,
+          "gpt-oss-20b+guards": 0.884,
+          "qwen2.5-32b": 0.9982222222222222,
+          "qwen2.5-32b+guards": 0.9982222222222222
+        },
+        "T1_acc_eq": {
+          "external:XCOMET-XL": 0.5183492063492063,
+          "external:wmt22-cometkiwi-da": 0.5232380952380953,
+          "external:wmt23-cometkiwi-da-xl": 0.5215238095238095,
+          "gemma-2-27b": 0.5042429656096472,
+          "gemma-2-27b+guards": 0.5047533975626874,
+          "gpt-oss-20b": 0.5092327284304362,
+          "gpt-oss-20b+guards": 0.509471505889844,
+          "qwen2.5-32b": 0.5221019108280255,
+          "qwen2.5-32b+guards": 0.5221656050955414
+        },
+        "T2_system_pearson": {
+          "gemma-2-27b": 0.9548181446238136,
+          "gemma-2-27b+guards": 0.9587476509963074,
+          "gpt-oss-20b": 0.9523599497641739,
+          "gpt-oss-20b+guards": 0.9425997686438102,
+          "qwen2.5-32b": 0.9747584014490108,
+          "qwen2.5-32b+guards": 0.967859318539176
+        },
+        "guard_fire_rate_all": 0.006222222222222222,
+        "human_mqm": {
+          "attention_check_rows_excluded": 108,
+          "candidate_scores": 2250,
+          "error_rows_used": 5555,
+          "raters": 8,
+          "segments": 150,
+          "systems": 15
+        }
+      },
+      "wmt24_en_es_mqm": {
+        "G1_guard_false_positive": 0.009931719428926133,
+        "T0_parse_rate": {
+          "gemma-2-27b": 1.0,
+          "gemma-2-27b+guards": 1.0,
+          "gpt-oss-20b": 0.7652380952380953,
+          "gpt-oss-20b+guards": 0.7652380952380953,
+          "qwen2.5-32b": 0.9995238095238095,
+          "qwen2.5-32b+guards": 0.9995238095238095
+        },
+        "T1_acc_eq": {
+          "external:XCOMET-XL": 0.5427106227106228,
+          "external:wmt22-cometkiwi-da": 0.5578021978021978,
+          "external:wmt23-cometkiwi-da-xl": 0.5487179487179488,
+          "gemma-2-27b": 0.6150915750915751,
+          "gemma-2-27b+guards": 0.6118681318681318,
+          "gpt-oss-20b": 0.5780265920223933,
+          "gpt-oss-20b+guards": 0.5773268019594122,
+          "qwen2.5-32b": 0.5686001319938403,
+          "qwen2.5-32b+guards": 0.5647136466964875
+        },
+        "T2_system_pearson": {
+          "gemma-2-27b": 0.902376230215489,
+          "gemma-2-27b+guards": 0.9128811962601374,
+          "gpt-oss-20b": 0.9014584756815995,
+          "gpt-oss-20b+guards": 0.9198990147358005,
+          "qwen2.5-32b": 0.9728883667416434,
+          "qwen2.5-32b+guards": 0.9785565839508108
+        },
+        "guard_fire_rate_all": 0.009047619047619047,
+        "human_mqm": {
+          "attention_check_rows_excluded": 0,
+          "candidate_scores": 2100,
+          "error_rows_used": 2560,
+          "raters": 4,
+          "segments": 150,
+          "systems": 14
+        }
+      },
+      "wmt24_ja_zh": {
+        "G1_guard_false_positive": 0.0602322206095791,
+        "T0_parse_rate": {
+          "gemma-2-27b": 0.9990476190476191,
+          "gemma-2-27b+guards": 0.9990476190476191,
+          "gpt-oss-20b": 0.7328571428571429,
+          "gpt-oss-20b+guards": 0.7328571428571429,
+          "qwen2.5-32b": 0.9990476190476191,
+          "qwen2.5-32b+guards": 0.9990476190476191
+        },
+        "T1_acc_eq": {
+          "external:XCOMET-XL": 0.492967032967033,
+          "external:wmt22-cometkiwi-da": 0.5,
+          "external:wmt23-cometkiwi-da-xl": 0.48827838827838826,
+          "gemma-2-27b": 0.5162947739283618,
+          "gemma-2-27b+guards": 0.510936582501468,
+          "gpt-oss-20b": 0.5389206019719772,
+          "gpt-oss-20b+guards": 0.529449922158796,
+          "qwen2.5-32b": 0.5213593658250146,
+          "qwen2.5-32b+guards": 0.5195977686435702
+        },
+        "T2_system_pearson": {
+          "gemma-2-27b": 0.8944670164548579,
+          "gemma-2-27b+guards": 0.8701176337257689,
+          "gpt-oss-20b": 0.8676001899421674,
+          "gpt-oss-20b+guards": 0.8607624986843475,
+          "qwen2.5-32b": 0.9544995473445324,
+          "qwen2.5-32b+guards": 0.9470434695587729
+        },
+        "guard_fire_rate_all": 0.06285714285714286,
+        "human_mqm": {
+          "attention_check_rows_excluded": 0,
+          "candidate_scores": 2100,
+          "error_rows_used": 3103,
+          "raters": 8,
+          "segments": 150,
+          "systems": 14
+        }
+      }
+    },
+    "protocol_sha256": "c56dd6a38e4545b471d4ab9cc63504999137de6bdb004b4d1d29bf0655fd75c5"
+  },
   "predictor_confirmation_data_audit": {
     "dataset_root": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation",
     "datasets": {
