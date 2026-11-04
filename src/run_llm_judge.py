@@ -57,21 +57,33 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--tensor-parallel-size", type=int, default=1)
     parser.add_argument("--items", type=Path, default=None, help="frozen T4 item file")
+    parser.add_argument("--protocol", type=Path, default=PROTOCOL)
+    parser.add_argument("--protocol-sha256", default=PROTOCOL_SHA256)
+    parser.add_argument(
+        "--items-sha256", default=None,
+        help="frozen item hash for protocols that embed T4 (v2+); v1 uses amendment 1",
+    )
     args = parser.parse_args()
-    if hashlib.sha256(PROTOCOL.read_bytes()).hexdigest() != PROTOCOL_SHA256:
+    if hashlib.sha256(args.protocol.read_bytes()).hexdigest() != args.protocol_sha256:
         raise ValueError("LLM judge protocol differs from frozen hash")
     if args.output.exists():
         raise FileExistsError(f"Refusing to overwrite: {args.output}")
-    protocol = json.loads(PROTOCOL.read_text())
+    protocol = json.loads(args.protocol.read_text())
     model_name = protocol["judges"][args.judge]
-    decoding = protocol["decoding"]
+    decoding = protocol.get("decoding_by_judge", {}).get(args.judge, protocol.get("decoding"))
 
     items = []
     if args.items is not None:
-        amendment = json.loads(AMENDMENT.read_text())
-        if hashlib.sha256(AMENDMENT.read_bytes()).hexdigest() != AMENDMENT_SHA256:
-            raise ValueError("T4 amendment differs from frozen hash")
-        if hashlib.sha256(args.items.read_bytes()).hexdigest() != amendment["items_sha256"]:
+        if args.items_sha256 is None:
+            amendment = json.loads(AMENDMENT.read_text())
+            if hashlib.sha256(AMENDMENT.read_bytes()).hexdigest() != AMENDMENT_SHA256:
+                raise ValueError("T4 amendment differs from frozen hash")
+            expected_items_sha = amendment["items_sha256"]
+        else:
+            if protocol.get("t4", {}).get("items_sha256") != args.items_sha256:
+                raise ValueError("Item hash is not the one frozen in the protocol")
+            expected_items_sha = args.items_sha256
+        if hashlib.sha256(args.items.read_bytes()).hexdigest() != expected_items_sha:
             raise ValueError("T4 items differ from frozen hash")
         for line in args.items.open(encoding="utf-8"):
             row = json.loads(line)
@@ -135,7 +147,7 @@ def main() -> None:
                     "record_type": "metadata",
                     "judge": args.judge,
                     "model": model_name,
-                    "protocol_sha256": PROTOCOL_SHA256,
+                    "protocol_sha256": args.protocol_sha256,
                     "candidates": len(items),
                 },
                 sort_keys=True,
