@@ -80,6 +80,9 @@ def validate_before_outcome_access(root: Path) -> tuple[dict[str, Any], dict[str
         "results/safe_pressure_protocol_amendment_4.json": sha256(
             root / "results/safe_pressure_protocol_amendment_4.json"
         ),
+        "results/safe_pressure_protocol_amendment_5.json": sha256(
+            root / "results/safe_pressure_protocol_amendment_5.json"
+        ),
     }
     return policies, manifest, {"arrays": arrays, "hashes": hashes}
 
@@ -87,9 +90,17 @@ def validate_before_outcome_access(root: Path) -> tuple[dict[str, Any], dict[str
 def standardized_human(values: np.ndarray) -> np.ndarray:
     means = values.mean(1, keepdims=True)
     std = values.std(1, keepdims=True)
-    if not np.isfinite(std).all() or np.any(std <= 0):
-        raise ValueError("Calibration segment has zero or invalid human-score variation")
-    return (values - means) / std
+    if not np.isfinite(values).all() or not np.isfinite(std).all():
+        raise ValueError("Calibration segment has invalid human scores")
+    # A constant row cannot favor any action. Its centered contribution is
+    # exactly zero under every policy, so retain it with a zero standardized
+    # row instead of dropping the segment or dividing by zero.
+    return np.divide(
+        values - means,
+        std,
+        out=np.zeros_like(values, dtype=float),
+        where=std > 0,
+    )
 
 
 def lower_bound(
@@ -121,6 +132,9 @@ def main() -> None:
     )
     human_raw, human_metadata = load_mqm_quality(
         source, split["calibration_human_label_segments"], split["train_systems"]
+    )
+    human_metadata["constant_quality_segments"] = int(
+        np.count_nonzero(human_raw.std(1) == 0)
     )
     human = standardized_human(human_raw)
     arrays = validated["arrays"]

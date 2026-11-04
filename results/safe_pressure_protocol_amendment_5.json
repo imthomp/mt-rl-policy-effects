@@ -1,0 +1,9 @@
+{
+  "amendment": "For a calibration segment whose candidate human scores are all equal, retain the segment and assign every action zero centered standardized quality.",
+  "calibration_outcome_access": "The second calibration attempt loaded calibration scores and stopped before computing any policy decision when it encountered at least one constant-quality segment.",
+  "evaluation_outcome_access": "No evaluation candidate quality, policy comparison, or decision regret was computed during this repair.",
+  "justification": "A constant-quality segment provides zero evidence for preferring one candidate or policy over another. A zero centered row is its exact contribution to every calibration gain and avoids both outcome-dependent exclusion and division by zero.",
+  "protocol": "results/safe_pressure_protocol.json",
+  "scope": "Numerical definition for constant calibration rows only. The split, policies, pressure grid, selectors, baselines, success criteria, and evaluation procedure are unchanged.",
+  "status": "constant_row_rule_after_failed_calibration_attempt_before_any_decision"
+}
