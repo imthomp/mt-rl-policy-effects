@@ -8,6 +8,12 @@ is intentionally narrower than the original filtering hypothesis:
 > evidence does not establish metric--annotation disagreement filtering as a
 > remedy.
 
+The latest prospective pressure-selection study is also negative: every reward
+selects the largest jointly reachable pressure, and unreachable higher targets
+leave its frozen success criterion unevaluable. Direct best-of-N has the
+strongest held-out point estimate, with an interval that overlaps the calibrated
+policy.
+
 Paper quantities are derived into the `reward_overoptimization_paper` section
 of `results/paper_stats.json` and rendered through `generated_stats.tex`.
 Every table row has an asserted source trace in the JSON.

@@ -36,7 +36,11 @@ incurs greater regret than always optimizing or a frozen best-of-$N$ screen.
 The prespecified primary pressure is unreachable for several policies and is
 therefore inconclusive.  The study provides an exactly checkable test bed and a
 prospective negative result: a locally plausible alignment diagnostic can fail
-under document and system shift.
+under document and system shift.  A second prospective study calibrates how far
+to optimize on fresh English--Spanish data.  Every reward selects the largest
+jointly reachable pressure, making the rule identical to always optimizing;
+best-of-$N$ has the strongest held-out point estimate, and unreachable higher
+pressures leave the frozen success criterion unevaluable.
 \end{abstract}
 
 \section{Introduction}
@@ -349,6 +353,53 @@ $[\ConfirmSecondaryRegretGapLow{},\ConfirmSecondaryRegretGapHigh{}]$; the frozen
 best-of-$N$ screen makes the same optimize decisions as always optimizing.  The
 post-hoc development pattern therefore does not transfer prospectively.
 
+\subsection{Prospective pressure selection}
+
+The failed sign screen leaves a narrower decision problem: choose how far to
+optimize.  We froze a normalized-KL pressure grid, trained
+\SafeRewardInstances{} new reward instances, and used a document-disjoint
+calibration split to select pressure separately for each reward.  We then
+evaluated expected human MQM on \SafeEvalSegments{} held-out segments and
+\SafeHeldoutSystems{} systems absent from policy training.  Comparators retain
+the uniform policy, always use the largest jointly reachable pressure, use each
+fixed pressure, or apply direct best-of-$N$ selection.  Candidate outputs and
+human labels never enter reward or policy training.
+
+Only \SafeReachableTargets{} pressure targets are jointly reachable.  Both the
+primary and pessimistic calibration rules choose normalized KL
+\SafeSelectedPressure{} for every reward instance, which is also the largest
+reachable target.  The learned selector is consequently identical to always
+optimizing and the fixed-\SafeSelectedPressure{} baseline.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrr}
+\toprule
+Decision rule & Held-out MQM & $\Delta$ from uniform \\
+\midrule
+Keep uniform & \SafeKeepQuality{} & -- \\
+Calibrated pressure & \SafeSelectorQuality{} & \SafeSelectorChange{} \\
+Best-of-\SafeBestN{} & \SafeBestNQuality{} & \SafeBestNChange{} \\
+\bottomrule
+\end{tabular}
+\caption{Prospective safe-pressure evaluation, averaged over reward instances.
+MQM is higher-is-better negative error penalty.  Every value is an exact
+expectation over the frozen finite candidate policy.}
+\label{tab:safepressure}
+\end{table}
+
+The calibrated policy improves on uniform by \SafeSelectorMinusKeep{}
+$[\SafeSelectorMinusKeepLow{},\SafeSelectorMinusKeepHigh{}]$ in the hierarchical
+bootstrap, whose interval includes zero.  Best-of-$N$ has the strongest point
+estimate and exceeds the calibrated policy by \SafeBestNMinusSelector{}
+$[\SafeBestNMinusSelectorLow{},\SafeBestNMinusSelectorHigh{}]$, also with an
+interval spanning zero.  Because \SafeMissingTargets{} prespecified fixed
+pressures are unreachable for at least one reward, the frozen criterion that
+requires beating every fixed-pressure baseline is unevaluable.  The prospective
+result therefore supports neither the selector nor a general safeguard claim.
+
 \section{Discussion}
 
 The study supports two conclusions.  First, modest development correlation
@@ -368,7 +419,10 @@ system indirectly.  The prospective experiment adds a complementary warning:
 local gradient alignment estimated from a calibration sample need not predict
 the sign of human-quality change after document and system shift.  At low
 pressure, the failed screen is actively conservative---it rejects beneficial
-updates rather than preventing harm.  Generative RL would additionally require
+updates rather than preventing harm.  The subsequent pressure selector
+collapses to always optimizing because calibration chooses the largest
+reachable target for every reward.  Direct best-of-$N$ is the strongest point
+estimate baseline, although its contrast is uncertain.  Generative RL would additionally require
 independent evaluation of newly produced translations.
 
 \section{Conclusion}
@@ -380,6 +434,9 @@ not yield a validated filtering remedy, and a promising post-hoc
 gradient-alignment screen fails prospectively.  The most robust lesson is
 methodological: reward safeguards should be frozen and tested as decisions on
 new reward instances, with retaining the initial policy as an explicit option.
+Calibrating optimization pressure does not rescue the current safeguard: its
+prospective criterion remains unevaluable and its decisions add nothing beyond
+always using the largest reachable pressure.
 
 \section*{Limitations}
 
@@ -395,7 +452,11 @@ and its primary KL target is unreachable for \ConfirmPrimaryUnreachable{}
 learned-reward cells.  The complete lower-pressure result is secondary and
 should not be substituted for the inconclusive primary criterion.  The
 alignment screen consumes a bounded sample of human labels and is not a
-label-free safeguard.
+label-free safeguard.  In the pressure-selection study, \SafeMissingTargets{}
+fixed targets are not jointly reachable, so the primary criterion cannot be
+evaluated.  The aggregate severity inventory disclosed in the protocol
+amendment was viewed during a loader repair before held-out method outcomes were
+computed.
 
 \section*{Ethical Considerations}
 

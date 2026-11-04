@@ -42,6 +42,7 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
     horizon = root["bandit_horizon"]
     seeds = root["bandit_seed_replication"]
     confirmation = root["text_policy_predictor_confirmation"]
+    safe_pressure = root["safe_pressure_confirmation"]
 
     wmt25_first = str(wmt25["pool_sizes"][0])
     wmt25_full = str(wmt25["candidate_pool_size"])
@@ -92,7 +93,9 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
         "claim_boundary": (
             "Reward overoptimization appears under sufficient pressure, but the "
             "prospective gradient-alignment screen does not improve the frozen "
-            "optimize-or-stop decision; claims remain limited to fixed candidate pools."
+            "optimize-or-stop decision, and calibrated pressure selection collapses "
+            "to always using the largest reachable target; claims remain limited "
+            "to fixed candidate pools."
         ),
         "diagnostic": {
             "definition": "Spearman(COMET,BLEURT) minus Spearman(COMET,DA)",
@@ -156,6 +159,7 @@ def build_result(root: dict[str, Any]) -> dict[str, Any]:
         "conditions": conditions,
         "targeted_contrasts": targeted_contrasts,
         "predictor_confirmation": confirmation,
+        "safe_pressure_confirmation": safe_pressure,
     }
     result["table_row_trace"] = validate_table_rows(result)
     return result
@@ -169,6 +173,7 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
         "text_policy": {},
         "targeted_contrasts": {},
         "predictor_confirmation": {},
+        "safe_pressure_confirmation": {},
     }
     for condition in CONDITIONS:
         row = result["conditions"][condition]
@@ -226,6 +231,26 @@ def validate_table_rows(result: dict[str, Any]) -> dict[str, dict[str, str]]:
                 f"{row['policy_trace']}; {row['probability_trace']}; "
                 f"{dataset['human_source']}"
             )
+    safe_pressure = result["safe_pressure_confirmation"]
+    for row in safe_pressure["rows"]:
+        required = {
+            "checkpoint",
+            "seed",
+            "condition",
+            "primary_selected_pressure",
+            "pessimistic_selected_pressure",
+            "best_of_n_selected_n",
+            "policy_trace",
+            "calibration_trace",
+        }
+        if not required <= set(row):
+            raise AssertionError(
+                f"Incomplete safe-pressure row: {row.get('checkpoint')}"
+            )
+        traces["safe_pressure_confirmation"][row["checkpoint"]] = (
+            f"{row['policy_trace']}; {row['calibration_trace']}; "
+            "results/safe_pressure_confirmation.json"
+        )
     return traces
 
 
@@ -361,6 +386,45 @@ def render_macros(path: Path, result: dict[str, Any]) -> None:
     macros["ConfirmPrimaryRegretGap"] = f"{primary_contrast['mean']:.3f}"
     macros["ConfirmPrimaryRegretGapLow"] = f"{primary_contrast['low']:.3f}"
     macros["ConfirmPrimaryRegretGapHigh"] = f"{primary_contrast['high']:.3f}"
+    safe = result["safe_pressure_confirmation"]
+    safe_rows = safe["rows"]
+    selected_pressures = {row["primary_selected_pressure"] for row in safe_rows}
+    pessimistic_pressures = {
+        row["pessimistic_selected_pressure"] for row in safe_rows
+    }
+    selected_best_n = {row["best_of_n_selected_n"] for row in safe_rows}
+    if len(selected_pressures) != 1 or selected_pressures != pessimistic_pressures:
+        raise AssertionError("Safe-pressure selectors do not share one paper value")
+    if len(selected_best_n) != 1:
+        raise AssertionError("Best-of-N calibration decisions differ across rows")
+    safe_methods = safe["methods"]
+    keep_quality = safe_methods["always_keep_initial"]["mean_human_quality"]
+    selector_quality = safe_methods["primary_selector"]["mean_human_quality"]
+    best_n_quality = safe_methods["best_of_n"]["mean_human_quality"]
+    versus_keep = safe["bootstrap"]["contrasts"][
+        "primary_selector_minus_always_keep_initial"
+    ]
+    versus_best_n = safe["bootstrap"]["contrasts"][
+        "primary_selector_minus_best_of_n"
+    ]
+    macros["SafeRewardInstances"] = str(len(safe_rows))
+    macros["SafeEvalSegments"] = f"{safe['human_score_metadata']['segments']:,}"
+    macros["SafeHeldoutSystems"] = str(safe["human_score_metadata"]["systems"])
+    macros["SafeReachableTargets"] = str(len(safe["jointly_reachable_pressures"]))
+    macros["SafeMissingTargets"] = str(len(safe["missing_fixed_pressure_baselines"]))
+    macros["SafeSelectedPressure"] = f"{next(iter(selected_pressures)):.3f}"
+    macros["SafeBestN"] = str(next(iter(selected_best_n)))
+    macros["SafeKeepQuality"] = f"{keep_quality:.3f}"
+    macros["SafeSelectorQuality"] = f"{selector_quality:.3f}"
+    macros["SafeSelectorChange"] = signed(selector_quality - keep_quality, 3)
+    macros["SafeBestNQuality"] = f"{best_n_quality:.3f}"
+    macros["SafeBestNChange"] = signed(best_n_quality - keep_quality, 3)
+    macros["SafeSelectorMinusKeep"] = signed(-versus_keep["mean"], 3)
+    macros["SafeSelectorMinusKeepLow"] = signed(-versus_keep["high"], 3)
+    macros["SafeSelectorMinusKeepHigh"] = signed(-versus_keep["low"], 3)
+    macros["SafeBestNMinusSelector"] = signed(versus_best_n["mean"], 3)
+    macros["SafeBestNMinusSelectorLow"] = signed(versus_best_n["low"], 3)
+    macros["SafeBestNMinusSelectorHigh"] = signed(versus_best_n["high"], 3)
     for comparator, row in result["targeted_contrasts"].items():
         name = macro_name(comparator)
         for endpoint, prefix in (("wmt25_full", "Primary"), ("wmt26_full", "External")):

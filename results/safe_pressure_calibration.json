@@ -1,0 +1,358 @@
+{
+  "calibration_outcomes_accessed": true,
+  "evaluation_outcomes_accessed": false,
+  "human_score_metadata": {
+    "attention_check_rows_excluded": 0,
+    "candidate_scores": 448,
+    "constant_quality_segments": 7,
+    "error_rows_used": 695,
+    "raters": 4,
+    "segments": 64,
+    "systems": 7
+  },
+  "jointly_reachable_pressures": [
+    0.0,
+    0.025,
+    0.05
+  ],
+  "manifest": "results/safe_pressure_manifest.json",
+  "policies": "results/safe_pressure_policies.json",
+  "pre_outcome_artifact_hashes": {
+    "artifacts/bandit/safe_pressure/policy_probabilities.npz": "3f2b7c554212fc050245f776990dbceb85efc553d9fb7de5fcf021e93d1a5062",
+    "results/safe_pressure_manifest.json": "19fe197378f8123dee065a036be1832d95c284002d5f01520555e2be878b1b50",
+    "results/safe_pressure_policies.json": "1d28709fe5c5e390a48b069b9e1a9464442269d1c433b78bfac085f67737a908",
+    "results/safe_pressure_protocol.json": "fbd182fb0aee4ab9e5f6a00e264925a67cfc0316f516c680a3e598b9ea26c946",
+    "results/safe_pressure_protocol_amendment_1.json": "998aeee5e4d32a4e14d656581e01d3adf611fe3852fedb44d56fd394c00fc84b",
+    "results/safe_pressure_protocol_amendment_2.json": "e1bc2633eda694c31407c8b83e160b2d214877c57602b7c5818bae5e01d26c93",
+    "results/safe_pressure_protocol_amendment_3.json": "ce6ad1c2150894b7d4619adf983c299d300a275d23f35c4756b0cbe2ab68c942",
+    "results/safe_pressure_protocol_amendment_4.json": "aaf1bc41b06bbb886267c4ef1c07ea67b3e708c85d9f48139395777730271035",
+    "results/safe_pressure_protocol_amendment_5.json": "01839d2318f24d77b3a6254d9c683d669c42e167f50f66f0513512506f7459fc",
+    "results/safe_pressure_reward_plan.json": "142dcb64bc49f18aa6dcea829186c22bad463ce81597054d69f7162c13db8e51"
+  },
+  "protocol": "results/safe_pressure_protocol.json",
+  "rows": [
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.2163741033360739,
+        "4": 0.281928829678301
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.04239524943628893,
+        "0.05": 0.06926457009462807
+      },
+      "checkpoint": "20270111/all_data",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.014757406860986e-16,
+        "0.025": 0.027510624012789822,
+        "0.05": 0.0460102590993005
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.22202787003646207,
+        "4": 0.2923942128395928
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.03880372413812025,
+        "0.05": 0.06538534351808689
+      },
+      "checkpoint": "20270111/diagnostic_filtered",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0817301252229024e-16,
+        "0.025": 0.02523328257642526,
+        "0.05": 0.04408210501146134
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.22226786492752754,
+        "4": 0.2535141731703853
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.045803905154150476,
+        "0.05": 0.07534099202930421
+      },
+      "checkpoint": "20270111/global_random_2",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0221919387025387e-16,
+        "0.025": 0.03007597196706631,
+        "0.05": 0.0512400670357419
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.21187904427365756,
+        "4": 0.29936274810211866
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.03522133888331253,
+        "0.05": 0.06363986225896696
+      },
+      "checkpoint": "20270112/all_data",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0222538944334832e-16,
+        "0.025": 0.022939305457338074,
+        "0.05": 0.04403121514087347
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.23118541693492306,
+        "4": 0.29543654828531934
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.04117344383756281,
+        "0.05": 0.07278496385132163
+      },
+      "checkpoint": "20270112/diagnostic_filtered",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0594265375015305e-16,
+        "0.025": 0.027829704254629335,
+        "0.05": 0.0509207608593173
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.22938291470026817,
+        "4": 0.2677754716839575
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.012321101196956712,
+        "0.05": 0.05694212454003873
+      },
+      "checkpoint": "20270112/global_random_2",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0593645840776445e-16,
+        "0.025": 0.005323186310812769,
+        "0.05": 0.04002260441967659
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.24498057690410258,
+        "4": 0.24958621193239067
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.04237950021688142,
+        "0.05": 0.0706290626223024
+      },
+      "checkpoint": "20270113/all_data",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0519920068619747e-16,
+        "0.025": 0.028335489712704814,
+        "0.05": 0.04867056486462128
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.2233546197364506,
+        "4": 0.2550155373789104
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.029657401107073083,
+        "0.05": 0.05747533584637834
+      },
+      "checkpoint": "20270113/diagnostic_filtered",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.096537231003714e-16,
+        "0.025": 0.015809857092486616,
+        "0.05": 0.034319098741735055
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.21304612267357742,
+        "4": 0.2834909037545523
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.04146319680296824,
+        "0.05": 0.07203988445471837
+      },
+      "checkpoint": "20270113/global_random_2",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0817920806662723e-16,
+        "0.025": 0.028845976106456,
+        "0.05": 0.05200696005527705
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.22521749248872291,
+        "4": 0.2968679438079042
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.05841201310017119,
+        "0.05": 0.09263560221020242
+      },
+      "checkpoint": "20270114/all_data",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0718174175128554e-16,
+        "0.025": 0.04207401156728317,
+        "0.05": 0.0684582170114581
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.2476241466550467,
+        "4": 0.327917411737144
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.047680627322875486,
+        "0.05": 0.08211952571266837
+      },
+      "checkpoint": "20270114/diagnostic_filtered",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0173594933738824e-16,
+        "0.025": 0.03291639447118592,
+        "0.05": 0.058556152959300306
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.21167514133932336,
+        "4": 0.2538080936081574
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.04919189512607329,
+        "0.05": 0.07625047418683778
+      },
+      "checkpoint": "20270114/global_random_2",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0246701138117072e-16,
+        "0.025": 0.03338768817743309,
+        "0.05": 0.05127952692994819
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.23538856641832917,
+        "4": 0.2975680275321273
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.026300145752396975,
+        "0.05": 0.06837334949801183
+      },
+      "checkpoint": "20270115/all_data",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.064382890492215e-16,
+        "0.025": 0.01640061237650718,
+        "0.05": 0.04771703602926246
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.21446231010486372,
+        "4": 0.2753141597104592
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.039976190544609144,
+        "0.05": 0.07460035917967248
+      },
+      "checkpoint": "20270115/diagnostic_filtered",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0593645827657878e-16,
+        "0.025": 0.027769323490935527,
+        "0.05": 0.0544707618006055
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    },
+    {
+      "best_of_n_decision": "optimize",
+      "best_of_n_human_change": {
+        "2": 0.26842383169319617,
+        "4": 0.3735678150642863
+      },
+      "best_of_n_selected_n": 4,
+      "calibration_human_change_by_pressure": {
+        "0.0": 4.212899968087809e-18,
+        "0.025": 0.039413326325004196,
+        "0.05": 0.06747367189775294
+      },
+      "checkpoint": "20270115/global_random_2",
+      "pessimistic_lower_bound_by_pressure": {
+        "0.0": -2.0395391710421571e-16,
+        "0.025": 0.025095041308614906,
+        "0.05": 0.044443151496573734
+      },
+      "pessimistic_selected_pressure": 0.05,
+      "primary_selected_pressure": 0.05
+    }
+  ],
+  "status": "safe_pressure_calibration_decisions_frozen_evaluation_outcomes_sealed",
+  "unavailable_best_of_n_subset_sizes": [
+    8
+  ],
+  "valid_best_of_n_subset_sizes": [
+    2,
+    4
+  ]
+}
