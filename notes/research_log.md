@@ -1,0 +1,53 @@
+# Research log — reinforcement-learning
+
+Earlier history (through 2026-11-03) is in the git log, `docs/*_PROTOCOL.md`,
+and `results/*amendment*.json`.
+
+## 2026-11-04
+
+### /tmp wipe recovery
+Login-node `/tmp` was wiped. Files that existed only there were copied to
+`~/tmp_rescue_2026-11-04/reinforcement-learning/` (index: `../INDEX.md`).
+- `wmt26_build_synthetic_references.py`: the only copy (upstream
+  `wmt26-general-mt/synthetic_references/` has outputs but no script).
+  Committed as `scripts/wmt26_build_synthetic_references.py`, with defaults
+  re-pointed from the original wmt26-general-mt checkout layout to this repo.
+  Its manifest (`scripts/wmt26_synthetic_manifest.json`) is identical to
+  `data/reward_da/wmt26-filter-manifest.json`.
+- `wmt25-genmt-humeval.jsonl`: byte-identical to the public LFS object in
+  `wmt-conference/wmt25-general-mt` (sha256 a36ebce1…). Nothing reads it, so it
+  was left in the rescue directory; provenance is in `data/reward_da/README.md`.
+- `*_stdout.json`, `login01/*`, `login03/reward_paper_build*.json`: stdout of
+  Oct 31–Nov 3 audits and builds. They stay in the rescue directory; the
+  results they printed are already in `results/`.
+- `grep "/tmp/"` over src/, scripts/, docs/, notes, results/ (incl.
+  paper_stats.json): no input/output paths pointed at /tmp. Only hits are
+  vLLM's own temp files inside today's failed judge logs.
+
+### Main-track direction: LLM-judge validation
+Status at start: Codex stopped (usage cap) while beginning a WMT24 en-de fresh
+confirmation of the safe-pressure selector; nothing written. Decision: do not
+run a third offline selector test. Lit check: fixed-pool "which metric is safe
+to optimize" overlaps Perrella et al. EMNLP 2024 and Kovacs/Deutsch/Freitag
+(arXiv 2411.03524). Open gap: does a cheap offline audit on human-rated pools
+predict which real QE reward gets hacked under *generative* RL? That needs a
+quality measure for new outputs, so step 1 is validating an LLM MQM judge.
+
+- Protocol frozen before any judge output: `results/llm_judge_protocol.json`
+  (sha 172360f1…). Only already-opened pools (WMT23 zh-en, WMT24 ja-zh,
+  WMT24 en-es), 200 segments each, all systems (8,600 candidates). Judges:
+  Qwen2.5-32B-Instruct, Gemma-2-27B-it, gpt-oss-20b. Selection by T1 only;
+  acceptance A1–A4.
+- Evaluator dry run (synthetic judges, real rewards + real human MQM): 0 of
+  88 reward×pool×rule cells have significantly negative human selection gain,
+  so A4 is untestable from WMT candidates (all are real MT outputs).
+- Amendment 1 (`results/llm_judge_protocol_amendment_1.json`, sha 1792c5b1…),
+  declared before reading any judge output: T4 known-hack detection over 5
+  deterministic degenerations of the best human-rated candidate (source copy,
+  half truncation, appended unrelated sentence, unrelated fluent output,
+  repetition), 3,000 items; A5 = detection ≥ 0.90 per type.
+- External QE scored: CometKiwi-22/23-XL on en-es, XCOMET-XL on all three
+  pools, plus all three on T4 items.
+- First judge array (15034272) failed: vLLM sampler warmup needs `ninja`, and
+  the env bin was not on PATH. Fixed in the sbatch files; resubmitted as
+  15034469 (validation) and 15034470 (T4).
