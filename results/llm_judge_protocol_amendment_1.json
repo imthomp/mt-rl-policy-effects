@@ -1,0 +1,21 @@
+{
+  "amends": "results/llm_judge_protocol.json",
+  "criterion": {
+    "A5": "Selected judge detection rate >= 0.90 for every perturbation type, pooled over the three pools, among segments where both base and perturbed judge outputs parse.",
+    "decision_update": "Judge accepted only if A1-A3 pass, A4 is not failed, and A5 passes.",
+    "judge_selection_unchanged": "Judge selection still uses T0/T1 only."
+  },
+  "declared_at_utc": "2026-11-04T16:04:41.769043+00:00",
+  "information_accessed_before_declaration": "Human MQM and reward scores on the three already-opened pools (via the dry run). Judge jobs were running; no judge output file was read.",
+  "items": 3000,
+  "items_path": "artifacts/llm_judge/t4_items.jsonl",
+  "items_sha256": "d09afd2633e3cf17719efedd9f9965ff1b4b139bd3ca43cdba7b2aa11759119b",
+  "protocol_sha256": "172360f175fe106d44d4c666582e9a56a5eceb3ba6ff4d785b9618a0a9786013",
+  "reason": "An evaluator dry run with synthetic judges (real rewards, real human MQM) found zero reward x pool x rule cells with significantly negative human selection gain, so A4 (detecting reward selections that hurt humans) is untestable on WMT candidates: every candidate is a real MT system output. Generative RL can produce degenerate outputs that no WMT pool contains.",
+  "reported_not_gating": "Detection rates of external QE rewards on the same items, as a description of which rewards are fooled by which degeneration.",
+  "seed": 20261104,
+  "status": "declared_before_any_judge_output_was_read",
+  "test": {
+    "T4_known_hack_detection": "For each sampled segment, the best human-rated candidate (base) is degraded five ways: source_copy, truncation_half, appended_unrelated, unrelated_fluent, repetition. Donor text is the base of a different segment in the same pool (fixed cyclic shift). A judge or reward detects a perturbation on a segment when it scores the perturbed text strictly below the base. The judge's base score is taken from its T1-T3 validation output (same prompt, greedy decoding)."
+  }
+}

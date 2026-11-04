@@ -1,0 +1,160 @@
+{
+  "amendment_sha256": "1792c5b13514f0d4e9fef23e6baadc3dd1ca2415ebd72d6e6cd82e12c4875d87",
+  "external_qe_rewards": {
+    "XCOMET-XL": {
+      "appended_unrelated": {
+        "n": 600,
+        "rate": 0.9766666666666667
+      },
+      "repetition": {
+        "n": 600,
+        "rate": 0.8366666666666667
+      },
+      "source_copy": {
+        "n": 600,
+        "rate": 0.165
+      },
+      "truncation_half": {
+        "n": 600,
+        "rate": 0.9383333333333334
+      },
+      "unrelated_fluent": {
+        "n": 600,
+        "rate": 0.985
+      }
+    },
+    "wmt22-cometkiwi-da": {
+      "appended_unrelated": {
+        "n": 600,
+        "rate": 0.9883333333333333
+      },
+      "repetition": {
+        "n": 600,
+        "rate": 0.7533333333333333
+      },
+      "source_copy": {
+        "n": 600,
+        "rate": 0.71
+      },
+      "truncation_half": {
+        "n": 600,
+        "rate": 0.9833333333333333
+      },
+      "unrelated_fluent": {
+        "n": 600,
+        "rate": 0.9966666666666667
+      }
+    },
+    "wmt23-cometkiwi-da-xl": {
+      "appended_unrelated": {
+        "n": 600,
+        "rate": 0.955
+      },
+      "repetition": {
+        "n": 600,
+        "rate": 0.9833333333333333
+      },
+      "source_copy": {
+        "n": 600,
+        "rate": 0.9866666666666667
+      },
+      "truncation_half": {
+        "n": 600,
+        "rate": 0.9733333333333334
+      },
+      "unrelated_fluent": {
+        "n": 600,
+        "rate": 0.9533333333333334
+      }
+    }
+  },
+  "final_decision": {
+    "A1": true,
+    "A2": true,
+    "A3": false,
+    "A4": "underpowered",
+    "A5": false,
+    "accepted": false,
+    "complete": true,
+    "judges_missing": [],
+    "selected_judge": "gemma-2-27b"
+  },
+  "judges": {
+    "gemma-2-27b": {
+      "detection": {
+        "appended_unrelated": {
+          "n": 583,
+          "rate": 0.9845626072041166
+        },
+        "repetition": {
+          "n": 589,
+          "rate": 0.830220713073005
+        },
+        "source_copy": {
+          "n": 600,
+          "rate": 0.021666666666666667
+        },
+        "truncation_half": {
+          "n": 599,
+          "rate": 0.8397328881469115
+        },
+        "unrelated_fluent": {
+          "n": 569,
+          "rate": 0.945518453427065
+        }
+      },
+      "parse_rate": 0.98
+    },
+    "gpt-oss-20b": {
+      "detection": {
+        "appended_unrelated": {
+          "n": 166,
+          "rate": 0.9096385542168675
+        },
+        "repetition": {
+          "n": 181,
+          "rate": 0.8784530386740331
+        },
+        "source_copy": {
+          "n": 224,
+          "rate": 0.9419642857142857
+        },
+        "truncation_half": {
+          "n": 207,
+          "rate": 0.8840579710144928
+        },
+        "unrelated_fluent": {
+          "n": 169,
+          "rate": 0.9704142011834319
+        }
+      },
+      "parse_rate": 0.6283333333333333
+    },
+    "qwen2.5-32b": {
+      "detection": {
+        "appended_unrelated": {
+          "n": 597,
+          "rate": 0.9246231155778895
+        },
+        "repetition": {
+          "n": 596,
+          "rate": 0.6828859060402684
+        },
+        "source_copy": {
+          "n": 598,
+          "rate": 0.931438127090301
+        },
+        "truncation_half": {
+          "n": 600,
+          "rate": 0.705
+        },
+        "unrelated_fluent": {
+          "n": 599,
+          "rate": 0.9749582637729549
+        }
+      },
+      "parse_rate": 0.9966666666666667
+    }
+  },
+  "threshold": 0.9
+}

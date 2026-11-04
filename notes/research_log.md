@@ -51,3 +51,28 @@ quality measure for new outputs, so step 1 is validating an LLM MQM judge.
 - First judge array (15034272) failed: vLLM sampler warmup needs `ninja`, and
   the env bin was not on PATH. Fixed in the sbatch files; resubmitted as
   15034469 (validation) and 15034470 (T4).
+- Resubmitted again (15034533 / 15034534) with `VLLM_USE_FLASHINFER_SAMPLER=0`:
+  the dw A100 nodes have no `nvcc`, so FlashInfer's sm80 sampler JIT failed.
+  All tasks completed.
+
+### LLM-judge validation result: no judge accepted (frozen criteria)
+- Parse rate: Qwen 0.997–1.0, Gemma 0.999–1.0, gpt-oss-20b 0.19–0.55
+  (5,480 of 8,600 hit max_tokens=1024 while reasoning), so gpt-oss is
+  ineligible.
+- T1 within-source acc_eq: judges are roughly on par with the QE rewards they
+  would referee (≈0.49–0.64; best per pool: CometKiwi-22 on zh-en, gpt-oss
+  (parsed subset only) on en-es and ja-zh). T2 system-level Pearson is high
+  (Qwen 0.95–0.98, Gemma 0.91–0.96).
+- Selected (frozen rule) Gemma-2-27B: A1 pass, A2 pass (sign agreement 0.92
+  over 77 significant cells), A3 FAIL (Spearman 0.30 < 0.60), A4 underpowered
+  (0 significantly negative cells), A5 FAIL. Not accepted.
+- T4 detection: Gemma misses source copies (0.02). Qwen detects copies (0.93)
+  but misses truncation (0.71) and repetition (0.68). gpt-oss looks best on
+  parsed items but is ineligible.
+- Side finding (QE rewards on T4): XCOMET-XL in QE mode prefers the source copy
+  over the best translation in 83.5% of segments (detection 0.165);
+  CometKiwi-22 detects copies at only 0.71. CometKiwi-23-XL detects every
+  type at ≥ 0.95.
+- Interpretation: a ~30B local LLM judge is not a better segment-level referee
+  than the rewards themselves, though it tracks system-level quality. Under the
+  frozen protocol it cannot be used for headline claims.
