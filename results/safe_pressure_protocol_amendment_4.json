@@ -1,0 +1,16 @@
+{
+  "amendment": "Treat the WMT24 critical severity as a standard-weight error with the same penalty as major (5.0), matching the repository's previously implemented WMT25 MQM scorer.",
+  "calibration_outcome_access": "The first calibration attempt opened calibration labels and stopped at the first critical row before producing scores or decisions.",
+  "evaluation_outcome_access": "During diagnosis, an aggregate severity-frequency inventory was computed over the full WMT24 en-es file. No severity was joined to a segment, system, candidate, policy, or split, and no evaluation quality or method comparison was computed.",
+  "frozen_artifacts_unchanged": [
+    "results/safe_pressure_protocol.json",
+    "results/safe_pressure_manifest.json",
+    "results/safe_pressure_reward_plan.json",
+    "results/safe_pressure_policies.json",
+    "artifacts/bandit/safe_pressure/policy_probabilities.npz"
+  ],
+  "justification": "The released WMT24 file contains a severity value absent from the shared loader. The correction uses an existing project convention rather than calibration or evaluation performance and preserves fail-closed handling for every other unknown label.",
+  "protocol": "results/safe_pressure_protocol.json",
+  "scope": "Loader compatibility and disclosure only. The estimand, split, policies, pressure grid, selectors, baselines, success criteria, and bootstrap procedure are unchanged.",
+  "status": "schema_repair_after_failed_calibration_attempt_before_any_decision"
+}

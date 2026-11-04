@@ -20,7 +20,10 @@ def error_penalty(category: str, severity: str) -> float:
         return 0.0
     if "non-translation" in category_key or "nontranslation" in category_key:
         return 25.0
-    if severity_key == "major":
+    # WMT releases can use ``critical`` for errors that receive the same
+    # standard weight as major errors.  This matches the repository's frozen
+    # WMT25 scorer in score_wmt25_reward_candidates.py.
+    if severity_key in {"major", "critical"}:
         return 5.0
     if severity_key == "minor":
         if category_key == "fluency/punctuation" or category_key.endswith(

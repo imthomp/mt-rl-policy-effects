@@ -8,6 +8,7 @@ from mqm_human_scores import error_penalty, load_mqm_quality
 class MQMHumanScoreTests(unittest.TestCase):
     def test_frozen_penalties(self):
         self.assertEqual(error_penalty("Accuracy/Mistranslation", "Major"), 5.0)
+        self.assertEqual(error_penalty("Accuracy/Omission", "Critical"), 5.0)
         self.assertEqual(error_penalty("Accuracy/Mistranslation", "Minor"), 1.0)
         self.assertEqual(error_penalty("Fluency/Punctuation", "Minor"), 0.1)
         self.assertEqual(error_penalty("Non-translation", "Major"), 25.0)

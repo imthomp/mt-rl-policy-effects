@@ -77,6 +77,9 @@ def validate_before_outcome_access(root: Path) -> tuple[dict[str, Any], dict[str
         "results/safe_pressure_protocol_amendment_3.json": sha256(
             root / "results/safe_pressure_protocol_amendment_3.json"
         ),
+        "results/safe_pressure_protocol_amendment_4.json": sha256(
+            root / "results/safe_pressure_protocol_amendment_4.json"
+        ),
     }
     return policies, manifest, {"arrays": arrays, "hashes": hashes}
 

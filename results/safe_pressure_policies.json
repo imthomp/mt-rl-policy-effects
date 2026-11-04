@@ -1,0 +1,1455 @@
+{
+  "calibration_label_segments": 64,
+  "embedding_artifact": "artifacts/bandit/safe_pressure/wmt24_en_es_mqm_text_embeddings.npz",
+  "embedding_artifact_sha256": "92a03c9929f1f3e9a2c6b11ba7ae6a0c8f55a49e432e1dee9f1abd4842690812",
+  "evaluation_segments": 382,
+  "heldout_systems": [
+    "Claude-3.5",
+    "CommandR-plus",
+    "GPT-4",
+    "IKUN",
+    "Llama3-70B",
+    "ONLINE-B",
+    "Unbabel-Tower70B"
+  ],
+  "human_outcomes_accessed": false,
+  "manifest": "results/safe_pressure_manifest.json",
+  "manifest_sha256": "19fe197378f8123dee065a036be1832d95c284002d5f01520555e2be878b1b50",
+  "optimization_segments": 240,
+  "probabilities_output": "artifacts/bandit/safe_pressure/policy_probabilities.npz",
+  "probabilities_output_sha256": "3f2b7c554212fc050245f776990dbceb85efc553d9fb7de5fcf021e93d1a5062",
+  "protocol": "results/safe_pressure_protocol.json",
+  "protocol_amendment": "results/safe_pressure_protocol_amendment_1.json",
+  "protocol_amendment_sha256": "998aeee5e4d32a4e14d656581e01d3adf611fe3852fedb44d56fd394c00fc84b",
+  "protocol_sha256": "fbd182fb0aee4ab9e5f6a00e264925a67cfc0316f516c680a3e598b9ea26c946",
+  "reward_plan": "results/safe_pressure_reward_plan.json",
+  "reward_plan_sha256": "142dcb64bc49f18aa6dcea829186c22bad463ce81597054d69f7162c13db8e51",
+  "rows": [
+    {
+      "checkpoint": "20270111/all_data",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.15039958887439442,
+        "initial_system_logit_gradient_norm": 0.04154176637530327,
+        "initial_text_gradient_norm": 0.008226585574448109,
+        "one_step_normalized_kl": 8.843989266400224e-08,
+        "reward_seed_disagreement": 0.13942670822143555,
+        "reward_tail_gap": 0.0981234610080719,
+        "system_mean_range": 0.37355583906173706,
+        "top_system_margin": 0.11957008391618729
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": -9.934107758624577e-09
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04866390748579419,
+          "achieved_normalized_kl": 0.025008301390184538,
+          "reached": true,
+          "step": 3280,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.897246241569519,
+          "train_standardized_proxy": 0.030778028070926666
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729784055311597,
+          "achieved_normalized_kl": 0.0500011989764026,
+          "reached": true,
+          "step": 6854,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486123085021973,
+          "train_standardized_proxy": 0.044893328100442886
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1945924095686189,
+          "achieved_normalized_kl": 0.10000071671504887,
+          "reached": true,
+          "step": 17686,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513177394866943,
+          "train_standardized_proxy": 0.06826986372470856
+        },
+        "0.2": {
+          "final_kl_nats": 0.21177094503004468,
+          "final_normalized_kl": 0.10882873761301556,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.21177094503004468,
+          "final_normalized_kl": 0.10882873761301556,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r000_k000",
+          "evaluation": "eval_r000_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r000_k001",
+          "evaluation": "eval_r000_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r000_k002",
+          "evaluation": "eval_r000_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r000_k003",
+          "evaluation": "eval_r000_k003"
+        }
+      },
+      "protocol_condition": "all_available_DA",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270111/predictions/wmt24_en_es_mqm/all_data.jsonl",
+      "reward_trace_sha256": "c880fd613d372add5f591aa49bcaa0ad80c11dcd0efa75cf1eab1ac654f7bc63",
+      "reward_train_mean": 0.1492968201637268,
+      "reward_train_std": 0.2664719521999359,
+      "seed": 20270111,
+      "training_condition": "all_data"
+    },
+    {
+      "checkpoint": "20270111/diagnostic_filtered",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.12990386211341667,
+        "initial_system_logit_gradient_norm": 0.041159555315971375,
+        "initial_text_gradient_norm": 0.009303134866058826,
+        "one_step_normalized_kl": 1.4970134895922436e-07,
+        "reward_seed_disagreement": 0.10264233499765396,
+        "reward_tail_gap": 0.09216979891061783,
+        "system_mean_range": 0.36620229482650757,
+        "top_system_margin": 0.11266960948705673
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 3.1789145538141383e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865389390547192,
+          "achieved_normalized_kl": 0.02500315542785574,
+          "reached": true,
+          "step": 3509,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972562551498413,
+          "train_standardized_proxy": 0.031020401045680046
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729652925093091,
+          "achieved_normalized_kl": 0.05000052510038336,
+          "reached": true,
+          "step": 8255,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486136198043823,
+          "train_standardized_proxy": 0.04692472890019417
+        },
+        "0.1": {
+          "final_kl_nats": 0.18239694161970532,
+          "final_normalized_kl": 0.09373348595167875,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1
+        },
+        "0.2": {
+          "final_kl_nats": 0.18239694161970532,
+          "final_normalized_kl": 0.09373348595167875,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.18239694161970532,
+          "final_normalized_kl": 0.09373348595167875,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r001_k000",
+          "evaluation": "eval_r001_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r001_k001",
+          "evaluation": "eval_r001_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r001_k002",
+          "evaluation": "eval_r001_k002"
+        }
+      },
+      "protocol_condition": "metric_annotation_disagreement_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270111/predictions/wmt24_en_es_mqm/diagnostic_filtered.jsonl",
+      "reward_trace_sha256": "46568bb889c649c0cc6c5f566edcc77bebda3c60ab80570d761c42e3558f7d67",
+      "reward_train_mean": 0.20572225749492645,
+      "reward_train_std": 0.34820860624313354,
+      "seed": 20270111,
+      "training_condition": "diagnostic_filtered"
+    },
+    {
+      "checkpoint": "20270111/global_random_2",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.12367628797195385,
+        "initial_system_logit_gradient_norm": 0.04260678589344025,
+        "initial_text_gradient_norm": 0.008154810406267643,
+        "one_step_normalized_kl": 8.843989266400224e-08,
+        "reward_seed_disagreement": 0.11076865345239639,
+        "reward_tail_gap": 0.09574292600154877,
+        "system_mean_range": 0.3706616461277008,
+        "top_system_margin": 0.10429490357637405
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 3.774961143676592e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04866283460218823,
+          "achieved_normalized_kl": 0.02500775003707788,
+          "reached": true,
+          "step": 3190,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.897247314453125,
+          "train_standardized_proxy": 0.03637995198369026
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729641004164136,
+          "achieved_normalized_kl": 0.05000046383892706,
+          "reached": true,
+          "step": 7348,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486137390136719,
+          "train_standardized_proxy": 0.05354082211852074
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1945916943128816,
+          "achieved_normalized_kl": 0.10000034914631109,
+          "reached": true,
+          "step": 19491,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513184547424316,
+          "train_standardized_proxy": 0.07978373020887375
+        },
+        "0.2": {
+          "final_kl_nats": 0.19827347322065747,
+          "final_normalized_kl": 0.10189240922398904,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.19827347322065747,
+          "final_normalized_kl": 0.10189240922398904,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r002_k000",
+          "evaluation": "eval_r002_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r002_k001",
+          "evaluation": "eval_r002_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r002_k002",
+          "evaluation": "eval_r002_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r002_k003",
+          "evaluation": "eval_r002_k003"
+        }
+      },
+      "protocol_condition": "matched_random_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270111/predictions/wmt24_en_es_mqm/global_random_2.jsonl",
+      "reward_trace_sha256": "9326286f792419f214c58228986f0afd7a2bdff31f9c5ef2d39e1fbdceb02b3a",
+      "reward_train_mean": 0.10806266218423843,
+      "reward_train_std": 0.19038042426109314,
+      "seed": 20270111,
+      "training_condition": "global_random_2"
+    },
+    {
+      "checkpoint": "20270112/all_data",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.1138627701204451,
+        "initial_system_logit_gradient_norm": 0.04668073728680611,
+        "initial_text_gradient_norm": 0.016605528071522713,
+        "one_step_normalized_kl": 8.848388245018899e-07,
+        "reward_seed_disagreement": 0.13942670822143555,
+        "reward_tail_gap": 0.10622310638427734,
+        "system_mean_range": 0.42043668031692505,
+        "top_system_margin": 0.13540108501911163
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 8.742014756535355e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865317864973462,
+          "achieved_normalized_kl": 0.025002787859117966,
+          "reached": true,
+          "step": 2838,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972569704055786,
+          "train_standardized_proxy": 0.03759395331144333
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729700608808911,
+          "achieved_normalized_kl": 0.05000077014620854,
+          "reached": true,
+          "step": 6230,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486131429672241,
+          "train_standardized_proxy": 0.05750173330307007
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.194595032172989,
+          "achieved_normalized_kl": 0.10000206446708736,
+          "reached": true,
+          "step": 18922,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513151168823242,
+          "train_standardized_proxy": 0.09209701418876648
+        },
+        "0.2": {
+          "final_kl_nats": 0.20084720178205884,
+          "final_normalized_kl": 0.10321504406540288,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.20084720178205884,
+          "final_normalized_kl": 0.10321504406540288,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r003_k000",
+          "evaluation": "eval_r003_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r003_k001",
+          "evaluation": "eval_r003_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r003_k002",
+          "evaluation": "eval_r003_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r003_k003",
+          "evaluation": "eval_r003_k003"
+        }
+      },
+      "protocol_condition": "all_available_DA",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270112/predictions/wmt24_en_es_mqm/all_data.jsonl",
+      "reward_trace_sha256": "c1ec93580019796365e629de9b82df6e9bd893f6ce81f36f8bbfd8cf8b212350",
+      "reward_train_mean": 0.20901019871234894,
+      "reward_train_std": 0.27426987886428833,
+      "seed": 20270112,
+      "training_condition": "all_data"
+    },
+    {
+      "checkpoint": "20270112/diagnostic_filtered",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.11525779234700771,
+        "initial_system_logit_gradient_norm": 0.037874918431043625,
+        "initial_text_gradient_norm": 0.012020044960081577,
+        "one_step_normalized_kl": 3.947471741401129e-07,
+        "reward_seed_disagreement": 0.10264233499765396,
+        "reward_tail_gap": 0.09354765713214874,
+        "system_mean_range": 0.33816710114479065,
+        "top_system_margin": 0.10580650717020035
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 3.973643103449831e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048660331207107665,
+          "achieved_normalized_kl": 0.02500646354649568,
+          "reached": true,
+          "step": 3062,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972498178482056,
+          "train_standardized_proxy": 0.034295178949832916
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729843659956372,
+          "achieved_normalized_kl": 0.05000150528368408,
+          "reached": true,
+          "step": 7742,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486117124557495,
+          "train_standardized_proxy": 0.05062946677207947
+        },
+        "0.1": {
+          "final_kl_nats": 0.18941813035566724,
+          "final_normalized_kl": 0.09734166320455476,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1
+        },
+        "0.2": {
+          "final_kl_nats": 0.18941813035566724,
+          "final_normalized_kl": 0.09734166320455476,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.18941813035566724,
+          "final_normalized_kl": 0.09734166320455476,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r004_k000",
+          "evaluation": "eval_r004_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r004_k001",
+          "evaluation": "eval_r004_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r004_k002",
+          "evaluation": "eval_r004_k002"
+        }
+      },
+      "protocol_condition": "metric_annotation_disagreement_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270112/predictions/wmt24_en_es_mqm/diagnostic_filtered.jsonl",
+      "reward_trace_sha256": "44c6badcf1a7731e3bd69eec3f8d4af58fbf30d90eb0d6f7a0ce60ca91b09b05",
+      "reward_train_mean": 0.17139728367328644,
+      "reward_train_std": 0.3440585732460022,
+      "seed": 20270112,
+      "training_condition": "diagnostic_filtered"
+    },
+    {
+      "checkpoint": "20270112/global_random_2",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.14071201811602055,
+        "initial_system_logit_gradient_norm": 0.048222336918115616,
+        "initial_text_gradient_norm": 0.007209842558950186,
+        "one_step_normalized_kl": 2.7178436368780106e-08,
+        "reward_seed_disagreement": 0.11076865345239639,
+        "reward_tail_gap": 0.09572038799524307,
+        "system_mean_range": 0.4025908410549164,
+        "top_system_margin": 0.10310385376214981
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 1.9868215517249155e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048652821021865966,
+          "achieved_normalized_kl": 0.02500260407474908,
+          "reached": true,
+          "step": 643,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972573280334473,
+          "train_standardized_proxy": 0.017405007034540176
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09730058236677563,
+          "achieved_normalized_kl": 0.05000260798989739,
+          "reached": true,
+          "step": 4252,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486095666885376,
+          "train_standardized_proxy": 0.049997661262750626
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1945914558943025,
+          "achieved_normalized_kl": 0.10000022662339851,
+          "reached": true,
+          "step": 13730,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513186931610107,
+          "train_standardized_proxy": 0.07957511395215988
+        },
+        "0.2": {
+          "final_kl_nats": 0.24407845063764966,
+          "final_normalized_kl": 0.12543151119086518,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.24407845063764966,
+          "final_normalized_kl": 0.12543151119086518,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r005_k000",
+          "evaluation": "eval_r005_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r005_k001",
+          "evaluation": "eval_r005_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r005_k002",
+          "evaluation": "eval_r005_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r005_k003",
+          "evaluation": "eval_r005_k003"
+        }
+      },
+      "protocol_condition": "matched_random_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270112/predictions/wmt24_en_es_mqm/global_random_2.jsonl",
+      "reward_trace_sha256": "94705136224caa51d518730ac75e5160d714f2eaa6659ceb35a3168252d55b61",
+      "reward_train_mean": 0.15091681480407715,
+      "reward_train_std": 0.2691575586795807,
+      "seed": 20270112,
+      "training_condition": "global_random_2"
+    },
+    {
+      "checkpoint": "20270113/all_data",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.12572714014276273,
+        "initial_system_logit_gradient_norm": 0.03923582285642624,
+        "initial_text_gradient_norm": 0.01024365983903408,
+        "one_step_normalized_kl": 2.109628052544465e-07,
+        "reward_seed_disagreement": 0.13942670822143555,
+        "reward_tail_gap": 0.10911571234464645,
+        "system_mean_range": 0.3537732660770416,
+        "top_system_margin": 0.115158811211586
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": -1.9868215517249155e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048654132324051025,
+          "achieved_normalized_kl": 0.02500327795076833,
+          "reached": true,
+          "step": 3545,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972560167312622,
+          "train_standardized_proxy": 0.032164592295885086
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729617162306226,
+          "achieved_normalized_kl": 0.05000034131601447,
+          "reached": true,
+          "step": 7540,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.848613977432251,
+          "train_standardized_proxy": 0.048661135137081146
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.1945924095686189,
+          "achieved_normalized_kl": 0.10000071671504887,
+          "reached": true,
+          "step": 18456,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513177394866943,
+          "train_standardized_proxy": 0.0739581286907196
+        },
+        "0.2": {
+          "final_kl_nats": 0.20621638818342602,
+          "final_normalized_kl": 0.10597426005693968,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.20621638818342602,
+          "final_normalized_kl": 0.10597426005693968,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r006_k000",
+          "evaluation": "eval_r006_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r006_k001",
+          "evaluation": "eval_r006_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r006_k002",
+          "evaluation": "eval_r006_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r006_k003",
+          "evaluation": "eval_r006_k003"
+        }
+      },
+      "protocol_condition": "all_available_DA",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270113/predictions/wmt24_en_es_mqm/all_data.jsonl",
+      "reward_trace_sha256": "7815be9d333e6f1998790b42434c2a9cdd76f2d57bea074d5a285421c37a6d52",
+      "reward_train_mean": 0.17339593172073364,
+      "reward_train_std": 0.2708790898323059,
+      "seed": 20270113,
+      "training_condition": "all_data"
+    },
+    {
+      "checkpoint": "20270113/diagnostic_filtered",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.13347780200575404,
+        "initial_system_logit_gradient_norm": 0.0498722568154335,
+        "initial_text_gradient_norm": 0.009863650426268578,
+        "one_step_normalized_kl": 1.4970134895922436e-07,
+        "reward_seed_disagreement": 0.10264233499765396,
+        "reward_tail_gap": 0.11690255999565125,
+        "system_mean_range": 0.4487137794494629,
+        "top_system_margin": 0.15134292840957642
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 1.1920930020892229e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865842385847485,
+          "achieved_normalized_kl": 0.025005483363194955,
+          "reached": true,
+          "step": 2323,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972517251968384,
+          "train_standardized_proxy": 0.034052774310112
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09730165525038159,
+          "achieved_normalized_kl": 0.050003159343004054,
+          "reached": true,
+          "step": 5205,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486084938049316,
+          "train_standardized_proxy": 0.05612443760037422
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459777398664868,
+          "achieved_normalized_kl": 0.10000347348058215,
+          "reached": true,
+          "step": 14477,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513123750686646,
+          "train_standardized_proxy": 0.08948007225990295
+        },
+        "0.2": {
+          "final_kl_nats": 0.23339348359663403,
+          "final_normalized_kl": 0.11994052434021184,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.23339348359663403,
+          "final_normalized_kl": 0.11994052434021184,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r007_k000",
+          "evaluation": "eval_r007_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r007_k001",
+          "evaluation": "eval_r007_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r007_k002",
+          "evaluation": "eval_r007_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r007_k003",
+          "evaluation": "eval_r007_k003"
+        }
+      },
+      "protocol_condition": "metric_annotation_disagreement_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270113/predictions/wmt24_en_es_mqm/diagnostic_filtered.jsonl",
+      "reward_trace_sha256": "2e91c4140babaa51d14c253323ce5008774cdcaad9a9fd49d16e01d32e58a82d",
+      "reward_train_mean": 0.2177538424730301,
+      "reward_train_std": 0.426496297121048,
+      "seed": 20270113,
+      "training_condition": "diagnostic_filtered"
+    },
+    {
+      "checkpoint": "20270113/global_random_2",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.11546679994847801,
+        "initial_system_logit_gradient_norm": 0.03615778312087059,
+        "initial_text_gradient_norm": 0.005896974354982376,
+        "one_step_normalized_kl": -3.4083019926442026e-08,
+        "reward_seed_disagreement": 0.11076865345239639,
+        "reward_tail_gap": 0.07753702998161316,
+        "system_mean_range": 0.3018503487110138,
+        "top_system_margin": 0.07663267105817795
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": -2.3841860041784457e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865472837049878,
+          "achieved_normalized_kl": 0.025003584258049806,
+          "reached": true,
+          "step": 2600,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972554206848145,
+          "train_standardized_proxy": 0.031587474048137665
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729712529737866,
+          "achieved_normalized_kl": 0.050000831407664835,
+          "reached": true,
+          "step": 5923,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486130237579346,
+          "train_standardized_proxy": 0.046977851539850235
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459598584730542,
+          "achieved_normalized_kl": 0.10000255455873773,
+          "reached": true,
+          "step": 17062,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513141632080078,
+          "train_standardized_proxy": 0.06902575492858887
+        },
+        "0.2": {
+          "final_kl_nats": 0.21441155000288403,
+          "final_normalized_kl": 0.11018574013141103,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.21441155000288403,
+          "final_normalized_kl": 0.11018574013141103,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r008_k000",
+          "evaluation": "eval_r008_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r008_k001",
+          "evaluation": "eval_r008_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r008_k002",
+          "evaluation": "eval_r008_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r008_k003",
+          "evaluation": "eval_r008_k003"
+        }
+      },
+      "protocol_condition": "matched_random_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270113/predictions/wmt24_en_es_mqm/global_random_2.jsonl",
+      "reward_trace_sha256": "634f2af63e8fca639559a3955f3aec0472f4ae2e08e65a1e62c0548ca9dbc7b1",
+      "reward_train_mean": 0.01070904266089201,
+      "reward_train_std": 0.24208970367908478,
+      "seed": 20270113,
+      "training_condition": "global_random_2"
+    },
+    {
+      "checkpoint": "20270114/all_data",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.14472627329739637,
+        "initial_system_logit_gradient_norm": 0.04369381070137024,
+        "initial_text_gradient_norm": 0.008511064574122429,
+        "one_step_normalized_kl": 8.843989266400224e-08,
+        "reward_seed_disagreement": 0.13942670822143555,
+        "reward_tail_gap": 0.1034090518951416,
+        "system_mean_range": 0.37374645471572876,
+        "top_system_margin": 0.09863986074924469
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 3.973643103449831e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048654251533340576,
+          "achieved_normalized_kl": 0.025003339212224623,
+          "reached": true,
+          "step": 4492,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972558975219727,
+          "train_standardized_proxy": 0.03731396794319153
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.0973023705061189,
+          "achieved_normalized_kl": 0.05000352691174182,
+          "reached": true,
+          "step": 9455,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486077785491943,
+          "train_standardized_proxy": 0.05386307090520859
+        },
+        "0.1": {
+          "final_kl_nats": 0.17674332185346997,
+          "final_normalized_kl": 0.09082810012542156,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1
+        },
+        "0.2": {
+          "final_kl_nats": 0.17674332185346997,
+          "final_normalized_kl": 0.09082810012542156,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.17674332185346997,
+          "final_normalized_kl": 0.09082810012542156,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r009_k000",
+          "evaluation": "eval_r009_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r009_k001",
+          "evaluation": "eval_r009_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r009_k002",
+          "evaluation": "eval_r009_k002"
+        }
+      },
+      "protocol_condition": "all_available_DA",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270114/predictions/wmt24_en_es_mqm/all_data.jsonl",
+      "reward_trace_sha256": "9571ff918b07afc31847fdf1d26090db27375dce1756a0fdb5261f03c6cb774a",
+      "reward_train_mean": 0.1104007139801979,
+      "reward_train_std": 0.2878405749797821,
+      "seed": 20270114,
+      "training_condition": "all_data"
+    },
+    {
+      "checkpoint": "20270114/diagnostic_filtered",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.12435396085138216,
+        "initial_system_logit_gradient_norm": 0.04296872392296791,
+        "initial_text_gradient_norm": 0.008671852760016918,
+        "one_step_normalized_kl": 8.843989266400224e-08,
+        "reward_seed_disagreement": 0.10264233499765396,
+        "reward_tail_gap": 0.08133778721094131,
+        "system_mean_range": 0.36165428161621094,
+        "top_system_margin": 0.09466800838708878
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 2.3841860041784457e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048660211997818115,
+          "achieved_normalized_kl": 0.025006402285039385,
+          "reached": true,
+          "step": 3393,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972499370574951,
+          "train_standardized_proxy": 0.04179598391056061
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09730415864546216,
+          "achieved_normalized_kl": 0.05000444583358625,
+          "reached": true,
+          "step": 8320,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.848605990409851,
+          "train_standardized_proxy": 0.06231085956096649
+        },
+        "0.1": {
+          "final_kl_nats": 0.19309573693830884,
+          "final_normalized_kl": 0.09923157913126235,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1
+        },
+        "0.2": {
+          "final_kl_nats": 0.19309573693830884,
+          "final_normalized_kl": 0.09923157913126235,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.19309573693830884,
+          "final_normalized_kl": 0.09923157913126235,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r010_k000",
+          "evaluation": "eval_r010_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r010_k001",
+          "evaluation": "eval_r010_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r010_k002",
+          "evaluation": "eval_r010_k002"
+        }
+      },
+      "protocol_condition": "metric_annotation_disagreement_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270114/predictions/wmt24_en_es_mqm/diagnostic_filtered.jsonl",
+      "reward_trace_sha256": "bc06dfbae9b5800592280a3faf5b6dac7456bd14e063b26dad2d28e613b0d085",
+      "reward_train_mean": 0.1588374525308609,
+      "reward_train_std": 0.33035269379615784,
+      "seed": 20270114,
+      "training_condition": "diagnostic_filtered"
+    },
+    {
+      "checkpoint": "20270114/global_random_2",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.15449778492429594,
+        "initial_system_logit_gradient_norm": 0.045439865440130234,
+        "initial_text_gradient_norm": 0.006148389540612698,
+        "one_step_normalized_kl": -3.4083019926442026e-08,
+        "reward_seed_disagreement": 0.11076865345239639,
+        "reward_tail_gap": 0.1259411722421646,
+        "system_mean_range": 0.41843998432159424,
+        "top_system_margin": 0.14647437632083893
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 0.0
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865663571913159,
+          "achieved_normalized_kl": 0.02500456444135053,
+          "reached": true,
+          "step": 3751,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972535133361816,
+          "train_standardized_proxy": 0.03435715287923813
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729664846022046,
+          "achieved_normalized_kl": 0.05000058636183965,
+          "reached": true,
+          "step": 7349,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486135005950928,
+          "train_standardized_proxy": 0.05053871497511864
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459801240522778,
+          "achieved_normalized_kl": 0.10000359600349475,
+          "reached": true,
+          "step": 17404,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513121366500854,
+          "train_standardized_proxy": 0.07609253376722336
+        },
+        "0.2": {
+          "final_kl_nats": 0.2159857086714021,
+          "final_normalized_kl": 0.11099469766178943,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.2159857086714021,
+          "final_normalized_kl": 0.11099469766178943,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r011_k000",
+          "evaluation": "eval_r011_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r011_k001",
+          "evaluation": "eval_r011_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r011_k002",
+          "evaluation": "eval_r011_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r011_k003",
+          "evaluation": "eval_r011_k003"
+        }
+      },
+      "protocol_condition": "matched_random_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270114/predictions/wmt24_en_es_mqm/global_random_2.jsonl",
+      "reward_trace_sha256": "345d25e8a8b3a526b49412fea83640dd3c797a85e848c7e169b33f2266f0dc58",
+      "reward_train_mean": 0.17259833216667175,
+      "reward_train_std": 0.23984099924564362,
+      "seed": 20270114,
+      "training_condition": "global_random_2"
+    },
+    {
+      "checkpoint": "20270115/all_data",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.10104290341938565,
+        "initial_system_logit_gradient_norm": 0.0366150364279747,
+        "initial_text_gradient_norm": 0.005547213368117809,
+        "one_step_normalized_kl": -3.4083019926442026e-08,
+        "reward_seed_disagreement": 0.13942670822143555,
+        "reward_tail_gap": 0.0969381332397461,
+        "system_mean_range": 0.3140617311000824,
+        "top_system_margin": 0.08525624871253967
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 1.1920930020892229e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.048647933440994384,
+          "achieved_normalized_kl": 0.025000092355040977,
+          "reached": true,
+          "step": 1695,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972622156143188,
+          "train_standardized_proxy": 0.022298138588666916
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09729724450666821,
+          "achieved_normalized_kl": 0.050000892669121125,
+          "reached": true,
+          "step": 6237,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.848612904548645,
+          "train_standardized_proxy": 0.048450082540512085
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459860845167554,
+          "achieved_normalized_kl": 0.10000390231077622,
+          "reached": true,
+          "step": 16144,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513115406036377,
+          "train_standardized_proxy": 0.07909410446882248
+        },
+        "0.2": {
+          "final_kl_nats": 0.22816532178480542,
+          "final_normalized_kl": 0.11725378065147228,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.22816532178480542,
+          "final_normalized_kl": 0.11725378065147228,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r012_k000",
+          "evaluation": "eval_r012_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r012_k001",
+          "evaluation": "eval_r012_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r012_k002",
+          "evaluation": "eval_r012_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r012_k003",
+          "evaluation": "eval_r012_k003"
+        }
+      },
+      "protocol_condition": "all_available_DA",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270115/predictions/wmt24_en_es_mqm/all_data.jsonl",
+      "reward_trace_sha256": "3a1d0d4c186505fb02cde6e92ffb45928e41118d50727c8b7185e02b2c92bfbd",
+      "reward_train_mean": 0.12373382598161697,
+      "reward_train_std": 0.25816863775253296,
+      "seed": 20270115,
+      "training_condition": "all_data"
+    },
+    {
+      "checkpoint": "20270115/diagnostic_filtered",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.14680118611264042,
+        "initial_system_logit_gradient_norm": 0.05031730607151985,
+        "initial_text_gradient_norm": 0.007079065311700106,
+        "one_step_normalized_kl": -3.4083019926442026e-08,
+        "reward_seed_disagreement": 0.10264233499765396,
+        "reward_tail_gap": 0.10119687765836716,
+        "system_mean_range": 0.42835015058517456,
+        "top_system_margin": 0.11652389168739319
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": -4.371007378267677e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865198655683911,
+          "achieved_normalized_kl": 0.025002175244555013,
+          "reached": true,
+          "step": 1934,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972581624984741,
+          "train_standardized_proxy": 0.04114599525928497
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09730427785475171,
+          "achieved_normalized_kl": 0.05000450709504255,
+          "reached": true,
+          "step": 5141,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.8486058712005615,
+          "train_standardized_proxy": 0.0647106021642685
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459658189375317,
+          "achieved_normalized_kl": 0.1000028608660192,
+          "reached": true,
+          "step": 14307,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.75131356716156,
+          "train_standardized_proxy": 0.09498733282089233
+        },
+        "0.2": {
+          "final_kl_nats": 0.2408730320509187,
+          "final_normalized_kl": 0.12378425189254295,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.2408730320509187,
+          "final_normalized_kl": 0.12378425189254295,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r013_k000",
+          "evaluation": "eval_r013_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r013_k001",
+          "evaluation": "eval_r013_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r013_k002",
+          "evaluation": "eval_r013_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r013_k003",
+          "evaluation": "eval_r013_k003"
+        }
+      },
+      "protocol_condition": "metric_annotation_disagreement_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270115/predictions/wmt24_en_es_mqm/diagnostic_filtered.jsonl",
+      "reward_trace_sha256": "a3cc8c23af26b03f0a07fb6b70bfaabebfcf536ce0f21008dffc6e79e96918fc",
+      "reward_train_mean": 0.2598307728767395,
+      "reward_train_std": 0.3113052546977997,
+      "seed": 20270115,
+      "training_condition": "diagnostic_filtered"
+    },
+    {
+      "checkpoint": "20270115/global_random_2",
+      "label_free_diagnostics": {
+        "between_system_eta_squared": 0.13717428329792866,
+        "initial_system_logit_gradient_norm": 0.04062644764780998,
+        "initial_text_gradient_norm": 0.005839270539581776,
+        "one_step_normalized_kl": -3.4083019926442026e-08,
+        "reward_seed_disagreement": 0.11076865345239639,
+        "reward_tail_gap": 0.09711910784244537,
+        "system_mean_range": 0.34638434648513794,
+        "top_system_margin": 0.09296061098575592
+      },
+      "pressure": {
+        "0.0": {
+          "achieved_kl_nats": -6.632249438531801e-08,
+          "achieved_normalized_kl": -3.4083019926442026e-08,
+          "reached": true,
+          "step": 0,
+          "target_kl_nats": 0.0,
+          "target_normalized_kl": 0.0,
+          "train_entropy": 1.9459102153778076,
+          "train_standardized_proxy": 1.9868215517249155e-08
+        },
+        "0.025": {
+          "achieved_kl_nats": 0.04865508599836743,
+          "achieved_normalized_kl": 0.02500376804241869,
+          "reached": true,
+          "step": 2880,
+          "target_kl_nats": 0.04864775372638283,
+          "target_normalized_kl": 0.025,
+          "train_entropy": 1.8972550630569458,
+          "train_standardized_proxy": 0.0374375618994236
+        },
+        "0.05": {
+          "achieved_kl_nats": 0.09730415864546216,
+          "achieved_normalized_kl": 0.05000444583358625,
+          "reached": true,
+          "step": 6813,
+          "target_kl_nats": 0.09729550745276566,
+          "target_normalized_kl": 0.05,
+          "train_entropy": 1.848605990409851,
+          "train_standardized_proxy": 0.056666821241378784
+        },
+        "0.1": {
+          "achieved_kl_nats": 0.19459801240522778,
+          "achieved_normalized_kl": 0.10000359600349475,
+          "reached": true,
+          "step": 17946,
+          "target_kl_nats": 0.19459101490553132,
+          "target_normalized_kl": 0.1,
+          "train_entropy": 1.7513121366500854,
+          "train_standardized_proxy": 0.08382273465394974
+        },
+        "0.2": {
+          "final_kl_nats": 0.20906239076216138,
+          "final_normalized_kl": 0.10743681606453181,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.38918202981106265,
+          "target_normalized_kl": 0.2
+        },
+        "0.35": {
+          "final_kl_nats": 0.20906239076216138,
+          "final_normalized_kl": 0.10743681606453181,
+          "maximum_steps": 20000,
+          "reached": false,
+          "target_kl_nats": 0.6810685521693596,
+          "target_normalized_kl": 0.35
+        }
+      },
+      "probability_artifact_keys": {
+        "0.0": {
+          "calibration": "cal_r014_k000",
+          "evaluation": "eval_r014_k000"
+        },
+        "0.025": {
+          "calibration": "cal_r014_k001",
+          "evaluation": "eval_r014_k001"
+        },
+        "0.05": {
+          "calibration": "cal_r014_k002",
+          "evaluation": "eval_r014_k002"
+        },
+        "0.1": {
+          "calibration": "cal_r014_k003",
+          "evaluation": "eval_r014_k003"
+        }
+      },
+      "protocol_condition": "matched_random_slices_removed",
+      "reward_trace": "/home/it238/projects/reinforcement-learning/artifacts/reward_models/safe_pressure/20270115/predictions/wmt24_en_es_mqm/global_random_2.jsonl",
+      "reward_trace_sha256": "b8aba9f8c45940c1ae349b0910dc7338edc37c2acccfa6ed33977ca4967ef3af",
+      "reward_train_mean": 0.06393937021493912,
+      "reward_train_std": 0.2947894036769867,
+      "seed": 20270115,
+      "training_condition": "global_random_2"
+    }
+  ],
+  "status": "safe_pressure_policy_trajectories_fixed_human_outcomes_sealed",
+  "train_systems": [
+    "Aya23",
+    "Dubformer",
+    "Gemini-1.5-Pro",
+    "IOL_Research",
+    "MSLC",
+    "Mistral-Large",
+    "ONLINE-W"
+  ]
+}
