@@ -27,7 +27,11 @@ read -r reward seed guarded <<< "${runs[$SLURM_ARRAY_TASK_ID]}"
 guard_flag=()
 suffix=""
 if [[ "$guarded" == 1 ]]; then guard_flag=(--guarded); suffix="_guarded"; fi
-out="$PWD/artifacts/grpo_replication/${reward}${suffix}_seed${seed}"
+name="${reward}${suffix}_seed${seed}"
+# Checkpoints (~6 GB each) go to /nobackup; home quota is 2 TB. Small eval files are copied back.
+out="/nobackup/archive/usr/it238/reinforcement-learning/grpo_replication/${name}"
+keep="$PWD/artifacts/grpo_replication/${name}"
 cd src
 "$PY" -u train_grpo_pilot.py --reward "$reward" --seed "$seed" "${guard_flag[@]}" --output-dir "$out"
 "$PY" -u eval_grpo_pilot.py --run-dir "$out"
+mkdir -p "$keep" && cp "$out"/eval_summary.json "$out"/eval_outputs.jsonl "$out"/pilot_run.json "$keep"/

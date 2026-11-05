@@ -24,7 +24,10 @@ runs=(
 )
 read -r protocol reward seed <<< "${runs[$SLURM_ARRAY_TASK_ID]}"
 if [[ "$protocol" == pilot ]]; then lp=en_es; else lp=en_de; fi
-out="$PWD/artifacts/grpo_rule_tests/${lp}/${reward}_seed${seed}"
+# Checkpoints (~6 GB each) go to /nobackup; home quota is 2 TB. Small eval files are copied back.
+out="/nobackup/archive/usr/it238/reinforcement-learning/grpo_rule_tests/${lp}/${reward}_seed${seed}"
+keep="$PWD/artifacts/grpo_rule_tests/${lp}/${reward}_seed${seed}"
 cd src
 "$PY" -u train_grpo_pilot.py --protocol-name "$protocol" --reward "$reward" --seed "$seed" --output-dir "$out"
 "$PY" -u eval_grpo_pilot.py --protocol-name "$protocol" --run-dir "$out"
+mkdir -p "$keep" && cp "$out"/eval_summary.json "$out"/eval_outputs.jsonl "$out"/pilot_run.json "$keep"/
