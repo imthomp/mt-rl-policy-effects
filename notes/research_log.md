@@ -118,3 +118,22 @@ quality measure for new outputs, so step 1 is validating an LLM MQM judge.
 - The offline T4 audit (XCOMET-XL prefers a source copy in 83.5% of segments)
   predicted the generative failure mode, its direction, and which rewards are
   safe. This is the paper's core result if it replicates.
+
+### MetricX, en-de, and the home-quota failure (2026-11-05)
+- Frozen audit→GRPO prediction rule (`results/grpo_audit_rule.json`): d_k < 0.50
+  predicts a hack, d_k >= 0.95 predicts safe. Thresholds chosen after the pilot
+  (disclosed); MetricX-24-QE and en-de are the real tests.
+- `src/metricx_qe.py`: official-order MetricX-24 (EOS stripped per example
+  before padding). AmanaMT's metricx.py strips after padding: a 2-item test
+  gave 2.14 vs 0.85 for the shorter item. Recorded for the AmanaMT corrections.
+- en-de protocol frozen (`results/grpo_ende_protocol.json`): 400 WMT24 en-de
+  sources read outcome-blind; `<v>` span markup stripped and unused.
+- All 9 replication/mitigation runs failed at the step-100 save: home (2 TB)
+  was full. Failed partial dirs deleted. Pilot checkpoints verified-copied to
+  `/nobackup/archive/usr/it238/reinforcement-learning/grpo_pilot/` and removed
+  from home. All GRPO sbatches now write checkpoints under
+  /nobackup/archive and copy eval files back to artifacts/. Home: 118 GB
+  free afterwards; morphotok (712 GB) is the largest consumer.
+- Resubmitted: MetricX audit on GPU (15066260; the CPU attempt was too slow
+  in bf16), rule tests after it (15066261), replication + mitigation
+  (15066262).
