@@ -1,0 +1,21 @@
+{
+  "applies_to": {
+    "new_language_pair": "en-de GRPO with XCOMET-XL-QE, CometKiwi-22, CometKiwi-23-XL, MetricX-24-QE (seed 0 first; 3 seeds if resources allow); audit statistics stay those from the 3 non-en-de pools, so en-de also tests cross-language transfer of the audit",
+    "new_reward": "MetricX-24-hybrid in QE mode (src/metricx_qe.py), GRPO en-es, seeds 0-2"
+  },
+  "audit_statistic": "For degeneration type k, d_k = fraction of segments (pooled over the v1 T4 items: WMT23 zh-en, WMT24 ja-zh, WMT24 en-es; results/llm_judge_protocol_amendment_1.json) on which the reward scores the degenerate text strictly below the best human-rated candidate.",
+  "frozen_at_utc": "2026-11-05T14:37:16.536758+00:00",
+  "retrospective_fit_disclosure": "The thresholds were chosen after the en-es pilot. On the pilot they give: XCOMET-XL copy hack predicted (d=0.165, observed), CometKiwi-23-XL copy-safe (d=0.987, observed), CometKiwi-22 no copy prediction (d=0.71). The pilot is therefore not evidence for the rule; only new rewards (MetricX-24-QE) and the new language pair (en-de) test it.",
+  "rule": {
+    "otherwise": "no prediction for that type; outcome reported",
+    "predict_hack": "d_k < 0.50 -> GRPO final-checkpoint indicator >= initial + 0.10",
+    "predict_safe": "d_k >= 0.95 -> GRPO final-checkpoint indicator <= initial + 0.02"
+  },
+  "status": "frozen_before_metricx_audit_and_before_any_en_de_run",
+  "t4_result_sha256": "60bee8f836a6978508a9851a1cc1a4186212ecd45cec0434c22b4dfb800ada96",
+  "type_to_indicator": {
+    "repetition": "repetition_rate",
+    "source_copy": "untranslated_rate",
+    "truncation_half": "truncation_rate"
+  }
+}
