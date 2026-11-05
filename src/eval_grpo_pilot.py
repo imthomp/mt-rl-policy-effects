@@ -11,13 +11,18 @@ import numpy as np
 
 from hack_guards import flags
 from score_mqm_confirmation_candidates import load_candidates
-from train_grpo_pilot import PROTOCOL_SHA256, REWARD_CHECKPOINTS, load_comet, load_protocol
+from train_grpo_pilot import PROTOCOLS, REWARD_CHECKPOINTS, load_protocol, make_scorer
 
 ROOT = Path(__file__).resolve().parents[1]
 MQM_ROOT = Path.home() / "projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation"
 
 
 def eval_sources(protocol: dict) -> tuple[list[str], list[str]]:
+    if "sources" in protocol["eval_set"]:  # frozen inline (en-de)
+        segments, sources = protocol["eval_set"]["segments"], protocol["eval_set"]["sources"]
+        if hashlib.sha256("\n".join(sources).encode()).hexdigest() != protocol["eval_set"]["sources_sha256"]:
+            raise ValueError("Eval sources differ from frozen hash")
+        return segments, sources
     judge = json.loads((ROOT / "results/llm_judge_protocol.json").read_text())
     pool = judge["pools"]["wmt24_en_es_mqm"]
     _, rows = load_candidates(MQM_ROOT / pool["source"], ROOT / pool["manifest"], "wmt24_en_es_mqm")
@@ -52,8 +57,10 @@ def translate(model_path: str, prompts: list[str], max_new_tokens: int) -> list[
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", type=Path, required=True)
+    parser.add_argument("--protocol-name", default="pilot", choices=sorted(PROTOCOLS))
     args = parser.parse_args()
-    protocol = load_protocol()
+    protocol = load_protocol(args.protocol_name)
+    target_lang = protocol.get("target_lang", "Spanish")
     g = protocol["grpo"]
     segments, sources = eval_sources(protocol)
     prompts = [protocol["prompt"].format(source=s) for s in sources]
@@ -66,17 +73,15 @@ def main() -> None:
         checkpoints[step] = translate(path, prompts, g["max_new_tokens"])
 
     scores = {}
-    for name, ckpt in REWARD_CHECKPOINTS.items():
-        comet = load_comet(ckpt)
+    for name in REWARD_CHECKPOINTS:
+        scorer = make_scorer(name)
         for step, outs in checkpoints.items():
-            pred = comet.predict([{"src": s, "mt": o} for s, o in zip(sources, outs)],
-                                 batch_size=32, gpus=1, progress_bar=False).scores
-            scores[(name, step)] = [float(x) for x in pred]
-        del comet
+            scores[(name, step)] = scorer(sources, outs)
+        del scorer
 
     summary, rows = {}, []
     for step, outs in checkpoints.items():
-        f = [flags(o, s, "Spanish") for o, s in zip(outs, sources)]
+        f = [flags(o, s, target_lang) for o, s in zip(outs, sources)]
         summary[step] = {
             "untranslated_rate": float(np.mean([x["untranslated"] for x in f])),
             "truncation_rate": float(np.mean([x["truncated"] for x in f])),
@@ -91,7 +96,8 @@ def main() -> None:
         for r in rows:
             h.write(json.dumps(r, ensure_ascii=False) + "\n")
     (args.run_dir / "eval_summary.json").write_text(json.dumps(
-        {"protocol_sha256": PROTOCOL_SHA256, "summary": summary}, indent=2) + "\n")
+        {"protocol_name": args.protocol_name, "protocol_sha256": PROTOCOLS[args.protocol_name][1],
+         "summary": summary}, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
 
 
