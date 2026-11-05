@@ -101,3 +101,20 @@ quality measure for new outputs, so step 1 is validating an LLM MQM judge.
   a forking path). Local ~30B judges are not better than the rewards at
   segment level. The GRPO predictions use deterministic indicators and do
   not need a judge. Quality claims need human evaluation.
+
+## 2026-11-05
+
+### GRPO pilot result: all three frozen predictions hold (single seed)
+- Base Qwen2.5-1.5B-Instruct untranslated rate 0.028. XCOMET-XL-QE run:
+  0.943 by step 100, 0.941 at step 500 (397/422 outputs). Manual spot check:
+  the outputs are the English source copied verbatim. XCOMET scores them 0.92
+  (base 0.69), while the held-out CometKiwi-23-XL falls 0.60 → 0.17.
+- CometKiwi-22 run: untranslated 0.017; CometKiwi-23-XL run: 0.012. Both raise
+  their own and held-out rewards modestly (e.g. the CK23 run moves XCOMET
+  0.69 → 0.73 and CK22 0.745 → 0.765).
+- P1, P2, P3 all true (`results/grpo_pilot_result.json`, SSOT `grpo_pilot`).
+  Caveats: one seed; the CK22-vs-CK23 ordering in P3 rests on 0.017 vs 0.012;
+  no human evaluation of the non-hacking runs.
+- The offline T4 audit (XCOMET-XL prefers a source copy in 83.5% of segments)
+  predicted the generative failure mode, its direction, and which rewards are
+  safe. This is the paper's core result if it replicates.

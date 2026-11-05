@@ -1,0 +1,261 @@
+{
+  "caveats": [
+    "single seed per reward",
+    "P3 ordering between the two CometKiwi runs rests on a small difference in final untranslated rate",
+    "no human evaluation; quality of the non-hacking runs is not established"
+  ],
+  "final_mean_reward": {
+    "cometkiwi_22": {
+      "cometkiwi_22": 0.7629051486039049,
+      "cometkiwi_23_xl": 0.6298433268857652,
+      "xcomet_xl_qe": 0.7213122852111314
+    },
+    "cometkiwi_23_xl": {
+      "cometkiwi_22": 0.7646470172286599,
+      "cometkiwi_23_xl": 0.635708375140954,
+      "xcomet_xl_qe": 0.7261981140398442
+    },
+    "xcomet_xl_qe": {
+      "cometkiwi_22": 0.3319007050934561,
+      "cometkiwi_23_xl": 0.16572652651456082,
+      "xcomet_xl_qe": 0.9207161800203165
+    }
+  },
+  "final_untranslated_rate": {
+    "cometkiwi_22": 0.016587677725118485,
+    "cometkiwi_23_xl": 0.011848341232227487,
+    "xcomet_xl_qe": 0.9407582938388626
+  },
+  "first_checkpoint_with_untranslated_rise_ge_0p10": {
+    "cometkiwi_22": null,
+    "cometkiwi_23_xl": null,
+    "xcomet_xl_qe": 100
+  },
+  "initial_mean_reward": {
+    "cometkiwi_22": 0.7451157612258225,
+    "cometkiwi_23_xl": 0.5970443853737689,
+    "xcomet_xl_qe": 0.6899035368688511
+  },
+  "initial_untranslated_rate": 0.02843601895734597,
+  "predictions": {
+    "P1": true,
+    "P2": true,
+    "P3": true
+  },
+  "protocol_sha256": "61d89eaab72a7a9d10fd8ec2cedb28b752293faae354d4a6d5d4f1c69323343c",
+  "runs": {
+    "cometkiwi_22": {
+      "eval_summary_sha256": "177581361fa2cd0db055defb4b24599be19388b4eb3dbe4f8b674d798de0dd76",
+      "summary": {
+        "0": {
+          "mean_length_ratio": 1.1132573145012867,
+          "mean_reward": {
+            "cometkiwi_22": 0.7451157612258225,
+            "cometkiwi_23_xl": 0.5970443853737689,
+            "xcomet_xl_qe": 0.6899035368688511
+          },
+          "repetition_rate": 0.002369668246445498,
+          "truncation_rate": 0.011848341232227487,
+          "untranslated_rate": 0.02843601895734597
+        },
+        "100": {
+          "mean_length_ratio": 1.2395315558192135,
+          "mean_reward": {
+            "cometkiwi_22": 0.7560381382986268,
+            "cometkiwi_23_xl": 0.6218325422449982,
+            "xcomet_xl_qe": 0.7002407044031044
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.004739336492890996
+        },
+        "200": {
+          "mean_length_ratio": 1.1754463899721532,
+          "mean_reward": {
+            "cometkiwi_22": 0.7573701493547991,
+            "cometkiwi_23_xl": 0.6197306490790152,
+            "xcomet_xl_qe": 0.7058838600231008
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.0,
+          "untranslated_rate": 0.011848341232227487
+        },
+        "300": {
+          "mean_length_ratio": 1.1482178186336836,
+          "mean_reward": {
+            "cometkiwi_22": 0.760507519634979,
+            "cometkiwi_23_xl": 0.6218548918416573,
+            "xcomet_xl_qe": 0.7109087264933293
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.0,
+          "untranslated_rate": 0.016587677725118485
+        },
+        "400": {
+          "mean_length_ratio": 1.1506253607747774,
+          "mean_reward": {
+            "cometkiwi_22": 0.7623320993088998,
+            "cometkiwi_23_xl": 0.6256549132996685,
+            "xcomet_xl_qe": 0.7173562372959621
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.004739336492890996,
+          "untranslated_rate": 0.014218009478672985
+        },
+        "500": {
+          "mean_length_ratio": 1.15318449493879,
+          "mean_reward": {
+            "cometkiwi_22": 0.7629051486039049,
+            "cometkiwi_23_xl": 0.6298433268857652,
+            "xcomet_xl_qe": 0.7213122852111314
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.016587677725118485
+        }
+      }
+    },
+    "cometkiwi_23_xl": {
+      "eval_summary_sha256": "5ee7117af610596e0cee3a49a868e28f29de6aa0bb288f27bb802ec5b08a6f8d",
+      "summary": {
+        "0": {
+          "mean_length_ratio": 1.1132573145012867,
+          "mean_reward": {
+            "cometkiwi_22": 0.7451157612258225,
+            "cometkiwi_23_xl": 0.5970443853737689,
+            "xcomet_xl_qe": 0.6899035368688511
+          },
+          "repetition_rate": 0.002369668246445498,
+          "truncation_rate": 0.011848341232227487,
+          "untranslated_rate": 0.02843601895734597
+        },
+        "100": {
+          "mean_length_ratio": 1.174621695068397,
+          "mean_reward": {
+            "cometkiwi_22": 0.7568438063724346,
+            "cometkiwi_23_xl": 0.6225033160166648,
+            "xcomet_xl_qe": 0.7041586505081416
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.016587677725118485
+        },
+        "200": {
+          "mean_length_ratio": 1.1236633508363914,
+          "mean_reward": {
+            "cometkiwi_22": 0.7613768396784344,
+            "cometkiwi_23_xl": 0.6334932793231937,
+            "xcomet_xl_qe": 0.7185373284028604
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.004739336492890996,
+          "untranslated_rate": 0.0071090047393364926
+        },
+        "300": {
+          "mean_length_ratio": 1.1359401169673817,
+          "mean_reward": {
+            "cometkiwi_22": 0.7637503196560376,
+            "cometkiwi_23_xl": 0.6341707384416843,
+            "xcomet_xl_qe": 0.7245273225238962
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.0,
+          "untranslated_rate": 0.011848341232227487
+        },
+        "400": {
+          "mean_length_ratio": 1.1338805277004511,
+          "mean_reward": {
+            "cometkiwi_22": 0.7657245025391827,
+            "cometkiwi_23_xl": 0.6374293340467164,
+            "xcomet_xl_qe": 0.7270816914666604
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.011848341232227487
+        },
+        "500": {
+          "mean_length_ratio": 1.1357102906756176,
+          "mean_reward": {
+            "cometkiwi_22": 0.7646470172286599,
+            "cometkiwi_23_xl": 0.635708375140954,
+            "xcomet_xl_qe": 0.7261981140398442
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.0,
+          "untranslated_rate": 0.011848341232227487
+        }
+      }
+    },
+    "xcomet_xl_qe": {
+      "eval_summary_sha256": "65ebac31697321eb1b93a884a5ef80204e73a29e8cf30d2466b9fcea32cd3e56",
+      "summary": {
+        "0": {
+          "mean_length_ratio": 1.1132573145012867,
+          "mean_reward": {
+            "cometkiwi_22": 0.7451157612258225,
+            "cometkiwi_23_xl": 0.5970443853737689,
+            "xcomet_xl_qe": 0.6899035368688511
+          },
+          "repetition_rate": 0.002369668246445498,
+          "truncation_rate": 0.011848341232227487,
+          "untranslated_rate": 0.02843601895734597
+        },
+        "100": {
+          "mean_length_ratio": 1.0040921754205026,
+          "mean_reward": {
+            "cometkiwi_22": 0.3297406666298613,
+            "cometkiwi_23_xl": 0.08198357007347083,
+            "xcomet_xl_qe": 0.9051368294451474
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.943127962085308
+        },
+        "200": {
+          "mean_length_ratio": 0.9959188322084984,
+          "mean_reward": {
+            "cometkiwi_22": 0.3421110909838247,
+            "cometkiwi_23_xl": 0.16814557866798052,
+            "xcomet_xl_qe": 0.9166748078089755
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.9052132701421801
+        },
+        "300": {
+          "mean_length_ratio": 0.9990881204527997,
+          "mean_reward": {
+            "cometkiwi_22": 0.33639616953535667,
+            "cometkiwi_23_xl": 0.16988478542274632,
+            "xcomet_xl_qe": 0.9194597261847478
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.9241706161137441
+        },
+        "400": {
+          "mean_length_ratio": 1.0037137932115954,
+          "mean_reward": {
+            "cometkiwi_22": 0.33443131290764605,
+            "cometkiwi_23_xl": 0.16564471133150407,
+            "xcomet_xl_qe": 0.920360891386796
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.9360189573459715
+        },
+        "500": {
+          "mean_length_ratio": 1.0045678173744381,
+          "mean_reward": {
+            "cometkiwi_22": 0.3319007050934561,
+            "cometkiwi_23_xl": 0.16572652651456082,
+            "xcomet_xl_qe": 0.9207161800203165
+          },
+          "repetition_rate": 0.0,
+          "truncation_rate": 0.002369668246445498,
+          "untranslated_rate": 0.9407582938388626
+        }
+      }
+    }
+  }
+}

@@ -13345,6 +13345,52 @@
     },
     "status": "complete"
   },
+  "grpo_pilot": {
+    "caveats": [
+      "single seed per reward",
+      "P3 ordering between the two CometKiwi runs rests on a small difference in final untranslated rate",
+      "no human evaluation; quality of the non-hacking runs is not established"
+    ],
+    "final_mean_reward": {
+      "cometkiwi_22": {
+        "cometkiwi_22": 0.7629051486039049,
+        "cometkiwi_23_xl": 0.6298433268857652,
+        "xcomet_xl_qe": 0.7213122852111314
+      },
+      "cometkiwi_23_xl": {
+        "cometkiwi_22": 0.7646470172286599,
+        "cometkiwi_23_xl": 0.635708375140954,
+        "xcomet_xl_qe": 0.7261981140398442
+      },
+      "xcomet_xl_qe": {
+        "cometkiwi_22": 0.3319007050934561,
+        "cometkiwi_23_xl": 0.16572652651456082,
+        "xcomet_xl_qe": 0.9207161800203165
+      }
+    },
+    "final_untranslated_rate": {
+      "cometkiwi_22": 0.016587677725118485,
+      "cometkiwi_23_xl": 0.011848341232227487,
+      "xcomet_xl_qe": 0.9407582938388626
+    },
+    "first_checkpoint_with_untranslated_rise_ge_0p10": {
+      "cometkiwi_22": null,
+      "cometkiwi_23_xl": null,
+      "xcomet_xl_qe": 100
+    },
+    "initial_mean_reward": {
+      "cometkiwi_22": 0.7451157612258225,
+      "cometkiwi_23_xl": 0.5970443853737689,
+      "xcomet_xl_qe": 0.6899035368688511
+    },
+    "initial_untranslated_rate": 0.02843601895734597,
+    "predictions": {
+      "P1": true,
+      "P2": true,
+      "P3": true
+    },
+    "protocol_sha256": "61d89eaab72a7a9d10fd8ec2cedb28b752293faae354d4a6d5d4f1c69323343c"
+  },
   "llm_judge_validation": {
     "T3": {
       "cells": [
