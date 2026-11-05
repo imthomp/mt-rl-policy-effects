@@ -24,8 +24,10 @@ runs=(
   "xcomet_xl_qe 0 1" "xcomet_xl_qe 1 1" "xcomet_xl_qe 2 1"
 )
 read -r reward seed guarded <<< "${runs[$SLURM_ARRAY_TASK_ID]}"
-name="${reward}$([[ $guarded == 1 ]] && echo _guarded)_seed${seed}"
-out="$PWD/artifacts/grpo_replication/${name}"
+guard_flag=()
+suffix=""
+if [[ "$guarded" == 1 ]]; then guard_flag=(--guarded); suffix="_guarded"; fi
+out="$PWD/artifacts/grpo_replication/${reward}${suffix}_seed${seed}"
 cd src
-"$PY" -u train_grpo_pilot.py --reward "$reward" --seed "$seed" $([[ $guarded == 1 ]] && echo --guarded) --output-dir "$out"
+"$PY" -u train_grpo_pilot.py --reward "$reward" --seed "$seed" "${guard_flag[@]}" --output-dir "$out"
 "$PY" -u eval_grpo_pilot.py --run-dir "$out"
