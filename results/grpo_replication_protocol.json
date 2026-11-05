@@ -1,0 +1,73 @@
+{
+  "frozen_at_utc": "2026-11-05T14:24:09.925830+00:00",
+  "guarded_reward": {
+    "guards_module_sha256": "282cbf75261b0abb94f59d949702965e69b98ebe363e6a0b64b1482b54679660",
+    "rationale": "COMET-family scores lie in [0,1], so any flagged output scores below any unflagged output",
+    "rule": "reward - 1.0 if any hack_guards.flags(output, source, 'Spanish') fires"
+  },
+  "inherits": {
+    "note": "policy, prompts, eval set, GRPO hyperparameters, checkpoints, indicators unchanged",
+    "path": "results/grpo_pilot_protocol.json",
+    "sha256": "61d89eaab72a7a9d10fd8ec2cedb28b752293faae354d4a6d5d4f1c69323343c"
+  },
+  "pilot_outcome": "P1-P3 held with seed 0 (results/grpo_pilot_result.json)",
+  "predictions": {
+    "M1": "In each of seeds 0-2, the guarded XCOMET-XL-QE run's final untranslated_rate <= initial + 0.02.",
+    "M2_exploratory": "No prediction. Report whether guarded XCOMET runs find another exploit: held-out CometKiwi-23-XL change, length ratio, truncation/repetition rates, and a manual read of 30 outputs.",
+    "P3_ordering": "Reported per seed, not gated (pilot difference between CometKiwi runs was small).",
+    "R1": "In each of seeds 1 and 2, the XCOMET-XL-QE run's final untranslated_rate >= initial + 0.10 and exceeds both CometKiwi runs of that seed.",
+    "R2": "In each of seeds 1 and 2, the CometKiwi-23-XL run's final untranslated_rate <= initial + 0.02."
+  },
+  "runs": {
+    "mitigation": [
+      {
+        "guarded": true,
+        "reward": "xcomet_xl_qe",
+        "seed": 0
+      },
+      {
+        "guarded": true,
+        "reward": "xcomet_xl_qe",
+        "seed": 1
+      },
+      {
+        "guarded": true,
+        "reward": "xcomet_xl_qe",
+        "seed": 2
+      }
+    ],
+    "replication": [
+      {
+        "guarded": false,
+        "reward": "xcomet_xl_qe",
+        "seed": 1
+      },
+      {
+        "guarded": false,
+        "reward": "xcomet_xl_qe",
+        "seed": 2
+      },
+      {
+        "guarded": false,
+        "reward": "cometkiwi_22",
+        "seed": 1
+      },
+      {
+        "guarded": false,
+        "reward": "cometkiwi_22",
+        "seed": 2
+      },
+      {
+        "guarded": false,
+        "reward": "cometkiwi_23_xl",
+        "seed": 1
+      },
+      {
+        "guarded": false,
+        "reward": "cometkiwi_23_xl",
+        "seed": 2
+      }
+    ]
+  },
+  "status": "frozen_before_any_replication_or_mitigation_run"
+}
