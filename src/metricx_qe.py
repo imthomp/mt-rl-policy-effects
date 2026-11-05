@@ -20,7 +20,9 @@ MAX_LENGTH = 1536
 
 
 class MetricXQE:
-    def __init__(self, device: str = "cuda"):
+    def __init__(self, device: str | None = None):
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
         from transformers import AutoTokenizer, MT5ForConditionalGeneration
 
         self.tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
