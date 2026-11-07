@@ -19,6 +19,8 @@ REPLICATION = ROOT / "results/grpo_replication_protocol.json"
 REPLICATION_SHA256 = "64b2d092765be5994b0f2ae7718720cb04a7261fe964fb0932bc66af0ebc2277"
 RULE = ROOT / "results/grpo_audit_rule.json"
 RULE_SHA256 = "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c"
+ENDE_AMENDMENT = ROOT / "results/grpo_ende_protocol_amendment_1.json"
+ENDE_AMENDMENT_SHA256 = "289acb8713b7b444935641c9b4b9dd8ed9d387f491c9c506ceec25fa01b240dd"
 PROTOCOLS = {
     "pilot": (PROTOCOL, PROTOCOL_SHA256),
     "ende": (ROOT / "results/grpo_ende_protocol.json",
@@ -91,12 +93,16 @@ def main() -> None:
     target_lang = protocol.get("target_lang", "Spanish")
     rule_run = args.reward == "metricx_24_qe" or args.protocol_name != "pilot"
     if rule_run:
-        # Runs that test the frozen audit rule: MetricX en-es seeds 0-2; en-de seed 0, any reward.
+        # Runs that test the frozen audit rule: MetricX en-es seeds 0-2; en-de seeds 0-2 (amendment 1), any reward.
         if hashlib.sha256(RULE.read_bytes()).hexdigest() != RULE_SHA256:
             raise ValueError("Audit rule differs from frozen hash")
         seed = g["seed"] if args.seed is None else args.seed
-        allowed = (seed in protocol.get("seeds", [0]) if args.protocol_name != "pilot"
-                   else seed in (0, 1, 2))
+        seeds = list(protocol.get("seeds", [0]))
+        if args.protocol_name == "ende":
+            if hashlib.sha256(ENDE_AMENDMENT.read_bytes()).hexdigest() != ENDE_AMENDMENT_SHA256:
+                raise ValueError("en-de amendment differs from frozen hash")
+            seeds += json.loads(ENDE_AMENDMENT.read_text())["seeds_added"]
+        allowed = seed in seeds if args.protocol_name != "pilot" else seed in (0, 1, 2)
         if args.guarded or not allowed:
             raise ValueError(f"Run not covered by the frozen audit rule: {args.reward}, seed {seed}")
         g["seed"] = seed

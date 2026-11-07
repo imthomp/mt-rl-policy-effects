@@ -1,0 +1,13 @@
+{
+  "amendment": "Add en-de GRPO seeds 1 and 2 for all four rewards (xcomet_xl_qe, cometkiwi_22, cometkiwi_23_xl, metricx_24_qe). Every other protocol field is unchanged.",
+  "analysis_commitment": "Frozen-rule predictions are scored for seeds 1-2 exactly as for seed 0 (src/analyze_grpo_rule_tests.py). The refusal count is a post-hoc exploratory indicator; seeds 1-2 test only whether the seed-0 collapse recurs, reported for all 8 runs.",
+  "frozen_at_utc": "2026-11-07T22:35:29.271831+00:00",
+  "outcome_access": "Made 2026-11-07 AFTER all four en-de seed-0 outcomes were seen, including the CometKiwi-23-XL refusal collapse (367/400 eval outputs). Seeds and rewards are fixed in advance of any seed-1/2 outcome: all four rewards x both seeds, not only the reward that collapsed.",
+  "protocol": "results/grpo_ende_protocol.json",
+  "protocol_sha256": "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779",
+  "rule": "results/grpo_audit_rule.json (unchanged; its applies_to already states 'seed 0 first; 3 seeds if resources allow')",
+  "seeds_added": [
+    1,
+    2
+  ]
+}
