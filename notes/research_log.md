@@ -164,3 +164,18 @@ All 17 jobs COMPLETED. Rule frozen 14:37 UTC; MetricX audit finished 15:31 UTC.
   found post hoc; any refusal audit added now is exploratory.
 - Open: training-time reward curve for that run (logs on /nobackup);
   seeds 1-2 for en-de; numbers not yet in paper_stats.json.
+
+### en-de seeds 1-2 and SSOT scorecard (2026-11-07)
+- Refusal run training log (grpo_rule_15066261_5): train reward 0.33 -> 0.56
+  over ~5.7 epochs; sharpest KL rise / entropy drop near epoch 3, matching the
+  refusal takeover between eval steps 200 and 300. Held-out reward stays ~0.47,
+  so the gain is on (repeated) training prompts.
+- `src/analyze_grpo_rule_tests.py`: recomputes rates from eval_outputs.jsonl
+  (asserted against summaries), scores the frozen rule, counts refusals
+  (exploratory), merges `grpo_runs` + `grpo_rule_scorecard` into
+  results/paper_stats.json. Current: hack 1/5, safe 11/12.
+- First seed-1/2 submission (15131711) was rejected by the trainer's frozen-rule
+  guard (en-de protocol froze seeds [0]). Added
+  `results/grpo_ende_protocol_amendment_1.json` (seeds 1-2, all four rewards,
+  disclosed as made after seeing seed-0 outcomes); trainer checks its hash.
+  Resubmitted as 15131797 (array 7-14).
