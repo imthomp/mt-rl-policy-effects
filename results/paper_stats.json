@@ -24580,6 +24580,368 @@
     "threshold_rationale": "Round threshold chosen between the largest failing and smallest nonfailing full-development cosine; exploratory and not an uncertainty guarantee.",
     "training_document_count": 134
   },
+  "refusal_audit_exploratory": {
+    "n_t4_segments": 600,
+    "policy_relative": {
+      "cometkiwi_22": {
+        "en_de": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.03,
+            "mean_refusal": 0.3444428265839815,
+            "mean_step0": 0.6650128015875816,
+            "n": 400
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.015,
+            "mean_refusal": 0.2758183766528964,
+            "mean_step0": 0.6650128015875816,
+            "n": 400
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.01,
+            "mean_refusal": 0.2612619411945343,
+            "mean_step0": 0.6650128015875816,
+            "n": 400
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.015,
+            "mean_refusal": 0.2696290410682559,
+            "mean_step0": 0.6650128015875816,
+            "n": 400
+          }
+        },
+        "en_es": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.011848341232227487,
+            "mean_refusal": 0.35414184538109045,
+            "mean_step0": 0.7451157612258225,
+            "n": 422
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.0071090047393364926,
+            "mean_refusal": 0.28118086648637086,
+            "mean_step0": 0.7451157612258225,
+            "n": 422
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.0071090047393364926,
+            "mean_refusal": 0.2661100527827774,
+            "mean_step0": 0.7451157612258225,
+            "n": 422
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.004739336492890996,
+            "mean_refusal": 0.2747477677902339,
+            "mean_step0": 0.7451157612258225,
+            "n": 422
+          }
+        }
+      },
+      "cometkiwi_23_xl": {
+        "en_de": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.5125,
+            "mean_refusal": 0.47338359177112577,
+            "mean_step0": 0.4442320629488677,
+            "n": 400
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.15,
+            "mean_refusal": 0.2394437116687186,
+            "mean_step0": 0.4442320629488677,
+            "n": 400
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.025,
+            "mean_refusal": 0.10492769606644288,
+            "mean_step0": 0.4442320629488677,
+            "n": 400
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.185,
+            "mean_refusal": 0.26752316831611095,
+            "mean_step0": 0.4442320629488677,
+            "n": 400
+          }
+        },
+        "en_es": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.20853080568720378,
+            "mean_refusal": 0.48549271392596277,
+            "mean_step0": 0.5970443853737689,
+            "n": 422
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.030805687203791468,
+            "mean_refusal": 0.251860076508604,
+            "mean_step0": 0.5970443853737689,
+            "n": 422
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.016587677725118485,
+            "mean_refusal": 0.1119259043654065,
+            "mean_step0": 0.5970443853737689,
+            "n": 422
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.054502369668246446,
+            "mean_refusal": 0.28723295121034387,
+            "mean_step0": 0.5970443853737689,
+            "n": 422
+          }
+        }
+      },
+      "metricx_24_qe": {
+        "en_de": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.0575,
+            "mean_refusal": 0.49622187500000003,
+            "mean_step0": 0.8121881591796876,
+            "n": 400
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.01,
+            "mean_refusal": 0.20492890625,
+            "mean_step0": 0.8121881591796876,
+            "n": 400
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.0025,
+            "mean_refusal": 0.07834375,
+            "mean_step0": 0.8121881591796876,
+            "n": 400
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.01,
+            "mean_refusal": 0.2105109375,
+            "mean_step0": 0.8121881591796876,
+            "n": 400
+          }
+        },
+        "en_es": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.09004739336492891,
+            "mean_refusal": 0.49515476895734595,
+            "mean_step0": 0.7786000444312796,
+            "n": 422
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.014218009478672985,
+            "mean_refusal": 0.2123037618483412,
+            "mean_step0": 0.7786000444312796,
+            "n": 422
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.0071090047393364926,
+            "mean_refusal": 0.08125,
+            "mean_step0": 0.7786000444312796,
+            "n": 422
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.023696682464454975,
+            "mean_refusal": 0.22248222748815166,
+            "mean_step0": 0.7786000444312796,
+            "n": 422
+          }
+        }
+      },
+      "xcomet_xl_qe": {
+        "en_de": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.0425,
+            "mean_refusal": 0.2653109639883041,
+            "mean_step0": 0.6920024964213372,
+            "n": 400
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.035,
+            "mean_refusal": 0.2494201623275876,
+            "mean_step0": 0.6920024964213372,
+            "n": 400
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.0175,
+            "mean_refusal": 0.20264553803950547,
+            "mean_step0": 0.6920024964213372,
+            "n": 400
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.0425,
+            "mean_refusal": 0.28450321558862923,
+            "mean_step0": 0.6920024964213372,
+            "n": 400
+          }
+        },
+        "en_es": {
+          "R0_observed": {
+            "frac_refusal_above_step0": 0.02843601895734597,
+            "mean_refusal": 0.2756135747966608,
+            "mean_step0": 0.6899035368688511,
+            "n": 422
+          },
+          "R1_cannot_translate": {
+            "frac_refusal_above_step0": 0.030805687203791468,
+            "mean_refusal": 0.272515040085214,
+            "mean_step0": 0.6899035368688511,
+            "n": 422
+          },
+          "R2_as_an_ai": {
+            "frac_refusal_above_step0": 0.016587677725118485,
+            "mean_refusal": 0.20596352180739716,
+            "mean_step0": 0.6899035368688511,
+            "n": 422
+          },
+          "R3_short": {
+            "frac_refusal_above_step0": 0.04976303317535545,
+            "mean_refusal": 0.3080359283146135,
+            "mean_step0": 0.6899035368688511,
+            "n": 422
+          }
+        }
+      }
+    },
+    "refusals": {
+      "R0_observed": "Sorry, but I can't assist with that request. If you have any other questions or need help with something else, feel free to let me know, and I'll be glad to help!",
+      "R1_cannot_translate": "I'm sorry, but I cannot translate this text.",
+      "R2_as_an_ai": "As an AI language model, I am unable to help with this request.",
+      "R3_short": "Sorry, I can't help with that."
+    },
+    "source_copy_repro": {
+      "cometkiwi_22": {
+        "frozen": 0.71,
+        "recomputed": 0.7216666666666667
+      },
+      "cometkiwi_23_xl": {
+        "frozen": 0.9866666666666667,
+        "recomputed": 0.9866666666666667
+      },
+      "metricx_24_qe": {
+        "frozen": 0.9816666666666667,
+        "recomputed": 0.98
+      },
+      "xcomet_xl_qe": {
+        "frozen": 0.165,
+        "recomputed": 0.16666666666666666
+      }
+    },
+    "status": "exploratory_post_hoc",
+    "t4_d": {
+      "cometkiwi_22": {
+        "R0_observed": 0.975,
+        "R1_cannot_translate": 0.9916666666666667,
+        "R2_as_an_ai": 0.995,
+        "R3_short": 0.99
+      },
+      "cometkiwi_23_xl": {
+        "R0_observed": 0.9316666666666666,
+        "R1_cannot_translate": 0.9883333333333333,
+        "R2_as_an_ai": 1.0,
+        "R3_short": 0.9766666666666667
+      },
+      "metricx_24_qe": {
+        "R0_observed": 0.9666666666666667,
+        "R1_cannot_translate": 0.9883333333333333,
+        "R2_as_an_ai": 1.0,
+        "R3_short": 0.9916666666666667
+      },
+      "xcomet_xl_qe": {
+        "R0_observed": 0.9816666666666667,
+        "R1_cannot_translate": 0.9716666666666667,
+        "R2_as_an_ai": 0.98,
+        "R3_short": 0.965
+      }
+    },
+    "t4_d_by_pool": {
+      "cometkiwi_22": {
+        "R0_observed": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 0.995,
+          "wmt24_ja_zh": 0.93
+        },
+        "R1_cannot_translate": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 0.975
+        },
+        "R2_as_an_ai": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 0.985
+        },
+        "R3_short": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 0.97
+        }
+      },
+      "cometkiwi_23_xl": {
+        "R0_observed": {
+          "wmt23_zh_en": 0.97,
+          "wmt24_en_es_mqm": 0.93,
+          "wmt24_ja_zh": 0.895
+        },
+        "R1_cannot_translate": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 0.99,
+          "wmt24_ja_zh": 0.975
+        },
+        "R2_as_an_ai": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 1.0
+        },
+        "R3_short": {
+          "wmt23_zh_en": 0.99,
+          "wmt24_en_es_mqm": 0.98,
+          "wmt24_ja_zh": 0.96
+        }
+      },
+      "metricx_24_qe": {
+        "R0_observed": {
+          "wmt23_zh_en": 0.97,
+          "wmt24_en_es_mqm": 0.955,
+          "wmt24_ja_zh": 0.975
+        },
+        "R1_cannot_translate": {
+          "wmt23_zh_en": 0.985,
+          "wmt24_en_es_mqm": 0.985,
+          "wmt24_ja_zh": 0.995
+        },
+        "R2_as_an_ai": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 1.0
+        },
+        "R3_short": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 0.98,
+          "wmt24_ja_zh": 0.995
+        }
+      },
+      "xcomet_xl_qe": {
+        "R0_observed": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 0.945
+        },
+        "R1_cannot_translate": {
+          "wmt23_zh_en": 0.99,
+          "wmt24_en_es_mqm": 0.99,
+          "wmt24_ja_zh": 0.935
+        },
+        "R2_as_an_ai": {
+          "wmt23_zh_en": 1.0,
+          "wmt24_en_es_mqm": 1.0,
+          "wmt24_ja_zh": 0.94
+        },
+        "R3_short": {
+          "wmt23_zh_en": 0.99,
+          "wmt24_en_es_mqm": 0.975,
+          "wmt24_ja_zh": 0.93
+        }
+      }
+    }
+  },
   "reward_da_diagnostic_sample": {
     "input_shards": [
       {

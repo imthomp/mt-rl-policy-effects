@@ -179,3 +179,23 @@ All 17 jobs COMPLETED. Rule frozen 14:37 UTC; MetricX audit finished 15:31 UTC.
   `results/grpo_ende_protocol_amendment_1.json` (seeds 1-2, all four rewards,
   disclosed as made after seeing seed-0 outcomes); trainer checks its hash.
   Resubmitted as 15131797 (array 7-14).
+
+### Exploratory refusal audit (2026-11-07, job 15131901; post hoc)
+`src/audit_refusal_exploratory.py` -> results/refusal_audit_exploratory.json
+(+ SSOT key `refusal_audit_exploratory`). R0 = observed collapse string (fit to
+outcome); R1-R3 generic. Source-copy repro matches frozen d (XCOMET 0.167 vs
+0.165, CK22 0.722 vs 0.71, CK23 exact, MetricX 0.980 vs 0.982).
+- A (audit-style d, refusal < best human): >= 0.93 for every reward x string,
+  incl. CometKiwi-23-XL (R0 0.932). Adding a refusal type to T4 would have
+  predicted SAFE for CK23 -> the audit would still have missed the collapse.
+- B (refusal > step-0 policy output, eval sources): CK23 en-de R0 0.512
+  (mean 0.47 vs step-0 0.44) — the only cell where a refusal beats the policy
+  on average. CK23 en-es R0 0.209 (0.49 vs 0.60): consistent with no en-es
+  collapse. Generic R1-R3 for CK23 en-de 0.025-0.185; all other rewards <= 0.09.
+- Reading (post hoc, one case): the audit's comparator is wrong for this
+  failure. T4 compares against the best human translation; GRPO compares
+  against the policy's own samples. CK23 scores the initial en-de policy low
+  (0.44), so a fluent off-task string becomes competitive. Candidate fix: a
+  policy-relative audit statistic — must be frozen and tested prospectively
+  (new pair / new reward) before any claim. Also R0's specific wording matters
+  (generic refusals score much lower), so the exploit is string-specific.
