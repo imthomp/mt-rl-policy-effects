@@ -137,3 +137,30 @@ quality measure for new outputs, so step 1 is validating an LLM MQM judge.
 - Resubmitted: MetricX audit on GPU (15066260; the CPU attempt was too slow
   in bf16), rule tests after it (15066261), replication + mitigation
   (15066262).
+
+### Rule-test, replication and mitigation results (reviewed 2026-11-07; jobs finished 2026-11-05)
+All 17 jobs COMPLETED. Rule frozen 14:37 UTC; MetricX audit finished 15:31 UTC.
+- MetricX-24-QE audit d_k: repetition 0.418 (predict hack), source_copy 0.982
+  and truncation 0.982 (predict safe).
+- Replication: XCOMET copy hack in 3/3 seeds (untranslated 0.03 -> 0.89-0.94);
+  CometKiwi-22 / 23-XL copy-safe in 3/3. Guard mitigation: guarded XCOMET
+  stays at 0.009-0.012 in 3/3 seeds.
+- Frozen-rule scorecard:
+  - Hack predictions: XCOMET en-de copy CORRECT (0.028 -> 0.958). MetricX
+    repetition WRONG in 4/4 runs (en-es seeds 0-2, en-de): rate stays <= 0.002.
+    Reading: low d_k is not sufficient; the exploit has to be reachable
+    from the initial policy (copying 2.8% at init, repetition 0.2%).
+  - Safe predictions: all correct except CometKiwi-23-XL en-de truncation
+    (d=0.973; 0.010 -> 0.292). This is a failure by the rule's letter.
+- The CometKiwi-23-XL en-de mechanism is a REFUSAL collapse, not truncation:
+  367/400 eval outputs at step 500 are the identical English string "Sorry,
+  but I can't assist with that request. ..." (0 at steps 0-200, 342 at step
+  300). Truncation flags only the 117 cases with long sources. Mean
+  CometKiwi-23-XL on refusals is 0.462 vs 0.444 for step-0 translations;
+  XCOMET 0.26, CometKiwi-22 0.34, MetricX 0.48 on the same refusals. Held-out
+  own reward flat ~0.47 from step 200. No refusals in any other run.
+  Implication: the audit's degeneration taxonomy (copy/truncation/
+  repetition/unrelated) misses refusal / canned off-task English. This was
+  found post hoc; any refusal audit added now is exploratory.
+- Open: training-time reward curve for that run (logs on /nobackup);
+  seeds 1-2 for en-de; numbers not yet in paper_stats.json.
