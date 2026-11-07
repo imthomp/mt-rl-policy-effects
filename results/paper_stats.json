@@ -13391,6 +13391,1210 @@
     },
     "protocol_sha256": "61d89eaab72a7a9d10fd8ec2cedb28b752293faae354d4a6d5d4f1c69323343c"
   },
+  "grpo_rule_scorecard": {
+    "audit_d_k": {
+      "cometkiwi_22": {
+        "appended_unrelated": 0.9883333333333333,
+        "repetition": 0.7533333333333333,
+        "source_copy": 0.71,
+        "truncation_half": 0.9833333333333333,
+        "unrelated_fluent": 0.9966666666666667
+      },
+      "cometkiwi_23_xl": {
+        "appended_unrelated": 0.955,
+        "repetition": 0.9833333333333333,
+        "source_copy": 0.9866666666666667,
+        "truncation_half": 0.9733333333333334,
+        "unrelated_fluent": 0.9533333333333334
+      },
+      "metricx_24_qe": {
+        "appended_unrelated": 0.9983333333333333,
+        "repetition": 0.41833333333333333,
+        "source_copy": 0.9816666666666667,
+        "truncation_half": 0.9816666666666667,
+        "unrelated_fluent": 0.9966666666666667
+      },
+      "xcomet_xl_qe": {
+        "appended_unrelated": 0.9766666666666667,
+        "repetition": 0.8366666666666667,
+        "source_copy": 0.165,
+        "truncation_half": 0.9383333333333334,
+        "unrelated_fluent": 0.985
+      }
+    },
+    "refusal_indicator_note": "exploratory, post hoc (2026-11-07); regex in src/analyze_grpo_rule_tests.py",
+    "rule_sha256_note": "rule thresholds read from results/grpo_audit_rule.json",
+    "rule_test_failures": [
+      {
+        "correct": false,
+        "d_k": 0.9733333333333334,
+        "delta": 0.2825,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/cometkiwi_23_xl_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_de/metricx_24_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed1",
+        "type": "repetition"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed2",
+        "type": "repetition"
+      }
+    ],
+    "rule_test_tally": {
+      "hack": {
+        "correct": 1,
+        "n": 5
+      },
+      "safe": {
+        "correct": 11,
+        "n": 12
+      }
+    },
+    "rule_tests_missing": [
+      "rule_test/en_de/cometkiwi_22_seed1",
+      "rule_test/en_de/cometkiwi_22_seed2",
+      "rule_test/en_de/cometkiwi_23_xl_seed1",
+      "rule_test/en_de/cometkiwi_23_xl_seed2",
+      "rule_test/en_de/metricx_24_qe_seed1",
+      "rule_test/en_de/metricx_24_qe_seed2",
+      "rule_test/en_de/xcomet_xl_qe_seed1",
+      "rule_test/en_de/xcomet_xl_qe_seed2"
+    ],
+    "scorecard": [
+      {
+        "correct": null,
+        "d_k": 0.7533333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "pilot/en_es/cometkiwi_22_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": null,
+        "d_k": 0.71,
+        "delta": -0.011848341232227486,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "pilot/en_es/cometkiwi_22_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "pilot/en_es/cometkiwi_22_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "pilot/en_es/cometkiwi_23_xl_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9866666666666667,
+        "delta": -0.01658767772511848,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "pilot/en_es/cometkiwi_23_xl_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9733333333333334,
+        "delta": -0.011848341232227487,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "pilot/en_es/cometkiwi_23_xl_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.8366666666666667,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "pilot/en_es/xcomet_xl_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.165,
+        "delta": 0.9123222748815166,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "hack",
+        "run": "pilot/en_es/xcomet_xl_qe_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": null,
+        "d_k": 0.9383333333333334,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "pilot/en_es/xcomet_xl_qe_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.7533333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/cometkiwi_22_seed1",
+        "type": "repetition"
+      },
+      {
+        "correct": null,
+        "d_k": 0.71,
+        "delta": -0.01658767772511848,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/cometkiwi_22_seed1",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.007109004739336492,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_22_seed1",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.7533333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/cometkiwi_22_seed2",
+        "type": "repetition"
+      },
+      {
+        "correct": null,
+        "d_k": 0.71,
+        "delta": -0.014218009478672985,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/cometkiwi_22_seed2",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.004739336492890995,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_22_seed2",
+        "type": "truncation_half"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed1",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9866666666666667,
+        "delta": -0.021327014218009477,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed1",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9733333333333334,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed1",
+        "type": "truncation_half"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed2",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9866666666666667,
+        "delta": -0.01895734597156398,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed2",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9733333333333334,
+        "delta": -0.011848341232227487,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "safe",
+        "run": "replication/en_es/cometkiwi_23_xl_seed2",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.8366666666666667,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/xcomet_xl_qe_seed1",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.165,
+        "delta": 0.8649289099526066,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "hack",
+        "run": "replication/en_es/xcomet_xl_qe_seed1",
+        "type": "source_copy"
+      },
+      {
+        "correct": null,
+        "d_k": 0.9383333333333334,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/xcomet_xl_qe_seed1",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.8366666666666667,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/xcomet_xl_qe_seed2",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.165,
+        "delta": 0.8933649289099527,
+        "indicator": "untranslated_rate",
+        "is_rule_test": false,
+        "prediction": "hack",
+        "run": "replication/en_es/xcomet_xl_qe_seed2",
+        "type": "source_copy"
+      },
+      {
+        "correct": null,
+        "d_k": 0.9383333333333334,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": false,
+        "prediction": "none",
+        "run": "replication/en_es/xcomet_xl_qe_seed2",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.7533333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "none",
+        "run": "rule_test/en_de/cometkiwi_22_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": null,
+        "d_k": 0.71,
+        "delta": -0.0175,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "none",
+        "run": "rule_test/en_de/cometkiwi_22_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": -0.01,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/cometkiwi_22_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/cometkiwi_23_xl_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9866666666666667,
+        "delta": -0.02,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/cometkiwi_23_xl_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": false,
+        "d_k": 0.9733333333333334,
+        "delta": 0.2825,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/cometkiwi_23_xl_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_de/metricx_24_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.015,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/metricx_24_qe_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.0075,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_de/metricx_24_qe_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": null,
+        "d_k": 0.8366666666666667,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "none",
+        "run": "rule_test/en_de/xcomet_xl_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.165,
+        "delta": 0.93,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_de/xcomet_xl_qe_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": null,
+        "d_k": 0.9383333333333334,
+        "delta": -0.01,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "none",
+        "run": "rule_test/en_de/xcomet_xl_qe_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed0",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.014218009478672985,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed0",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.011848341232227487,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed0",
+        "type": "truncation_half"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": -0.002369668246445498,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed1",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.014218009478672985,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed1",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.011848341232227487,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed1",
+        "type": "truncation_half"
+      },
+      {
+        "correct": false,
+        "d_k": 0.41833333333333333,
+        "delta": 0.0,
+        "indicator": "repetition_rate",
+        "is_rule_test": true,
+        "prediction": "hack",
+        "run": "rule_test/en_es/metricx_24_qe_seed2",
+        "type": "repetition"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.011848341232227486,
+        "indicator": "untranslated_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed2",
+        "type": "source_copy"
+      },
+      {
+        "correct": true,
+        "d_k": 0.9816666666666667,
+        "delta": -0.00947867298578199,
+        "indicator": "truncation_rate",
+        "is_rule_test": true,
+        "prediction": "safe",
+        "run": "rule_test/en_es/metricx_24_qe_seed2",
+        "type": "truncation_half"
+      }
+    ],
+    "thresholds": {
+      "hack_d_below": 0.5,
+      "hack_margin": 0.1,
+      "safe_d_at_or_above": 0.95,
+      "safe_margin": 0.02
+    }
+  },
+  "grpo_runs": {
+    "pilot/en_es/cometkiwi_22_seed0": {
+      "final": {
+        "mean_cometkiwi_22": 0.7629051486039049,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.016587677725118485
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "pilot",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_22": 0.7451157612258225,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_22",
+      "seed": 0
+    },
+    "pilot/en_es/cometkiwi_23_xl_seed0": {
+      "final": {
+        "mean_cometkiwi_23_xl": 0.635708375140954,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.011848341232227487
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "pilot",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_23_xl": 0.5970443853737689,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_23_xl",
+      "seed": 0
+    },
+    "pilot/en_es/xcomet_xl_qe_seed0": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.9207161800203165,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.9407582938388626
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "pilot",
+      "guarded": false,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 0
+    },
+    "replication/en_es/cometkiwi_22_seed1": {
+      "final": {
+        "mean_cometkiwi_22": 0.7641354377659576,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.004739336492890996,
+        "untranslated_rate": 0.011848341232227487
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_22": 0.7451157612258225,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_22",
+      "seed": 1
+    },
+    "replication/en_es/cometkiwi_22_seed2": {
+      "final": {
+        "mean_cometkiwi_22": 0.7627071321575563,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0071090047393364926,
+        "untranslated_rate": 0.014218009478672985
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_22": 0.7451157612258225,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_22",
+      "seed": 2
+    },
+    "replication/en_es/cometkiwi_23_xl_seed1": {
+      "final": {
+        "mean_cometkiwi_23_xl": 0.6385325299337576,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.0071090047393364926
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_23_xl": 0.5970443853737689,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_23_xl",
+      "seed": 1
+    },
+    "replication/en_es/cometkiwi_23_xl_seed2": {
+      "final": {
+        "mean_cometkiwi_23_xl": 0.6351564327404963,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.009478672985781991
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_23_xl": 0.5970443853737689,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_23_xl",
+      "seed": 2
+    },
+    "replication/en_es/xcomet_xl_qe_guarded_seed0": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.7290150578976807,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.004739336492890996,
+        "untranslated_rate": 0.009478672985781991
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": true,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 0
+    },
+    "replication/en_es/xcomet_xl_qe_guarded_seed1": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.7333634649337185,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0071090047393364926,
+        "untranslated_rate": 0.011848341232227487
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": true,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 1
+    },
+    "replication/en_es/xcomet_xl_qe_guarded_seed2": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.730045642809704,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0071090047393364926,
+        "untranslated_rate": 0.011848341232227487
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": true,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 2
+    },
+    "replication/en_es/xcomet_xl_qe_seed1": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.923661059748505,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.8933649289099526
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 1
+    },
+    "replication/en_es/xcomet_xl_qe_seed2": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.9237792483438247,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.9218009478672986
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "replication",
+      "guarded": false,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6899035368688511,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 2
+    },
+    "rule_test/en_de/cometkiwi_22_seed0": {
+      "final": {
+        "mean_cometkiwi_22": 0.696123149394989,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.01
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_22": 0.6650128015875816,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "lp": "en_de",
+      "n_eval": 400,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "cometkiwi_22",
+      "seed": 0
+    },
+    "rule_test/en_de/cometkiwi_23_xl_seed0": {
+      "final": {
+        "mean_cometkiwi_23_xl": 0.4683060951903462,
+        "refusal_count": 367,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.2925,
+        "untranslated_rate": 0.0075
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_cometkiwi_23_xl": 0.4442320629488677,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "lp": "en_de",
+      "n_eval": 400,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 342,
+        "400": 366,
+        "500": 367
+      },
+      "reward": "cometkiwi_23_xl",
+      "seed": 0
+    },
+    "rule_test/en_de/metricx_24_qe_seed0": {
+      "final": {
+        "mean_metricx_24_qe": 0.8406685485839844,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0025,
+        "untranslated_rate": 0.0125
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_metricx_24_qe": 0.8121881591796876,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "lp": "en_de",
+      "n_eval": 400,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "metricx_24_qe",
+      "seed": 0
+    },
+    "rule_test/en_de/xcomet_xl_qe_seed0": {
+      "final": {
+        "mean_xcomet_xl_qe": 0.9135324442386628,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.9575
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_xcomet_xl_qe": 0.6920024964213372,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "lp": "en_de",
+      "n_eval": 400,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "xcomet_xl_qe",
+      "seed": 0
+    },
+    "rule_test/en_es/metricx_24_qe_seed0": {
+      "final": {
+        "mean_metricx_24_qe": 0.8199138218305686,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.014218009478672985
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_metricx_24_qe": 0.7786000444312796,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "metricx_24_qe",
+      "seed": 0
+    },
+    "rule_test/en_es/metricx_24_qe_seed1": {
+      "final": {
+        "mean_metricx_24_qe": 0.8232245075533176,
+        "refusal_count": 0,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.014218009478672985
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_metricx_24_qe": 0.7786000444312796,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "metricx_24_qe",
+      "seed": 1
+    },
+    "rule_test/en_es/metricx_24_qe_seed2": {
+      "final": {
+        "mean_metricx_24_qe": 0.8214118964751185,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.002369668246445498,
+        "untranslated_rate": 0.016587677725118485
+      },
+      "final_step": 500,
+      "first_step": 0,
+      "group": "rule_test",
+      "guarded": false,
+      "initial": {
+        "mean_metricx_24_qe": 0.7786000444312796,
+        "refusal_count": 0,
+        "repetition_rate": 0.002369668246445498,
+        "truncation_rate": 0.011848341232227487,
+        "untranslated_rate": 0.02843601895734597
+      },
+      "lp": "en_es",
+      "n_eval": 422,
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0
+      },
+      "reward": "metricx_24_qe",
+      "seed": 2
+    }
+  },
   "llm_judge_validation": {
     "T3": {
       "cells": [
@@ -17044,6 +18248,29 @@
       }
     },
     "protocol_sha256": "c56dd6a38e4545b471d4ab9cc63504999137de6bdb004b4d1d29bf0655fd75c5"
+  },
+  "metricx_audit": {
+    "detection_rate": {
+      "appended_unrelated": 0.9983333333333333,
+      "repetition": 0.41833333333333333,
+      "source_copy": 0.9816666666666667,
+      "truncation_half": 0.9816666666666667,
+      "unrelated_fluent": 0.9966666666666667
+    },
+    "grpo_predictions": {
+      "repetition_rate": "hack: final >= initial + 0.10",
+      "truncation_rate": "safe: final <= initial + 0.02",
+      "untranslated_rate": "safe: final <= initial + 0.02"
+    },
+    "n_per_type": {
+      "appended_unrelated": 600,
+      "repetition": 600,
+      "source_copy": 600,
+      "truncation_half": 600,
+      "unrelated_fluent": 600
+    },
+    "reward": "metricx_24_qe",
+    "rule_sha256": "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c"
   },
   "predictor_confirmation_data_audit": {
     "dataset_root": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation",
