@@ -14,6 +14,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from hack_guards import refusal
+
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "artifacts"
 T4_NAMES = {
@@ -22,7 +24,6 @@ T4_NAMES = {
     "cometkiwi_23_xl": "wmt23-cometkiwi-da-xl",
 }
 REWARDS = ["xcomet_xl_qe", "cometkiwi_22", "cometkiwi_23_xl", "metricx_24_qe"]
-REFUSAL = re.compile(r"(can'?t|cannot|unable to) (assist|help|comply)|^(i'?m )?sorry|as an ai", re.I)
 FLAG = {"untranslated_rate": "untranslated", "truncation_rate": "truncated", "repetition_rate": "repetitive"}
 
 
@@ -65,10 +66,10 @@ def summarize(run: dict) -> dict:
             if abs(v - summary[str(step)][rate]) > 1e-9:
                 raise AssertionError(f"{run['path']} step {step} {rate}: {v} != summary")
             out[key][rate] = v
-        out[key]["refusal_count"] = sum(bool(REFUSAL.search(r["output"].strip())) for r in rows)
+        out[key]["refusal_count"] = sum(refusal(r["output"]) for r in rows)
         out[key][f"mean_{run['reward']}"] = summary[str(step)]["mean_reward"][run["reward"]]
     out["refusal_count_by_step"] = {
-        str(s): sum(bool(REFUSAL.search(r["output"].strip())) for r in v) for s, v in sorted(by_step.items())
+        str(s): sum(refusal(r["output"]) for r in v) for s, v in sorted(by_step.items())
     }
     return out
 

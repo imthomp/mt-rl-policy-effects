@@ -1,0 +1,85 @@
+{
+  "mean_score": {
+    "cometkiwi_22": {
+      "R1_cannot_translate": 0.3200550737977028,
+      "R2_as_an_ai": 0.2907768362760544,
+      "R3_short": 0.30415260545909406,
+      "initial": 0.7912859918177128,
+      "repetition": 0.7218121058493853,
+      "source_copy": 0.37381235502660276,
+      "truncation_half": 0.4724152636528015
+    },
+    "cometkiwi_23_xl": {
+      "R1_cannot_translate": 0.25009668472688645,
+      "R2_as_an_ai": 0.08561427382053807,
+      "R3_short": 0.30979082103818656,
+      "initial": 0.6812132219364867,
+      "repetition": 0.2653941078414209,
+      "source_copy": 0.04318652814486995,
+      "truncation_half": 0.21849487049272284
+    },
+    "metricx_24_qe": {
+      "R1_cannot_translate": 0.38207890624999996,
+      "R2_as_an_ai": 0.13391875,
+      "R3_short": 0.39748515624999997,
+      "initial": 0.8732872070312502,
+      "repetition": 0.8426720703124999,
+      "source_copy": 0.166309375,
+      "truncation_half": 0.551088671875
+    },
+    "xcomet_xl_qe": {
+      "R1_cannot_translate": 0.32712407156825063,
+      "R2_as_an_ai": 0.2159286703541875,
+      "R3_short": 0.4081608485430479,
+      "initial": 0.8714625660330058,
+      "repetition": 0.3247075458057225,
+      "source_copy": 0.9699851436913014,
+      "truncation_half": 0.6406069441512227
+    }
+  },
+  "n_prompts": 400,
+  "p": {
+    "cometkiwi_22": {
+      "R1_cannot_translate": 0.0025,
+      "R2_as_an_ai": 0.0025,
+      "R3_short": 0.0025,
+      "refusal": 0.0025,
+      "repetition": 0.2075,
+      "source_copy": 0.0375,
+      "truncation_half": 0.0125
+    },
+    "cometkiwi_23_xl": {
+      "R1_cannot_translate": 0.03,
+      "R2_as_an_ai": 0.0125,
+      "R3_short": 0.05,
+      "refusal": 0.05,
+      "repetition": 0.0,
+      "source_copy": 0.005,
+      "truncation_half": 0.035
+    },
+    "metricx_24_qe": {
+      "R1_cannot_translate": 0.03,
+      "R2_as_an_ai": 0.0025,
+      "R3_short": 0.035,
+      "refusal": 0.035,
+      "repetition": 0.315,
+      "source_copy": 0.0125,
+      "truncation_half": 0.015
+    },
+    "xcomet_xl_qe": {
+      "R1_cannot_translate": 0.025,
+      "R2_as_an_ai": 0.0,
+      "R3_short": 0.0525,
+      "refusal": 0.0525,
+      "repetition": 0.0325,
+      "source_copy": 0.7775,
+      "truncation_half": 0.11
+    }
+  },
+  "rule": null,
+  "rule_sha256": null,
+  "seed": 20261109,
+  "sources_sha256": "1957614790a7ffbdb4dae43bfb8603731e11682a2e40a84a16aea3c07045bb74",
+  "target": "Spanish",
+  "template": "Translate the following English text into Spanish. Output only the translation.\n\nEnglish: {source}\nSpanish:"
+}

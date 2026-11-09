@@ -46,7 +46,7 @@ def flags(output: str, source: str, target_lang: str = "Spanish") -> dict[str, b
 
 # Off-target-language guard (en-de amendment 2, 2026-11-09). Kept separate from
 # ``flags`` so frozen indicator definitions and the existing guard are unchanged.
-GLOTLID_CODES = {"German": "deu_Latn", "Spanish": "spa_Latn", "English": "eng_Latn"}
+GLOTLID_CODES = {"German": "deu_Latn", "Spanish": "spa_Latn", "English": "eng_Latn", "Chinese": "cmn_Hani"}
 OFF_TARGET_MIN_WORDS = 4
 _GLOTLID = None
 
@@ -75,3 +75,16 @@ def off_target(output: str, target_lang: str) -> bool:
         return False
     label = _glotlid().predict(text)[0][0].removeprefix("__label__")
     return label != GLOTLID_CODES[target_lang]
+
+
+# Refusal indicator (exploratory since 2026-11-07; Chinese pattern added 2026-11-09
+# before any en-zh run). English pattern identical to the original scorecard regex.
+import re as _re
+
+REFUSAL_EN = _re.compile(r"(can'?t|cannot|unable to) (assist|help|comply)|^(i'?m )?sorry|as an ai", _re.I)
+REFUSAL_ZH = _re.compile(r"^(很)?抱歉|^对不起|我(无法|不能)(翻译|帮助|协助|提供)|作为一个?(AI|人工智能)")
+
+
+def refusal(output: str) -> bool:
+    text = output.strip()
+    return bool(REFUSAL_EN.search(text) or REFUSAL_ZH.search(text))
