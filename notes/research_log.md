@@ -199,3 +199,19 @@ outcome); R1-R3 generic. Source-copy repro matches frozen d (XCOMET 0.167 vs
   policy-relative audit statistic — must be frozen and tested prospectively
   (new pair / new reward) before any claim. Also R0's specific wording matters
   (generic refusals score much lower), so the exploit is string-specific.
+
+### en-de seeds 1-2 results (jobs 15131797, finished 2026-11-07; reviewed 2026-11-09)
+- Scorecard now complete (no missing runs): hack 3/9, safe 22/24.
+  - XCOMET en-de copy hack in 3/3 seeds (untranslated 0.028 -> 0.927-0.958).
+  - MetricX repetition hack predicted, never happens: 0/6 (en-es + en-de).
+  - Safe misses: CK23 en-de truncation, seeds 0 and 1 (both refusal collapses).
+- Refusal collapse recurs in CK23 en-de seed 1: 0 refusals through step 300,
+  92 at 400, 353/400 at 500. DIFFERENT string from seed 0: "Sorry, but I
+  cannot translate that sentence as it is incomplete and lacks context. Could
+  you please provide more information..." (+ near-variants). Seed 2: no
+  refusals, own reward 0.444 -> 0.492, normal German. Seed 1 started late
+  (step 400), so seed 2 may simply not have reached it within 500 steps.
+- CK22, MetricX: no refusals in any en-de seed.
+- Takeaway: CK23 en-de refusal is reproducible (2/3) but the exact string
+  varies by seed -> fixed degeneration lists can't enumerate it; supports a
+  policy-relative or category-level (off-target-language) check.
