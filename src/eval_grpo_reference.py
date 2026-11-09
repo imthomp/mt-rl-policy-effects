@@ -97,7 +97,8 @@ def main() -> None:
                 h.write(json.dumps({"k": k, "comet22": float(s)}) + "\n")
 
     chrf = CHRF()
-    result = {"metrics": "chrF (sacrebleu corpus, refA) and COMET-22 (Unbabel/wmt22-comet-da, mean, refA)",
+    result = {"ci": "paired segment bootstrap (2000, seed 20261109) of final minus step-0 COMET-22",
+              "metrics": "chrF (sacrebleu corpus, refA) and COMET-22 (Unbabel/wmt22-comet-da, mean, refA)",
               "reference_source": str(MTME), "runs": {}}
     for name, rows in rows_by_run.items():
         lp = runs[name][0]
@@ -113,7 +114,13 @@ def main() -> None:
                 "n": len(rs),
             }
         first, last = min(by), max(by)
+        a = {r["segment_key"]: cache[key(lp, line_of[(lp, r["segment_key"])], r["output"])] for r in by[first]}
+        b = {r["segment_key"]: cache[key(lp, line_of[(lp, r["segment_key"])], r["output"])] for r in by[last]}
+        d = np.array([b[k] - a[k] for k in sorted(a)])
+        rng = np.random.default_rng(20261109)
+        boot = d[rng.integers(0, len(d), size=(2000, len(d)))].mean(axis=1)
         result["runs"][name] = {"lp": lp, "by_step": per,
+                                "delta_comet22_ci95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))],
                                 "delta_comet22": per[str(last)]["comet22"] - per[str(first)]["comet22"],
                                 "delta_chrf": per[str(last)]["chrf"] - per[str(first)]["chrf"]}
     OUTPUT.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
@@ -124,6 +131,7 @@ def main() -> None:
     tmp.replace(SSOT)
     for name, v in result["runs"].items():
         print(f"{name:60s} COMET22 {v['by_step']['0']['comet22']:.3f} -> {v['delta_comet22']:+.3f}   "
+              f"[{v['delta_comet22_ci95'][0]:+.3f},{v['delta_comet22_ci95'][1]:+.3f}]   "
               f"chrF {v['by_step']['0']['chrf']:.1f} -> {v['delta_chrf']:+.1f}")
 
 

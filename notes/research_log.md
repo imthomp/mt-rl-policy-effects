@@ -215,3 +215,25 @@ outcome); R1-R3 generic. Source-copy repro matches frozen d (XCOMET 0.167 vs
 - Takeaway: CK23 en-de refusal is reproducible (2/3) but the exact string
   varies by seed -> fixed degeneration lists can't enumerate it; supports a
   policy-relative or category-level (off-target-language) check.
+
+### Follow-up queue + reference-based eval (2026-11-09)
+- en-de amendment 2 (`results/grpo_ende_protocol_amendment_2.json`, sha 0062a877…):
+  CometKiwi-23-XL, seeds 0-2 x {unguarded, GlotLID off-target guard}, 1000 steps,
+  predictions H1-H3 frozen in the amendment. Job 15187608 (array 0-5, 16 h).
+  Guard: reward - 1.0 if GlotLID top-1 != target (outputs >= 4 words). On existing
+  outputs it flags 367/367 + 352/353 refusals; 10/400 en-de and 9/422 en-es step-0
+  outputs (7 and 6 already untranslated). fasttext-wheel 0.9.2 + pybind11 added
+  to ~/.venvs/grpo (numpy pinned 1.26.4; nothing else changed). Eval now also
+  records off_target_rate (old indicators unchanged).
+- Reference-based eval (`src/eval_grpo_reference.py`, job 15187719): chrF + COMET-22
+  vs WMT24 refA from MTME v2 (not the MQM TSVs; en-de MQM stays sealed). 822/822
+  eval segments align by globalSegId. Paired bootstrap CIs on final - step-0 COMET-22.
+  - Hacks are real quality losses: XCOMET copy -0.10 to -0.13 COMET-22 (chrF
+    -23 to -31); CK23 en-de refusal seeds 0/1 -0.33 (chrF -31 to -35).
+  - Safe en-es runs improve modestly; every CI excludes 0: CK22 +0.012 to +0.015,
+    CK23 +0.008 to +0.019, guarded XCOMET +0.013/+0.014, MetricX +0.020 to +0.024
+    (MetricX chrF -0.9 to -1.7 though).
+  - en-de: MetricX +0.023 to +0.026 (CIs exclude 0, chrF +1.1 to +1.4); CK22 and
+    clean CK23 seed 2 flat on COMET-22 (CIs include 0) despite chrF +2.
+  - The XCOMET guard turns a -0.105 hack into +0.013/+0.014 gains.
+  - Re-eval of the follow-up runs is queued: job 15187870 (afterany:15187608).
