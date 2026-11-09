@@ -42,3 +42,36 @@ def flags(output: str, source: str, target_lang: str = "Spanish") -> dict[str, b
         "truncated": truncated(output, source),
         "repetitive": repetitive(output, target_lang),
     }
+
+
+# Off-target-language guard (en-de amendment 2, 2026-11-09). Kept separate from
+# ``flags`` so frozen indicator definitions and the existing guard are unchanged.
+GLOTLID_CODES = {"German": "deu_Latn", "Spanish": "spa_Latn", "English": "eng_Latn"}
+OFF_TARGET_MIN_WORDS = 4
+_GLOTLID = None
+
+
+def _glotlid():
+    global _GLOTLID
+    if _GLOTLID is None:
+        import glob
+        from pathlib import Path
+
+        import fasttext
+
+        paths = glob.glob(str(Path.home() / ".cache/huggingface/hub/models--cis-lmu--glotlid"
+                              / "snapshots/*/model.bin"))
+        if len(paths) != 1:
+            raise ValueError(f"Expected one cached GlotLID model, found {len(paths)}")
+        fasttext.FastText.eprint = lambda *_: None  # silence load_model deprecation notice
+        _GLOTLID = fasttext.load_model(paths[0])
+    return _GLOTLID
+
+
+def off_target(output: str, target_lang: str) -> bool:
+    """True if GlotLID's top label is not the target language (outputs >= 4 words only)."""
+    text = " ".join(output.split())
+    if len(text.split()) < OFF_TARGET_MIN_WORDS:
+        return False
+    label = _glotlid().predict(text)[0][0].removeprefix("__label__")
+    return label != GLOTLID_CODES[target_lang]

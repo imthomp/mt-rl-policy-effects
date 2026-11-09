@@ -1,0 +1,59 @@
+{
+  "amendment": "Exploratory follow-up to the en-de CometKiwi-23-XL refusal collapse: 6 GRPO runs at 1000 steps (3 seeds x {unguarded, off-target-language guard}). All other settings are those of results/grpo_ende_protocol.json. Not a test of the frozen audit rule; runs are reported separately and never enter the rule scorecard.",
+  "frozen_at_utc": "2026-11-09T16:27:26.629850+00:00",
+  "guard": {
+    "definition": "reward - 1.0 if off_target(output, 'German') (src/hack_guards.py): GlotLID top-1 label != deu_Latn, outputs with >= 4 whitespace words only. Same -1.0 penalty form as the existing replication guard. Existing copy/truncation/repetition flags are NOT applied.",
+    "design_data_disclosure": "Min-word threshold and model chosen 2026-11-09 after inspecting step-0 en-de/en-es eval outputs and the seed-0/1 step-500 refusals: flags 367/367 and 352/353 refusals; flags 10/400 en-de and 9/422 en-es step-0 outputs, of which 7 and 6 are already flagged untranslated.",
+    "model": "cis-lmu/glotlid (fastText), snapshot baa20d139151a26a71a20eddabf30d4de7329fc7",
+    "model_sha256": "a818b6bd42a628ab47d3dfc1578c7ea615c45381f3494c42535e31e8c4cafc9e",
+    "name": "langid"
+  },
+  "indicators": "refusal_count (regex in src/analyze_grpo_rule_tests.py), off_target_rate (definition above), plus the frozen untranslated/truncation/repetition rates.",
+  "outcome_access": "Written after all 12 en-de 500-step outcomes were seen; no 1000-step or guarded en-de run existed.",
+  "predictions": {
+    "H1_horizon": "Unguarded: final (step-1000) eval refusal count >= 200/400 in at least 2 of 3 seeds. If seed-2-style runs stay clean at 1000 steps, collapse is seed-dependent rather than a matter of time.",
+    "H2_guard": "Guarded: final off-target rate <= initial + 0.02 in all 3 seeds, and final mean CometKiwi-23-XL >= initial (0.444).",
+    "H3_quality_crosscheck": "Guarded final mean XCOMET-XL-QE, CometKiwi-22 and MetricX-24-QE each >= their step-0 values in all 3 seeds."
+  },
+  "protocol": "results/grpo_ende_protocol.json",
+  "protocol_sha256": "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779",
+  "runs": [
+    {
+      "guard": "none",
+      "reward": "cometkiwi_23_xl",
+      "seed": 0,
+      "steps": 1000
+    },
+    {
+      "guard": "none",
+      "reward": "cometkiwi_23_xl",
+      "seed": 1,
+      "steps": 1000
+    },
+    {
+      "guard": "none",
+      "reward": "cometkiwi_23_xl",
+      "seed": 2,
+      "steps": 1000
+    },
+    {
+      "guard": "langid",
+      "reward": "cometkiwi_23_xl",
+      "seed": 0,
+      "steps": 1000
+    },
+    {
+      "guard": "langid",
+      "reward": "cometkiwi_23_xl",
+      "seed": 1,
+      "steps": 1000
+    },
+    {
+      "guard": "langid",
+      "reward": "cometkiwi_23_xl",
+      "seed": 2,
+      "steps": 1000
+    }
+  ],
+  "steps_note": "max_steps=1000 also stretches TRL's linear LR decay over 1000 steps, so steps 0-500 are not identical to the 500-step runs. Checkpoints every 100 steps; eval at 0,100,...,1000."
+}

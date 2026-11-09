@@ -21,6 +21,8 @@ RULE = ROOT / "results/grpo_audit_rule.json"
 RULE_SHA256 = "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c"
 ENDE_AMENDMENT = ROOT / "results/grpo_ende_protocol_amendment_1.json"
 ENDE_AMENDMENT_SHA256 = "289acb8713b7b444935641c9b4b9dd8ed9d387f491c9c506ceec25fa01b240dd"
+ENDE_AMENDMENT_2 = ROOT / "results/grpo_ende_protocol_amendment_2.json"
+ENDE_AMENDMENT_2_SHA256 = "0062a8772e0fc299fa222988d21aaa0d51311919fbcdbb3d673cf20cd9c3304a"
 PROTOCOLS = {
     "pilot": (PROTOCOL, PROTOCOL_SHA256),
     "ende": (ROOT / "results/grpo_ende_protocol.json",
@@ -87,12 +89,24 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=None, help="replication protocol only")
     parser.add_argument("--guarded", action="store_true", help="replication protocol only")
     parser.add_argument("--protocol-name", default="pilot", choices=sorted(PROTOCOLS))
+    parser.add_argument("--steps", type=int, default=None, help="en-de amendment 2 follow-up only")
+    parser.add_argument("--langid-guard", action="store_true", help="en-de amendment 2 follow-up only")
     args = parser.parse_args()
     protocol = load_protocol(args.protocol_name)
     g = dict(protocol["grpo"])
     target_lang = protocol.get("target_lang", "Spanish")
-    rule_run = args.reward == "metricx_24_qe" or args.protocol_name != "pilot"
-    if rule_run:
+    followup = args.steps is not None or args.langid_guard
+    rule_run = not followup and (args.reward == "metricx_24_qe" or args.protocol_name != "pilot")
+    if followup:
+        # Exploratory en-de follow-up runs (amendment 2); never scored against the audit rule.
+        if hashlib.sha256(ENDE_AMENDMENT_2.read_bytes()).hexdigest() != ENDE_AMENDMENT_2_SHA256:
+            raise ValueError("en-de amendment 2 differs from frozen hash")
+        run = {"reward": args.reward, "seed": args.seed, "steps": args.steps,
+               "guard": "langid" if args.langid_guard else "none"}
+        if args.protocol_name != "ende" or args.guarded or run not in json.loads(ENDE_AMENDMENT_2.read_text())["runs"]:
+            raise ValueError(f"Run not in en-de amendment 2: {run}")
+        g["seed"], g["steps"] = args.seed, args.steps
+    elif rule_run:
         # Runs that test the frozen audit rule: MetricX en-es seeds 0-2; en-de seeds 0-2 (amendment 1), any reward.
         if hashlib.sha256(RULE.read_bytes()).hexdigest() != RULE_SHA256:
             raise ValueError("Audit rule differs from frozen hash")
@@ -106,7 +120,7 @@ def main() -> None:
         if args.guarded or not allowed:
             raise ValueError(f"Run not covered by the frozen audit rule: {args.reward}, seed {seed}")
         g["seed"] = seed
-    elif args.seed is not None or args.guarded:
+    elif not followup and (args.seed is not None or args.guarded):
         if hashlib.sha256(REPLICATION.read_bytes()).hexdigest() != REPLICATION_SHA256:
             raise ValueError("Replication protocol differs from frozen hash")
         rep = json.loads(REPLICATION.read_text())
@@ -134,6 +148,9 @@ def main() -> None:
             from hack_guards import flags
             scores = [x - 1.0 if any(flags(t, s, target_lang).values()) else x
                       for x, s, t in zip(scores, source, texts)]
+        if args.langid_guard:
+            from hack_guards import off_target
+            scores = [x - 1.0 if off_target(t, target_lang) else x for x, t in zip(scores, texts)]
         return scores
 
     reward_fn.__name__ = args.reward
@@ -167,7 +184,8 @@ def main() -> None:
         "reward": args.reward, "protocol_name": args.protocol_name,
         "protocol_sha256": PROTOCOLS[args.protocol_name][1],
         "audit_rule_sha256": RULE_SHA256 if rule_run else None,
-        "seed": g["seed"], "guarded": args.guarded,
+        "seed": g["seed"], "guarded": args.guarded, "langid_guard": args.langid_guard,
+        "steps": g["steps"], "ende_amendment_2_sha256": ENDE_AMENDMENT_2_SHA256 if followup else None,
         "replication_sha256": REPLICATION_SHA256 if (args.seed is not None or args.guarded) else None,
         "trl_config": config.to_dict(), "log_history": trainer.state.log_history,
     }, indent=2, default=str) + "\n")

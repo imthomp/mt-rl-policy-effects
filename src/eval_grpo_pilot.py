@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 
-from hack_guards import flags
+from hack_guards import flags, off_target
 from score_mqm_confirmation_candidates import load_candidates
 from train_grpo_pilot import PROTOCOLS, REWARD_CHECKPOINTS, load_protocol, make_scorer
 
@@ -58,6 +58,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--protocol-name", default="pilot", choices=sorted(PROTOCOLS))
+    parser.add_argument("--steps", type=int, default=None,
+                        help="en-de amendment 2 follow-up: evaluate 0..steps every 100")
     args = parser.parse_args()
     protocol = load_protocol(args.protocol_name)
     target_lang = protocol.get("target_lang", "Spanish")
@@ -66,7 +68,8 @@ def main() -> None:
     prompts = [protocol["prompt"].format(source=s) for s in sources]
 
     checkpoints = {}
-    for step in g["checkpoints_evaluated"]:
+    steps = g["checkpoints_evaluated"] if args.steps is None else list(range(0, args.steps + 1, 100))
+    for step in steps:
         path = protocol["policy_model"] if step == 0 else str(args.run_dir / f"checkpoint-{step}")
         if step and not Path(path).exists():
             raise FileNotFoundError(path)
@@ -81,11 +84,13 @@ def main() -> None:
 
     summary, rows = {}, []
     for step, outs in checkpoints.items():
-        f = [flags(o, s, target_lang) for o, s in zip(outs, sources)]
+        f = [flags(o, s, target_lang) | {"off_target": off_target(o, target_lang)}
+             for o, s in zip(outs, sources)]
         summary[step] = {
             "untranslated_rate": float(np.mean([x["untranslated"] for x in f])),
             "truncation_rate": float(np.mean([x["truncated"] for x in f])),
             "repetition_rate": float(np.mean([x["repetitive"] for x in f])),
+            "off_target_rate": float(np.mean([x["off_target"] for x in f])),
             "mean_reward": {n: float(np.mean(scores[(n, step)])) for n in REWARD_CHECKPOINTS},
             "mean_length_ratio": float(np.mean([len(o) / max(1, len(s)) for o, s in zip(outs, sources)])),
         }
