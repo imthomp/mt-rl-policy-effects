@@ -9,6 +9,7 @@ Merges keys "grpo_runs" and "grpo_rule_scorecard" into results/paper_stats.json.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from collections import defaultdict
@@ -67,6 +68,7 @@ def summarize(run: dict) -> dict:
                 raise AssertionError(f"{run['path']} step {step} {rate}: {v} != summary")
             out[key][rate] = v
         out[key]["refusal_count"] = sum(refusal(r["output"]) for r in rows)
+        out[key]["refusal_rate"] = out[key]["refusal_count"] / len(rows)
         out[key][f"mean_{run['reward']}"] = summary[str(step)]["mean_reward"][run["reward"]]
     out["refusal_count_by_step"] = {
         str(s): sum(refusal(r["output"]) for r in v) for s, v in sorted(by_step.items())
@@ -89,8 +91,8 @@ def main() -> None:
         runs[name] = {k: run[k] for k in ("group", "lp", "reward", "guarded", "seed")} | s
         # Only unguarded runs on rewards whose audit was frozen test the rule.
         # The en-es pilot and replication fixed the thresholds, so they are fit, not tests.
-        if run["guarded"] or run["reward"] not in d:
-            continue
+        if run["guarded"] or run["reward"] not in d or run["lp"] == "en_zh":
+            continue  # en-zh is scored against the policy-relative rule below
         is_test = run["group"] == "rule_test"
         for dtype, rate in rule["type_to_indicator"].items():
             dk = d[run["reward"]][dtype]
@@ -119,13 +121,40 @@ def main() -> None:
         "rule_tests_missing": sorted(expected - set(runs)),
         "refusal_indicator_note": "exploratory, post hoc (2026-11-07); regex in src/analyze_grpo_rule_tests.py",
     }
+    # Policy-relative rule (results/policy_relative_rule.json), en-zh only.
+    preds = json.loads((ROOT / "results/grpo_enzh_predictions.json").read_text())
+    pr_cells = []
+    for name, v in runs.items():
+        if v["lp"] != "en_zh":
+            continue
+        for kind, cell in preds["predictions"][v["reward"]].items():
+            rate = cell["indicator"]
+            delta = v["final"][rate] - v["initial"][rate]
+            ok = (delta >= 0.10 if cell["prediction"] == "hack" else
+                  delta <= 0.02 if cell["prediction"] == "safe" else None)
+            pr_cells.append({"run": name, "type": kind, "indicator": rate, "p": cell["p"],
+                             "prediction": cell["prediction"], "delta": delta, "correct": ok})
+    scored = [c for c in pr_cells if c["prediction"] != "none"]
+    expected_zh = {f"rule_test/en_zh/{r}_seed{s}" for r in REWARDS for s in range(3)}
+    policy_relative = {
+        "predictions_sha256": preds.get("audit_sha256") and hashlib.sha256(
+            (ROOT / "results/grpo_enzh_predictions.json").read_bytes()).hexdigest(),
+        "cells": pr_cells,
+        "tally": {p: {"n": sum(c["prediction"] == p for c in scored),
+                      "correct": sum(c["prediction"] == p and c["correct"] for c in scored)} for p in ("hack", "safe")},
+        "failures": [c for c in scored if not c["correct"]],
+        "missing": sorted(expected_zh - set(runs)),
+    }
     path = ROOT / "results/paper_stats.json"
     root = json.loads(path.read_text(encoding="utf-8"))
+    root["policy_relative_scorecard"] = policy_relative
     root["grpo_runs"] = runs
     root["grpo_rule_scorecard"] = result
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(root, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     tmp.replace(path)
+    print("policy-relative (en-zh):", json.dumps({"tally": policy_relative["tally"], "missing": len(policy_relative["missing"]),
+          "failures": [(c["run"], c["type"], round(c["delta"], 3)) for c in policy_relative["failures"]]}))
     print(json.dumps({"tally": tally, "failures": [(r["run"], r["type"], round(r["delta"], 3)) for r in result["rule_test_failures"]],
                       "missing": result["rule_tests_missing"],
                       "refusals_final": {k: v["final"]["refusal_count"] for k, v in runs.items() if v["final"]["refusal_count"]}}, indent=1))

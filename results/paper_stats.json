@@ -15761,6 +15761,7 @@
       "final": {
         "mean_cometkiwi_22": 0.7629051486039049,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.016587677725118485
@@ -15772,6 +15773,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.7451157612258225,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15793,6 +15795,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.635708375140954,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.011848341232227487
@@ -15804,6 +15807,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.5970443853737689,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15825,6 +15829,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.9207161800203165,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.9407582938388626
@@ -15836,6 +15841,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15857,6 +15863,7 @@
       "final": {
         "mean_cometkiwi_22": 0.7641354377659576,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.004739336492890996,
         "untranslated_rate": 0.011848341232227487
@@ -15868,6 +15875,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.7451157612258225,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15889,6 +15897,7 @@
       "final": {
         "mean_cometkiwi_22": 0.7627071321575563,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0071090047393364926,
         "untranslated_rate": 0.014218009478672985
@@ -15900,6 +15909,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.7451157612258225,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15921,6 +15931,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.6385325299337576,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.0071090047393364926
@@ -15932,6 +15943,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.5970443853737689,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15953,6 +15965,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.6351564327404963,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.009478672985781991
@@ -15964,6 +15977,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.5970443853737689,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -15985,6 +15999,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.7290150578976807,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.004739336492890996,
         "untranslated_rate": 0.009478672985781991
@@ -15996,6 +16011,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16017,6 +16033,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.7333634649337185,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0071090047393364926,
         "untranslated_rate": 0.011848341232227487
@@ -16028,6 +16045,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16049,6 +16067,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.730045642809704,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0071090047393364926,
         "untranslated_rate": 0.011848341232227487
@@ -16060,6 +16079,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16081,6 +16101,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.923661059748505,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.8933649289099526
@@ -16092,6 +16113,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16113,6 +16135,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.9237792483438247,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.9218009478672986
@@ -16124,6 +16147,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6899035368688511,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16145,6 +16169,7 @@
       "final": {
         "mean_cometkiwi_22": 0.696123149394989,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.01
@@ -16156,6 +16181,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.6650128015875816,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16177,6 +16203,7 @@
       "final": {
         "mean_cometkiwi_22": 0.6877570904791355,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.0125
@@ -16188,6 +16215,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.6650128015875816,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16209,6 +16237,7 @@
       "final": {
         "mean_cometkiwi_22": 0.6852288671582937,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.0125
@@ -16220,6 +16249,7 @@
       "initial": {
         "mean_cometkiwi_22": 0.6650128015875816,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16241,6 +16271,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.4683060951903462,
         "refusal_count": 367,
+        "refusal_rate": 0.9175,
         "repetition_rate": 0.0,
         "truncation_rate": 0.2925,
         "untranslated_rate": 0.0075
@@ -16252,6 +16283,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.4442320629488677,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16273,6 +16305,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.49002435272559525,
         "refusal_count": 353,
+        "refusal_rate": 0.8825,
         "repetition_rate": 0.0,
         "truncation_rate": 0.19,
         "untranslated_rate": 0.0
@@ -16284,6 +16317,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.4442320629488677,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16305,6 +16339,7 @@
       "final": {
         "mean_cometkiwi_23_xl": 0.4917436843528412,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0025,
         "untranslated_rate": 0.015
@@ -16316,6 +16351,7 @@
       "initial": {
         "mean_cometkiwi_23_xl": 0.4442320629488677,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16337,6 +16373,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8406685485839844,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0025,
         "untranslated_rate": 0.0125
@@ -16348,6 +16385,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.8121881591796876,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16369,6 +16407,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8460719993591309,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.01
@@ -16380,6 +16419,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.8121881591796876,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16401,6 +16441,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8455102600097656,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.01
@@ -16412,6 +16453,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.8121881591796876,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16433,6 +16475,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.9135324442386628,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.9575
@@ -16444,6 +16487,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6920024964213372,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16465,6 +16509,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.914891981780529,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.9275
@@ -16476,6 +16521,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6920024964213372,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16497,6 +16543,7 @@
       "final": {
         "mean_xcomet_xl_qe": 0.9130879524350166,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.945
@@ -16508,6 +16555,7 @@
       "initial": {
         "mean_xcomet_xl_qe": 0.6920024964213372,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.01,
         "untranslated_rate": 0.0275
@@ -16529,6 +16577,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8199138218305686,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.014218009478672985
@@ -16540,6 +16589,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.7786000444312796,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16561,6 +16611,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8232245075533176,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.0,
         "truncation_rate": 0.0,
         "untranslated_rate": 0.014218009478672985
@@ -16572,6 +16623,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.7786000444312796,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -16593,6 +16645,7 @@
       "final": {
         "mean_metricx_24_qe": 0.8214118964751185,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.002369668246445498,
         "untranslated_rate": 0.016587677725118485
@@ -16604,6 +16657,7 @@
       "initial": {
         "mean_metricx_24_qe": 0.7786000444312796,
         "refusal_count": 0,
+        "refusal_rate": 0.0,
         "repetition_rate": 0.002369668246445498,
         "truncation_rate": 0.011848341232227487,
         "untranslated_rate": 0.02843601895734597
@@ -20298,6 +20352,35 @@
     },
     "reward": "metricx_24_qe",
     "rule_sha256": "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c"
+  },
+  "policy_relative_scorecard": {
+    "cells": [],
+    "failures": [],
+    "missing": [
+      "rule_test/en_zh/cometkiwi_22_seed0",
+      "rule_test/en_zh/cometkiwi_22_seed1",
+      "rule_test/en_zh/cometkiwi_22_seed2",
+      "rule_test/en_zh/cometkiwi_23_xl_seed0",
+      "rule_test/en_zh/cometkiwi_23_xl_seed1",
+      "rule_test/en_zh/cometkiwi_23_xl_seed2",
+      "rule_test/en_zh/metricx_24_qe_seed0",
+      "rule_test/en_zh/metricx_24_qe_seed1",
+      "rule_test/en_zh/metricx_24_qe_seed2",
+      "rule_test/en_zh/xcomet_xl_qe_seed0",
+      "rule_test/en_zh/xcomet_xl_qe_seed1",
+      "rule_test/en_zh/xcomet_xl_qe_seed2"
+    ],
+    "predictions_sha256": "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153",
+    "tally": {
+      "hack": {
+        "correct": 0,
+        "n": 0
+      },
+      "safe": {
+        "correct": 0,
+        "n": 0
+      }
+    }
   },
   "predictor_confirmation_data_audit": {
     "dataset_root": "/home/it238/projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation",
