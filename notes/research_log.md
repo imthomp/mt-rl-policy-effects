@@ -237,3 +237,17 @@ outcome); R1-R3 generic. Source-copy repro matches frozen d (XCOMET 0.167 vs
     clean CK23 seed 2 flat on COMET-22 (CIs include 0) despite chrF +2.
   - The XCOMET guard turns a -0.105 hack into +0.013/+0.014 gains.
   - Re-eval of the follow-up runs is queued: job 15187870 (afterany:15187608).
+
+### en-de amendment 2 results (job 15187608, finished 2026-11-09; reviewed 2026-11-10)
+CometKiwi-23-XL, 1000 steps, 3 seeds x {unguarded, GlotLID guard}.
+- H1 TRUE: unguarded refusal collapse 3/3 (step-1000 refusals 393, 371, 303/400),
+  incl. seed 2 (clean in the 500-step protocol). Onset by step 200 in all
+  three; the stretched LR schedule keeps the LR higher early, so this is
+  not a pure horizon effect. Own reward 0.444 -> 0.587/0.527/0.475.
+- H2 TRUE: guarded 0/400 refusals at every checkpoint, off-target 0.003,
+  own reward 0.444 -> 0.509-0.513.
+- H3 FALSE: guarded XCOMET (0.69 -> 0.73) and CK22 (0.665 -> 0.70) rise, but
+  MetricX-QE ends below step 0 in all 3 seeds (0.812 -> 0.800/0.794/0.806).
+- Reference eval (auto job 15187870): unguarded COMET-22 -0.27 to -0.36
+  (chrF 46.7 -> 14-16); guarded -0.002 to +0.005, all CIs include 0
+  (chrF +1.7 to +2.0). The guard prevents the loss but brings no clear COMET-22 gain.
