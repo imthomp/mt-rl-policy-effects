@@ -1,0 +1,720 @@
+{
+  "counts": {
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed0": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 199,
+      "preamble_initial": 9
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed1": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 291,
+      "preamble_initial": 9
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed2": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 235,
+      "preamble_initial": 9
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed0": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed1": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed2": {
+      "commentary_final": 0,
+      "final_step": 1000,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 1,
+      "preamble_initial": 9
+    },
+    "grpo_pilot/cometkiwi_22": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 28,
+      "preamble_initial": 1
+    },
+    "grpo_pilot/cometkiwi_23_xl": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 1,
+      "preamble_initial": 1
+    },
+    "grpo_pilot/xcomet_xl_qe": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 3,
+      "preamble_initial": 1
+    },
+    "grpo_replication/cometkiwi_22_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 30,
+      "preamble_initial": 1
+    },
+    "grpo_replication/cometkiwi_22_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 12,
+      "preamble_initial": 1
+    },
+    "grpo_replication/cometkiwi_23_xl_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 5,
+      "preamble_initial": 1
+    },
+    "grpo_replication/cometkiwi_23_xl_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 21,
+      "preamble_initial": 1
+    },
+    "grpo_replication/xcomet_xl_qe_guarded_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_replication/xcomet_xl_qe_guarded_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_replication/xcomet_xl_qe_guarded_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 2,
+      "preamble_initial": 1
+    },
+    "grpo_replication/xcomet_xl_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 2,
+      "preamble_initial": 1
+    },
+    "grpo_replication/xcomet_xl_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 1,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 133,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 150,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 176,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 2,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 11,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/metricx_24_qe_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/metricx_24_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/metricx_24_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 103,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 56,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_de",
+      "n": 400,
+      "preamble_final": 119,
+      "preamble_initial": 9
+    },
+    "grpo_rule_tests/en_es/metricx_24_qe_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_es/metricx_24_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_es/metricx_24_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_es",
+      "n": 422,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 7,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 27,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 23,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 90,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 94,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 130,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 1,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 1,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed0": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed1": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    },
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed2": {
+      "commentary_final": 0,
+      "final_step": 500,
+      "lp": "en_zh",
+      "n": 400,
+      "preamble_final": 0,
+      "preamble_initial": 1
+    }
+  },
+  "min_count": 10,
+  "rescored": {
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed0": {
+      "affected_mean_raw": 0.5078526968932032,
+      "affected_mean_stripped": 0.49717023523159365,
+      "comet22_final_raw": 0.6715949158370494,
+      "comet22_final_stripped": 0.6894089362025261,
+      "own_final_raw": 0.5089409889094532,
+      "own_final_stripped": 0.5036264638602733,
+      "own_gain_raw": 0.06470892596058547,
+      "own_gain_stripped": 0.05939440091140563,
+      "own_initial": 0.4442320629488677,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed1": {
+      "affected_mean_raw": 0.5032742695812508,
+      "affected_mean_stripped": 0.49101049236671623,
+      "comet22_final_raw": 0.6651892626285553,
+      "comet22_final_stripped": 0.6937340816855431,
+      "own_final_raw": 0.5131933793798089,
+      "own_final_stripped": 0.504271481456235,
+      "own_gain_raw": 0.06896131643094122,
+      "own_gain_stripped": 0.060039418507367326,
+      "own_initial": 0.4442320629488677,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed2": {
+      "affected_mean_raw": 0.5068377459619907,
+      "affected_mean_stripped": 0.4974504541367927,
+      "comet22_final_raw": 0.6726836315542459,
+      "comet22_final_stripped": 0.6954093477129937,
+      "own_final_raw": 0.512176328394562,
+      "own_final_stripped": 0.5066612944472582,
+      "own_gain_raw": 0.06794426544569426,
+      "own_gain_stripped": 0.06242923149839047,
+      "own_initial": 0.4442320629488677,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_pilot/cometkiwi_22": {
+      "affected_mean_raw": 0.7708278298377991,
+      "affected_mean_stripped": 0.7768377853291375,
+      "comet22_final_raw": 0.766637212857251,
+      "comet22_final_stripped": 0.7688279839771054,
+      "own_final_raw": 0.7629051486039049,
+      "own_final_stripped": 0.7633039161068569,
+      "own_gain_raw": 0.017789387378082444,
+      "own_gain_stripped": 0.018188154881034424,
+      "own_initial": 0.7451157612258225,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_replication/cometkiwi_22_seed1": {
+      "affected_mean_raw": 0.7426480154196421,
+      "affected_mean_stripped": 0.7501925845940908,
+      "comet22_final_raw": 0.7672721354458569,
+      "comet22_final_stripped": 0.7687168501988406,
+      "own_final_raw": 0.7641354377659576,
+      "own_final_stripped": 0.7646717815461317,
+      "own_gain_raw": 0.019019676540135144,
+      "own_gain_stripped": 0.01955602032030923,
+      "own_initial": 0.7451157612258225,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_replication/cometkiwi_22_seed2": {
+      "affected_mean_raw": 0.7228242854277293,
+      "affected_mean_stripped": 0.7256820052862167,
+      "comet22_final_raw": 0.7647403970855107,
+      "comet22_final_stripped": 0.7652932016346692,
+      "own_final_raw": 0.7627071321575563,
+      "own_final_stripped": 0.762788394333627,
+      "own_gain_raw": 0.017591370931733796,
+      "own_gain_stripped": 0.017672633107804536,
+      "own_initial": 0.7451157612258225,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_replication/cometkiwi_23_xl_seed2": {
+      "affected_mean_raw": 0.649621191478911,
+      "affected_mean_stripped": 0.6567099406605675,
+      "comet22_final_raw": 0.7602158335006632,
+      "comet22_final_stripped": 0.76069948564491,
+      "own_final_raw": 0.6351564327404963,
+      "own_final_stripped": 0.6355091904011948,
+      "own_gain_raw": 0.03811204736672735,
+      "own_gain_stripped": 0.038464805027425886,
+      "own_initial": 0.5970443853737689,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed0": {
+      "affected_mean_raw": 0.6653339024773217,
+      "affected_mean_stripped": 0.6826301288783998,
+      "comet22_final_raw": 0.6722527039796113,
+      "comet22_final_stripped": 0.6857402964681387,
+      "own_final_raw": 0.696123149394989,
+      "own_final_stripped": 0.7018741446733475,
+      "own_gain_raw": 0.0311103478074074,
+      "own_gain_stripped": 0.03686134308576594,
+      "own_initial": 0.6650128015875816,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed1": {
+      "affected_mean_raw": 0.6625194086631139,
+      "affected_mean_stripped": 0.6780931101242701,
+      "comet22_final_raw": 0.6627831480652094,
+      "comet22_final_stripped": 0.6741081835329532,
+      "own_final_raw": 0.6877570904791355,
+      "own_final_stripped": 0.6935972252488136,
+      "own_gain_raw": 0.022744288891553888,
+      "own_gain_stripped": 0.02858442366123204,
+      "own_initial": 0.6650128015875816,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed2": {
+      "affected_mean_raw": 0.6606627592647617,
+      "affected_mean_stripped": 0.6799590128727935,
+      "comet22_final_raw": 0.6588509419560432,
+      "comet22_final_stripped": 0.6777748246490956,
+      "own_final_raw": 0.6852288671582937,
+      "own_final_stripped": 0.6937192144244909,
+      "own_gain_raw": 0.020216065570712094,
+      "own_gain_stripped": 0.028706412836909334,
+      "own_initial": 0.6650128015875816,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed2": {
+      "affected_mean_raw": 0.36187871206890454,
+      "affected_mean_stripped": 0.36585481058467517,
+      "comet22_final_raw": 0.6681795626133681,
+      "comet22_final_stripped": 0.6687673058360815,
+      "own_final_raw": 0.4917436843528412,
+      "own_final_stripped": 0.49185302706202494,
+      "own_gain_raw": 0.047511621403973525,
+      "own_gain_stripped": 0.04762096411315725,
+      "own_initial": 0.4442320629488677,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed0": {
+      "affected_mean_raw": 0.9010360229362562,
+      "affected_mean_stripped": 0.9173908823902167,
+      "comet22_final_raw": 0.53986138895154,
+      "comet22_final_stripped": 0.5447216671705246,
+      "own_final_raw": 0.9135324442386628,
+      "own_final_stripped": 0.9177438205480576,
+      "own_gain_raw": 0.2215299478173256,
+      "own_gain_stripped": 0.22574132412672043,
+      "own_initial": 0.6920024964213372,
+      "reward": "xcomet_xl_qe"
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed1": {
+      "affected_mean_raw": 0.8744191495435578,
+      "affected_mean_stripped": 0.8872889365468707,
+      "comet22_final_raw": 0.5419755127280951,
+      "comet22_final_stripped": 0.5434271769225597,
+      "own_final_raw": 0.914891981780529,
+      "own_final_stripped": 0.9166937519609928,
+      "own_gain_raw": 0.22288948535919184,
+      "own_gain_stripped": 0.22469125553965563,
+      "own_initial": 0.6920024964213372,
+      "reward": "xcomet_xl_qe"
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed2": {
+      "affected_mean_raw": 0.8917598118301199,
+      "affected_mean_stripped": 0.9079326125754028,
+      "comet22_final_raw": 0.5361119323968887,
+      "comet22_final_stripped": 0.5391493313759566,
+      "own_final_raw": 0.9130879524350166,
+      "own_final_stripped": 0.9178993606567383,
+      "own_gain_raw": 0.22108545601367946,
+      "own_gain_stripped": 0.22589686423540112,
+      "own_initial": 0.6920024964213372,
+      "reward": "xcomet_xl_qe"
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed1": {
+      "affected_mean_raw": 0.717427792372527,
+      "affected_mean_stripped": 0.7293156076360632,
+      "comet22_final_raw": 0.816879631280899,
+      "comet22_final_stripped": 0.819674995392561,
+      "own_final_raw": 0.7798514391481877,
+      "own_final_stripped": 0.7806538666784764,
+      "own_gain_raw": 0.025030325129628217,
+      "own_gain_stripped": 0.025832752659916913,
+      "own_initial": 0.7548211140185594,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed2": {
+      "affected_mean_raw": 0.7345236073369565,
+      "affected_mean_stripped": 0.7475617450216542,
+      "comet22_final_raw": 0.8187758094072342,
+      "comet22_final_stripped": 0.8215475761890412,
+      "own_final_raw": 0.7830740259587765,
+      "own_final_stripped": 0.7838237188756466,
+      "own_gain_raw": 0.028252911940217063,
+      "own_gain_stripped": 0.029002604857087166,
+      "own_initial": 0.7548211140185594,
+      "reward": "cometkiwi_22"
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed0": {
+      "affected_mean_raw": 0.6380499492088954,
+      "affected_mean_stripped": 0.6489128215445412,
+      "comet22_final_raw": 0.8097259157896042,
+      "comet22_final_stripped": 0.8202086618542671,
+      "own_final_raw": 0.672261416465044,
+      "own_final_stripped": 0.6747055627405644,
+      "own_gain_raw": 0.038973857336677575,
+      "own_gain_stripped": 0.04141800361219794,
+      "own_initial": 0.6332875591283664,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed1": {
+      "affected_mean_raw": 0.6186514484121445,
+      "affected_mean_stripped": 0.629786508514526,
+      "comet22_final_raw": 0.8101637876778841,
+      "comet22_final_stripped": 0.8219045437127351,
+      "own_final_raw": 0.6736934842914343,
+      "own_final_stripped": 0.676310223415494,
+      "own_gain_raw": 0.040405925163067846,
+      "own_gain_stripped": 0.04302266428712753,
+      "own_initial": 0.6332875591283664,
+      "reward": "cometkiwi_23_xl"
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed2": {
+      "affected_mean_raw": 0.6242508904292033,
+      "affected_mean_stripped": 0.6348537293764261,
+      "comet22_final_raw": 0.8075443420559167,
+      "comet22_final_stripped": 0.8229930169880391,
+      "own_final_raw": 0.6693540523201227,
+      "own_final_stripped": 0.6727999749779702,
+      "own_gain_raw": 0.036066493191756255,
+      "own_gain_stripped": 0.039512415849603744,
+      "own_initial": 0.6332875591283664,
+      "reward": "cometkiwi_23_xl"
+    }
+  },
+  "status": "exploratory_post_hoc",
+  "top_preambles": {
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed0": {
+      "Hier ist die deutsche Übersetzung:": 7,
+      "Hier ist die Übersetzung ins Deutsche:": 172,
+      "Translation:": 14
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed1": {
+      "Die deutsche Übersetzung lautet:": 4,
+      "Hier ist die Übersetzung ins Deutsche:": 268,
+      "Translation:": 16
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed2": {
+      "Deutsche Übersetzung:": 1,
+      "Hier ist die Übersetzung ins Deutsche:": 228,
+      "Translation in German:": 4
+    },
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed0": {},
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed1": {},
+    "grpo_ende_followup/cometkiwi_23_xl_steps1000_seed2": {
+      "Translation:": 1
+    },
+    "grpo_pilot/cometkiwi_22": {
+      "Spanish translation:": 28
+    },
+    "grpo_pilot/cometkiwi_23_xl": {
+      "Español:": 1
+    },
+    "grpo_pilot/xcomet_xl_qe": {
+      "Translation:": 3
+    },
+    "grpo_replication/cometkiwi_22_seed1": {
+      "Translation:": 30
+    },
+    "grpo_replication/cometkiwi_22_seed2": {
+      "Spanish translation:": 12
+    },
+    "grpo_replication/cometkiwi_23_xl_seed1": {
+      "Español:": 5
+    },
+    "grpo_replication/cometkiwi_23_xl_seed2": {
+      "Español:": 21
+    },
+    "grpo_replication/xcomet_xl_qe_guarded_seed0": {},
+    "grpo_replication/xcomet_xl_qe_guarded_seed1": {},
+    "grpo_replication/xcomet_xl_qe_guarded_seed2": {
+      "Español:": 2
+    },
+    "grpo_replication/xcomet_xl_qe_seed1": {
+      "Translation:": 2
+    },
+    "grpo_replication/xcomet_xl_qe_seed2": {
+      "Translation:": 1
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed0": {
+      "Hier ist die deutsche Übersetzung:": 1,
+      "Translation:": 132
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed1": {
+      "Deutsche Übersetzung:": 1,
+      "Translation:": 149
+    },
+    "grpo_rule_tests/en_de/cometkiwi_22_seed2": {
+      "Deutsche Übersetzung:": 1,
+      "Hier ist die deutsche Übersetzung:": 1,
+      "Translation:": 174
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed0": {},
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed1": {
+      "Deutsch:": 2
+    },
+    "grpo_rule_tests/en_de/cometkiwi_23_xl_seed2": {
+      "Deutsche Übersetzung:": 1,
+      "Translation:": 10
+    },
+    "grpo_rule_tests/en_de/metricx_24_qe_seed0": {},
+    "grpo_rule_tests/en_de/metricx_24_qe_seed1": {},
+    "grpo_rule_tests/en_de/metricx_24_qe_seed2": {},
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed0": {
+      "Translation:": 103
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed1": {
+      "Translation:": 56
+    },
+    "grpo_rule_tests/en_de/xcomet_xl_qe_seed2": {
+      "Translation:": 119
+    },
+    "grpo_rule_tests/en_es/metricx_24_qe_seed0": {},
+    "grpo_rule_tests/en_es/metricx_24_qe_seed1": {},
+    "grpo_rule_tests/en_es/metricx_24_qe_seed2": {},
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed0": {
+      "Translation:": 1,
+      "翻译如下：": 5,
+      "译文：": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed1": {
+      "Translation:": 15,
+      "翻译后的中文文本如下：": 12
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_22_seed2": {
+      "Translation:": 18,
+      "翻译如下：": 5
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed0": {
+      "Translation:": 89,
+      "译文：": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed1": {
+      "Translation:": 93,
+      "英文中翻译成中文：": 1
+    },
+    "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed2": {
+      "Translation:": 130
+    },
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed0": {},
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed1": {
+      "我有以下几种方式来保持活力：": 1
+    },
+    "grpo_rule_tests/en_zh/metricx_24_qe_seed2": {
+      "我有以下几种方式来充电：": 1
+    },
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed0": {},
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed1": {},
+    "grpo_rule_tests/en_zh/xcomet_xl_qe_seed2": {}
+  }
+}
