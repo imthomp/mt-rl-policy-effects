@@ -27,7 +27,8 @@ CACHE = ROOT / "artifacts/grpo_reference_cache.jsonl"
 OUTPUT = ROOT / "results/grpo_reference_eval.json"
 SSOT = ROOT / "results/paper_stats.json"
 GROUPS = {"grpo_pilot": "en_es", "grpo_replication": "en_es", "grpo_rule_tests/en_es": "en_es",
-          "grpo_rule_tests/en_de": "en_de", "grpo_ende_followup": "en_de"}
+          "grpo_rule_tests/en_de": "en_de", "grpo_ende_followup": "en_de",
+          "grpo_rule_tests/en_zh": "en_zh"}
 
 
 def norm(t: str) -> str:
@@ -50,9 +51,9 @@ def main() -> None:
     from eval_grpo_pilot import eval_sources
     from train_grpo_pilot import load_protocol
 
-    data = {lp: mtme(lp) for lp in ("en_de", "en_es")}
+    data = {lp: mtme(lp) for lp in ("en_de", "en_es", "en_zh")}
     line_of = {}
-    for lp, proto in (("en_de", "ende"), ("en_es", "pilot")):
+    for lp, proto in (("en_de", "ende"), ("en_es", "pilot"), ("en_zh", "enzh")):
         segs, sources = eval_sources(load_protocol(proto))
         src = data[lp][0]
         for seg, s in zip(segs, sources):

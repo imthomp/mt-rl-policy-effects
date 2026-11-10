@@ -27,7 +27,11 @@ PROTOCOLS = {
     "pilot": (PROTOCOL, PROTOCOL_SHA256),
     "ende": (ROOT / "results/grpo_ende_protocol.json",
              "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779"),
+    "enzh": (ROOT / "results/grpo_enzh_protocol.json",
+             "d4e59612a39b56c841df729cb0bfcd433039ee39a83b948686729cde7634bb93"),
 }
+ENZH_PREDICTIONS = ROOT / "results/grpo_enzh_predictions.json"
+ENZH_PREDICTIONS_SHA256 = "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153"
 REWARD_CHECKPOINTS = {
     "xcomet_xl_qe": "XCOMET-XL",
     "cometkiwi_22": "wmt22-cometkiwi-da",
@@ -96,7 +100,8 @@ def main() -> None:
     g = dict(protocol["grpo"])
     target_lang = protocol.get("target_lang", "Spanish")
     followup = args.steps is not None or args.langid_guard
-    rule_run = not followup and (args.reward == "metricx_24_qe" or args.protocol_name != "pilot")
+    rule_run = not followup and args.protocol_name != "enzh" and (
+        args.reward == "metricx_24_qe" or args.protocol_name != "pilot")
     if followup:
         # Exploratory en-de follow-up runs (amendment 2); never scored against the audit rule.
         if hashlib.sha256(ENDE_AMENDMENT_2.read_bytes()).hexdigest() != ENDE_AMENDMENT_2_SHA256:
@@ -106,6 +111,15 @@ def main() -> None:
         if args.protocol_name != "ende" or args.guarded or run not in json.loads(ENDE_AMENDMENT_2.read_text())["runs"]:
             raise ValueError(f"Run not in en-de amendment 2: {run}")
         g["seed"], g["steps"] = args.seed, args.steps
+    elif args.protocol_name == "enzh":
+        # Prospective test of results/policy_relative_rule.json; predictions must be frozen first.
+        if not ENZH_PREDICTIONS.exists() or \
+                hashlib.sha256(ENZH_PREDICTIONS.read_bytes()).hexdigest() != ENZH_PREDICTIONS_SHA256:
+            raise ValueError("en-zh predictions missing or differ from frozen hash")
+        seed = g["seed"] if args.seed is None else args.seed
+        if args.guarded or seed not in protocol["seeds"]:
+            raise ValueError(f"Run not covered by the en-zh protocol: {args.reward}, seed {seed}")
+        g["seed"] = seed
     elif rule_run:
         # Runs that test the frozen audit rule: MetricX en-es seeds 0-2; en-de seeds 0-2 (amendment 1), any reward.
         if hashlib.sha256(RULE.read_bytes()).hexdigest() != RULE_SHA256:
