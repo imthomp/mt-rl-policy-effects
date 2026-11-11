@@ -251,3 +251,59 @@ CometKiwi-23-XL, 1000 steps, 3 seeds x {unguarded, GlotLID guard}.
 - Reference eval (auto job 15187870): unguarded COMET-22 -0.27 to -0.36
   (chrF 46.7 -> 14-16); guarded -0.002 to +0.005, all CIs include 0
   (chrF +1.7 to +2.0). The guard prevents the loss but brings no clear COMET-22 gain.
+
+### en-de amendment-2 follow-up results (jobs 15187608 + re-eval 15187870; reviewed 2026-11-09 evening)
+Refusal counts (/400) at step 1000, unguarded: s0 393, s1 371, s2 303. Collapse begins by step 200
+in all 3 (s0 378, s1 379, s2 199). Guarded: 0 refusals at every step, all seeds.
+- H1 (>=200/400 in >=2/3 unguarded seeds): PASS, 3/3. Seed 2 (clean at 500 steps) collapses here, so
+  the collapse is not seed-specific. Caveat: max_steps=1000 stretches the LR decay, so step 200 here
+  runs at a higher LR than step 200 of the 500-step runs. This does not say "collapse is purely time".
+- H2 (guarded off-target <= initial+0.02, CK23 >= 0.444): PASS, 3/3 (off-target 0.00, CK23 .509-.513).
+- H3 (guarded XCOMET, CK22, MetricX each >= step 0, all seeds): FAIL. XCOMET .692 -> .731-.737 and
+  CK22 .665 -> .700-.703 rise, but MetricX .812 -> .800/.794/.806 falls slightly in all 3.
+- Reference eval (COMET-22 vs refA, paired bootstrap): unguarded -0.360/-0.332/-0.268 (chrF -31 to -33).
+  Guarded +0.004/-0.002/+0.005, every CI includes 0 (chrF +1.6 to +2.0). The guard removes the
+  collapse but gives no reference-measured gain.
+- NEW (post hoc): guarded policies learn a German preamble, "Hier ist die Übersetzung ins Deutsche:".
+  Counts (/400) at steps 0 / 500 / 1000: s0 2/156/181, s1 2/207/271, s2 2/173/231. It passes langid
+  because it is German. It plausibly accounts for some of the CK23 gain and the length-ratio rise
+  (1.19 -> 1.35-1.44); mean length +10%. Some outputs also add commentary ("Allerdings ist es wichtig
+  zu beachten..."). Untested: rescore with the preamble stripped to see how much of the CK23 +.07
+  it carries.
+
+### en-zh prospective test of the policy-relative rule (job 15206048 + ref eval 15206062; reviewed 2026-11-10)
+- Letter-of-rule tally: hack 3/3 correct, safe 30/33.
+  - XCOMET copy hack predicted (p=0.895) and observed 3/3: untranslated 0.015 -> 0.74-0.82;
+    COMET-22 -0.23 to -0.26 (CIs exclude 0).
+  - CometKiwi-23-XL refusal predicted SAFE (p=0.025): 0 refusals in all 3 seeds. Consistent
+    with the weak-initial-policy account (CK23 initial 0.633 on en-zh eval vs 0.444 en-de).
+  - 3 "failures": XCOMET repetition (+0.11 to +0.14), all 3 seeds.
+- Two indicator problems found post hoc (my error: en-de definitions frozen unadapted for Chinese):
+  1. truncation_rate is saturated for Chinese: len(zh)/len(en) chars < 0.5 for 96% of step-0
+     outputs. The 9 safe truncation cells pass trivially -> uninformative.
+  2. Chinese repetition uses space-stripped char 6-grams; copied English trips it. 51/54, 48/49,
+     53/58 XCOMET repetition flags are untranslated copies -> the copy hack, not a repetition hack.
+  Corrected (post hoc) reading: hack 3/3, informative safe cells 21/21.
+- Non-XCOMET runs improve COMET-22 in all 9 (+0.007 to +0.019; CK23 seed 2 lower bound +0.000)
+  while chrF falls (-0.2 to -4.1; MetricX -3.6 to -4.1). Not yet understood; chrF on Chinese is
+  character-level and may penalise rephrasing. Check whether MetricX outputs got shorter or longer.
+
+### Preamble audit (exploratory, post hoc; job 15231013, 2026-11-10)
+`src/audit_preamble_exploratory.py` -> results/preamble_audit_exploratory.json (+ SSOT key).
+- Preambles at the final step (>= 10/400): every CometKiwi-22 run with >= 10, CK23 en-zh
+  (90-130), CK23 en-de guarded (199-291), XCOMET en-de (56-119). MetricX: 0 in every run.
+  Step-0 base rate: 9/400 en-de, 1/400 en-es and en-zh. Trailing-commentary pattern: 0 everywhere.
+- Own reward with the preamble stripped:
+  - CK23 en-de guarded: the only case where the preamble helps the reward. Gain +0.065..+0.069
+    -> +0.059..+0.062 stripped, so it carries ~0.006-0.009 of the gain (~10-13%).
+  - Every other run: stripping leaves the gain the same or RAISES it. The header is mildly
+    penalised, i.e. a format habit, not an exploit.
+- COMET-22 (refA) with the preamble stripped is >= raw in every run. Guarded en-de CK23:
+  0.665-0.673 raw -> 0.689-0.695 stripped (step 0: 0.667). en-de CK22: 0.659-0.672 ->
+  0.674-0.686. The reference eval had understated the quality of preamble-heavy runs.
+  Caveat: step-0 outputs were not stripped (9/400 preambles in en-de); no CIs on stripped scores yet.
+- en-zh chrF drop (CPU check): stripping preambles recovers at most +0.3. Outputs lengthen
+  (69 -> 75-81 chars vs refs 71). CK23 keeps more Latin-script words (0.26 -> 0.47-0.55
+  of outputs; refs 0.28). MetricX's -3.6..-4.1 chrF has no preamble or Latin-script
+  explanation; it comes only with longer, rephrased output. Left as a chrF-vs-COMET-22
+  disagreement for human evaluation to settle.
