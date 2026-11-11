@@ -38,6 +38,16 @@ REWARD_CHECKPOINTS = {
     "cometkiwi_23_xl": "wmt23-cometkiwi-da-xl",
     "metricx_24_qe": None,  # src/metricx_qe.py; allowed only under the frozen audit rule
 }
+# Larger rewards (2026-11-11), cached under /nobackup. Kept out of REWARD_CHECKPOINTS so the
+# standard eval (which scores every checkpoint with every base reward) is unchanged.
+EXTRA_CACHE = "/nobackup/archive/usr/it238/hf_cache"
+NEW_REWARDS = {
+    "xcomet_xxl_qe": "XCOMET-XXL",
+    "cometkiwi_23_xxl": "wmt23-cometkiwi-da-xxl",
+    "metricx_24_xl_qe": "google/metricx-24-hybrid-xl-v2p6-bfloat16",
+    "metricx_24_xxl_qe": "google/metricx-24-hybrid-xxl-v2p6-bfloat16",
+}
+ALL_REWARDS = {**REWARD_CHECKPOINTS, **NEW_REWARDS}
 
 
 def load_protocol(name: str = "pilot") -> dict:
@@ -49,12 +59,13 @@ def load_protocol(name: str = "pilot") -> dict:
 
 def make_scorer(reward: str):
     """Return fn(sources, texts) -> list[float], higher is better."""
-    if reward == "metricx_24_qe":
+    if reward.startswith("metricx_24"):
         from metricx_qe import MetricXQE
 
-        model = MetricXQE()
+        model = (MetricXQE() if reward == "metricx_24_qe"
+                 else MetricXQE(model=NEW_REWARDS[reward], cache_dir=EXTRA_CACHE))
         return lambda sources, texts: model.reward(sources, texts)
-    comet = load_comet(REWARD_CHECKPOINTS[reward])
+    comet = load_comet(ALL_REWARDS[reward])
     return lambda sources, texts: [float(x) for x in comet.predict(
         [{"src": s, "mt": t} for s, t in zip(sources, texts)],
         batch_size=32, gpus=1, progress_bar=False).scores]
@@ -63,8 +74,8 @@ def make_scorer(reward: str):
 def load_comet(name: str):
     from comet import load_from_checkpoint
 
-    matches = glob.glob(str(Path.home() / ".cache/huggingface/hub" / f"models--Unbabel--{name}"
-                            / "snapshots/*/checkpoints/model.ckpt"))
+    matches = [m for root in (Path.home() / ".cache/huggingface/hub", Path(EXTRA_CACHE))
+               for m in glob.glob(str(root / f"models--Unbabel--{name}" / "snapshots/*/checkpoints/model.ckpt"))]
     if len(matches) != 1:
         raise ValueError(f"Expected one cached checkpoint for {name}, found {len(matches)}")
     return load_from_checkpoint(matches[0])
@@ -87,7 +98,7 @@ def train_prompts(protocol: dict) -> list[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--reward", required=True, choices=sorted(REWARD_CHECKPOINTS))
+    parser.add_argument("--reward", required=True, choices=sorted(ALL_REWARDS))
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--smoke", action="store_true", help="2-step plumbing test; not a result")
     parser.add_argument("--seed", type=int, default=None, help="replication protocol only")
@@ -95,10 +106,18 @@ def main() -> None:
     parser.add_argument("--protocol-name", default="pilot", choices=sorted(PROTOCOLS))
     parser.add_argument("--steps", type=int, default=None, help="en-de amendment 2 follow-up only")
     parser.add_argument("--langid-guard", action="store_true", help="en-de amendment 2 follow-up only")
+    parser.add_argument("--policy-model", default=None, help="--smoke only (resource tests)")
+    parser.add_argument("--lora-r", type=int, default=0, help="--smoke only (resource tests)")
+    parser.add_argument("--learning-rate", type=float, default=None, help="--smoke only")
     args = parser.parse_args()
     protocol = load_protocol(args.protocol_name)
     g = dict(protocol["grpo"])
     target_lang = protocol.get("target_lang", "Spanish")
+    if not args.smoke and (args.policy_model or args.lora_r or args.learning_rate
+                           or args.reward in NEW_REWARDS):
+        raise ValueError("--policy-model/--lora-r/--learning-rate and new rewards are smoke-only until a protocol covers them")
+    if args.smoke:
+        args.output_dir = Path("/tmp") / f"grpo_smoke_{args.reward}"
     followup = args.steps is not None or args.langid_guard
     rule_run = not followup and args.protocol_name != "enzh" and (
         args.reward == "metricx_24_qe" or args.protocol_name != "pilot")
@@ -191,8 +210,15 @@ def main() -> None:
     # 16 prompts x 8 generations = 128 completions per optimizer step.
     if config.per_device_train_batch_size * accumulation != g["prompts_per_step"] * g["generations_per_prompt"]:
         raise ValueError("Batch arithmetic does not match the frozen protocol")
-    trainer = GRPOTrainer(model=protocol["policy_model"], reward_funcs=reward_fn,
-                          args=config, train_dataset=dataset)
+    if args.learning_rate:
+        config.learning_rate = args.learning_rate
+    peft_config = None
+    if args.lora_r:
+        from peft import LoraConfig
+        peft_config = LoraConfig(r=args.lora_r, lora_alpha=2 * args.lora_r, lora_dropout=0.0,
+                                 target_modules="all-linear", task_type="CAUSAL_LM")
+    trainer = GRPOTrainer(model=args.policy_model or protocol["policy_model"], reward_funcs=reward_fn,
+                          args=config, train_dataset=dataset, peft_config=peft_config)
     trainer.train()
     (args.output_dir / "pilot_run.json").write_text(json.dumps({
         "reward": args.reward, "protocol_name": args.protocol_name,
