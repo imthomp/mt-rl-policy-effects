@@ -11,7 +11,7 @@ import numpy as np
 
 from hack_guards import flags, off_target
 from score_mqm_confirmation_candidates import load_candidates
-from train_grpo_pilot import PROTOCOLS, REWARD_CHECKPOINTS, load_protocol, make_scorer
+from train_grpo_pilot import NEW_REWARDS, PROTOCOLS, REWARD_CHECKPOINTS, load_protocol, make_scorer
 
 ROOT = Path(__file__).resolve().parents[1]
 MQM_ROOT = Path.home() / "projects/multilingual-mqm-benchmark/wmt-mqm-human-evaluation"
@@ -67,16 +67,19 @@ def main() -> None:
     segments, sources = eval_sources(protocol)
     prompts = [protocol["prompt"].format(source=s) for s in sources]
 
+    run_meta = json.loads((args.run_dir / "pilot_run.json").read_text()) if (args.run_dir / "pilot_run.json").exists() else {}
+    policy_model = run_meta.get("policy_model") or protocol["policy_model"]
+    reward_names = list(REWARD_CHECKPOINTS) + ([run_meta["reward"]] if run_meta.get("reward") in NEW_REWARDS else [])
     checkpoints = {}
     steps = g["checkpoints_evaluated"] if args.steps is None else list(range(0, args.steps + 1, 100))
     for step in steps:
-        path = protocol["policy_model"] if step == 0 else str(args.run_dir / f"checkpoint-{step}")
+        path = policy_model if step == 0 else str(args.run_dir / f"checkpoint-{step}")
         if step and not Path(path).exists():
             raise FileNotFoundError(path)
         checkpoints[step] = translate(path, prompts, g["max_new_tokens"])
 
     scores = {}
-    for name in REWARD_CHECKPOINTS:
+    for name in reward_names:
         scorer = make_scorer(name)
         for step, outs in checkpoints.items():
             scores[(name, step)] = scorer(sources, outs)
@@ -91,12 +94,12 @@ def main() -> None:
             "truncation_rate": float(np.mean([x["truncated"] for x in f])),
             "repetition_rate": float(np.mean([x["repetitive"] for x in f])),
             "off_target_rate": float(np.mean([x["off_target"] for x in f])),
-            "mean_reward": {n: float(np.mean(scores[(n, step)])) for n in REWARD_CHECKPOINTS},
+            "mean_reward": {n: float(np.mean(scores[(n, step)])) for n in reward_names},
             "mean_length_ratio": float(np.mean([len(o) / max(1, len(s)) for o, s in zip(outs, sources)])),
         }
         for i, seg in enumerate(segments):
             rows.append({"step": step, "segment_key": seg, "output": outs[i], **f[i],
-                         **{f"reward_{n}": scores[(n, step)][i] for n in REWARD_CHECKPOINTS}})
+                         **{f"reward_{n}": scores[(n, step)][i] for n in reward_names}})
     with (args.run_dir / "eval_outputs.jsonl").open("w", encoding="utf-8") as h:
         for r in rows:
             h.write(json.dumps(r, ensure_ascii=False) + "\n")

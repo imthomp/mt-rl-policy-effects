@@ -30,6 +30,9 @@ PROTOCOLS = {
     "enzh": (ROOT / "results/grpo_enzh_protocol.json",
              "d4e59612a39b56c841df729cb0bfcd433039ee39a83b948686729cde7634bb93"),
 }
+SCALE_PROTOCOL = ROOT / "results/grpo_scale_protocol.json"
+SCALE_PREDICTIONS = ROOT / "results/grpo_scale_predictions.json"
+SCALE_PREDICTIONS_SHA256 = "PENDING"  # set after the scale predictions are frozen
 ENZH_PREDICTIONS = ROOT / "results/grpo_enzh_predictions.json"
 ENZH_PREDICTIONS_SHA256 = "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153"
 REWARD_CHECKPOINTS = {
@@ -106,6 +109,7 @@ def main() -> None:
     parser.add_argument("--protocol-name", default="pilot", choices=sorted(PROTOCOLS))
     parser.add_argument("--steps", type=int, default=None, help="en-de amendment 2 follow-up only")
     parser.add_argument("--langid-guard", action="store_true", help="en-de amendment 2 follow-up only")
+    parser.add_argument("--scale-run", default=None, help="run id from results/grpo_scale_protocol.json")
     parser.add_argument("--policy-model", default=None, help="--smoke only (resource tests)")
     parser.add_argument("--lora-r", type=int, default=0, help="--smoke only (resource tests)")
     parser.add_argument("--learning-rate", type=float, default=None, help="--smoke only")
@@ -113,13 +117,28 @@ def main() -> None:
     protocol = load_protocol(args.protocol_name)
     g = dict(protocol["grpo"])
     target_lang = protocol.get("target_lang", "Spanish")
-    if not args.smoke and (args.policy_model or args.lora_r or args.learning_rate
-                           or args.reward in NEW_REWARDS):
+    scale = None
+    if args.scale_run:
+        # Frozen scale / new-reward runs: everything comes from the protocol; predictions must be frozen.
+        if not SCALE_PREDICTIONS.exists() or \
+                hashlib.sha256(SCALE_PREDICTIONS.read_bytes()).hexdigest() != SCALE_PREDICTIONS_SHA256:
+            raise ValueError("scale predictions missing or differ from frozen hash")
+        sp = json.loads(SCALE_PROTOCOL.read_text())
+        if json.loads(SCALE_PREDICTIONS.read_text())["protocol_sha256"] != hashlib.sha256(SCALE_PROTOCOL.read_bytes()).hexdigest():
+            raise ValueError("scale protocol differs from the one the predictions were frozen against")
+        scale = sp["runs"][args.scale_run]
+        if args.reward != scale["reward"] or args.protocol_name != scale["protocol"] or args.seed != scale["seed"]:
+            raise ValueError(f"arguments do not match scale run {args.scale_run}: {scale}")
+        args.policy_model = scale["policy_model"] if scale["policy_model"] != sp["base_policy"] else None
+        args.lora_r = scale.get("lora_r", 0)
+        args.learning_rate = scale.get("learning_rate")
+    elif not args.smoke and (args.policy_model or args.lora_r or args.learning_rate
+                             or args.reward in NEW_REWARDS):
         raise ValueError("--policy-model/--lora-r/--learning-rate and new rewards are smoke-only until a protocol covers them")
     if args.smoke:
         args.output_dir = Path("/tmp") / f"grpo_smoke_{args.reward}"
-    followup = args.steps is not None or args.langid_guard
-    rule_run = not followup and args.protocol_name != "enzh" and (
+    followup = scale is None and (args.steps is not None or args.langid_guard)
+    rule_run = scale is None and not followup and args.protocol_name != "enzh" and (
         args.reward == "metricx_24_qe" or args.protocol_name != "pilot")
     if followup:
         # Exploratory en-de follow-up runs (amendment 2); never scored against the audit rule.
@@ -130,6 +149,8 @@ def main() -> None:
         if args.protocol_name != "ende" or args.guarded or run not in json.loads(ENDE_AMENDMENT_2.read_text())["runs"]:
             raise ValueError(f"Run not in en-de amendment 2: {run}")
         g["seed"], g["steps"] = args.seed, args.steps
+    elif scale is not None:
+        g["seed"] = args.seed
     elif args.protocol_name == "enzh":
         # Prospective test of results/policy_relative_rule.json; predictions must be frozen first.
         if not ENZH_PREDICTIONS.exists() or \
@@ -222,6 +243,8 @@ def main() -> None:
     trainer.train()
     (args.output_dir / "pilot_run.json").write_text(json.dumps({
         "reward": args.reward, "protocol_name": args.protocol_name,
+        "policy_model": args.policy_model or protocol["policy_model"], "lora_r": args.lora_r,
+        "learning_rate": config.learning_rate, "scale_run": args.scale_run,
         "protocol_sha256": PROTOCOLS[args.protocol_name][1],
         "audit_rule_sha256": RULE_SHA256 if rule_run else None,
         "seed": g["seed"], "guarded": args.guarded, "langid_guard": args.langid_guard,

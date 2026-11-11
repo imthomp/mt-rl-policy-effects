@@ -54,8 +54,11 @@ def main() -> None:
     ap.add_argument("--output", type=Path, required=True)
     ap.add_argument("--rule", type=Path)
     ap.add_argument("--rule-sha256")
+    ap.add_argument("--policy-model", default=None, help="default: protocol policy (Qwen2.5-1.5B-Instruct)")
+    ap.add_argument("--rewards", nargs="+", default=REWARDS)
     args = ap.parse_args()
-    if args.target == "Chinese":
+    calibration = args.target in ("German", "Spanish") and args.policy_model is None and args.rewards == REWARDS
+    if not calibration:
         if not args.rule or hashlib.sha256(args.rule.read_bytes()).hexdigest() != args.rule_sha256:
             raise ValueError("Chinese audit requires the frozen policy-relative rule and its hash")
     if args.output.exists():
@@ -68,7 +71,7 @@ def main() -> None:
     if args.target in ("German", "Spanish"):
         assert template == (protocol["prompt"] if args.target == "German"
                             else load_protocol("pilot")["prompt"]), "template drift"
-    outputs = translate(protocol["policy_model"], [template.format(source=s) for s in sources],
+    outputs = translate(args.policy_model or protocol["policy_model"], [template.format(source=s) for s in sources],
                         protocol["grpo"]["max_new_tokens"])
     degen = {
         "source_copy": list(sources),
@@ -79,8 +82,9 @@ def main() -> None:
     result = {"target": args.target, "n_prompts": N_PROMPTS, "seed": SEED, "template": template,
               "sources_sha256": hashlib.sha256("\n".join(sources).encode()).hexdigest(),
               "rule": str(args.rule) if args.rule else None, "rule_sha256": args.rule_sha256,
+              "policy_model": args.policy_model or protocol["policy_model"],
               "p": {}, "mean_score": {}}
-    for reward in REWARDS:
+    for reward in args.rewards:
         score = make_scorer(reward)
         base = np.asarray(score(sources, outputs))
         result["mean_score"][reward] = {"initial": float(base.mean())}
