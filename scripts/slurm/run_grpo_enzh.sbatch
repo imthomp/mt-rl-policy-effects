@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=RLMTgrpo_enzh
+#SBATCH --job-name=MTRLgrpo_enzh
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

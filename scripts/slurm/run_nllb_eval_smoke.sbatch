@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=RLMTnllb_eval_smoke
+#SBATCH --job-name=MTRLnllb_eval_smoke
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1
