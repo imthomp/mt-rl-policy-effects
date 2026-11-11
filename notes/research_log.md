@@ -307,3 +307,12 @@ in all 3 (s0 378, s1 379, s2 199). Guarded: 0 refusals at every step, all seeds.
   of outputs; refs 0.28). MetricX's -3.6..-4.1 chrF has no preamble or Latin-script
   explanation; it comes only with longer, rephrased output. Left as a chrF-vs-COMET-22
   disagreement for human evaluation to settle.
+
+### Fair stripped COMET-22 comparison (job 15262255, 2026-11-11; exploratory)
+Preambles stripped at step 0 AND final; paired bootstrap. `src/eval_stripped_reference.py` ->
+results/grpo_reference_eval_stripped.json (+ SSOT key).
+- CometKiwi-23 en-de, language-ID guard, 1000 steps: +0.021 [+0.011,+0.032], +0.026 [+0.016,+0.036],
+  +0.027 [+0.018,+0.038] (raw had been +0.004/-0.002/+0.005). The guard blocks the refusal
+  collapse AND the policy improves; the preamble had masked the gain.
+- en-de CometKiwi-22: +0.018 / +0.006 / +0.010 (seed 1 CI includes 0). en-zh CometKiwi-22 /
+  CometKiwi-23: +0.019 to +0.022, all CIs exclude 0. XCOMET en-de unchanged (~-0.125).
