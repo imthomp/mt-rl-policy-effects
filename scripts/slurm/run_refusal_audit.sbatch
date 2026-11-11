@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=refusal_audit
+#SBATCH --job-name=RLMTrefusal_audit
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

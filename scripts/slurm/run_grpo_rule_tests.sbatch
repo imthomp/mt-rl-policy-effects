@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=grpo_rule
+#SBATCH --job-name=RLMTgrpo_rule
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

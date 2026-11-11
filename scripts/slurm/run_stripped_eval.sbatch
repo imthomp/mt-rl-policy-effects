@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=stripped_eval
+#SBATCH --job-name=RLMTstripped_eval
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

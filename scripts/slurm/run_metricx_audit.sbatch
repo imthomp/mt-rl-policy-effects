@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=metricx_audit
+#SBATCH --job-name=RLMTmetricx_audit
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=metricx_audit
+#SBATCH --job-name=RLMTmetricx_audit
 #SBATCH --partition=m9
 #SBATCH --qos=normal
 #SBATCH --nodes=1

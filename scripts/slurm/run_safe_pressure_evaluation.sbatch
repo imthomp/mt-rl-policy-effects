@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=safe_evaluate
+#SBATCH --job-name=RLMTsafe_evaluate
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

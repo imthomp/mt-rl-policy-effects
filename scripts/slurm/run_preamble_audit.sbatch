@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=preamble_audit
+#SBATCH --job-name=RLMTpreamble_audit
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1
