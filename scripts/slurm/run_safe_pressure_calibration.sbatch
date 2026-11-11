@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=safe_calibrate
+#SBATCH --job-name=RL_safe_calibrate
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

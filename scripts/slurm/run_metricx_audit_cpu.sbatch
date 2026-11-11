@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLmetricx_audit
+#SBATCH --job-name=RL_metricx_audit
 #SBATCH --partition=m9
 #SBATCH --qos=normal
 #SBATCH --nodes=1

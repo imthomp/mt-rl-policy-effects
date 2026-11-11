@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=encode_confirm
+#SBATCH --job-name=RL_encode_confirm
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

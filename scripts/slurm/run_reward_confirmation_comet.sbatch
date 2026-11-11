@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=comet_confirm
+#SBATCH --job-name=RL_comet_confirm
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

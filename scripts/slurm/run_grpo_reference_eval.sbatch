@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLgrpo_ref_eval
+#SBATCH --job-name=RL_grpo_ref_eval
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

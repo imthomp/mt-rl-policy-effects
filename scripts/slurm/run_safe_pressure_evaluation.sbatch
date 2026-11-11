@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLsafe_evaluate
+#SBATCH --job-name=RL_safe_evaluate
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLstripped_eval
+#SBATCH --job-name=RL_stripped_eval
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

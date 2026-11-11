@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLsmoke_scale
+#SBATCH --job-name=RL_smoke_scale
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1
@@ -8,7 +8,7 @@
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:1
 #SBATCH --time=01:30:00
-#SBATCH --output=artifacts/logs/MTRLsmoke_scale_%A_%a.out
+#SBATCH --output=artifacts/logs/RL_smoke_scale_%A_%a.out
 # Resource smoke tests only (2 GRPO steps, output to /tmp, never a result).
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"

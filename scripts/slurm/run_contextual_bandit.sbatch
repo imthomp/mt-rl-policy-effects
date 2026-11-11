@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mt_context_bandit
+#SBATCH --job-name=RL_mt_context_bandit
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

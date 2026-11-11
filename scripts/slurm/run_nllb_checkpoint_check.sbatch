@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nllb_ckpt_check
+#SBATCH --job-name=RL_nllb_ckpt_check
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

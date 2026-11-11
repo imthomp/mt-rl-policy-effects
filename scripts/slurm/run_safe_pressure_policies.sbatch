@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=safe_policy
+#SBATCH --job-name=RL_safe_policy
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

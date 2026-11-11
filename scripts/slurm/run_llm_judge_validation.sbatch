@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=llm_judge
+#SBATCH --job-name=RL_llm_judge
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

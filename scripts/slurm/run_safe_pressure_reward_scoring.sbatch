@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=safe_score
+#SBATCH --job-name=RL_safe_score
 #SBATCH --partition=m13l
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

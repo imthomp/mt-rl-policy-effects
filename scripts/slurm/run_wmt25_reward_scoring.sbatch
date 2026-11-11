@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=wmt25_reward_score
+#SBATCH --job-name=RL_wmt25_reward_score
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

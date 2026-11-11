@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=tatoeba_policy_cal
+#SBATCH --job-name=RL_tatoeba_policy_cal
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

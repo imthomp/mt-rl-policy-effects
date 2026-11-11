@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nllb_dev_check
+#SBATCH --job-name=RL_nllb_dev_check
 #SBATCH --partition=cs
 #SBATCH --qos=cs
 #SBATCH --nodes=1

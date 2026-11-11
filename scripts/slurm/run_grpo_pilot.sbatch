@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=MTRLgrpo_pilot
+#SBATCH --job-name=RL_grpo_pilot
 #SBATCH --partition=dw,dwmatrix
 #SBATCH --qos=matrix
 #SBATCH --nodes=1

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=safe_encode
+#SBATCH --job-name=RL_safe_encode
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1

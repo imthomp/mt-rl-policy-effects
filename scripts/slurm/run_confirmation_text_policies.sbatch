@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=policy_confirm
+#SBATCH --job-name=RL_policy_confirm
 #SBATCH --partition=m9g
 #SBATCH --qos=gpu
 #SBATCH --nodes=1
