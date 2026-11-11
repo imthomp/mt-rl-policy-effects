@@ -316,3 +316,31 @@ results/grpo_reference_eval_stripped.json (+ SSOT key).
   collapse AND the policy improves; the preamble had masked the gain.
 - en-de CometKiwi-22: +0.018 / +0.006 / +0.010 (seed 1 CI includes 0). en-zh CometKiwi-22 /
   CometKiwi-23: +0.019 to +0.022, all CIs exclude 0. XCOMET en-de unchanged (~-0.125).
+
+### 2026-11-11: lit check, scale + new-reward protocol, human-eval prep
+- Lit check (`notes/lit_review_2026-11-11.md`). WALAR (arXiv 2603.13045, CMU) already reports
+  QE-reward GRPO hacks (source repetition, wrong language) with MetricX-24-XXL / xCOMET and
+  fixes them with a GlotLID gate + word alignment. MiLMMT-46 (2608.10812) uses a language-ID-gated
+  XCOMET-XXL + CometKiwi-XXL reward. SimHack (2610.28707) predicts hacking onset before RL, but
+  for code RL. Implication: copy hack + language guard = replication / tested mitigation. Still
+  novel: pre-training prediction for QE rewards, the refusal collapse, reward-specific contrasts,
+  the preamble effect on evaluation.
+- Larger rewards downloaded to /nobackup/archive/usr/it238/hf_cache: MetricX-24-hybrid XL and XXL,
+  XCOMET-XXL. CometKiwi-23-XXL is gated: the user must accept the license on HF.
+  XCOMET-XXL runs out of memory beside 1.5B training on an A100-80GB (and takes 140 s/step); an
+  H200 smoke test is queued (15262896).
+- Smoke tests (resources only): 7B LoRA r32 ~65 s/step on A100 (≈9 h / 500 steps);
+  1.5B + MetricX-24-XXL ~22 s/step. peft 0.17.1 added to the venv (numpy pinned).
+- Frozen `results/grpo_scale_protocol.json` (sha f01a0191…, 28 runs) before any audit or run:
+  - Arm A: Qwen2.5-7B LoRA (lr 5e-5) x {XCOMET-XL, CometKiwi-23} x 3 seeds plus
+    {CometKiwi-22, MetricX-24} x 1 seed, en-de + en-zh.
+  - Arm B: 1.5B x MetricX-24-XL/XXL x 3 seeds, en-de + en-zh.
+  - Prospective fixes: truncation relative to the step-0 output; repetition counted only on
+    outputs that are not untranslated.
+  - Manipulation check: own reward must rise >= 0.01, otherwise safe calls are uninformative.
+  - Audits: job 15262899. The predictions file comes next; the trainer refuses scale runs until
+    its hash is pinned.
+- Human eval prepared: `src/prepare_human_eval.py`, `docs/HUMAN_EVAL_GUIDELINES.md`. Blinded
+  sheets of 100 items per pair (en-es 461, en-de 470, en-zh 381 candidates); key hashes in
+  `artifacts/human_eval/manifest.json`. Needs annotators.
+- Slurm job names for this project: `RL_<desc>` (user preference).
