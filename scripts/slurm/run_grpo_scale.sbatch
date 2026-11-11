@@ -18,7 +18,7 @@ read -r run protocol reward seed <<< "$(python3 -c "
 import json,sys; r=json.load(open('results/grpo_scale_protocol.json'))['runs']; k=sorted(r)[int(sys.argv[1])]
 print(k, r[k]['protocol'], r[k]['reward'], r[k]['seed'])" "$SLURM_ARRAY_TASK_ID")"
 echo "run=$run"
-out="/nobackup/archive/usr/it238/reinforcement-learning/grpo_scale/${run}"
+out="/nobackup/archive/usr/it238/reinforcement-learning/grpo_scale_v2/${run}"
 keep="$PWD/artifacts/grpo_scale/${run}"
 cd src
 "$PY" -u train_grpo_pilot.py --scale-run "$run" --protocol-name "$protocol" --reward "$reward" --seed "$seed" --output-dir "$out"

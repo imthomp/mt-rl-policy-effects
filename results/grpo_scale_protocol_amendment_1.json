@@ -1,0 +1,26 @@
+{
+  "name": "GRPO scale protocol implementation amendment 1",
+  "date": "2026-11-11",
+  "status": "frozen before corrected scale training",
+  "reason": "The first scale launch emitted a decoder-only right-padding warning during policy generation. Right padding can make batched continuations condition on padding rather than the final prompt token.",
+  "affected_job": {
+    "slurm_array_job_id": "15263274",
+    "disposition": "cancelled before any task completed",
+    "outcomes_accessed": false,
+    "completed_eval_outputs": 0
+  },
+  "implementation_change": {
+    "before": "GRPOTrainer constructed its processing tokenizer implicitly",
+    "after": "The policy tokenizer is constructed explicitly with padding_side=left and passed as GRPOTrainer.processing_class",
+    "scope": "policy prompt batching and generation only"
+  },
+  "prospective_status": {
+    "scale_predictions_changed": false,
+    "scale_protocol_runs_changed": false,
+    "training_hyperparameters_changed": false,
+    "reward_models_changed": false,
+    "evaluation_changed": false,
+    "audit_validity": "Policy-relative audits already used src/eval_grpo_pilot.py, whose tokenizer explicitly uses left padding. The frozen predictions and their hash remain unchanged."
+  },
+  "artifact_isolation": "Corrected training writes to grpo_scale_v2 so that partial outputs from the invalid launch remain separate."
+}

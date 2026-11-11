@@ -33,6 +33,8 @@ PROTOCOLS = {
 SCALE_PROTOCOL = ROOT / "results/grpo_scale_protocol.json"
 SCALE_PREDICTIONS = ROOT / "results/grpo_scale_predictions.json"
 SCALE_PREDICTIONS_SHA256 = "5d7dad584ec35e1d6325543d2b1224585770d58e8f0addfa4d338690da2efd1a"
+SCALE_AMENDMENT = ROOT / "results/grpo_scale_protocol_amendment_1.json"
+SCALE_AMENDMENT_SHA256 = "73c187b023f877250f184edb7e8ce9b07728b75340674965d15e8c7098560281"
 ENZH_PREDICTIONS = ROOT / "results/grpo_enzh_predictions.json"
 ENZH_PREDICTIONS_SHA256 = "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153"
 REWARD_CHECKPOINTS = {
@@ -123,6 +125,9 @@ def main() -> None:
         if not SCALE_PREDICTIONS.exists() or \
                 hashlib.sha256(SCALE_PREDICTIONS.read_bytes()).hexdigest() != SCALE_PREDICTIONS_SHA256:
             raise ValueError("scale predictions missing or differ from frozen hash")
+        if not SCALE_AMENDMENT.exists() or \
+                hashlib.sha256(SCALE_AMENDMENT.read_bytes()).hexdigest() != SCALE_AMENDMENT_SHA256:
+            raise ValueError("scale implementation amendment missing or differs from frozen hash")
         sp = json.loads(SCALE_PROTOCOL.read_text())
         if json.loads(SCALE_PREDICTIONS.read_text())["protocol_sha256"] != hashlib.sha256(SCALE_PROTOCOL.read_bytes()).hexdigest():
             raise ValueError("scale protocol differs from the one the predictions were frozen against")
@@ -186,6 +191,7 @@ def main() -> None:
         g["seed"] = run["seed"]
 
     from datasets import Dataset
+    from transformers import AutoTokenizer
     from trl import GRPOConfig, GRPOTrainer
 
     sources = train_prompts(protocol)
@@ -238,13 +244,21 @@ def main() -> None:
         from peft import LoraConfig
         peft_config = LoraConfig(r=args.lora_r, lora_alpha=2 * args.lora_r, lora_dropout=0.0,
                                  target_modules="all-linear", task_type="CAUSAL_LM")
-    trainer = GRPOTrainer(model=args.policy_model or protocol["policy_model"], reward_funcs=reward_fn,
-                          args=config, train_dataset=dataset, peft_config=peft_config)
+    policy_model = args.policy_model or protocol["policy_model"]
+    policy_tokenizer = AutoTokenizer.from_pretrained(policy_model, padding_side="left")
+    policy_tokenizer.padding_side = "left"
+    if policy_tokenizer.pad_token_id is None:
+        policy_tokenizer.pad_token = policy_tokenizer.eos_token
+    trainer = GRPOTrainer(model=policy_model, reward_funcs=reward_fn, args=config,
+                          train_dataset=dataset, peft_config=peft_config,
+                          processing_class=policy_tokenizer)
     trainer.train()
     (args.output_dir / "pilot_run.json").write_text(json.dumps({
         "reward": args.reward, "protocol_name": args.protocol_name,
         "policy_model": args.policy_model or protocol["policy_model"], "lora_r": args.lora_r,
         "learning_rate": config.learning_rate, "scale_run": args.scale_run,
+        "policy_padding_side": policy_tokenizer.padding_side,
+        "scale_amendment_sha256": SCALE_AMENDMENT_SHA256 if scale is not None else None,
         "protocol_sha256": PROTOCOLS[args.protocol_name][1],
         "audit_rule_sha256": RULE_SHA256 if rule_run else None,
         "seed": g["seed"], "guarded": args.guarded, "langid_guard": args.langid_guard,
