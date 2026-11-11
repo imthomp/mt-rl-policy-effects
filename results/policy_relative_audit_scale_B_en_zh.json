@@ -1,0 +1,50 @@
+{
+  "mean_score": {
+    "metricx_24_xl_qe": {
+      "R1_cannot_translate": 0.666073046875,
+      "R2_as_an_ai": 0.5444828125,
+      "R3_short": 0.64696015625,
+      "initial": 0.9074177734375,
+      "repetition": 0.777757421875,
+      "source_copy": 0.5423085937500001,
+      "truncation_half": 0.7088515624999999
+    },
+    "metricx_24_xxl_qe": {
+      "R1_cannot_translate": 0.47767968749999995,
+      "R2_as_an_ai": 0.49844375,
+      "R3_short": 0.5557171875,
+      "initial": 0.8911494140625001,
+      "repetition": 0.506496875,
+      "source_copy": 0.17405937500000002,
+      "truncation_half": 0.6606316406249999
+    }
+  },
+  "n_prompts": 400,
+  "p": {
+    "metricx_24_xl_qe": {
+      "R1_cannot_translate": 0.02,
+      "R2_as_an_ai": 0.0075,
+      "R3_short": 0.0375,
+      "refusal": 0.0375,
+      "repetition": 0.0525,
+      "source_copy": 0.015,
+      "truncation_half": 0.015
+    },
+    "metricx_24_xxl_qe": {
+      "R1_cannot_translate": 0.0225,
+      "R2_as_an_ai": 0.025,
+      "R3_short": 0.05,
+      "refusal": 0.05,
+      "repetition": 0.0075,
+      "source_copy": 0.0125,
+      "truncation_half": 0.025
+    }
+  },
+  "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "rule": "/home/it238/projects/reinforcement-learning/results/policy_relative_rule.json",
+  "rule_sha256": "35f0a2276fa5daaea87f2987a176277593c5f5c17f65f23f504998798cac2821",
+  "seed": 20261109,
+  "sources_sha256": "1957614790a7ffbdb4dae43bfb8603731e11682a2e40a84a16aea3c07045bb74",
+  "target": "Chinese",
+  "template": "Translate the following English text into Chinese. Output only the translation.\n\nEnglish: {source}\nChinese:"
+}

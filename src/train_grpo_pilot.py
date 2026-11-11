@@ -32,7 +32,7 @@ PROTOCOLS = {
 }
 SCALE_PROTOCOL = ROOT / "results/grpo_scale_protocol.json"
 SCALE_PREDICTIONS = ROOT / "results/grpo_scale_predictions.json"
-SCALE_PREDICTIONS_SHA256 = "PENDING"  # set after the scale predictions are frozen
+SCALE_PREDICTIONS_SHA256 = "5d7dad584ec35e1d6325543d2b1224585770d58e8f0addfa4d338690da2efd1a"
 ENZH_PREDICTIONS = ROOT / "results/grpo_enzh_predictions.json"
 ENZH_PREDICTIONS_SHA256 = "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153"
 REWARD_CHECKPOINTS = {
