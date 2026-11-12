@@ -344,3 +344,16 @@ results/grpo_reference_eval_stripped.json (+ SSOT key).
   sheets of 100 items per pair (en-es 461, en-de 470, en-zh 381 candidates); key hashes in
   `artifacts/human_eval/manifest.json`. Needs annotators.
 - Slurm job names for this project: `RL_<desc>` (user preference).
+
+### 2026-11-12: right-padded rollouts invalidate pre-fix 1.5B GRPO outcomes; full rerun launched
+- Codex found right padding in GRPO policy generation during the scale launch (fixed in 7e0c59d;
+  results/grpo_scale_protocol_amendment_1.json). I checked the scope: TRL 0.25.1 drops
+  padding_side inside apply_chat_template, so Qwen2.5's right padding was used in EVERY 1.5B
+  training run. 55/55 training logs show the warning; the only clean logs belong to runs that never
+  trained. Verified directly: a short prompt batched with a longer one ends in 8 <|endoftext|> pads.
+- Evaluation and audits were left-padded and remain valid; the frozen rules and predictions are unaffected.
+- Every right-padded outcome (copy hack, refusal collapse, guard, preambles, scorecards) is
+  unconfirmed until rerun. results/grpo_padding_rerun_amendment.json (sha abdcae23…) freezes a
+  45-run rerun: same protocols, seeds and predictions. All 45 pass the trainer gates. Job 15275870
+  (RL_v2_rerun) on dw/matrix, the fastest queue by sbatch --test-only.
+- notes/HANDOFF.md created as the single resume point (CURRENT STATE block).
