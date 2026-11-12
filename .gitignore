@@ -77,3 +77,10 @@ venv/
 *.synctex.gz
 *.xdv
 /paper/tokenization_acl/main.txt
+
+# GRPO eval outputs and caches (large, regenerable; kept on disk and /nobackup, not in git)
+/artifacts/grpo_*/
+/artifacts/grpo_reference_cache.jsonl
+/artifacts/llm_judge/
+# Human-eval sheets and blinding keys must never be published; only the hash manifest is tracked
+/artifacts/human_eval/*/

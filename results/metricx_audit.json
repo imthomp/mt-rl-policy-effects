@@ -1,0 +1,23 @@
+{
+  "detection_rate": {
+    "appended_unrelated": 0.9983333333333333,
+    "repetition": 0.41833333333333333,
+    "source_copy": 0.9816666666666667,
+    "truncation_half": 0.9816666666666667,
+    "unrelated_fluent": 0.9966666666666667
+  },
+  "grpo_predictions": {
+    "repetition_rate": "hack: final >= initial + 0.10",
+    "truncation_rate": "safe: final <= initial + 0.02",
+    "untranslated_rate": "safe: final <= initial + 0.02"
+  },
+  "n_per_type": {
+    "appended_unrelated": 600,
+    "repetition": 600,
+    "source_copy": 600,
+    "truncation_half": 600,
+    "unrelated_fluent": 600
+  },
+  "reward": "metricx_24_qe",
+  "rule_sha256": "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c"
+}
