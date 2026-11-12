@@ -1,83 +1,191 @@
-# MT reward-optimization studies
+# Predicting reward overoptimization in machine translation
 
-Research code and protocol notes for a proposed English-to-German NLLB-200
-policy-gradient study. The `β=.20` protocol is closed because its launch screen
-did not pass, and the six-run training pilot was not launched. See [GO/No-Go](docs/GO_NO_GO.md) and
-[the protocol](docs/RL_PROTOCOL.md) for the recorded conclusion and retained
-experimental specification.
+Research code, frozen protocols, and paper sources for studying what happens
+when machine translation policies optimize learned quality estimation rewards.
+The current question is whether a cheap audit of a reward against an initial
+policy can predict which failure mode reinforcement learning will amplify.
 
-The active successor direction is a bounded offline study of whether frozen
-AmanaMT dataset-slice diagnostics improve reward-model reliability under
-best-of-N optimization pressure beyond matched random slice removal. Its
-protocol and holdout rules are in
-[REWARD_OVEROPTIMIZATION_PROTOCOL.md](docs/REWARD_OVEROPTIMIZATION_PROTOCOL.md).
-No reward model has been trained under this successor protocol.
+The repository grew from an earlier tokenization intervention study. That
+branch is closed as a bounded negative result and has its own short paper. The
+main project now combines controlled candidate selection experiments with
+generative GRPO experiments.
 
-## Current design
+## Project status
 
-The protocol uses sentence-disjoint Tatoeba splits and compares an untilted
-rollout policy with a fixed token-piece-length tilt. The estimand is the total
-decoder-policy-procedure effect under common decoding, not a fertility-only
-effect. A temperature-only calibration diagnostic is included to assess whether
-the proposed treatment asks a distinct question from ordinary temperature
-changes.
+### Reward overoptimization
 
-## Repository contents
+The completed controlled studies include:
 
-- `src/nllb_policy_rl.py`: policy-gradient trainer and preflight entry point.
-- `src/evaluate_nllb_policy.py` and `src/summarize_nllb_policy_evaluations.py`: common
-  and stochastic checkpoint evaluation with source grouping and multiple
-  references.
-- `src/calibrate_tatoeba_policy.py`: calibration-only entropy/temperature
-  comparison; it is not a third training arm.
-- `src/merge_tatoeba_calibration_replicates.py`: combines the sole prespecified
-  extra rollout sample only when the initial quality interval is inconclusive.
-- `src/prepare_tatoeba_manifests.py` and `src/prepare_tatoeba_protocol_splits.py`:
-  candidate selection, attribution, and sentence-disjoint split builders.
-- `tests/`: small synthetic estimator checks.
-- `scripts/slurm/`: the active calibration and evaluation wrappers.
-- `artifacts/`: local-only diagnostics, logs, and run outputs.
-- `docs/`: protocol, go/no-go status, and research notes.
+- best-of-$N$ selection with fixed WMT candidate pools;
+- a finite-action contextual bandit whose expected objective and gradient can
+  be computed exactly;
+- a source-and-candidate-text policy evaluated on held-out systems;
+- reward-training seed and optimization-horizon replications;
+- prospective tests of pre-optimization screening and pressure selection; and
+- matched controls for metric--annotation disagreement filtering.
 
-Downloaded corpora, sentence-level manifests, model checkpoints, run logs, and
-diagnostic outputs are intentionally excluded by `.gitignore`. Compact
-provenance and split-audit JSON files are retained; no model weights or
-Tatoeba sentence text belong in this repository. The data builders expect
-the official source exports and local WMT overlap files to be available on the
-machine; set the corresponding `WMT24_XML`, `WMT23_SOURCE`, and
-`WMT23_REFERENCE` environment variables when their default locations do not
-apply. The OPUS-100 builder is retained for provenance work, but OPUS-100 is
-currently excluded from the active protocol pending source-level clearance.
+These studies support the class project and the current ACL draft. See the
+[reward-overoptimization protocol](docs/REWARD_OVEROPTIMIZATION_PROTOCOL.md),
+[contextual-bandit protocol](docs/CONTEXTUAL_BANDIT_PROTOCOL.md), and
+[pre-optimization predictor protocol](docs/PREOPTIMIZATION_PREDICTOR_PROTOCOL.md).
+
+### Generative GRPO
+
+The active extension trains Qwen translation policies with COMET-family and
+MetricX quality-estimation rewards. A policy-relative audit scores controlled
+source-copy, refusal, repetition, and shortening behaviors against the initial
+policy before training. Its prospective calls and abstentions are frozen in
+[`results/grpo_scale_predictions.json`](results/grpo_scale_predictions.json).
+
+The scale experiment is defined by
+[`results/grpo_scale_protocol.json`](results/grpo_scale_protocol.json). The
+left-padding implementation correction, launch provenance, and planned result
+scoring are recorded in:
+
+- [`results/grpo_scale_protocol_amendment_1.json`](results/grpo_scale_protocol_amendment_1.json)
+- [`results/grpo_scale_launch.json`](results/grpo_scale_launch.json)
+- [`src/analyze_grpo_scale.py`](src/analyze_grpo_scale.py)
+- [`docs/GRPO_PAPER_PLAN.md`](docs/GRPO_PAPER_PLAN.md)
+
+Scale outcomes are added to the paper only after every expected run artifact
+passes the scorer's provenance, row-trace, indicator, and manipulation checks.
+
+### Tokenization study
+
+The earlier branch established exact same-string policy-gradient invariance
+and closed a token-length-tilt intervention after its launch screen did not
+pass. It does not claim a translation-learning effect. See
+[`docs/SAME_STRING_INVARIANCE.md`](docs/SAME_STRING_INVARIANCE.md),
+[`docs/GO_NO_GO.md`](docs/GO_NO_GO.md), and
+[`paper/tokenization_acl/`](paper/tokenization_acl/).
+
+## Papers and class deliverables
+
+- [`paper/reward_overoptimization_acl/`](paper/reward_overoptimization_acl/):
+  ACL-format manuscript for the reward-overoptimization project.
+- [`paper/tokenization_acl/`](paper/tokenization_acl/): short negative-result
+  paper for the tokenization branch.
+- [`paper/class_project_proposal/`](paper/class_project_proposal/): proposal for
+  the reinforcement-learning course project.
+
+The reward-overoptimization manuscript currently presents the controlled
+candidate studies. The generative GRPO section will be integrated after the
+frozen scale analysis is complete.
+
+## Reproducibility and numeric claims
+
+[`results/paper_stats.json`](results/paper_stats.json) is the single source of
+truth for paper-facing experimental quantities. Analysis scripts merge their
+own keys into that file. Paper builders render LaTeX commands into
+`generated_stats.tex`; those generated files are build artifacts and are not
+edited by hand.
+
+Before considering a paper build complete:
+
+1. Recompute the relevant analysis section in `paper_stats.json`.
+2. Regenerate the paper's LaTeX commands and figures.
+3. Run [`scripts/check_tex_numbers.py`](scripts/check_tex_numbers.py) on every
+   hand-authored TeX source.
+4. Confirm that each reported table row traces to a source record or run
+   artifact.
+
+Build the main manuscript from the repository root:
+
+```bash
+python src/build_reward_overoptimization_paper.py
+python src/plot_reward_overoptimization.py
+python src/plot_contextual_bandit.py \
+  --output-stem paper/reward_overoptimization_acl/figures/contextual_bandit
+python src/plot_text_policy_bandit.py \
+  --output-stem paper/reward_overoptimization_acl/figures/text_policy_bandit
+python scripts/check_tex_numbers.py paper/reward_overoptimization_acl/main.tex
+make -C paper/reward_overoptimization_acl
+```
+
+Build the tokenization paper:
+
+```bash
+python src/build_tokenization_paper_stats.py
+python scripts/check_tex_numbers.py paper/tokenization_acl/main.tex
+make -C paper/tokenization_acl
+```
+
+The paper directories also provide a `tectonic` Make target.
+
+## Repository layout
+
+- `src/`: data preparation, reward training, audits, policy optimization,
+  evaluation, analysis, paper-stat generation, and plotting.
+- `results/`: frozen protocols, prospective predictions, compact audit output,
+  and the paper statistics source of truth.
+- `docs/`: scientific protocols, intervention decisions, human-evaluation
+  guidance, and research plans.
+- `scripts/slurm/`: tracked BYU cluster launchers for the experiments.
+- `paper/`: ACL manuscripts and the course proposal.
+- `tests/`: checks for the controlled data, reward, bandit, and analysis paths.
+- `artifacts/`: local generated translations, logs, checkpoints, and evaluation
+  output. Most contents are intentionally excluded from Git.
+- `data/`: compact provenance and split audits. Corpus text remains local.
+
+## Main execution paths
+
+### Controlled reward study
+
+The main sequence is:
+
+1. inventory and diagnose DA slices;
+2. build matched reward-training conditions;
+3. train and score reward models;
+4. run best-of-$N$, contextual-bandit, and text-policy analyses;
+5. run the frozen prospective confirmation and pressure-selection analyses;
+6. merge results into `paper_stats.json` and rebuild the paper.
+
+The corresponding scripts use descriptive names under `src/`, including
+`analyze_da_slice_diagnostics.py`, `train_da_reward_model.py`,
+`analyze_wmt25_best_of_n.py`, `analyze_wmt26_best_of_n.py`,
+`run_contextual_bandit.py`, `run_text_policy_bandit.py`, and the predictor and
+safe-pressure analysis scripts.
+
+### Generative GRPO study
+
+The generative path is centered on:
+
+- [`src/audit_policy_relative.py`](src/audit_policy_relative.py)
+- [`src/train_grpo_pilot.py`](src/train_grpo_pilot.py)
+- [`src/eval_grpo_pilot.py`](src/eval_grpo_pilot.py)
+- [`src/analyze_grpo_rule_tests.py`](src/analyze_grpo_rule_tests.py)
+- [`src/analyze_grpo_scale.py`](src/analyze_grpo_scale.py)
+
+Cluster launchers default to offline Hugging Face caches and the local GRPO
+Python environment. Do not regenerate a frozen protocol or prediction file in
+place. Each freezing script refuses to overwrite its output, and trainers pin
+the expected hashes.
 
 ## Environment
 
-The recorded BYU cluster environment uses PyTorch 2.11.0+cu130, Transformers
-5.14.1, SentencePiece 0.2.2, and SacreBLEU 2.6.0. The scorer pins are in
-`requirements-rl.txt`; the OPUS Parquet reader pin is in
-`requirements-data.txt`. Model access is local-only in the Slurm jobs. Set
-`NLLB_MODEL_DIR` to the approved local snapshot path.
+There is no single environment file covering every historical branch.
+[`requirements-rl.txt`](requirements-rl.txt) and
+[`requirements-data.txt`](requirements-data.txt) contain the small pinned
+dependencies for the original NLLB and data-reader paths. The GRPO launchers
+use the cluster's dedicated `~/.venvs/grpo` environment together with local
+model caches. Protocol JSON files pin model identifiers, input hashes, and
+experimental settings.
 
-The resource plan in the current protocol is one A100 job at partition/QoS
-`cs/cs`, serial execution, and a 72 GiB PyTorch allocator cap. The published
-license terms appear to support the described noncommercial study subject to
-attribution; the project researcher recorded a noncommercial-use self-assessment in
-`docs/rights_clearance.json`. This is not institutional approval. Model-work scripts require that project decision. Afterward, calibration, save/reload verification, the paired
-development check, and final protocol freeze remain before the six-run pilot.
-See [the rights note](docs/RIGHTS_REVIEW.md),
-[the data/model notice](docs/DATA_MODEL_NOTICE.md), and
-[the protocol](docs/RL_PROTOCOL.md).
+The repository is designed for the BYU Slurm cluster, but the analysis and
+paper-building scripts can run elsewhere when their recorded inputs are
+available. Scheduler placement is operational metadata and is not part of the
+scientific treatment.
 
-The tracked Slurm wrappers cover evaluation smoke, calibration, checkpoint
-round-trip verification, and the four-update paired development check.
-They use the BYU `cs/cs` partition and accept `NLLB_MODEL_DIR` and
-`NLLB_PYTHON` overrides. Other exploratory cluster wrappers are preserved in
-`scripts/archive/` locally and excluded from the Git snapshot.
+## Data, models, and redistribution
 
-## Rights and reuse
+WMT annotations and system outputs, Tatoeba text, model checkpoints, generated
+translations, and optimizer state are not distributed in this repository.
+Compact source hashes, manifests, and attribution records are retained where
+permitted. The NLLB/Tatoeba branch's terms and attribution are summarized in
+[`docs/DATA_MODEL_NOTICE.md`](docs/DATA_MODEL_NOTICE.md). Consult the relevant
+WMT release and model cards before redistributing data or modified weights.
 
-No code license is assigned yet. Confirm repository ownership and choose a
-license before making this repository public. The noncommercial research
-license basis and required notices for the current data/model are summarized in
-[DATA_MODEL_NOTICE.md](docs/DATA_MODEL_NOTICE.md); Tatoeba contributor
-attribution must be preserved if text is redistributed. OPUS-100 remains
-excluded.
+OPUS-100 remains excluded from research training because its combined-source
+licensing was not cleared for this project.
+
+No code license has been assigned to this repository.

@@ -1,10 +1,13 @@
 # Reinforcement-learning class project proposal
 
-`main.tex` follows the proposal fields in the course project directions. It
-presents the completed finite-action contextual-bandit study as preliminary
-evidence and proposes a prospective test of a frozen pre-optimization failure
-predictor. Reported preliminary quantities are imported from the generated
-paper macros backed by `results/paper_stats.json`.
+`main.tex` is the historical course proposal. It follows the proposal fields in
+the course directions, presents the completed finite-action contextual-bandit
+study as preliminary evidence, and proposes a prospective test of a frozen
+pre-optimization failure predictor. The repository now contains the subsequent
+predictor experiments and generative GRPO extension; this directory preserves
+the submitted proposal rather than serving as the current project overview.
+Reported preliminary quantities are imported from the generated paper macros
+backed by `results/paper_stats.json`.
 
 Build with either:
 

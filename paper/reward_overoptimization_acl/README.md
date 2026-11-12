@@ -1,7 +1,13 @@
 # AmanaMT-derived reward-overoptimization ACL draft
 
-This is an initial results manuscript, not a submission-ready paper. Its claim
-is intentionally narrower than the original filtering hypothesis:
+This is a working results manuscript, not a submission-ready paper. Its current
+text covers the controlled candidate-selection and bandit studies. A frozen
+generative GRPO scale study is in progress and will be integrated only after
+`src/analyze_grpo_scale.py` validates every expected run artifact. The planned
+integration and claim boundaries are in `docs/GRPO_PAPER_PLAN.md`.
+
+The current manuscript claim is narrower than the original filtering
+hypothesis:
 
 > Every tested learned reward loses human-rated quality under sufficient
 > optimization. Reward seed changes when failure arrives, and the current
