@@ -2,7 +2,7 @@
 
 Single entry point for any agent or person resuming this project. **Rewrite the CURRENT STATE block whenever anything changes.** History lives in `notes/research_log.md` and `git log`; the plan for the paper is in `docs/GRPO_PAPER_PLAN.md`.
 
-## CURRENT STATE (updated 2026-11-12)
+## CURRENT STATE (updated 2026-11-12, afternoon)
 
 ### Question
 Can a cheap audit, run before RL, predict which failure mode a learned MT QE reward will amplify under GRPO? When it can't, do simple output guards catch what it misses? Copy and wrong-language hacks under GRPO are already published (WALAR, arXiv 2603.13045), so the candidate contribution is *prediction*. See `notes/lit_review_2026-11-11.md`.
@@ -17,11 +17,11 @@ Can a cheap audit, run before RL, predict which failure mode a learned MT QE rew
 ### Running
 | Job | What | Outputs |
 |---|---|---|
-| `15275870` (`RL_v2_rerun`, array 0-44) | Left-padded rerun of the full 1.5B grid: same protocols, seeds and frozen predictions | `artifacts/grpo_v2/<group>/<name>`; checkpoints in `/nobackup/archive/usr/it238/reinforcement-learning/grpo_v2/` |
-| `15263954` (`RL_scale`, array 0-27) | Corrected scale protocol. 25/28 done at last check. Arm A: 7B LoRA. Arm B: 1.5B with MetricX-24-XL/XXL | `artifacts/grpo_scale_v2/` (Codex) |
+| `15275870` (`RL_v2_rerun`, array 0-44) | 39/45 done at last check (the 6 running are the 1000-step follow-ups). Left-padded rerun of the full 1.5B grid: same protocols, seeds and frozen predictions | `artifacts/grpo_v2/<group>/<name>`; checkpoints in `/nobackup/archive/usr/it238/reinforcement-learning/grpo_v2/` |
+| `15263954` (`RL_scale`) | **DONE and scored** (results/grpo_scale_result.json, SSOT `grpo_scale`): safe 84/84, hack 3/6 (7B en-zh XCOMET copies; 7B en-de XCOMET does not), all 28 pass the manipulation check | `artifacts/grpo_scale/` (eval files); checkpoints in `/nobackup/.../grpo_scale_v2/` |
 
 ### Next steps, in order
-1. **When `15263954` finishes,** run `src/analyze_grpo_scale.py` once (Codex's frozen scorer: provenance checks, corrected indicators, manipulation gate). Writes `results/grpo_scale_result.json` and the SSOT.
+1. ~~Score the scale protocol~~ done 2026-11-12. Still to do: reference-based quality (COMET-22, chrF) of the scale runs; add `grpo_scale` to `GROUPS` in `src/eval_grpo_reference.py`.
 2. **When `15275870` finishes,** rescore with the existing frozen scripts pointed at `artifacts/grpo_v2`:
    - `src/analyze_grpo_rule_tests.py` (T4 rule and en-zh policy-relative rule; paths need a v2 switch)
    - the amendment-2 H1-H3 checks

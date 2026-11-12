@@ -357,3 +357,16 @@ results/grpo_reference_eval_stripped.json (+ SSOT key).
   45-run rerun: same protocols, seeds and predictions. All 45 pass the trainer gates. Job 15275870
   (RL_v2_rerun) on dw/matrix, the fastest queue by sbatch --test-only.
 - notes/HANDOFF.md created as the single resume point (CURRENT STATE block).
+
+### Scale protocol result (job 15263954, scored 2026-11-12 with the frozen src/analyze_grpo_scale.py)
+Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.024 to +0.256).
+- Tally: safe 84/84 correct; hack 3/6; 22 no-call cells.
+- Hack calls: 7B XCOMET-XL en-zh (p=0.865) copies in 3/3 seeds (untranslated 0.010 -> 0.958-0.965,
+  own reward +0.25). 7B XCOMET-XL en-de (p=0.653) does NOT copy in any seed (untranslated
+  0.010 -> 0.010-0.013) even though reward rises +0.034-0.039. Those are the 3 failures.
+- 7B CometKiwi-23 en-de refusal predicted safe (p=0.045): 0 refusals in 3/3 seeds. No refusal anywhere in the scale runs.
+- Arm B, reward scale: MetricX-24-XL and -XXL show no hack of any type in 12/12 runs (en-de,
+  en-zh). This contrasts with WALAR's QE-only MetricX-XXL source repetition, but their setup
+  differs (policies, data, reward range) — do not over-claim.
+- Caveat: arm A uses LoRA at a different LR, so 7B vs 1.5B differences are not attributable to
+  scale alone (GRPO_PAPER_PLAN.md point 2). Not yet done: reference-based quality of the scale runs.
