@@ -1,0 +1,435 @@
+{
+  "affected": "Every completed 1.5B GRPO training run before commit 7e0c59d: pilot, replication + mitigation, MetricX en-es, en-de rule tests (seeds 0-2), en-de amendment-2 follow-up, en-zh. 55 of 55 training logs show the transformers right-padding warning; the only logs without it are runs that never trained.",
+  "defect": "TRL 0.25.1 GRPOTrainer tokenizes conversational prompts via apply_chat_template(..., padding_side='left'); apply_chat_template ignores padding_side, so Qwen2.5's default right padding was used. In every training rollout batch, shorter prompts were followed by <|endoftext|> pad tokens before generation began. Verified 2026-11-12: a short prompt batched with a longer one ends in 8 pad tokens. Found by Codex during the scale launch (results/grpo_scale_protocol_amendment_1.json).",
+  "fix": "src/train_grpo_pilot.py passes an explicit left-padding tokenizer as processing_class (commit 7e0c59d); pilot_run.json records policy_padding_side.",
+  "frozen_at_utc": "2026-11-12T06:37:05.956936+00:00",
+  "name": "GRPO left-padding rerun amendment (1.5B grid)",
+  "not_affected": "Evaluation and every audit (src/eval_grpo_pilot.translate uses padding_side='left'); frozen rules, predictions and their hashes; the corrected scale array 15263954.",
+  "outcome_access": "Written after all right-padded outcomes were known. It adds no new predictions; the predictions being tested were frozen before the original runs.",
+  "pinned": {
+    "results/grpo_audit_rule.json": "0dc190f79589987af21f2a8476787e68260e25db26b21bd02e44c4837437ca4c",
+    "results/grpo_ende_protocol.json": "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779",
+    "results/grpo_ende_protocol_amendment_1.json": "289acb8713b7b444935641c9b4b9dd8ed9d387f491c9c506ceec25fa01b240dd",
+    "results/grpo_ende_protocol_amendment_2.json": "0062a8772e0fc299fa222988d21aaa0d51311919fbcdbb3d673cf20cd9c3304a",
+    "results/grpo_enzh_predictions.json": "59f6afd5683ac0ad1db90e45a7b6df596c57ceb8531769f20eedbc3766d93153",
+    "results/grpo_enzh_protocol.json": "d4e59612a39b56c841df729cb0bfcd433039ee39a83b948686729cde7634bb93",
+    "results/grpo_pilot_protocol.json": "61d89eaab72a7a9d10fd8ec2cedb28b752293faae354d4a6d5d4f1c69323343c",
+    "results/grpo_replication_protocol.json": "64b2d092765be5994b0f2ae7718720cb04a7261fe964fb0932bc66af0ebc2277",
+    "results/policy_relative_rule.json": "35f0a2276fa5daaea87f2987a176277593c5f5c17f65f23f504998798cac2821"
+  },
+  "relabel": "Existing outputs under artifacts/grpo_pilot, grpo_replication, grpo_rule_tests, grpo_ende_followup are the 'right-padded rollouts' condition. They are kept, disclosed, and never pooled with corrected runs.",
+  "rerun": {
+    "n": 45,
+    "outputs": "/nobackup/archive/usr/it238/reinforcement-learning/grpo_v2/<group>/<name> and artifacts/grpo_v2/<group>/<name>",
+    "runs": [
+      {
+        "group": "pilot",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": null,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "pilot",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_22",
+        "seed": null,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_22",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_22",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "pilot",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_23_xl",
+        "seed": null,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_23_xl",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "cometkiwi_23_xl",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": true,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_es",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "metricx_24_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": true,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_es",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "metricx_24_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "replication",
+        "guarded": true,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "xcomet_xl_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_es",
+        "guarded": false,
+        "langid": false,
+        "protocol": "pilot",
+        "reward": "metricx_24_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "xcomet_xl_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "xcomet_xl_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "xcomet_xl_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_22",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_22",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_22",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "metricx_24_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "metricx_24_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_de",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "metricx_24_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "xcomet_xl_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "xcomet_xl_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "xcomet_xl_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_22",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_22",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_22",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_23_xl",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_23_xl",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "cometkiwi_23_xl",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "metricx_24_qe",
+        "seed": 0,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "metricx_24_qe",
+        "seed": 1,
+        "steps": null
+      },
+      {
+        "group": "rule_test_en_zh",
+        "guarded": false,
+        "langid": false,
+        "protocol": "enzh",
+        "reward": "metricx_24_qe",
+        "seed": 2,
+        "steps": null
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 0,
+        "steps": 1000
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 1,
+        "steps": 1000
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": false,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 2,
+        "steps": 1000
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": true,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 0,
+        "steps": 1000
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": true,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 1,
+        "steps": 1000
+      },
+      {
+        "group": "ende_followup",
+        "guarded": false,
+        "langid": true,
+        "protocol": "ende",
+        "reward": "cometkiwi_23_xl",
+        "seed": 2,
+        "steps": 1000
+      }
+    ],
+    "scoring": "The frozen predictions are rescored on corrected runs with the same scripts (T4 rule, policy-relative rule, amendment-2 H1-H3). Old vs corrected are reported side by side.",
+    "unchanged": "Every protocol, hyperparameter, seed, guard, frozen prediction, indicator and analysis rule. Each rerun passes the same hash-checked trainer gates as its original."
+  },
+  "status": "frozen before any corrected 1.5B rerun"
+}
