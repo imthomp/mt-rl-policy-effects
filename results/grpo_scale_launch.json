@@ -1,0 +1,34 @@
+{
+  "status": "launched_after_two_step_smoke_passed",
+  "launch_date": "2026-11-11",
+  "executing_revision": "7e0c59d",
+  "slurm_array_job_id": "15263954",
+  "array_indices": "0-27",
+  "partition_request": "dw,dwmatrix",
+  "qos": "matrix",
+  "time_limit": "18:00:00",
+  "scheduler_adjustments": [
+    {
+      "array_index": 16,
+      "reason": "A live scheduler comparison found an immediately available H100 slot.",
+      "final_partition": "cs2",
+      "final_qos": "cs",
+      "final_time_limit": "1-00:00:00",
+      "state_at_recording": "COMPLETED"
+    }
+  ],
+  "smoke": {
+    "slurm_job_id": "15263843",
+    "steps": 2,
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "right_padding_warning_present": false,
+    "finite_training_summary_present": true
+  },
+  "pinned_inputs": {
+    "results/grpo_scale_protocol.json": "f01a01915839f130b9ce70a0bb807b3cb1737bb29384a7627b78ef58ec072207",
+    "results/grpo_scale_predictions.json": "5d7dad584ec35e1d6325543d2b1224585770d58e8f0addfa4d338690da2efd1a",
+    "results/grpo_scale_protocol_amendment_1.json": "73c187b023f877250f184edb7e8ce9b07728b75340674965d15e8c7098560281"
+  },
+  "outcome_access_at_launch": "No corrected scale outcome existed or was accessed before launch."
+}
