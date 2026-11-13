@@ -2,7 +2,7 @@
 
 Single entry point for any agent or person resuming this project. **Rewrite the CURRENT STATE block whenever anything changes.** History lives in `notes/research_log.md` and `git log`; the plan for the paper is in `docs/GRPO_PAPER_PLAN.md`.
 
-## CURRENT STATE (updated 2026-11-12, afternoon)
+## CURRENT STATE (updated 2026-11-12, evening)
 
 ### Question
 Can a cheap audit, run before RL, predict which failure mode a learned MT QE reward will amplify under GRPO? When it can't, do simple output guards catch what it misses? Copy and wrong-language hacks under GRPO are already published (WALAR, arXiv 2603.13045), so the candidate contribution is *prediction*. See `notes/lit_review_2026-11-11.md`.
@@ -14,23 +14,25 @@ Can a cheap audit, run before RL, predict which failure mode a learned MT QE rew
 - **Not affected:** evaluation and all audits (left-padded), the frozen rules and predictions, and the corrected scale runs.
 - **Treat every pre-fix GRPO outcome as unconfirmed until its v2 rerun exists.** The refusal collapse is the most suspect: one seed's refusal says the sentence "is incomplete and lacks context".
 
-### Running
+### Completed compute
 | Job | What | Outputs |
 |---|---|---|
-| `15275870` (`RL_v2_rerun`, array 0-44) | 39/45 done at last check (the 6 running are the 1000-step follow-ups). Left-padded rerun of the full 1.5B grid: same protocols, seeds and frozen predictions | `artifacts/grpo_v2/<group>/<name>`; checkpoints in `/nobackup/archive/usr/it238/reinforcement-learning/grpo_v2/` |
+| `15316665` (`RL_preamble_audit`) | **DONE, exit 0.** Corrected preamble and commentary audit. Only one corrected run crosses the exploratory preamble threshold; stripping its preambles has negligible effect. | `results/preamble_audit_exploratory.json`; SSOT `preamble_audit_exploratory` |
+| `15316623` (`RL_stripped_eval`) | **DONE, exit 0.** Fair reference comparison after stripping preambles at both endpoints. | `results/grpo_reference_eval_stripped.json`; SSOT `grpo_reference_eval_stripped` |
+| `15309367` (`RL_grpo_ref_eval`) | **DONE, exit 0.** Reference evaluation of the corrected 1.5B grid and scale runs. | `results/grpo_reference_eval.json`; SSOT `grpo_reference_eval` |
+| `15275870` (`RL_v2_rerun`, array 0-44) | **DONE, 45/45 exit 0, and frozen rule scorecard computed.** Corrected 1.5B safe calls 24/24; hack calls 3/9. The six misses are MetricX repetition predictions in en-es and en-de. | `artifacts/grpo_v2/<group>/<name>`; corrected SSOT keys end in `_corrected`; checkpoints in `/nobackup/archive/usr/it238/reinforcement-learning/grpo_v2/` |
 | `15263954` (`RL_scale`) | **DONE and scored** (results/grpo_scale_result.json, SSOT `grpo_scale`): safe 84/84, hack 3/6 (7B en-zh XCOMET copies; 7B en-de XCOMET does not), all 28 pass the manipulation check | `artifacts/grpo_scale/` (eval files); checkpoints in `/nobackup/.../grpo_scale_v2/` |
 
 ### Next steps, in order
-1. ~~Score the scale protocol~~ done 2026-11-12. Still to do: reference-based quality (COMET-22, chrF) of the scale runs; add `grpo_scale` to `GROUPS` in `src/eval_grpo_reference.py`.
-2. **When `15275870` finishes,** rescore with the existing frozen scripts pointed at `artifacts/grpo_v2`:
-   - `src/analyze_grpo_rule_tests.py` (T4 rule and en-zh policy-relative rule; paths need a v2 switch)
-   - the amendment-2 H1-H3 checks
-   - `src/eval_grpo_reference.py` and `src/eval_stripped_reference.py` (COMET-22 and chrF)
-   - `src/audit_preamble_exploratory.py`
+1. ~~Score the scale protocol and run reference-based quality evaluation~~ done 2026-11-12.
+2. ~~Finish corrected-grid evaluation~~ done 2026-11-12:
+   - ~~`src/analyze_grpo_rule_tests.py` (T4 rule and en-zh policy-relative rule)~~ done; `--corrected` preserves legacy and corrected SSOT keys side by side
+   - amendment-2 H1-H3 are scored by `src/analyze_grpo_ende_followup.py`: corrected H1 fails, H2 and H3 pass
+   - reference, stripped-reference and preamble audits are complete
 
    Report right-padded and corrected results side by side. Do **not** change any rule or prediction.
 3. **Optional amendment:** XCOMET-XXL and CometKiwi-23-XXL as new rewards. Both are downloaded to `/nobackup/archive/usr/it238/hf_cache`, and the user has CometKiwi-XXL access. XCOMET-XXL needs an **H200** (out of memory on an A100-80GB beside training; ~52 s/step on H200). Freeze the audit and predictions before any run.
-4. **Human evaluation:** sheets are built and blinded (`src/prepare_human_eval.py`, `docs/HUMAN_EVAL_GUIDELINES.md`, key hashes in `artifacts/human_eval/manifest.json`). They currently draw on **right-padded** runs; regenerate from `grpo_v2` before sending them out. Annotators are needed for German and Chinese; the user could do Spanish as secondary evidence.
+4. **Human evaluation:** corrected sheets are built and blinded from `grpo_v2` (`src/prepare_human_eval.py`, `docs/HUMAN_EVAL_GUIDELINES.md`, key hashes in `artifacts/human_eval/manifest.json`, SSOT `human_eval_manifest`). Annotators are needed for German and Chinese; the user could do Spanish as secondary evidence.
 5. **Paper:** the user writes the abstract and outline first. Every number goes through `results/paper_stats.json` and generated macros (see `~/.claude/CLAUDE.md`). Write "CometKiwi-23", never "CK23".
 
 ### Conventions

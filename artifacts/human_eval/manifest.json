@@ -3,29 +3,29 @@
   "pairs": {
     "en_de": {
       "items": 100,
-      "key_sha256": "fcd3d53bb35f19acb703d3cec1f51d45f7ab56c6752a1da69ddb1c45a9486ca2",
-      "mean_unique_candidates": 4.7,
-      "rows": 470,
-      "sheet_sha256": "6aa8141cd10284fcb10b681d77c98a02dc1c7e377b01b92a44ceed900057fb65",
+      "key_sha256": "098f9ffc62be7bfed969cf1a4a45f6af47f71635d0990b6ec13878008cf7804a",
+      "mean_unique_candidates": 4.64,
+      "rows": 464,
+      "sheet_sha256": "8713bf4592c784285013239408dadb33e2a8ead3d773a0ffcaade3cf14c53871",
       "systems": {
         "cometkiwi_22": [
-          "artifacts/grpo_rule_tests/en_de/cometkiwi_22_seed0",
+          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
           500
         ],
         "cometkiwi_23_xl_langid_guard": [
-          "artifacts/grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed0",
+          "artifacts/grpo_v2/ende_followup/cometkiwi_23_xl_langid_steps1000_seed0",
           1000
         ],
         "cometkiwi_23_xl_seed2_unguarded": [
-          "artifacts/grpo_rule_tests/en_de/cometkiwi_23_xl_seed2",
+          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_23_xl_seed2",
           500
         ],
         "initial": [
-          "artifacts/grpo_rule_tests/en_de/cometkiwi_22_seed0",
+          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
           0
         ],
         "metricx_24_qe": [
-          "artifacts/grpo_rule_tests/en_de/metricx_24_qe_seed0",
+          "artifacts/grpo_v2/rule_test_en_de/metricx_24_qe_seed0",
           500
         ]
       },
@@ -33,29 +33,29 @@
     },
     "en_es": {
       "items": 100,
-      "key_sha256": "7a2a9befcb099b6110d229eb8a64639ef49b24a9c2551220339f1634657ff29c",
-      "mean_unique_candidates": 4.61,
-      "rows": 461,
-      "sheet_sha256": "ba6f600a01c70d0346492429ebac59997ff5e47521af09ebb636c8943ad59294",
+      "key_sha256": "7d27d5871191a4a267fd1cbeeaba276ea0739e64a8b97938970dc3f302b6903a",
+      "mean_unique_candidates": 4.56,
+      "rows": 456,
+      "sheet_sha256": "3f6c241ba021de7bbc41a430bb525c9cde7f8bbd82ca39117763f50f8227e38b",
       "systems": {
         "cometkiwi_22": [
-          "artifacts/grpo_pilot/cometkiwi_22",
+          "artifacts/grpo_v2/pilot/cometkiwi_22",
           500
         ],
         "cometkiwi_23_xl": [
-          "artifacts/grpo_pilot/cometkiwi_23_xl",
+          "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
           500
         ],
         "initial": [
-          "artifacts/grpo_pilot/cometkiwi_23_xl",
+          "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
           0
         ],
         "metricx_24_qe": [
-          "artifacts/grpo_rule_tests/en_es/metricx_24_qe_seed0",
+          "artifacts/grpo_v2/rule_test_en_es/metricx_24_qe_seed0",
           500
         ],
         "xcomet_xl_qe_guarded": [
-          "artifacts/grpo_replication/xcomet_xl_qe_guarded_seed0",
+          "artifacts/grpo_v2/replication/xcomet_xl_qe_guarded_seed0",
           500
         ]
       },
@@ -63,25 +63,25 @@
     },
     "en_zh": {
       "items": 100,
-      "key_sha256": "9fa786b18cb221ac137b584970699b61f1d07b50011193c9affad5b3d58f6f78",
+      "key_sha256": "ced561b0f52b09680b02f5c15a94e6fe192ed11944e6d24894c15c20e8bd862a",
       "mean_unique_candidates": 3.81,
       "rows": 381,
-      "sheet_sha256": "d9c6450fac7d1922378cfd2f0619cf20944f40af11dda97cf227d284480af748",
+      "sheet_sha256": "e0cdacc3edf04af41e9840f13246e92b7c819baa88489f72e410a955c7eb2f08",
       "systems": {
         "cometkiwi_22": [
-          "artifacts/grpo_rule_tests/en_zh/cometkiwi_22_seed0",
+          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
           500
         ],
         "cometkiwi_23_xl": [
-          "artifacts/grpo_rule_tests/en_zh/cometkiwi_23_xl_seed0",
+          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_23_xl_seed0",
           500
         ],
         "initial": [
-          "artifacts/grpo_rule_tests/en_zh/cometkiwi_22_seed0",
+          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
           0
         ],
         "metricx_24_qe": [
-          "artifacts/grpo_rule_tests/en_zh/metricx_24_qe_seed0",
+          "artifacts/grpo_v2/rule_test_en_zh/metricx_24_qe_seed0",
           500
         ]
       },

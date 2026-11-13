@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import argparse
 from collections import defaultdict
 from pathlib import Path
 
@@ -35,16 +36,23 @@ def audit_d() -> dict[str, dict[str, float]]:
     return d
 
 
-def discover() -> list[dict]:
+def discover(art: Path, corrected: bool = False) -> list[dict]:
     runs = []
-    for p in sorted(ART.glob("grpo_pilot/*/eval_outputs.jsonl")):
+    names = ({"pilot": "pilot", "replication": "replication",
+              "rule_en_es": "rule_test_en_es", "rule_en_de": "rule_test_en_de",
+              "rule_en_zh": "rule_test_en_zh"} if corrected else
+             {"pilot": "grpo_pilot", "replication": "grpo_replication",
+              "rule_en_es": "grpo_rule_tests/en_es", "rule_en_de": "grpo_rule_tests/en_de",
+              "rule_en_zh": "grpo_rule_tests/en_zh"})
+    for p in sorted(art.glob(f"{names['pilot']}/*/eval_outputs.jsonl")):
         runs.append({"group": "pilot", "lp": "en_es", "reward": p.parent.name, "guarded": False, "seed": 0, "path": p})
-    for p in sorted(ART.glob("grpo_replication/*/eval_outputs.jsonl")):
+    for p in sorted(art.glob(f"{names['replication']}/*/eval_outputs.jsonl")):
         m = re.fullmatch(r"(.+?)(_guarded)?_seed(\d+)", p.parent.name)
         runs.append({"group": "replication", "lp": "en_es", "reward": m[1], "guarded": bool(m[2]), "seed": int(m[3]), "path": p})
-    for p in sorted(ART.glob("grpo_rule_tests/*/*/eval_outputs.jsonl")):
-        m = re.fullmatch(r"(.+)_seed(\d+)", p.parent.name)
-        runs.append({"group": "rule_test", "lp": p.parent.parent.name, "reward": m[1], "guarded": False, "seed": int(m[2]), "path": p})
+    for lp in ("en_es", "en_de", "en_zh"):
+        for p in sorted(art.glob(f"{names['rule_' + lp]}/*/eval_outputs.jsonl")):
+            m = re.fullmatch(r"(.+)_seed(\d+)", p.parent.name)
+            runs.append({"group": "rule_test", "lp": lp, "reward": m[1], "guarded": False, "seed": int(m[2]), "path": p})
     return runs
 
 
@@ -77,6 +85,9 @@ def summarize(run: dict) -> dict:
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--corrected", action="store_true", help="score artifacts/grpo_v2 instead of the legacy right-padded runs")
+    args = ap.parse_args()
     rule = json.loads((ROOT / "results/grpo_audit_rule.json").read_text())
     hack_t = float(re.search(r"d_k < ([\d.]+)", rule["rule"]["predict_hack"])[1])
     safe_t = float(re.search(r"d_k >= ([\d.]+)", rule["rule"]["predict_safe"])[1])
@@ -85,7 +96,7 @@ def main() -> None:
     d = audit_d()
 
     runs, scorecard = {}, []
-    for run in discover():
+    for run in discover(ART / "grpo_v2" if args.corrected else ART, corrected=args.corrected):
         name = f"{run['group']}/{run['lp']}/{run['reward']}{'_guarded' if run['guarded'] else ''}_seed{run['seed']}"
         s = summarize(run)
         runs[name] = {k: run[k] for k in ("group", "lp", "reward", "guarded", "seed")} | s
@@ -147,9 +158,10 @@ def main() -> None:
     }
     path = ROOT / "results/paper_stats.json"
     root = json.loads(path.read_text(encoding="utf-8"))
-    root["policy_relative_scorecard"] = policy_relative
-    root["grpo_runs"] = runs
-    root["grpo_rule_scorecard"] = result
+    suffix = "_corrected" if args.corrected else ""
+    root[f"policy_relative_scorecard{suffix}"] = policy_relative
+    root[f"grpo_runs{suffix}"] = runs
+    root[f"grpo_rule_scorecard{suffix}"] = result
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(root, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     tmp.replace(path)

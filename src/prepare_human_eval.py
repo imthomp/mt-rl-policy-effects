@@ -20,20 +20,20 @@ OUT = ROOT / "artifacts/human_eval"
 SEED, N = 20261111, 100
 A = ROOT / "artifacts"
 SYSTEMS = {
-    "en_es": {"initial": (A / "grpo_pilot/cometkiwi_23_xl", 0),
-              "metricx_24_qe": (A / "grpo_rule_tests/en_es/metricx_24_qe_seed0", 500),
-              "cometkiwi_22": (A / "grpo_pilot/cometkiwi_22", 500),
-              "cometkiwi_23_xl": (A / "grpo_pilot/cometkiwi_23_xl", 500),
-              "xcomet_xl_qe_guarded": (A / "grpo_replication/xcomet_xl_qe_guarded_seed0", 500)},
-    "en_de": {"initial": (A / "grpo_rule_tests/en_de/cometkiwi_22_seed0", 0),
-              "metricx_24_qe": (A / "grpo_rule_tests/en_de/metricx_24_qe_seed0", 500),
-              "cometkiwi_22": (A / "grpo_rule_tests/en_de/cometkiwi_22_seed0", 500),
-              "cometkiwi_23_xl_seed2_unguarded": (A / "grpo_rule_tests/en_de/cometkiwi_23_xl_seed2", 500),
-              "cometkiwi_23_xl_langid_guard": (A / "grpo_ende_followup/cometkiwi_23_xl_langid_steps1000_seed0", 1000)},
-    "en_zh": {"initial": (A / "grpo_rule_tests/en_zh/cometkiwi_22_seed0", 0),
-              "metricx_24_qe": (A / "grpo_rule_tests/en_zh/metricx_24_qe_seed0", 500),
-              "cometkiwi_22": (A / "grpo_rule_tests/en_zh/cometkiwi_22_seed0", 500),
-              "cometkiwi_23_xl": (A / "grpo_rule_tests/en_zh/cometkiwi_23_xl_seed0", 500)},
+    "en_es": {"initial": (A / "grpo_v2/pilot/cometkiwi_23_xl", 0),
+              "metricx_24_qe": (A / "grpo_v2/rule_test_en_es/metricx_24_qe_seed0", 500),
+              "cometkiwi_22": (A / "grpo_v2/pilot/cometkiwi_22", 500),
+              "cometkiwi_23_xl": (A / "grpo_v2/pilot/cometkiwi_23_xl", 500),
+              "xcomet_xl_qe_guarded": (A / "grpo_v2/replication/xcomet_xl_qe_guarded_seed0", 500)},
+    "en_de": {"initial": (A / "grpo_v2/rule_test_en_de/cometkiwi_22_seed0", 0),
+              "metricx_24_qe": (A / "grpo_v2/rule_test_en_de/metricx_24_qe_seed0", 500),
+              "cometkiwi_22": (A / "grpo_v2/rule_test_en_de/cometkiwi_22_seed0", 500),
+              "cometkiwi_23_xl_seed2_unguarded": (A / "grpo_v2/rule_test_en_de/cometkiwi_23_xl_seed2", 500),
+              "cometkiwi_23_xl_langid_guard": (A / "grpo_v2/ende_followup/cometkiwi_23_xl_langid_steps1000_seed0", 1000)},
+    "en_zh": {"initial": (A / "grpo_v2/rule_test_en_zh/cometkiwi_22_seed0", 0),
+              "metricx_24_qe": (A / "grpo_v2/rule_test_en_zh/metricx_24_qe_seed0", 500),
+              "cometkiwi_22": (A / "grpo_v2/rule_test_en_zh/cometkiwi_22_seed0", 500),
+              "cometkiwi_23_xl": (A / "grpo_v2/rule_test_en_zh/cometkiwi_23_xl_seed0", 500)},
 }
 PROTO = {"en_de": "ende", "en_es": "pilot", "en_zh": "enzh"}
 TARGET = {"en_de": "German", "en_es": "Spanish", "en_zh": "Chinese"}
@@ -91,6 +91,12 @@ def main() -> None:
             "key_sha256": hashlib.sha256((d / "key.json").read_bytes()).hexdigest()}
         print(lp, manifest["pairs"][lp]["rows"], "rows,", round(len(rows) / N, 2), "unique candidates/item")
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+    ssot = ROOT / "results/paper_stats.json"
+    root = json.loads(ssot.read_text())
+    root["human_eval_manifest"] = manifest
+    tmp = ssot.with_suffix(".tmp")
+    tmp.write_text(json.dumps(root, indent=2, sort_keys=True) + "\n")
+    tmp.replace(ssot)
 
 
 if __name__ == "__main__":

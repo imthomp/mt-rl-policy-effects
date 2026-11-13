@@ -370,3 +370,14 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
   differs (policies, data, reward range) — do not over-claim.
 - Caveat: arm A uses LoRA at a different LR, so 7B vs 1.5B differences are not attributable to
   scale alone (GRPO_PAPER_PLAN.md point 2). Not yet done: reference-based quality of the scale runs.
+### Corrected 1.5B reruns and postprocessing (2026-11-12)
+
+- Job 15275870 completed all left-padded reruns successfully. Frozen rule scoring is stored under
+  corrected-specific keys in `results/paper_stats.json`, preserving the right-padded condition.
+- `src/analyze_grpo_ende_followup.py` scores amendment-2 H1--H3 directly from the corrected artifacts,
+  verifies left-padding and the frozen amendment hash, and writes
+  `results/grpo_ende_followup_corrected.json`. H1 fails in every seed; H2 and H3 pass in every seed.
+- Jobs 15309367, 15316623 and 15316665 completed reference, stripped-reference and exploratory
+  preamble analyses. Results and all paper-facing quantities are merged into the SSOT.
+- Corrected human-evaluation sheets and blinded keys were regenerated deterministically from
+  `artifacts/grpo_v2`; the manifest is also merged into the SSOT.

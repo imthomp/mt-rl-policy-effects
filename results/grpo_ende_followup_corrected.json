@@ -1,0 +1,316 @@
+{
+  "amendment_sha256": "0062a8772e0fc299fa222988d21aaa0d51311919fbcdbb3d673cf20cd9c3304a",
+  "condition": "corrected_left_padded",
+  "hypotheses": {
+    "H1_horizon": {
+      "pass": false,
+      "required_seeds": 2,
+      "seed_passes": [
+        false,
+        false,
+        false
+      ],
+      "threshold": 200
+    },
+    "H2_guard": {
+      "off_target_margin": 0.02,
+      "own_reward_floor": 0.444,
+      "pass": true,
+      "seed_cells": [
+        {
+          "off_target": true,
+          "own_reward": true
+        },
+        {
+          "off_target": true,
+          "own_reward": true
+        },
+        {
+          "off_target": true,
+          "own_reward": true
+        }
+      ]
+    },
+    "H3_quality_crosscheck": {
+      "pass": true,
+      "seed_cells": [
+        {
+          "cometkiwi_22": true,
+          "metricx_24_qe": true,
+          "xcomet_xl_qe": true
+        },
+        {
+          "cometkiwi_22": true,
+          "metricx_24_qe": true,
+          "xcomet_xl_qe": true
+        },
+        {
+          "cometkiwi_22": true,
+          "metricx_24_qe": true,
+          "xcomet_xl_qe": true
+        }
+      ]
+    }
+  },
+  "runs": {
+    "cometkiwi_23_xl_langid_steps1000_seed0": {
+      "final": {
+        "mean_length_ratio": 1.1875914230991778,
+        "mean_reward": {
+          "cometkiwi_22": 0.7116067334264516,
+          "cometkiwi_23_xl": 0.5159761518612505,
+          "metricx_24_qe": 0.8255710937500002,
+          "xcomet_xl_qe": 0.7501365540549159
+        },
+        "off_target_rate": 0.0,
+        "repetition_rate": 0.0025,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.01
+      },
+      "guarded": true,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 0
+    },
+    "cometkiwi_23_xl_langid_steps1000_seed1": {
+      "final": {
+        "mean_length_ratio": 1.1772143056536692,
+        "mean_reward": {
+          "cometkiwi_22": 0.7134224089980126,
+          "cometkiwi_23_xl": 0.5104828001186251,
+          "metricx_24_qe": 0.83323388671875,
+          "xcomet_xl_qe": 0.7463750720396638
+        },
+        "off_target_rate": 0.0075,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.0125
+      },
+      "guarded": true,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 1
+    },
+    "cometkiwi_23_xl_langid_steps1000_seed2": {
+      "final": {
+        "mean_length_ratio": 1.1741321980002366,
+        "mean_reward": {
+          "cometkiwi_22": 0.7141048526763916,
+          "cometkiwi_23_xl": 0.5179690497368574,
+          "metricx_24_qe": 0.8342598754882812,
+          "xcomet_xl_qe": 0.7536910148151219
+        },
+        "off_target_rate": 0.0025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.01
+      },
+      "guarded": true,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 2
+    },
+    "cometkiwi_23_xl_steps1000_seed0": {
+      "final": {
+        "mean_length_ratio": 1.1502875627233309,
+        "mean_reward": {
+          "cometkiwi_22": 0.714408167079091,
+          "cometkiwi_23_xl": 0.5192519410885871,
+          "metricx_24_qe": 0.830725439453125,
+          "xcomet_xl_qe": 0.7512673195078969
+        },
+        "off_target_rate": 0.0125,
+        "repetition_rate": 0.0025,
+        "truncation_rate": 0.0,
+        "untranslated_rate": 0.01
+      },
+      "guarded": false,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 0
+    },
+    "cometkiwi_23_xl_steps1000_seed1": {
+      "final": {
+        "mean_length_ratio": 1.1526190218567027,
+        "mean_reward": {
+          "cometkiwi_22": 0.7142360569536685,
+          "cometkiwi_23_xl": 0.51684400126338,
+          "metricx_24_qe": 0.8311548339843751,
+          "xcomet_xl_qe": 0.7491026957333088
+        },
+        "off_target_rate": 0.015,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.005,
+        "untranslated_rate": 0.01
+      },
+      "guarded": false,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 1
+    },
+    "cometkiwi_23_xl_steps1000_seed2": {
+      "final": {
+        "mean_length_ratio": 1.1446682730083095,
+        "mean_reward": {
+          "cometkiwi_22": 0.708198469504714,
+          "cometkiwi_23_xl": 0.5095501708053053,
+          "metricx_24_qe": 0.823037841796875,
+          "xcomet_xl_qe": 0.7440047115832568
+        },
+        "off_target_rate": 0.015,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.0075,
+        "untranslated_rate": 0.0125
+      },
+      "guarded": false,
+      "initial": {
+        "mean_length_ratio": 1.1889465043651988,
+        "mean_reward": {
+          "cometkiwi_22": 0.6650128015875816,
+          "cometkiwi_23_xl": 0.4442320629488677,
+          "metricx_24_qe": 0.8121881591796876,
+          "xcomet_xl_qe": 0.6920024964213372
+        },
+        "off_target_rate": 0.025,
+        "repetition_rate": 0.0,
+        "truncation_rate": 0.01,
+        "untranslated_rate": 0.0275
+      },
+      "refusal_count_by_step": {
+        "0": 0,
+        "100": 0,
+        "1000": 0,
+        "200": 0,
+        "300": 0,
+        "400": 0,
+        "500": 0,
+        "600": 0,
+        "700": 0,
+        "800": 0,
+        "900": 0
+      },
+      "seed": 2
+    }
+  },
+  "status": "complete"
+}

@@ -28,7 +28,10 @@ OUTPUT = ROOT / "results/grpo_reference_eval.json"
 SSOT = ROOT / "results/paper_stats.json"
 GROUPS = {"grpo_pilot": "en_es", "grpo_replication": "en_es", "grpo_rule_tests/en_es": "en_es",
           "grpo_rule_tests/en_de": "en_de", "grpo_ende_followup": "en_de",
-          "grpo_rule_tests/en_zh": "en_zh"}
+          "grpo_rule_tests/en_zh": "en_zh",
+          "grpo_v2/pilot": "en_es", "grpo_v2/replication": "en_es",
+          "grpo_v2/rule_test_en_es": "en_es", "grpo_v2/rule_test_en_de": "en_de",
+          "grpo_v2/rule_test_en_zh": "en_zh", "grpo_v2/ende_followup": "en_de"}
 
 
 def norm(t: str) -> str:
@@ -66,6 +69,12 @@ def main() -> None:
     for group, lp in GROUPS.items():
         for p in sorted(glob.glob(str(ROOT / "artifacts" / group / "*/eval_outputs.jsonl"))):
             runs[f"{group}/{Path(p).parent.name}"] = (lp, Path(p))
+    for p in sorted((ROOT / "artifacts/grpo_scale").glob("*/eval_outputs.jsonl")):
+        m = p.parent.name
+        lp = "en_de" if "_en_de_" in m else "en_zh" if "_en_zh_" in m else None
+        if lp is None:
+            raise AssertionError(f"cannot infer language pair from scale run {m}")
+        runs[f"grpo_scale/{m}"] = (lp, p)
 
     cache = {}
     if CACHE.exists():
