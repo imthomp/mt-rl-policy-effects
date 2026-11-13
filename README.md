@@ -31,7 +31,7 @@ These studies support the class project and the current ACL draft. See the
 
 ### Generative GRPO
 
-The active extension trains Qwen translation policies with COMET-family and
+The completed extension trains Qwen translation policies with COMET-family and
 MetricX quality-estimation rewards. A policy-relative audit scores controlled
 source-copy, refusal, repetition, and shortening behaviors against the initial
 policy before training. Its prospective calls and abstentions are frozen in
@@ -47,8 +47,12 @@ scoring are recorded in:
 - [`src/analyze_grpo_scale.py`](src/analyze_grpo_scale.py)
 - [`docs/GRPO_PAPER_PLAN.md`](docs/GRPO_PAPER_PLAN.md)
 
-Scale outcomes are added to the paper only after every expected run artifact
-passes the scorer's provenance, row-trace, indicator, and manipulation checks.
+The prospective scale study and the full corrected smaller-policy rerun are
+complete. Safe calls transferred reliably; positive calls depended on whether
+the policy reached the audited behavior. The corrected rerun also established
+that the earlier refusal and preamble failures were rollout-padding artifacts.
+The current result narrative and remaining human-evaluation work are recorded
+in [`docs/GRPO_PAPER_PLAN.md`](docs/GRPO_PAPER_PLAN.md).
 
 ### Tokenization study
 
@@ -63,14 +67,16 @@ pass. It does not claim a translation-learning effect. See
 
 - [`paper/reward_overoptimization_acl/`](paper/reward_overoptimization_acl/):
   ACL-format manuscript for the reward-overoptimization project.
+- [`paper/grpo_audit_acl/`](paper/grpo_audit_acl/): ACL-format manuscript for
+  the prospective generative reward-audit study; human evaluation is pending.
 - [`paper/tokenization_acl/`](paper/tokenization_acl/): short negative-result
   paper for the tokenization branch.
 - [`paper/class_project_proposal/`](paper/class_project_proposal/): proposal for
   the reinforcement-learning course project.
 
-The reward-overoptimization manuscript currently presents the controlled
-candidate studies. The generative GRPO section will be integrated after the
-frozen scale analysis is complete.
+The reward-overoptimization manuscript presents the controlled candidate
+studies. The generative GRPO study is maintained as a separate manuscript so
+its prospective design and padding correction remain explicit.
 
 ## Reproducibility and numeric claims
 
@@ -108,6 +114,15 @@ Build the tokenization paper:
 python src/build_tokenization_paper_stats.py
 python scripts/check_tex_numbers.py paper/tokenization_acl/main.tex
 make -C paper/tokenization_acl
+```
+
+Build the generative GRPO audit paper:
+
+```bash
+module load texlive/2024
+python src/build_grpo_audit_paper.py
+python scripts/check_tex_numbers.py paper/grpo_audit_acl/main.tex
+make -C paper/grpo_audit_acl
 ```
 
 The paper directories also provide a `tectonic` Make target.
@@ -155,6 +170,8 @@ The generative path is centered on:
 - [`src/eval_grpo_pilot.py`](src/eval_grpo_pilot.py)
 - [`src/analyze_grpo_rule_tests.py`](src/analyze_grpo_rule_tests.py)
 - [`src/analyze_grpo_scale.py`](src/analyze_grpo_scale.py)
+- [`src/analyze_grpo_ende_followup.py`](src/analyze_grpo_ende_followup.py)
+- [`src/build_grpo_audit_paper.py`](src/build_grpo_audit_paper.py)
 
 Cluster launchers default to offline Hugging Face caches and the local GRPO
 Python environment. Do not regenerate a frozen protocol or prediction file in

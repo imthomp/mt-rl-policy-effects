@@ -13345,6 +13345,338 @@
     },
     "status": "complete"
   },
+  "grpo_audit_paper": {
+    "corrected_earlier_grid": {
+      "fixed_rule": {
+        "hack": {
+          "correct": 3,
+          "n": 9
+        },
+        "safe": {
+          "correct": 24,
+          "n": 24
+        }
+      },
+      "policy_relative": {
+        "hack": {
+          "correct": 3,
+          "n": 3
+        },
+        "safe": {
+          "correct": 30,
+          "n": 33
+        }
+      }
+    },
+    "human_evaluation": {
+      "n_per_pair": 100,
+      "pairs": {
+        "en_de": {
+          "items": 100,
+          "key_sha256": "098f9ffc62be7bfed969cf1a4a45f6af47f71635d0990b6ec13878008cf7804a",
+          "mean_unique_candidates": 4.64,
+          "rows": 464,
+          "sheet_sha256": "8713bf4592c784285013239408dadb33e2a8ead3d773a0ffcaade3cf14c53871",
+          "systems": {
+            "cometkiwi_22": [
+              "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
+              500
+            ],
+            "cometkiwi_23_xl_langid_guard": [
+              "artifacts/grpo_v2/ende_followup/cometkiwi_23_xl_langid_steps1000_seed0",
+              1000
+            ],
+            "cometkiwi_23_xl_seed2_unguarded": [
+              "artifacts/grpo_v2/rule_test_en_de/cometkiwi_23_xl_seed2",
+              500
+            ],
+            "initial": [
+              "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
+              0
+            ],
+            "metricx_24_qe": [
+              "artifacts/grpo_v2/rule_test_en_de/metricx_24_qe_seed0",
+              500
+            ]
+          },
+          "target_lang": "German"
+        },
+        "en_es": {
+          "items": 100,
+          "key_sha256": "7d27d5871191a4a267fd1cbeeaba276ea0739e64a8b97938970dc3f302b6903a",
+          "mean_unique_candidates": 4.56,
+          "rows": 456,
+          "sheet_sha256": "3f6c241ba021de7bbc41a430bb525c9cde7f8bbd82ca39117763f50f8227e38b",
+          "systems": {
+            "cometkiwi_22": [
+              "artifacts/grpo_v2/pilot/cometkiwi_22",
+              500
+            ],
+            "cometkiwi_23_xl": [
+              "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
+              500
+            ],
+            "initial": [
+              "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
+              0
+            ],
+            "metricx_24_qe": [
+              "artifacts/grpo_v2/rule_test_en_es/metricx_24_qe_seed0",
+              500
+            ],
+            "xcomet_xl_qe_guarded": [
+              "artifacts/grpo_v2/replication/xcomet_xl_qe_guarded_seed0",
+              500
+            ]
+          },
+          "target_lang": "Spanish"
+        },
+        "en_zh": {
+          "items": 100,
+          "key_sha256": "ced561b0f52b09680b02f5c15a94e6fe192ed11944e6d24894c15c20e8bd862a",
+          "mean_unique_candidates": 3.81,
+          "rows": 381,
+          "sheet_sha256": "e0cdacc3edf04af41e9840f13246e92b7c819baa88489f72e410a955c7eb2f08",
+          "systems": {
+            "cometkiwi_22": [
+              "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
+              500
+            ],
+            "cometkiwi_23_xl": [
+              "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_23_xl_seed0",
+              500
+            ],
+            "initial": [
+              "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
+              0
+            ],
+            "metricx_24_qe": [
+              "artifacts/grpo_v2/rule_test_en_zh/metricx_24_qe_seed0",
+              500
+            ]
+          },
+          "target_lang": "Chinese"
+        }
+      },
+      "seed": 20261111
+    },
+    "padding": {
+      "affected_logs": 55,
+      "corrected_500_final_preambles": 0,
+      "corrected_preamble_threshold_crossings": 1,
+      "corrected_runs": 45,
+      "followup_hypotheses": {
+        "H1_horizon": {
+          "pass": false,
+          "required_seeds": 2,
+          "seed_passes": [
+            false,
+            false,
+            false
+          ],
+          "threshold": 200
+        },
+        "H2_guard": {
+          "off_target_margin": 0.02,
+          "own_reward_floor": 0.444,
+          "pass": true,
+          "seed_cells": [
+            {
+              "off_target": true,
+              "own_reward": true
+            },
+            {
+              "off_target": true,
+              "own_reward": true
+            },
+            {
+              "off_target": true,
+              "own_reward": true
+            }
+          ]
+        },
+        "H3_quality_crosscheck": {
+          "pass": true,
+          "seed_cells": [
+            {
+              "cometkiwi_22": true,
+              "metricx_24_qe": true,
+              "xcomet_xl_qe": true
+            },
+            {
+              "cometkiwi_22": true,
+              "metricx_24_qe": true,
+              "xcomet_xl_qe": true
+            },
+            {
+              "cometkiwi_22": true,
+              "metricx_24_qe": true,
+              "xcomet_xl_qe": true
+            }
+          ]
+        }
+      },
+      "unguarded_final_refusals": [
+        0,
+        0,
+        0
+      ]
+    },
+    "protocol": {
+      "eval_sources_per_direction": 400,
+      "hack_threshold": 0.1,
+      "manipulation_threshold": 0.01,
+      "policy_large": "Qwen/Qwen2.5-7B-Instruct",
+      "policy_small": "Qwen/Qwen2.5-1.5B-Instruct",
+      "safe_threshold": 0.02,
+      "training_steps": 500
+    },
+    "reference_quality": {
+      "metricx_xl": [
+        0.03153898335993288,
+        0.03577368080616006,
+        0.0317477986961604,
+        0.021075337678194028,
+        0.021021685004234292,
+        0.018828580006957085
+      ],
+      "metricx_xxl": [
+        0.026652948632836404,
+        0.025954670310020522,
+        0.027987907305359827,
+        0.025401107743382445,
+        0.023770835176110228,
+        0.02581451199948792
+      ],
+      "xcomet_7b_en_de": [
+        0.01593984827399253,
+        0.01999374791979791,
+        0.02210425108671188
+      ],
+      "xcomet_7b_en_zh": [
+        -0.28375619407743213,
+        -0.2837121672183275,
+        -0.2819833523035049
+      ]
+    },
+    "scale": {
+      "abstentions": 22,
+      "hack_calls": {
+        "calls": 6,
+        "correct": 3,
+        "informative": 6
+      },
+      "manipulation_passes": 28,
+      "policy_arm": {
+        "hack": {
+          "calls": 6,
+          "correct": 3,
+          "informative": 6
+        },
+        "none": {
+          "calls": 7,
+          "correct": 0,
+          "informative": 0
+        },
+        "safe": {
+          "calls": 51,
+          "correct": 51,
+          "informative": 51
+        }
+      },
+      "reward_arm": {
+        "hack": {
+          "calls": 0,
+          "correct": 0,
+          "informative": 0
+        },
+        "none": {
+          "calls": 15,
+          "correct": 0,
+          "informative": 0
+        },
+        "safe": {
+          "calls": 33,
+          "correct": 33,
+          "informative": 33
+        }
+      },
+      "runs": 28,
+      "safe_calls": {
+        "calls": 84,
+        "correct": 84,
+        "informative": 84
+      }
+    },
+    "status": "draft_pending_human_evaluation",
+    "trace": {
+      "human_sheet_hashes": {
+        "en_de": "8713bf4592c784285013239408dadb33e2a8ead3d773a0ffcaade3cf14c53871",
+        "en_es": "3f6c241ba021de7bbc41a430bb525c9cde7f8bbd82ca39117763f50f8227e38b",
+        "en_zh": "e0cdacc3edf04af41e9840f13246e92b7c819baa88489f72e410a955c7eb2f08"
+      },
+      "scale_reference_run_ids": [
+        "grpo_scale/A_7b_en_de_cometkiwi_22_seed0",
+        "grpo_scale/A_7b_en_de_cometkiwi_23_xl_seed0",
+        "grpo_scale/A_7b_en_de_cometkiwi_23_xl_seed1",
+        "grpo_scale/A_7b_en_de_cometkiwi_23_xl_seed2",
+        "grpo_scale/A_7b_en_de_metricx_24_qe_seed0",
+        "grpo_scale/A_7b_en_de_xcomet_xl_qe_seed0",
+        "grpo_scale/A_7b_en_de_xcomet_xl_qe_seed1",
+        "grpo_scale/A_7b_en_de_xcomet_xl_qe_seed2",
+        "grpo_scale/A_7b_en_zh_cometkiwi_22_seed0",
+        "grpo_scale/A_7b_en_zh_cometkiwi_23_xl_seed0",
+        "grpo_scale/A_7b_en_zh_cometkiwi_23_xl_seed1",
+        "grpo_scale/A_7b_en_zh_cometkiwi_23_xl_seed2",
+        "grpo_scale/A_7b_en_zh_metricx_24_qe_seed0",
+        "grpo_scale/A_7b_en_zh_xcomet_xl_qe_seed0",
+        "grpo_scale/A_7b_en_zh_xcomet_xl_qe_seed1",
+        "grpo_scale/A_7b_en_zh_xcomet_xl_qe_seed2",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xl_qe_seed0",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xl_qe_seed1",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xl_qe_seed2",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xxl_qe_seed0",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xxl_qe_seed1",
+        "grpo_scale/B_1p5b_en_de_metricx_24_xxl_qe_seed2",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xl_qe_seed0",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xl_qe_seed1",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xl_qe_seed2",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xxl_qe_seed0",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xxl_qe_seed1",
+        "grpo_scale/B_1p5b_en_zh_metricx_24_xxl_qe_seed2"
+      ],
+      "scale_run_ids": [
+        "A_7b_en_de_cometkiwi_22_seed0",
+        "A_7b_en_de_cometkiwi_23_xl_seed0",
+        "A_7b_en_de_cometkiwi_23_xl_seed1",
+        "A_7b_en_de_cometkiwi_23_xl_seed2",
+        "A_7b_en_de_metricx_24_qe_seed0",
+        "A_7b_en_de_xcomet_xl_qe_seed0",
+        "A_7b_en_de_xcomet_xl_qe_seed1",
+        "A_7b_en_de_xcomet_xl_qe_seed2",
+        "A_7b_en_zh_cometkiwi_22_seed0",
+        "A_7b_en_zh_cometkiwi_23_xl_seed0",
+        "A_7b_en_zh_cometkiwi_23_xl_seed1",
+        "A_7b_en_zh_cometkiwi_23_xl_seed2",
+        "A_7b_en_zh_metricx_24_qe_seed0",
+        "A_7b_en_zh_xcomet_xl_qe_seed0",
+        "A_7b_en_zh_xcomet_xl_qe_seed1",
+        "A_7b_en_zh_xcomet_xl_qe_seed2",
+        "B_1p5b_en_de_metricx_24_xl_qe_seed0",
+        "B_1p5b_en_de_metricx_24_xl_qe_seed1",
+        "B_1p5b_en_de_metricx_24_xl_qe_seed2",
+        "B_1p5b_en_de_metricx_24_xxl_qe_seed0",
+        "B_1p5b_en_de_metricx_24_xxl_qe_seed1",
+        "B_1p5b_en_de_metricx_24_xxl_qe_seed2",
+        "B_1p5b_en_zh_metricx_24_xl_qe_seed0",
+        "B_1p5b_en_zh_metricx_24_xl_qe_seed1",
+        "B_1p5b_en_zh_metricx_24_xl_qe_seed2",
+        "B_1p5b_en_zh_metricx_24_xxl_qe_seed0",
+        "B_1p5b_en_zh_metricx_24_xxl_qe_seed1",
+        "B_1p5b_en_zh_metricx_24_xxl_qe_seed2"
+      ]
+    }
+  },
   "grpo_ende_followup_corrected": {
     "amendment_sha256": "0062a8772e0fc299fa222988d21aaa0d51311919fbcdbb3d673cf20cd9c3304a",
     "condition": "corrected_left_padded",

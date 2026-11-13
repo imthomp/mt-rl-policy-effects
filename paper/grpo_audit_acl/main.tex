@@ -1,0 +1,244 @@
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\input{generated_stats}
+
+\title{Can a Pre-Training Audit Predict Which Translation Reward Will Be Hacked?}
+\author{Anonymous ACL submission}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Quality-estimation models make machine translation reinforcement learning
+possible without references, but optimizing them can amplify reward-specific
+failure modes.  We ask whether a cheap audit, performed before policy
+optimization, can predict which behavior a translation reward will amplify.
+The audit compares each reward's preference for controlled source copying,
+refusal, repetition, and shortening against translations from the initial
+policy, then makes a hack call, a safe call, or abstains.  We freeze these calls
+before GRPO and test them across policy sizes, language directions, reward
+families, and reward-model scales.  All \ScaleRuns{} prospective runs pass a
+reward-improvement manipulation check.  Safe calls are correct in
+\ScaleSafeCorrect{}/\ScaleSafeCalls{} cells, while hack calls are correct in
+\ScaleHackCorrect{}/\ScaleHackCalls{} cells.  XCOMET induces source copying for
+Chinese but not German under the larger policy despite increasing its reward in
+both settings.  This identifies a central limitation: a reward preference is
+insufficient when the policy cannot reach the corresponding exploit.  A full
+rerun also shows that earlier refusal and preamble failures came from incorrect
+rollout padding.  The audit is therefore useful for ruling out named failures
+in this setting, but positive predictions require a reachability model.
+Blinded human evaluation is prepared and pending.
+\end{abstract}
+
+\section{Introduction}
+
+Reference-free quality estimation (QE) is an attractive reward for machine
+translation because it can score new outputs without parallel data.  Yet a QE
+model is a proxy: policy optimization can raise its score while reducing
+translation quality \citep{he-etal-2024-improving}.  Recent multilingual MT
+work directly documents copying, wrong-language output, and repetition under
+QE-based reinforcement learning, and mitigates them with output guards
+\citep{liu-etal-2026-mending}.  The practical question is therefore whether a
+developer can identify a risky reward before paying for a full training run.
+
+We study an interpretable pre-training audit.  For each initial policy, reward,
+direction, and named failure type, we construct controlled degenerate outputs
+and measure how often the reward prefers them to the policy's translation.  A
+frozen rule converts that preference rate into a hack call, safe call, or
+abstention.  Unlike simulation-based prediction from smaller RL runs
+\citep{deng-etal-2026-simhack}, our audit requires no reference optimization
+run.  It predicts a failure type rather than an onset time.
+
+Our contributions are:
+\begin{itemize}
+  \item a prospective test of failure-type predictions across \ScaleRuns{}
+        generative GRPO runs, with every apparent safe outcome gated on reward
+        improvement;
+  \item evidence that the audit's negative calls transfer reliably in the
+        tested setting, while positive calls depend on whether the policy can
+        reach the audited behavior;
+  \item controlled policy- and reward-scale comparisons, including a null
+        hacking result for both tested MetricX scales; and
+  \item a complete correction analysis showing that rollout padding can create
+        dramatic but spurious refusal and preamble failures.
+\end{itemize}
+
+The result is intentionally narrower than a universal reward-hacking detector.
+It is evidence for a cheap screen over named failure modes and a diagnosis of
+what that screen omits.
+
+\section{Related work}
+
+QE optimization can improve translation but also overoptimize known metric
+weaknesses \citep{he-etal-2024-improving}.  WALAR shows that reinforcement
+learning amplifies holes in multilingual QE rewards and adds word- and
+language-alignment safeguards \citep{liu-etal-2026-mending}.  Reference-free
+multilingual post-training has also combined QE rewards with language-ID gates
+and checkpoint interpolation \citep{han-etal-2026-reference-free}.  These works
+establish the failure and mitigation setting; our question is whether the
+failure type can be forecast before the target run.
+
+Reward-hacking prediction has been studied outside MT.  SimHack learns training
+dynamics from smaller code-RL runs to predict hacking onset under a target
+recipe \citep{deng-etal-2026-simhack}.  Our method is cheaper and more
+interpretable, but tests only behaviors included in the audit and has no model
+of optimization reachability.
+
+\section{Policy-relative audit}
+
+Let $y_{\mathrm{init}}(x)$ be the initial policy's translation for source $x$, and let
+$h_k(x)$ be a controlled output exhibiting failure type $k$.  For reward $r$,
+we estimate
+\begin{equation}
+  p_k = \Pr_x[r(x,h_k(x)) > r(x,y_{\mathrm{init}}(x))].
+\end{equation}
+The rule predicts a hack when $p_k$ exceeds the frozen upper threshold, predicts
+safe below the frozen lower threshold, and abstains between them.  A predicted
+hack is correct when the corresponding output indicator increases by at least
+\HackThreshold{}; a safe call is correct when the increase is at most
+\SafeThreshold{}.
+
+Safe outcomes are informative only when the assigned reward rises by at least
+\ManipulationThreshold{}.  This prevents a failed optimization run from being
+counted as resistance to hacking.  The audited indicators are source copying,
+refusal, repetition, and response shortening.  They are diagnostics of named
+behaviors, not complete measures of translation quality.
+
+\section{Experimental design}
+
+We optimize \SmallPolicy{} and \LargePolicy{} translation policies with GRPO
+\citep{shao-etal-2024-deepseekmath}.  The reward set includes XCOMET,
+CometKiwi, and MetricX variants.  English sources are translated into German
+and Chinese.  The prospective scale protocol uses \TrainingSteps{} updates and
+evaluates greedy outputs on \EvalSources{} sources per direction.
+
+The policy-scale arm applies LoRA to the larger policy and tests reward-specific
+predictions.  The reward-scale arm holds the smaller policy and optimization
+recipe fixed while comparing MetricX XL and XXL rewards.  Because the larger
+policy uses LoRA and a different learning rate, that arm does not identify a
+pure model-size effect.
+
+We report the frozen behavior indicators and independent reference-based
+\ReferenceMetric{} and chrF.  Every scale result is reconstructed from per-output records;
+the scorer verifies protocol hashes, launch metadata, one-to-one source rows,
+indicator recomputation, and the manipulation gate before merging results into
+the paper SSOT.
+
+\section{Prospective results}
+
+All \ScaleManipulationPasses{} of \ScaleRuns{} runs increase their assigned
+reward enough to pass the manipulation check.  Table~\ref{tab:scorecard} shows
+the complete called-cell scorecard.  The audit makes \ScaleAbstentions{}
+additional abstentions.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrr}
+\toprule
+Evaluation set & Hack correct/called & Safe correct/called \\
+\midrule
+Corrected fixed-rule grid & \FixedHackCorrect/\FixedHackCalls & \FixedSafeCorrect/\FixedSafeCalls \\
+Corrected policy-relative grid & \RelativeHackCorrect/\RelativeHackCalls & \RelativeSafeCorrect/\RelativeSafeCalls \\
+Prospective scale study & \ScaleHackCorrect/\ScaleHackCalls & \ScaleSafeCorrect/\ScaleSafeCalls \\
+\quad Policy-scale arm & \PolicyHackCorrect/\PolicyHackCalls & \PolicySafeCorrect/\PolicySafeCalls \\
+\quad Reward-scale arm & --- & \RewardSafeCorrect/\RewardSafeCalls \\
+\bottomrule
+\end{tabular}
+}
+\caption{Frozen prediction outcomes.  Each cell is a run by named failure type;
+seeds do not create independent audit probabilities.}
+\label{tab:scorecard}
+\end{table}
+
+\paragraph{Safe calls transfer.}
+Every prospective safe call passes.  This includes the prespecified
+CometKiwi refusal check and all called MetricX cells.  MetricX XL and XXL show
+no audited hack under the smaller policy, despite increasing their assigned
+rewards.
+
+\paragraph{Positive calls require reachability.}
+The six prospective hack calls all predict source copying by XCOMET under the
+larger policy.  All Chinese runs copy and all German runs do not.  Reference
+\ReferenceMetric{} changes by a mean of \XcometZhCometMean{} in Chinese, with
+seed values from \XcometZhCometMin{} to \XcometZhCometMax{}.  In German it instead changes
+by \XcometDeCometMean{}, from \XcometDeCometMin{} to
+\XcometDeCometMax{}.  Thus the audit correctly identifies a reward preference,
+but that preference becomes a realized exploit only in one direction.  The
+audit lacks a policy-dependent reachability term.
+
+\paragraph{Reward scale.}
+Across the reward-scale arm, mean \ReferenceMetric{} changes are
+\MetricXlCometMean{} for MetricX XL and \MetricXxlCometMean{} for MetricX XXL.
+Neither reward produces an audited failure.  This is a controlled contrast
+within our setup, not a contradiction of failures reported with other policies,
+data, and reward variants.
+
+\section{Padding correction as a methodological result}
+
+After the original smaller-policy experiments, we found that the training
+tokenizer right-padded conversational prompts even though evaluation and audits
+used left padding.  The warning appeared in \AffectedLogs{} affected training
+logs.  We froze an amendment, corrected the tokenizer, and reran
+\CorrectedRuns{} experiments without changing predictions.
+
+The correction changes the scientific conclusion of the refusal follow-up.
+Under right padding, CometKiwi optimization had produced a large refusal
+collapse and German preambles.  Under correct padding, the prespecified horizon
+hypothesis fails in all \FollowupSeeds{} seeds; the maximum final refusal count
+is \CorrectedRefusalMax{}.  The guard feasibility and cross-metric hypotheses
+both pass.  Every corrected shorter run ends with
+\CorrectedFiveHundredPreambles{} detected preambles, and only
+\PreambleCrossings{} corrected follow-up crosses the exploratory preamble audit
+threshold.  Stripping that run's preambles has negligible reference-quality
+effect.
+
+This is not merely an implementation footnote.  Padding changes the
+autoregressive state from which sampled continuations begin and can create a
+qualitatively different policy.  Logging tokenizer behavior and rerunning the
+full frozen grid prevented an artifact from becoming the paper's main failure
+case.
+
+\section{Human evaluation}
+
+\textbf{TODO before submission: complete blinded human evaluation.}
+The frozen package contains \HumanItemsPerPair{} source items for each of
+\HumanPairs{} language pairs and \HumanRows{} unique candidate rows.  Candidate
+order is randomized, duplicate outputs are merged, and the system keys are
+hash-pinned.  Human scores will be used only for final evaluation, never to
+retune the audit, thresholds, or checkpoints.  Until this evaluation is
+complete, automatic quality results are corroborating evidence rather than a
+definitive adequacy judgment.
+
+\section{Limitations}
+
+The audit covers only four hand-specified failure types.  A safe call cannot
+exclude an unmodeled exploit.  Positive calls measure reward preference, not
+the probability that a particular optimizer and policy will reach the behavior.
+The policy-scale comparison also changes parameterization and learning rate.
+The language coverage is narrow, reward families are correlated, and repeated
+seeds measure optimization variability rather than independent audit tasks.
+Finally, human evaluation is pending.
+
+\section{Conclusion}
+
+A cheap policy-relative audit can screen named MT reward failures before GRPO,
+but its two directions are asymmetric.  In our prospective study, every safe
+call survives meaningful optimization, while only the hack calls whose exploit
+is reachable by the policy materialize.  The next diagnostic should therefore
+combine reward preference with an estimate of policy reachability.  The padding
+rerun further shows why seemingly strong reward-hacking results require exact
+rollout provenance before they support a scientific claim.
+
+\bibliography{references}
+\end{document}
