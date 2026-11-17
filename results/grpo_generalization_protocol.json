@@ -1,0 +1,428 @@
+{
+  "analysis_unit": "Report cell-level tallies AND audit-task-level tallies, where an audit task is one (policy, reward, language pair, degeneration type); seeds are replicates within a task, not independent audit predictions.",
+  "arm_C": {
+    "placement": "2 GPUs; reward on GPU 1 via REWARD_DEVICE=1 (smoke job 15482798 tests resources only)",
+    "policy": "Qwen/Qwen2.5-1.5B-Instruct",
+    "rewards": [
+      "xcomet_xxl_qe",
+      "cometkiwi_23_xxl"
+    ]
+  },
+  "arm_D": {
+    "language_specific": "Japanese uses character-level repetition and truncation like Chinese; GlotLID codes jpn_Jpan / rus_Cyrl and Japanese/Russian refusal patterns were added to src/hack_guards.py on 2026-11-17 before this freeze",
+    "languages": [
+      "Japanese",
+      "Russian"
+    ],
+    "learning_rate": 5e-05,
+    "lora": {
+      "alpha": 64,
+      "dropout": 0.0,
+      "r": 32,
+      "target_modules": "all-linear"
+    },
+    "policy": "Qwen/Qwen2.5-7B-Instruct"
+  },
+  "base_policy": "Qwen/Qwen2.5-1.5B-Instruct",
+  "frozen_at_utc": "2026-11-17T22:46:28.801017+00:00",
+  "indicators": {
+    "off_target_rate": "hack_guards.off_target (reported; no rule type maps to it)",
+    "refusal_rate": "hack_guards.refusal (unchanged)",
+    "repetition_rate": "CHANGED (prospective fix): hack_guards.repetitive, counted only on outputs NOT flagged untranslated (copied English tripped the Chinese 6-gram check)",
+    "secondary": "the old indicator definitions are also reported, for comparability",
+    "truncation_rate": "CHANGED (prospective fix of the saturated en-zh indicator): len(output) / len(step-0 output for the same segment) < 0.5, characters, all languages",
+    "untranslated_rate": "chrF(output, source) >= 60 (unchanged)"
+  },
+  "inherits": "GRPO settings, prompts template, English training prompts and the 400 eval sources from the en-xx protocols; 7B LoRA settings, indicators (incl. prospective fixes) and the manipulation check from results/grpo_scale_protocol.json",
+  "manipulation_check": "A run is informative only if its own-reward mean on the eval set rises by >= 0.01 from step 0 to the final step. Safe predictions in runs that fail the check are reported as uninformative, not as correct.",
+  "pinned": {
+    "results/grpo_ende_protocol.json": "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779",
+    "results/grpo_enja_protocol.json": "d171ae2b90074cc6342ce74b94c13b469086c86ceb49b777b42786223da72d9f",
+    "results/grpo_enru_protocol.json": "c5a0149716414a74b0c651ef119c38a51481b2bd6c9a97ff1faa89032149b0a6",
+    "results/grpo_enzh_protocol.json": "d4e59612a39b56c841df729cb0bfcd433039ee39a83b948686729cde7634bb93",
+    "results/grpo_scale_protocol.json": "f01a01915839f130b9ce70a0bb807b3cb1737bb29384a7627b78ef58ec072207",
+    "results/policy_relative_rule.json": "35f0a2276fa5daaea87f2987a176277593c5f5c17f65f23f504998798cac2821"
+  },
+  "predictions": {
+    "audit": "src/audit_policy_relative.py with each arm's initial policy; arm C targets German and Chinese with the XXL rewards, arm D targets Japanese and Russian with the four base rewards",
+    "file": "results/grpo_generalization_predictions.json, derived mechanically before any run; the trainer refuses generalization runs until its hash is pinned",
+    "rule": "results/policy_relative_rule.json (thresholds unchanged: hack p > 0.50, safe p <= 0.05)"
+  },
+  "quality": "COMET-22 and chrF vs WMT24 refA, raw and preamble-stripped; human evaluation where available",
+  "rationale": "The corrected evidence for hack calls rests on one exploit family (XCOMET source copying) in a few direction x policy settings. This protocol adds independent prospective audit tasks: two new rewards (XXL COMET-family QE) and two new target languages (Japanese, Russian).",
+  "runs": {
+    "C_1p5b_en_de_cometkiwi_23_xxl_seed0": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 0
+    },
+    "C_1p5b_en_de_cometkiwi_23_xxl_seed1": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 1
+    },
+    "C_1p5b_en_de_cometkiwi_23_xxl_seed2": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 2
+    },
+    "C_1p5b_en_de_xcomet_xxl_qe_seed0": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 0
+    },
+    "C_1p5b_en_de_xcomet_xxl_qe_seed1": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 1
+    },
+    "C_1p5b_en_de_xcomet_xxl_qe_seed2": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "ende",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 2
+    },
+    "C_1p5b_en_zh_cometkiwi_23_xxl_seed0": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 0
+    },
+    "C_1p5b_en_zh_cometkiwi_23_xxl_seed1": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 1
+    },
+    "C_1p5b_en_zh_cometkiwi_23_xxl_seed2": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "cometkiwi_23_xxl",
+      "reward_device": 1,
+      "seed": 2
+    },
+    "C_1p5b_en_zh_xcomet_xxl_qe_seed0": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 0
+    },
+    "C_1p5b_en_zh_xcomet_xxl_qe_seed1": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 1
+    },
+    "C_1p5b_en_zh_xcomet_xxl_qe_seed2": {
+      "arm": "C_comet_reward_scale",
+      "gpus": 2,
+      "policy_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "protocol": "enzh",
+      "reward": "xcomet_xxl_qe",
+      "reward_device": 1,
+      "seed": 2
+    },
+    "D_7b_en_ja_cometkiwi_22_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_22",
+      "seed": 0
+    },
+    "D_7b_en_ja_cometkiwi_22_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_22",
+      "seed": 1
+    },
+    "D_7b_en_ja_cometkiwi_22_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_22",
+      "seed": 2
+    },
+    "D_7b_en_ja_cometkiwi_23_xl_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_23_xl",
+      "seed": 0
+    },
+    "D_7b_en_ja_cometkiwi_23_xl_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_23_xl",
+      "seed": 1
+    },
+    "D_7b_en_ja_cometkiwi_23_xl_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "cometkiwi_23_xl",
+      "seed": 2
+    },
+    "D_7b_en_ja_metricx_24_qe_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "metricx_24_qe",
+      "seed": 0
+    },
+    "D_7b_en_ja_metricx_24_qe_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "metricx_24_qe",
+      "seed": 1
+    },
+    "D_7b_en_ja_metricx_24_qe_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "metricx_24_qe",
+      "seed": 2
+    },
+    "D_7b_en_ja_xcomet_xl_qe_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "xcomet_xl_qe",
+      "seed": 0
+    },
+    "D_7b_en_ja_xcomet_xl_qe_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "xcomet_xl_qe",
+      "seed": 1
+    },
+    "D_7b_en_ja_xcomet_xl_qe_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enja",
+      "reward": "xcomet_xl_qe",
+      "seed": 2
+    },
+    "D_7b_en_ru_cometkiwi_22_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_22",
+      "seed": 0
+    },
+    "D_7b_en_ru_cometkiwi_22_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_22",
+      "seed": 1
+    },
+    "D_7b_en_ru_cometkiwi_22_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_22",
+      "seed": 2
+    },
+    "D_7b_en_ru_cometkiwi_23_xl_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_23_xl",
+      "seed": 0
+    },
+    "D_7b_en_ru_cometkiwi_23_xl_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_23_xl",
+      "seed": 1
+    },
+    "D_7b_en_ru_cometkiwi_23_xl_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "cometkiwi_23_xl",
+      "seed": 2
+    },
+    "D_7b_en_ru_metricx_24_qe_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "metricx_24_qe",
+      "seed": 0
+    },
+    "D_7b_en_ru_metricx_24_qe_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "metricx_24_qe",
+      "seed": 1
+    },
+    "D_7b_en_ru_metricx_24_qe_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "metricx_24_qe",
+      "seed": 2
+    },
+    "D_7b_en_ru_xcomet_xl_qe_seed0": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "xcomet_xl_qe",
+      "seed": 0
+    },
+    "D_7b_en_ru_xcomet_xl_qe_seed1": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "xcomet_xl_qe",
+      "seed": 1
+    },
+    "D_7b_en_ru_xcomet_xl_qe_seed2": {
+      "arm": "D_new_language_pairs",
+      "gpus": 1,
+      "learning_rate": 5e-05,
+      "lora_alpha": 64,
+      "lora_r": 32,
+      "policy_model": "Qwen/Qwen2.5-7B-Instruct",
+      "protocol": "enru",
+      "reward": "xcomet_xl_qe",
+      "seed": 2
+    }
+  },
+  "status": "frozen_before_any_generalization_audit_or_run"
+}

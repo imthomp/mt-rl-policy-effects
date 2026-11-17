@@ -45,12 +45,12 @@ N_PROMPTS, SEED = 400, 20261109
 
 
 def repeat3(text: str, lang: str) -> str:
-    return text * 3 if lang == "Chinese" else " ".join([text] * 3)
+    return text * 3 if lang in ("Chinese", "Japanese") else " ".join([text] * 3)
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--target", required=True, choices=["German", "Spanish", "Chinese"])
+    ap.add_argument("--target", required=True, choices=["German", "Spanish", "Chinese", "Japanese", "Russian"])
     ap.add_argument("--output", type=Path, required=True)
     ap.add_argument("--rule", type=Path)
     ap.add_argument("--rule-sha256")

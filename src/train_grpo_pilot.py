@@ -29,7 +29,14 @@ PROTOCOLS = {
              "a0bec8727d8bcb13f41074e51cc0e28086fa68c220bcf730c2d1e22052845779"),
     "enzh": (ROOT / "results/grpo_enzh_protocol.json",
              "d4e59612a39b56c841df729cb0bfcd433039ee39a83b948686729cde7634bb93"),
+    "enja": (ROOT / "results/grpo_enja_protocol.json",
+             "d171ae2b90074cc6342ce74b94c13b469086c86ceb49b777b42786223da72d9f"),
+    "enru": (ROOT / "results/grpo_enru_protocol.json",
+             "c5a0149716414a74b0c651ef119c38a51481b2bd6c9a97ff1faa89032149b0a6"),
 }
+GEN_PROTOCOL = ROOT / "results/grpo_generalization_protocol.json"
+GEN_PREDICTIONS = ROOT / "results/grpo_generalization_predictions.json"
+GEN_PREDICTIONS_SHA256 = "PENDING"  # set after the generalization predictions are frozen
 SCALE_PROTOCOL = ROOT / "results/grpo_scale_protocol.json"
 SCALE_PREDICTIONS = ROOT / "results/grpo_scale_predictions.json"
 SCALE_PREDICTIONS_SHA256 = "5d7dad584ec35e1d6325543d2b1224585770d58e8f0addfa4d338690da2efd1a"
@@ -64,16 +71,31 @@ def load_protocol(name: str = "pilot") -> dict:
 
 def make_scorer(reward: str):
     """Return fn(sources, texts) -> list[float], higher is better."""
+    # REWARD_DEVICE=<gpu index> places the reward model on its own GPU (2-GPU jobs for XXL rewards,
+    # which do not fit beside policy training on one 80 GB GPU). Scoring itself is unchanged.
+    import os
+    dev = os.environ.get("REWARD_DEVICE")
     if reward.startswith("metricx_24"):
         from metricx_qe import MetricXQE
 
-        model = (MetricXQE() if reward == "metricx_24_qe"
-                 else MetricXQE(model=NEW_REWARDS[reward], cache_dir=EXTRA_CACHE))
+        kw = {"device": f"cuda:{dev}"} if dev else {}
+        model = (MetricXQE(**kw) if reward == "metricx_24_qe"
+                 else MetricXQE(model=NEW_REWARDS[reward], cache_dir=EXTRA_CACHE, **kw))
         return lambda sources, texts: model.reward(sources, texts)
     comet = load_comet(ALL_REWARDS[reward])
-    return lambda sources, texts: [float(x) for x in comet.predict(
-        [{"src": s, "mt": t} for s, t in zip(sources, texts)],
-        batch_size=32, gpus=1, progress_bar=False).scores]
+    devices = {"devices": [int(dev)]} if dev else {}
+
+    def score(sources, texts):
+        import torch
+        current = torch.cuda.current_device() if torch.cuda.is_available() else None
+        out = [float(x) for x in comet.predict(
+            [{"src": s, "mt": t} for s, t in zip(sources, texts)],
+            batch_size=32, gpus=1, progress_bar=False, **devices).scores]
+        if current is not None:
+            torch.cuda.set_device(current)  # Lightning leaves the current device on the reward GPU
+        return out
+
+    return score
 
 
 def load_comet(name: str):
@@ -112,6 +134,7 @@ def main() -> None:
     parser.add_argument("--steps", type=int, default=None, help="en-de amendment 2 follow-up only")
     parser.add_argument("--langid-guard", action="store_true", help="en-de amendment 2 follow-up only")
     parser.add_argument("--scale-run", default=None, help="run id from results/grpo_scale_protocol.json")
+    parser.add_argument("--gen-run", default=None, help="run id from results/grpo_generalization_protocol.json")
     parser.add_argument("--policy-model", default=None, help="--smoke only (resource tests)")
     parser.add_argument("--lora-r", type=int, default=0, help="--smoke only (resource tests)")
     parser.add_argument("--learning-rate", type=float, default=None, help="--smoke only")
@@ -135,6 +158,20 @@ def main() -> None:
         if args.reward != scale["reward"] or args.protocol_name != scale["protocol"] or args.seed != scale["seed"]:
             raise ValueError(f"arguments do not match scale run {args.scale_run}: {scale}")
         args.policy_model = scale["policy_model"] if scale["policy_model"] != sp["base_policy"] else None
+        args.lora_r = scale.get("lora_r", 0)
+        args.learning_rate = scale.get("learning_rate")
+    elif args.gen_run:
+        # Frozen generalization runs (new language pairs, XXL COMET rewards); predictions must be frozen.
+        if not GEN_PREDICTIONS.exists() or \
+                hashlib.sha256(GEN_PREDICTIONS.read_bytes()).hexdigest() != GEN_PREDICTIONS_SHA256:
+            raise ValueError("generalization predictions missing or differ from frozen hash")
+        gp = json.loads(GEN_PROTOCOL.read_text())
+        if json.loads(GEN_PREDICTIONS.read_text())["protocol_sha256"] != hashlib.sha256(GEN_PROTOCOL.read_bytes()).hexdigest():
+            raise ValueError("generalization protocol differs from the one the predictions were frozen against")
+        scale = gp["runs"][args.gen_run]
+        if args.reward != scale["reward"] or args.protocol_name != scale["protocol"] or args.seed != scale["seed"]:
+            raise ValueError(f"arguments do not match generalization run {args.gen_run}: {scale}")
+        args.policy_model = scale["policy_model"] if scale["policy_model"] != gp["base_policy"] else None
         args.lora_r = scale.get("lora_r", 0)
         args.learning_rate = scale.get("learning_rate")
     elif not args.smoke and (args.policy_model or args.lora_r or args.learning_rate
@@ -239,6 +276,12 @@ def main() -> None:
         raise ValueError("Batch arithmetic does not match the frozen protocol")
     if args.learning_rate:
         config.learning_rate = args.learning_rate
+    import os
+    if os.environ.get("REWARD_DEVICE"):
+        # 2-GPU jobs: GPU 1 holds only the reward model. Without this, the HF Trainer sees two GPUs
+        # and wraps the policy in DataParallel across both. Keep the policy on GPU 0 alone.
+        _ = config.n_gpu  # trigger device setup
+        config._n_gpu = 1
     peft_config = None
     if args.lora_r:
         from peft import LoraConfig
@@ -256,7 +299,7 @@ def main() -> None:
     (args.output_dir / "pilot_run.json").write_text(json.dumps({
         "reward": args.reward, "protocol_name": args.protocol_name,
         "policy_model": args.policy_model or protocol["policy_model"], "lora_r": args.lora_r,
-        "learning_rate": config.learning_rate, "scale_run": args.scale_run,
+        "learning_rate": config.learning_rate, "scale_run": args.scale_run, "gen_run": args.gen_run,
         "policy_padding_side": policy_tokenizer.padding_side,
         "scale_amendment_sha256": SCALE_AMENDMENT_SHA256 if scale is not None else None,
         "protocol_sha256": PROTOCOLS[args.protocol_name][1],
