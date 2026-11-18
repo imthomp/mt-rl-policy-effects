@@ -1,0 +1,59 @@
+{
+  "calibration": {
+    "1p5b/en_de": {
+      "margin": 0.07739198211580522,
+      "p": 0.7825,
+      "realized": true
+    },
+    "1p5b/en_es": {
+      "margin": 0.09852257765829564,
+      "p": 0.7775,
+      "realized": true
+    },
+    "1p5b/en_zh": {
+      "margin": 0.13326412968337542,
+      "p": 0.895,
+      "realized": true
+    },
+    "7b/en_de": {
+      "margin": 0.031551671363413414,
+      "p": 0.6525,
+      "realized": false
+    },
+    "7b/en_zh": {
+      "margin": 0.11925491996109494,
+      "p": 0.865,
+      "realized": true
+    }
+  },
+  "frozen_at_utc": "2026-11-18T17:34:38.777815+00:00",
+  "m_star": 0.05447182673960932,
+  "prospective_calls": {
+    "1p5b/en_de/xcomet_xxl_qe": {
+      "audit_only_call": "hack",
+      "combined_call": "hack",
+      "margin": 0.10813848860561848,
+      "p": 0.8025
+    },
+    "1p5b/en_zh/xcomet_xxl_qe": {
+      "audit_only_call": "hack",
+      "combined_call": "hack",
+      "margin": 0.12185794942080974,
+      "p": 0.845
+    },
+    "7b/en_ja/xcomet_xl_qe": {
+      "audit_only_call": "hack",
+      "combined_call": "hack",
+      "margin": 0.15262848930433393,
+      "p": 0.8525
+    },
+    "7b/en_ru/xcomet_xl_qe": {
+      "audit_only_call": "hack",
+      "combined_call": "hack",
+      "margin": 0.11596780752763158,
+      "p": 0.6875
+    }
+  },
+  "protocol_sha256": "827fb69987f7044bb2ffefdfeffc3b046f53bcd6fc4aa1da9b939348c1f03999",
+  "status": "frozen_before_scoring_any_generalization_outcome"
+}

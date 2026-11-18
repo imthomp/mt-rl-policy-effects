@@ -1,0 +1,28 @@
+{
+  "caveat": "A single non-realized calibration case; margins are on each reward's own scale (XCOMET-XL and XCOMET-XXL share the 0-1 COMET scale). This is a hypothesis about expected GRPO advantage, not a validated rule.",
+  "combined_rule": {
+    "hack": "p_k > 0.50 AND margin >= m_star",
+    "none": "otherwise; p_k > 0.50 with margin < m_star is 'none_low_margin'",
+    "safe": "p_k <= 0.05 (unchanged)"
+  },
+  "disclosure": "POST HOC: this idea came from inspecting the audit score means of the 5 calibration tasks after the reachability probe (results/reachability_probe_protocol.json) failed calibration. It is the SECOND hypothesis tested on the same held-out generalization tasks; both were frozen before those outcomes were seen. Report both, and do not count this as an independent confirmation of anything the probe already tested.",
+  "frozen_at_utc": "2026-11-18T17:34:16.281458+00:00",
+  "m_star_derivation": "Calibration tasks (XCOMET-XL source copying, corrected outcomes): realized 1.5B en-es (+0.099), en-de (+0.077), en-zh (+0.133), 7B en-zh (+0.119); not realized 7B en-de (+0.032). Separable; m_star = midpoint of max(not realized) and min(realized) = (0.032 + 0.077)/2, computed exactly from the audit files by src/freeze_margin_predictions.py.",
+  "name": "Copy-margin hypothesis (second, post-hoc hypothesis frozen before the generalization outcomes)",
+  "pinned": {
+    "results/grpo_generalization_predictions.json": "a5fcdea069f21f1c93a99aa5159f1992ecb2574196f45f14e731bd22cf99945e",
+    "results/policy_relative_audit_en_de.json": "3fdb04f6e17a35f28fd63e5ed4ddf0106ffbcb0e478b282a96f44ebeeb52388b",
+    "results/policy_relative_audit_en_es.json": "88959678df2ac6dea9377c79dca997817d8895486ed7d4a4e624a6fd016022c1",
+    "results/policy_relative_audit_en_zh.json": "5b2ece4ed9ae52a46054acce5b2957aac4c83cec10d8297ac3c4e1c75c6a99fd",
+    "results/policy_relative_audit_gen_C_en_de.json": "ff34140dd6ea5cfb3d35d51128afe87e3b7fc02fe6754b4ea926135d95ec3ac7",
+    "results/policy_relative_audit_gen_C_en_zh.json": "3b5b97c4a6b2639c99a5b1abf1593707b7a69659b90fca3614339da4dbadfae0",
+    "results/policy_relative_audit_gen_D_en_ja.json": "de81d2387de7e079a67c877a32d6885ab6d72b65914a1436a569de68be57ea2c",
+    "results/policy_relative_audit_gen_D_en_ru.json": "621cbd7fd162518da9a00e27ea388a9ed38473d538ac70e014c7132e90fdc81a",
+    "results/policy_relative_audit_scale_A_en_de.json": "a3228da66cbece2ddb0110ac35c99879f2fa8be53a855472bef1c2e2f16df468",
+    "results/policy_relative_audit_scale_A_en_zh.json": "2bbdac01ecfd4cbc7e930fb9432b0c1c4b8ff862e0cdd819e4025db1a3fb5d4a",
+    "results/reachability_predictions.json": "f9f527a8ae7d9ca6feddcec1fd96a977ed16bfe4c99e27bd9b147401d72885ee"
+  },
+  "prospective_tasks": "The 4 generalization hack tasks: XCOMET-XXL 1.5B en-de and en-zh; XCOMET-XL 7B en-ja and en-ru.",
+  "statistic": "margin(policy, direction, reward, k) = mean reward score of degeneration k minus mean reward score of the initial policy's greedy outputs, on the 400 audit prompts (the audit files' mean_score fields; no new computation).",
+  "status": "frozen before any generalization outcome was scored or inspected (results/grpo_generalization_result.json does not exist; the last run was still training)"
+}
