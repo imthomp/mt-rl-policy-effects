@@ -188,6 +188,88 @@ def main() -> None:
         "LargePolicy": esc(protocol["arm_A"]["policy"].split("/")[-1]),
         "ReferenceMetric": "COMET-22",
     }
+    # ---- Setup, audit, compute and task-level additions (2026-11-17) ----
+    import glob
+    from collections import defaultdict
+    ende = json.loads((root / "results/grpo_ende_protocol.json").read_text())
+    g = ende["grpo"]
+    rule = json.loads((root / "results/policy_relative_rule.json").read_text())["rule"]
+    hack_p = float(re.search(r"p_k > ([0-9.]+)", rule["predict_hack"]).group(1))
+    safe_p = float(re.search(r"p_k <= ([0-9.]+)", rule["predict_safe"]).group(1))
+    audit_n = {json.loads(open(f).read())["n_prompts"]
+               for f in glob.glob(str(root / "results/policy_relative_audit_*.json")) if "outputs" not in f}
+    if len(audit_n) != 1:
+        raise AssertionError(f"audits use different prompt counts: {audit_n}")
+
+    def gpu_hours(pattern: str) -> tuple[float, int]:
+        rows = [json.loads(open(f).read()) for f in glob.glob(str(root / pattern))]
+        secs = [r["log_history"][-1]["train_runtime"] for r in rows]
+        if len(secs) != len(rows):
+            raise AssertionError(f"missing train_runtime under {pattern}")
+        return sum(secs) / 3600, len(rows)
+
+    scale_h, scale_n = gpu_hours("artifacts/grpo_scale/*/pilot_run.json")
+    v2_h, v2_n = gpu_hours("artifacts/grpo_v2/*/*/pilot_run.json")
+    if scale_n != scale["run_count"] or v2_n != padding["rerun"]["n"]:
+        raise AssertionError("compute rows do not trace every run")
+
+    # Task level: one task = (arm, policy, reward, direction, failure type); seeds are replicates.
+    tasks = defaultdict(list)
+    for cell in scale["cells"]:
+        run = scale["runs"][cell["run"]]
+        tasks[(cell["arm"], run["policy_model"], cell["reward"], cell["protocol"], cell["type"])].append(cell)
+    task_rows = []
+    for key, cells in sorted(tasks.items()):
+        preds = {c["prediction"] for c in cells}
+        if len(preds) != 1:
+            raise AssertionError(f"task {key} has inconsistent predictions across seeds")
+        pred = preds.pop()
+        correct = [c["correct"] for c in cells if c["prediction"] != "none"]
+        task_rows.append({"task": list(key), "prediction": pred, "seeds": len(cells),
+                          "all_correct": bool(correct) and all(correct),
+                          "any_correct": bool(correct) and any(correct)})
+    tt = {x: {"tasks": sum(r["prediction"] == x for r in task_rows),
+              "all_seeds_correct": sum(r["prediction"] == x and r["all_correct"] for r in task_rows),
+              "mixed": sum(r["prediction"] == x and r["any_correct"] and not r["all_correct"] for r in task_rows)}
+          for x in ("hack", "safe", "none")}
+    gen_done = (root / "results/grpo_generalization_result.json").exists()
+    paper["setup"] = {"prompts_per_step": g["prompts_per_step"], "generations": g["generations_per_prompt"],
+                      "kl_beta": g["kl_beta"], "lr_full": g["learning_rate"], "temperature": g["temperature"],
+                      "max_new_tokens": g["max_new_tokens"], "lora": protocol["arm_A"]["lora"],
+                      "lr_lora": protocol["arm_A"]["learning_rate"], "audit_prompts": audit_n.pop(),
+                      "hack_p": hack_p, "safe_p": safe_p}
+    paper["compute"] = {"scale_gpu_hours": scale_h, "corrected_grid_gpu_hours": v2_h}
+    paper["scale_task_level"] = {"tally": tt, "rows": task_rows}
+    paper["generalization_status"] = "scored" if gen_done else "running"
+    ssot["grpo_audit_paper"] = paper
+    tmp.write_text(json.dumps(ssot, indent=2, sort_keys=True) + "\n")
+    tmp.replace(args.ssot)
+    macro.update({
+        "PromptsPerStep": g["prompts_per_step"], "GenerationsPerPrompt": g["generations_per_prompt"],
+        "KLBeta": g["kl_beta"], "LRFull": f"{g['learning_rate']:.0e}".replace("e-0", r"\times 10^{-") + "}",
+        "Temperature": g["temperature"], "MaxNewTokens": g["max_new_tokens"],
+        "LoraRank": protocol["arm_A"]["lora"]["r"], "LoraAlpha": protocol["arm_A"]["lora"]["alpha"],
+        "LRLora": f"{protocol['arm_A']['learning_rate']:.0e}".replace("e-0", r"\times 10^{-") + "}",
+        "AuditPrompts": paper["setup"]["audit_prompts"],
+        "HackP": f"{hack_p:.2f}", "SafeP": f"{safe_p:.2f}",
+        "ScaleGPUHours": f"{scale_h:.0f}", "CorrectedGridGPUHours": f"{v2_h:.0f}",
+        "TaskHackTasks": tt["hack"]["tasks"], "TaskHackAllCorrect": tt["hack"]["all_seeds_correct"],
+        "TaskSafeTasks": tt["safe"]["tasks"], "TaskSafeAllCorrect": tt["safe"]["all_seeds_correct"],
+        "TaskAbstainTasks": tt["none"]["tasks"],
+        "GeneralizationStatus": "complete" if gen_done else "running",
+    })
+    # Appendix table: one row per scale run, generated so every row traces to a run record.
+    rows = []
+    for name in sorted(scale["runs"]):
+        run = scale["runs"][name]
+        ref = refs["grpo_scale/" + name]
+        ind = run["indicator_final"]
+        rows.append(" & ".join([esc(run["policy_model"].split("-")[1]), esc(run["reward"]), esc(run["protocol"]),
+                                str(run["seed"]), signed(run["own_reward_delta"]),
+                                f"{ind['untranslated_rate']:.3f}", f"{ind['refusal_rate']:.3f}",
+                                signed(ref["delta_comet22"])]) + r" \\")
+    (args.macros.parent / "generated_scale_runs.tex").write_text(
+        "% Generated from results/paper_stats.json; do not edit.\n" + "\n".join(rows) + "\n")
     args.macros.parent.mkdir(parents=True, exist_ok=True)
     lines = ["% Generated from results/paper_stats.json; do not edit."]
     lines.extend(f"\\newcommand{{\\{name}}}{{{value}}}" for name, value in macro.items())

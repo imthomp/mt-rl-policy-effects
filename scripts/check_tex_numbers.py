@@ -9,6 +9,9 @@ from pathlib import Path
 
 NUMBER = re.compile(r"(?<![A-Za-z\\])[-+]?\d+(?:\.\d+)?(?:e[-+]?\d+)?", re.IGNORECASE)
 STRUCTURAL_EXCEPTIONS = (
+    # Model and hardware names are identifiers, not data claims.
+    re.compile(r"\b(?:CometKiwi|MetricX|COMET)-\d+(?:-[A-Za-z]+)?"),
+    re.compile(r"\b(?:A|H|B)\d00\b"),
     re.compile(r"\\documentclass\[11pt\]"),
     re.compile(r"\\usepackage\[utf8\]\{inputenc\}"),
     # Page geometry and spacing are document layout, not empirical claims.

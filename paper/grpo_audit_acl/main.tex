@@ -17,6 +17,7 @@
 \begin{document}
 \maketitle
 
+% TODO(Isaac): rewrite the abstract and confirm the section outline before expanding further.
 \begin{abstract}
 Quality-estimation models make machine translation reinforcement learning
 possible without references, but optimizing them can amplify reward-specific
@@ -115,8 +116,35 @@ behaviors, not complete measures of translation quality.
 
 \section{Experimental design}
 
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+Setting & Value \\
+\midrule
+Algorithm & GRPO (TRL) \\
+Prompts per step / generations & \PromptsPerStep{} / \GenerationsPerPrompt{} \\
+Updates & \TrainingSteps{} \\
+KL coefficient $\beta$ & \KLBeta{} \\
+Sampling temperature & \Temperature{} \\
+Max new tokens & \MaxNewTokens{} \\
+LR, full fine-tuning (\SmallPolicy{}) & $\LRFull$ \\
+LR, LoRA (\LargePolicy{}) & $\LRLora$ \\
+LoRA rank / $\alpha$ & \LoraRank{} / \LoraAlpha{} \\
+Audit prompts per task & \AuditPrompts{} \\
+Hack / safe thresholds on $p_k$ & $>\HackP$ / $\le\SafeP$ \\
+Eval sources per direction & \EvalSources{} (greedy) \\
+\bottomrule
+\end{tabular}
+\caption{Frozen training and audit settings, read from the protocol files.}
+\label{tab:setup}
+\end{table}
+
 We optimize \SmallPolicy{} and \LargePolicy{} translation policies with GRPO
-\citep{shao-etal-2024-deepseekmath}.  The reward set includes XCOMET,
+\citep{shao-etal-2024-deepseekmath}; Table~\ref{tab:setup} lists the frozen
+settings.  Training prompts are English sentences only, so every direction
+shares the same prompts and the same evaluation sources.  The reward set includes XCOMET,
 CometKiwi, and MetricX variants.  English sources are translated into German
 and Chinese.  The prospective scale protocol uses \TrainingSteps{} updates and
 evaluates greedy outputs on \EvalSources{} sources per direction.
@@ -132,6 +160,14 @@ We report the frozen behavior indicators and independent reference-based
 the scorer verifies protocol hashes, launch metadata, one-to-one source rows,
 indicator recomputation, and the manipulation gate before merging results into
 the paper SSOT.
+
+\paragraph{Freezing procedure.}
+Every experiment is fixed in a hashed protocol file before its audit, and the
+audit's calls are derived mechanically into a predictions file before any
+training run.  The trainer refuses to start a run whose protocol or
+predictions hash differs from the pinned value, and refuses runs the protocol
+does not list.  Amendments made after outcomes were seen are recorded with what
+was known at the time.
 
 \section{Prospective results}
 
@@ -161,6 +197,15 @@ seeds do not create independent audit probabilities.}
 \label{tab:scorecard}
 \end{table}
 
+\paragraph{Task-level view.}
+Seeds replicate an optimization run; they do not replicate an audit
+prediction.  Collapsing seeds, the scale study contains \TaskSafeTasks{} safe
+tasks, all \TaskSafeAllCorrect{} correct in every seed, and only
+\TaskHackTasks{} hack tasks, of which \TaskHackAllCorrect{} is correct in every
+seed.  \TaskAbstainTasks{} tasks are abstentions.  The evidence for positive
+calls is therefore much thinner than the cell counts suggest, which motivates
+the generalization study below.
+
 \paragraph{Safe calls transfer.}
 Every prospective safe call passes.  This includes the prespecified
 CometKiwi refusal check and all called MetricX cells.  MetricX XL and XXL show
@@ -183,6 +228,19 @@ Across the reward-scale arm, mean \ReferenceMetric{} changes are
 Neither reward produces an audited failure.  This is a controlled contrast
 within our setup, not a contradiction of failures reported with other policies,
 data, and reward variants.
+
+\section{Generalization study}
+
+% Filled from results/grpo_generalization_result.json once the runs are scored (status: \GeneralizationStatus{}).
+\textbf{TODO (status: \GeneralizationStatus{}).}  To add independent positive
+calls, a second frozen protocol extends the audit to two new reward models
+(XCOMET-XXL and CometKiwi-23-XXL, smaller policy, English to German and
+Chinese) and two new target languages (Japanese and Russian, larger policy,
+the four base rewards).  Its audits produce new hack calls for XCOMET-XXL in
+both directions and for XCOMET-XL in both new languages, including one
+Russian call whose preference rate is close to the failed German call.  The
+results will report cell-level and task-level tallies and test whether the
+reachability account survives prospectively.
 
 \section{Padding correction as a methodological result}
 
@@ -230,6 +288,21 @@ The language coverage is narrow, reward families are correlated, and repeated
 seeds measure optimization variability rather than independent audit tasks.
 Finally, human evaluation is pending.
 
+\section*{Ethics statement}
+
+The study trains translation models on public English text and evaluates them
+on public WMT test sources; it collects no personal data.  Reward hacking in
+deployed MT can silently degrade translations for users who cannot check them,
+which is the risk this audit aims to reduce.  Human annotators will be paid or
+volunteer lab members, will receive written guidelines, and will see only
+blinded outputs.
+
+\section*{Compute}
+
+Training used NVIDIA A100 and H100 GPUs.  The prospective scale study used
+\ScaleGPUHours{} GPU-hours of training and the corrected rerun grid
+\CorrectedGridGPUHours{}, excluding evaluation and audits.
+
 \section{Conclusion}
 
 A cheap policy-relative audit can screen named MT reward failures before GRPO,
@@ -241,4 +314,22 @@ rerun further shows why seemingly strong reward-hacking results require exact
 rollout provenance before they support a scientific claim.
 
 \bibliography{references}
+
+\appendix
+\section{Per-run results of the scale study}
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lllrrrrr}
+\toprule
+Policy & Reward & Dir. & Seed & $\Delta$ own reward & Untranslated & Refusal & $\Delta$ \ReferenceMetric{} \\
+\midrule
+\csname @@input\endcsname generated_scale_runs.tex
+\bottomrule
+\end{tabular}
+\caption{Every run in the prospective scale study.  Indicator values are final-checkpoint rates on the evaluation sources; $\Delta$ columns are final minus initial.}
+\label{tab:scale-runs}
+\end{table*}
+
 \end{document}
