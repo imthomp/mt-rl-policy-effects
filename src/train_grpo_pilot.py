@@ -34,6 +34,8 @@ PROTOCOLS = {
     "enru": (ROOT / "results/grpo_enru_protocol.json",
              "c5a0149716414a74b0c651ef119c38a51481b2bd6c9a97ff1faa89032149b0a6"),
 }
+MARGIN_RUNS = ROOT / "results/grpo_margin_test_runs.json"
+MARGIN_RUNS_SHA256 = "PENDING"  # set after src/freeze_margin_test_runs.py freezes runs + predictions
 GEN_PROTOCOL = ROOT / "results/grpo_generalization_protocol.json"
 GEN_PREDICTIONS = ROOT / "results/grpo_generalization_predictions.json"
 GEN_PREDICTIONS_SHA256 = "a5fcdea069f21f1c93a99aa5159f1992ecb2574196f45f14e731bd22cf99945e"
@@ -135,6 +137,7 @@ def main() -> None:
     parser.add_argument("--langid-guard", action="store_true", help="en-de amendment 2 follow-up only")
     parser.add_argument("--scale-run", default=None, help="run id from results/grpo_scale_protocol.json")
     parser.add_argument("--gen-run", default=None, help="run id from results/grpo_generalization_protocol.json")
+    parser.add_argument("--margin-run", default=None, help="run id from results/grpo_margin_test_runs.json")
     parser.add_argument("--policy-model", default=None, help="--smoke only (resource tests)")
     parser.add_argument("--lora-r", type=int, default=0, help="--smoke only (resource tests)")
     parser.add_argument("--learning-rate", type=float, default=None, help="--smoke only")
@@ -158,6 +161,17 @@ def main() -> None:
         if args.reward != scale["reward"] or args.protocol_name != scale["protocol"] or args.seed != scale["seed"]:
             raise ValueError(f"arguments do not match scale run {args.scale_run}: {scale}")
         args.policy_model = scale["policy_model"] if scale["policy_model"] != sp["base_policy"] else None
+        args.lora_r = scale.get("lora_r", 0)
+        args.learning_rate = scale.get("learning_rate")
+    elif args.margin_run:
+        # Fresh test of the copy-margin rule (results/margin_test_protocol.json); runs + predictions frozen together.
+        if not MARGIN_RUNS.exists() or hashlib.sha256(MARGIN_RUNS.read_bytes()).hexdigest() != MARGIN_RUNS_SHA256:
+            raise ValueError("margin-test runs/predictions missing or differ from frozen hash")
+        mr = json.loads(MARGIN_RUNS.read_text())
+        scale = mr["runs"][args.margin_run]
+        if args.reward != scale["reward"] or args.protocol_name != scale["protocol"] or args.seed != scale["seed"]:
+            raise ValueError(f"arguments do not match margin-test run {args.margin_run}: {scale}")
+        args.policy_model = scale["policy_model"]
         args.lora_r = scale.get("lora_r", 0)
         args.learning_rate = scale.get("learning_rate")
     elif args.gen_run:
@@ -299,7 +313,7 @@ def main() -> None:
     (args.output_dir / "pilot_run.json").write_text(json.dumps({
         "reward": args.reward, "protocol_name": args.protocol_name,
         "policy_model": args.policy_model or protocol["policy_model"], "lora_r": args.lora_r,
-        "learning_rate": config.learning_rate, "scale_run": args.scale_run, "gen_run": args.gen_run,
+        "learning_rate": config.learning_rate, "scale_run": args.scale_run, "gen_run": args.gen_run, "margin_run": args.margin_run,
         "policy_padding_side": policy_tokenizer.padding_side,
         "scale_amendment_sha256": SCALE_AMENDMENT_SHA256 if scale is not None else None,
         "protocol_sha256": PROTOCOLS[args.protocol_name][1],
