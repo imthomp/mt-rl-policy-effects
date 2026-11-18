@@ -27,7 +27,7 @@ def main() -> None:
     if OUTPUT.exists():
         raise FileExistsError(OUTPUT)
     reach = {}
-    for f in sorted(ROOT.glob("results/reachability_probe_*.json")):
+    for f in sorted(p for p in ROOT.glob("results/reachability_probe_*.json") if p.name != "reachability_probe_protocol.json"):
         r = json.loads(f.read_text())
         if r["protocol_sha256"] != PROTOCOL_SHA256:
             raise AssertionError(f"{f} not produced under the frozen protocol")

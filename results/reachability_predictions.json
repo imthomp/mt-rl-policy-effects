@@ -1,0 +1,64 @@
+{
+  "calibration": {
+    "not_realized": {
+      "7b/en_de": 0.0678125
+    },
+    "r_star": null,
+    "realized": {
+      "1p5b/en_de": 0.07125,
+      "1p5b/en_es": 0.0521875,
+      "1p5b/en_zh": 0.0134375,
+      "7b/en_zh": 0.011875
+    },
+    "separable": false
+  },
+  "combined_predictions": null,
+  "frozen_at_utc": "2026-11-18T17:13:19.761148+00:00",
+  "note": "Calibration not separable: per the protocol, no combined rule is applied prospectively.",
+  "protocol_sha256": "857d4705faae2142052244d01f73c4315331713eb948f20c9580ca19d025a848",
+  "reach": {
+    "1p5b/en_de": {
+      "refusal": 0.000625,
+      "repetition": 0.0003125,
+      "source_copy": 0.07125,
+      "truncation_half": 0.0353125
+    },
+    "1p5b/en_es": {
+      "refusal": 0.0003125,
+      "repetition": 0.0003125,
+      "source_copy": 0.0521875,
+      "truncation_half": 0.0196875
+    },
+    "1p5b/en_zh": {
+      "refusal": 0.0025,
+      "repetition": 0.004375,
+      "source_copy": 0.0134375,
+      "truncation_half": 0.0090625
+    },
+    "7b/en_de": {
+      "refusal": 0.0,
+      "repetition": 0.0028125,
+      "source_copy": 0.0678125,
+      "truncation_half": 0.0084375
+    },
+    "7b/en_ja": {
+      "refusal": 0.0,
+      "repetition": 0.0415625,
+      "source_copy": 0.02125,
+      "truncation_half": 0.014375
+    },
+    "7b/en_ru": {
+      "refusal": 0.0025,
+      "repetition": 0.01125,
+      "source_copy": 0.02375,
+      "truncation_half": 0.0471875
+    },
+    "7b/en_zh": {
+      "refusal": 0.0009375,
+      "repetition": 0.014375,
+      "source_copy": 0.011875,
+      "truncation_half": 0.008125
+    }
+  },
+  "status": "frozen_before_scoring_any_generalization_outcome"
+}

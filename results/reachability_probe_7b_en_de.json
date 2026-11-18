@@ -1,0 +1,21 @@
+{
+  "G": 8,
+  "lp": "en_de",
+  "n_prompts": 400,
+  "n_samples": 3200,
+  "policy": "Qwen/Qwen2.5-7B-Instruct",
+  "prompts_with_any": {
+    "refusal": 0,
+    "repetition": 8,
+    "source_copy": 42,
+    "truncation_half": 14
+  },
+  "protocol_sha256": "857d4705faae2142052244d01f73c4315331713eb948f20c9580ca19d025a848",
+  "reach": {
+    "refusal": 0.0,
+    "repetition": 0.0028125,
+    "source_copy": 0.0678125,
+    "truncation_half": 0.0084375
+  },
+  "target": "German"
+}

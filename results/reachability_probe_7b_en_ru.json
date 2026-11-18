@@ -1,0 +1,21 @@
+{
+  "G": 8,
+  "lp": "en_ru",
+  "n_prompts": 400,
+  "n_samples": 3200,
+  "policy": "Qwen/Qwen2.5-7B-Instruct",
+  "prompts_with_any": {
+    "refusal": 1,
+    "repetition": 33,
+    "source_copy": 28,
+    "truncation_half": 60
+  },
+  "protocol_sha256": "857d4705faae2142052244d01f73c4315331713eb948f20c9580ca19d025a848",
+  "reach": {
+    "refusal": 0.0025,
+    "repetition": 0.01125,
+    "source_copy": 0.02375,
+    "truncation_half": 0.0471875
+  },
+  "target": "Russian"
+}

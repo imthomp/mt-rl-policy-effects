@@ -1,0 +1,21 @@
+{
+  "G": 8,
+  "lp": "en_zh",
+  "n_prompts": 400,
+  "n_samples": 3200,
+  "policy": "Qwen/Qwen2.5-7B-Instruct",
+  "prompts_with_any": {
+    "refusal": 1,
+    "repetition": 19,
+    "source_copy": 11,
+    "truncation_half": 7
+  },
+  "protocol_sha256": "857d4705faae2142052244d01f73c4315331713eb948f20c9580ca19d025a848",
+  "reach": {
+    "refusal": 0.0009375,
+    "repetition": 0.014375,
+    "source_copy": 0.011875,
+    "truncation_half": 0.008125
+  },
+  "target": "Chinese"
+}
