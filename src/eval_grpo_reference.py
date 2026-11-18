@@ -54,9 +54,9 @@ def main() -> None:
     from eval_grpo_pilot import eval_sources
     from train_grpo_pilot import load_protocol
 
-    data = {lp: mtme(lp) for lp in ("en_de", "en_es", "en_zh")}
+    data = {lp: mtme(lp) for lp in ("en_de", "en_es", "en_zh", "en_ja", "en_ru")}
     line_of = {}
-    for lp, proto in (("en_de", "ende"), ("en_es", "pilot"), ("en_zh", "enzh")):
+    for lp, proto in (("en_de", "ende"), ("en_es", "pilot"), ("en_zh", "enzh"), ("en_ja", "enja"), ("en_ru", "enru")):
         segs, sources = eval_sources(load_protocol(proto))
         src = data[lp][0]
         for seg, s in zip(segs, sources):
@@ -75,6 +75,12 @@ def main() -> None:
         if lp is None:
             raise AssertionError(f"cannot infer language pair from scale run {m}")
         runs[f"grpo_scale/{m}"] = (lp, p)
+    for p in sorted((ROOT / "artifacts/grpo_gen").glob("*/eval_outputs.jsonl")):
+        m = p.parent.name
+        lp = next((x for x in ("en_de", "en_zh", "en_ja", "en_ru") if f"_{x}_" in m), None)
+        if lp is None:
+            raise AssertionError(f"cannot infer language pair from generalization run {m}")
+        runs[f"grpo_gen/{m}"] = (lp, p)
 
     cache = {}
     if CACHE.exists():
