@@ -1,0 +1,43 @@
+{
+  "arrays": {
+    "arm_C": {
+      "gres": "gpu:2",
+      "indices": "0-11",
+      "job": "15490112",
+      "partition": "dw,dwmatrix",
+      "qos": "matrix",
+      "reward_device": 1
+    },
+    "arm_D": {
+      "gres": "gpu:1",
+      "indices": "12-35",
+      "job": "15490113",
+      "partition": "dw,dwmatrix",
+      "qos": "matrix"
+    }
+  },
+  "executing_revision": "8fd16b3",
+  "launch_utc": "2026-11-18T05:30:35.191911+00:00",
+  "pinned_inputs": {
+    "results/grpo_generalization_predictions.json": "a5fcdea069f21f1c93a99aa5159f1992ecb2574196f45f14e731bd22cf99945e",
+    "results/grpo_generalization_protocol.json": "a9ac6dbed8994a33f7af46ad577b88444dc31c71311f8227b446008ff69dfc7d",
+    "results/policy_relative_rule.json": "35f0a2276fa5daaea87f2987a176277593c5f5c17f65f23f504998798cac2821"
+  },
+  "placement": "byurc pick-partition --eta (all tiers, 18 h / 160G / 8 CPU) ranked dw/matrix and cs2/h100 as immediate; matrix capacity per user was saturated after 12 tasks.",
+  "scheduler_adjustments": [
+    {
+      "elements": "pending elements 18-35",
+      "final_partition": "cs2",
+      "final_qos": "cs",
+      "gpu": "h100",
+      "job": "15490113",
+      "note": "Hardware differs from the A100 tasks (12-17); seeds are replicates, and hardware is recorded per run from the job logs.",
+      "tool": "~/byurc/bin/requeue_to_available.sh --tier h100"
+    }
+  ],
+  "smoke": {
+    "job": "15483059",
+    "what": "2-GPU XXL reward placement, 2 steps, both rewards COMPLETED"
+  },
+  "status": "launched"
+}
