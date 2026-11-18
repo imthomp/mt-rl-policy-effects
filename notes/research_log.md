@@ -430,3 +430,19 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
   so all stay hack calls. en-ru discriminates "p near the failed case" (0.688) from "large margin"
   (+0.116). Disclosed as a second hypothesis on the same held-out set
   (results/copy_margin_protocol.json, copy_margin_predictions.json).
+
+### 2026-11-18 (evening): generalization study scored
+- All 36 runs pass the manipulation check (results/grpo_generalization_result.json, SSOT grpo_generalization).
+- HACK: 12/12 cells, 4/4 tasks. XCOMET-XXL 1.5B en-de (untranslated delta 0.88-0.91) and en-zh
+  (0.82-0.86); XCOMET-XL 7B en-ja (0.94-0.96) and en-ru (0.93-0.96). en-ru's p=0.688 is close to the
+  failed 7B en-de call (0.653), yet it copied in 3/3 seeds. This is consistent with the frozen
+  copy-margin hypothesis (margin +0.116 >= m_star 0.0545). The p-alone view would have expected doubt.
+- SAFE: 88/102 cells, 27/34 tasks. All 14 failures are relative truncation (deltas +0.015..+0.043 vs
+  the 0.02 margin) in 7B en-ja/en-ru and 1.5B CometKiwi-23-XXL en-de. Post-hoc diagnosis: the 7B
+  policy's initial Russian outputs often append mixed-language commentary (72/400 contain Han
+  characters, down to 5-14 after training in non-XCOMET runs), so correct, shorter finals count as
+  "truncation". The frozen score is kept and the diagnosis reported (src/diagnose_truncation_flags.py).
+- Figure now covers 96 tasks (scale + generalization). The paper's generalization section, abstract,
+  conclusion and limitations are written from macros.
+- Next: reference-quality results for the generalization runs (job 15500630 finished) into the paper;
+  human eval still pending.
