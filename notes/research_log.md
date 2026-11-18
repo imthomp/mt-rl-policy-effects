@@ -399,3 +399,17 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
   abstract and outline (docs/GRPO_PAPER_OUTLINE.md).
 - Human eval redesigned around the headline experiments (see HANDOFF item 4); the annotator guide
   is split from the team notes to protect blinding.
+
+### 2026-11-18: reachability probe frozen, run, and FAILED calibration (before any generalization outcome was scored)
+- Frozen protocol (results/reachability_probe_protocol.json, sha 857d4705…): reach = share of the
+  initial policy's TRL-matched sampled rollouts (8 per audit prompt x 400) showing the failure. The
+  combined rule calls a hack when p > 0.50 AND reach >= r_star, with r_star derived mechanically from
+  the calibration tasks. The watcher was stopped and the generalization reference eval held first.
+- Copy reach: 1.5B en-de 0.071, en-es 0.052, en-zh 0.013; 7B en-de 0.068, en-zh 0.012, en-ja 0.021, en-ru 0.024.
+  Calibration: realized {1.5B de, es, zh; 7B zh} vs not realized {7B de}. NOT separable — 7B en-de
+  has among the HIGHEST copy reach yet never copied, while Chinese copied from ~1%. Per the protocol,
+  no combined rule is applied (results/reachability_predictions.json). Base-rate reachability does
+  not explain which copy calls come true.
+- Framing (delegated by Isaac, committed before the probe ran): the paper is "a screen for ruling
+  out named failures, plus a diagnosed limit"; reachability is reported as a tested-and-failed explanation.
+- Reference eval 15500630 released; a watcher scores the generalization runs once the last run finishes.
