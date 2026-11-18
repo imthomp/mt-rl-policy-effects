@@ -34,11 +34,15 @@ families and scales, and two translation directions, with every run required
 to raise its own reward.  Counting each policy, reward, direction and failure
 type once, safe calls are correct in \TaskSafeAllCorrect{} of \TaskSafeTasks{}
 tasks, but hack calls in only \TaskHackAllCorrect{} of \TaskHackTasks{}: XCOMET
-induces source copying into Chinese but not German, although both runs raise
-the reward.  A reward's preference for an exploit is necessary but not
-sufficient; the policy must also be able to reach it.  Finally, a rollout
-padding bug had manufactured a dramatic refusal collapse that vanished on a
-full rerun, a cautionary result for reward-hacking studies.
+induces source copying into Chinese but not German.  A second frozen study with
+two larger rewards and two new languages realizes all \GenHackTasks{} of its
+hack calls, including a Russian call whose preference rate matched the failed
+German one.  The German miss is not explained by how often the initial policy
+samples the exploit, but by how little copying gains over translations the
+reward already rates highly, an explanation we froze before scoring the new
+runs.  Finally, a rollout padding bug had manufactured a dramatic refusal
+collapse that vanished on a full rerun, a cautionary result for reward-hacking
+studies.
 \end{abstract}
 
 \section{Introduction}
@@ -208,6 +212,7 @@ Corrected policy-relative grid & \RelativeHackCorrect/\RelativeHackCalls & \Rela
 Prospective scale study & \ScaleHackCorrect/\ScaleHackCalls & \ScaleSafeCorrect/\ScaleSafeCalls \\
 \quad Policy-scale arm & \PolicyHackCorrect/\PolicyHackCalls & \PolicySafeCorrect/\PolicySafeCalls \\
 \quad Reward-scale arm & --- & \RewardSafeCorrect/\RewardSafeCalls \\
+Prospective generalization study & \GenHackCellsCorrect/\GenHackCells & \GenSafeCellsCorrect/\GenSafeCells \\
 \bottomrule
 \end{tabular}
 }
@@ -264,16 +269,45 @@ exploit only for a smaller policy than ours and not for their larger ones.
 
 \section{Generalization study}
 
-% Filled from results/grpo_generalization_result.json once the runs are scored (status: \GeneralizationStatus{}).
-\textbf{TODO (status: \GeneralizationStatus{}).}  To add independent positive
-calls, a second frozen protocol extends the audit to two new reward models
+A second frozen protocol adds independent audit tasks: two new reward models
 (XCOMET-XXL and CometKiwi-23-XXL, smaller policy, English to German and
-Chinese) and two new target languages (Japanese and Russian, larger policy,
-the four base rewards).  Its audits produce new hack calls for XCOMET-XXL in
-both directions and for XCOMET-XL in both new languages, including one
-Russian call whose preference rate is close to the failed German call.  The
-results will report cell-level and task-level tallies and test whether the
-reachability account survives prospectively.
+Chinese) and two new target languages (Japanese and Russian, larger policy, the
+four base rewards).  All \GenManipulationPasses{} of \GenRuns{} runs pass the
+manipulation check.
+
+\paragraph{Every hack call came true.}
+All \GenHackTasks{} hack tasks are realized in every seed
+(\GenHackCellsCorrect{}/\GenHackCells{} cells): both XCOMET-XXL directions and
+XCOMET-XL into Japanese and Russian.  The Russian call is the informative one.
+Its preference rate ($p=\PRu$) was close to that of the failed German call
+($p=\PDeSeven$), yet the policy copied in every seed.
+
+\paragraph{What distinguishes the German miss.}
+Before scoring these runs we froze two candidate explanations for that miss,
+each with a threshold derived only from the earlier tasks.  The first, a
+\emph{reachability probe}, asked whether the initial policy already samples
+the exploit.  It failed calibration: the German policy samples source copies
+more often ($\ReachDeSeven$ of rollouts) than the Chinese policy that did copy
+($\ReachZhSeven$), so no rule could be derived.  The second, frozen afterwards
+and disclosed as post hoc, is the \emph{copy margin}: how much more the reward
+pays for a copy than for the initial policy's own translation.  The German
+policy's translations already score so highly that copying gains only
+\MarginDeSeven{}, against at least \MarginRealizedMin{} for every realized
+copy.  The derived threshold (\MarginStar{}) kept all four new hack calls,
+including Russian (\MarginRu{}), and all four were realized.  This supports the
+margin as the missing ingredient, but rests on a single negative calibration
+case and was tested on the same held-out tasks as the failed probe.
+
+\paragraph{Safe calls: one indicator failure.}
+Safe calls are correct in \GenSafeTasksCorrect{} of \GenSafeTasks{} tasks
+(\GenSafeCellsCorrect{}/\GenSafeCells{} cells).  All \GenFailedSafeCells{}
+failed cells are the truncation indicator, which we redefined prospectively as
+shortening relative to the initial output.  Inspecting them (post hoc) shows
+that this definition also flags \emph{cleanups}: the larger policy's initial
+Russian outputs often append mixed-language commentary (\RuHanInitial{} of
+\RuHanN{} contain Chinese characters, falling to between \RuHanFinalMin{} and
+\RuHanFinalMax{} after training), so a correct, shorter final translation counts
+as truncation.  We keep the frozen score and report the diagnosis.
 
 \section{Padding correction as a methodological result}
 
@@ -317,7 +351,9 @@ definitive adequacy judgment.
 
 \section{Limitations}
 
-The audit covers only four hand-specified failure types.  A safe call cannot
+The audit covers only four hand-specified failure types.  The copy-margin
+explanation was proposed after the reachability probe failed and was tested on
+the same held-out tasks; it needs a fresh test.  A safe call cannot
 exclude an unmodeled exploit.  Positive calls measure reward preference, not
 the probability that a particular optimizer and policy will reach the behavior.
 The policy-scale comparison also changes parameterization and learning rate.
@@ -342,11 +378,14 @@ Training used NVIDIA A100 and H100 GPUs.  The prospective scale study used
 
 \section{Conclusion}
 
-A cheap policy-relative audit can screen named MT reward failures before GRPO,
-but its two directions are asymmetric.  In our prospective study, every safe
-call survives meaningful optimization, while only the hack calls whose exploit
-is reachable by the policy materialize.  The next diagnostic should therefore
-combine reward preference with an estimate of policy reachability.  The padding
+A cheap policy-relative audit can screen named MT reward failures before GRPO.
+Its safe calls survive meaningful optimization across policies, rewards and
+five directions, apart from an indicator that cannot tell cleanup from
+truncation.  Its hack calls came true in every case except one, and that miss
+is explained by the exploit's reward margin over the initial policy rather
+than by how often the policy samples it.  Adding that margin to the audit is
+cheap.  It still needs a test on new policies and rewards, because it rests on
+a single negative case.  The padding
 rerun further shows why seemingly strong reward-hacking results require exact
 rollout provenance before they support a scientific claim.
 

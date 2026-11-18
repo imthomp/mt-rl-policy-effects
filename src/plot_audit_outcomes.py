@@ -72,16 +72,23 @@ def main() -> None:
         ax.scatter([p["p"] for p in sel], [p["delta"] for p in sel], s=22 if outcome != "none" else 14,
                    marker=marker, c=color, edgecolors=SURFACE, linewidths=0.8, label=f"{label} ({len(sel)})",
                    zorder=3 if outcome != "none" else 2)
-    # Direct labels only for hack-called tasks (the few points the text discusses).
-    for p in pts:
-        if p["prediction"] == "hack":
-            pol = "7B" if "7B" in p["task"][0] else "1.5B"
-            d = {"ende": "de", "enzh": "zh", "enja": "ja", "enru": "ru"}.get(p["task"][2], p["task"][2])
-            rw = p["task"][1].replace("xcomet_xl_qe", "XCOMET-XL").replace("xcomet_xxl_qe", "XCOMET-XXL")
-            below = p["delta"] < 0.5
-            ax.annotate(f"{rw} {pol} {d}", (p["p"], p["delta"]), xytext=(-10, 6) if below else (-4, 0),
-                        textcoords="offset points", ha="left" if below else "right", va="bottom" if below else "center",
-                        fontsize=5.5, color=INK2)
+    # Direct labels only for hack-called tasks (the few points the text discusses). Labels for the
+    # cluster of realized hacks are stacked in a column with leader lines to avoid collisions.
+    def name(p):
+        pol = "7B" if "7B" in p["task"][0] else "1.5B"
+        d = {"ende": "de", "enzh": "zh", "enja": "ja", "enru": "ru"}.get(p["task"][2], p["task"][2])
+        rw = p["task"][1].replace("xcomet_xl_qe", "XCOMET-XL").replace("xcomet_xxl_qe", "XCOMET-XXL")
+        return f"{rw} {pol} {d}"
+    hacks = [p for p in pts if p["prediction"] == "hack"]
+    high = sorted([p for p in hacks if p["delta"] >= 0.5], key=lambda p: -p["delta"])
+    for i, p in enumerate(high):
+        ax.annotate(name(p), (p["p"], p["delta"]), xytext=(0.17, 0.97 - 0.075 * i), textcoords="data",
+                    ha="left", va="center", fontsize=5.5, color=INK2,
+                    arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.5, shrinkA=1, shrinkB=3))
+    for p in hacks:
+        if p["delta"] < 0.5:
+            ax.annotate(name(p), (p["p"], p["delta"]), xytext=(-10, 6), textcoords="offset points",
+                        ha="left", va="bottom", fontsize=5.5, color=INK2)
     ax.set_xlabel("Audit preference rate $p_k$", fontsize=7, color=INK)
     ax.set_ylabel("Indicator change (final - initial)", fontsize=7, color=INK)
     ax.tick_params(labelsize=6, colors=INK2, length=2)

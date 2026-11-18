@@ -16,6 +16,43 @@ def signed(value: float, digits: int = 3) -> str:
     return f"{value:+.{digits}f}"
 
 
+def gen_macros(root: Path, ssot: dict) -> dict:
+    """Generalization study, reachability probe and copy-margin hypothesis macros (empty until scored)."""
+    if "grpo_generalization" not in ssot:
+        return {}
+    g = ssot["grpo_generalization"]
+    if g["status"] != "complete" or g["uninformative"] or len(g["runs"]) != g["run_count"]:
+        raise AssertionError("generalization scorecard incomplete or has uninformative cells")
+    tt = g["task_tally"]
+    reach = json.loads((root / "results/reachability_predictions.json").read_text())
+    margin = json.loads((root / "results/copy_margin_predictions.json").read_text())
+    diag = ssot["truncation_flag_diagnostic"]
+    # XCOMET runs output English copies, so they are excluded from the code-switching range.
+    han = [v for k, v in diag["en_ru_han_outputs"].items() if "xcomet" not in k]
+    ru = margin["prospective_calls"]["7b/en_ru/xcomet_xl_qe"]
+    de7 = margin["calibration"]["7b/en_de"]
+    realized_margins = [v["margin"] for v in margin["calibration"].values() if v["realized"]]
+    if reach["calibration"]["separable"]:
+        raise AssertionError("paper text assumes the reachability probe failed calibration")
+    if any(v["combined_call"] != "hack" for v in margin["prospective_calls"].values()):
+        raise AssertionError("paper text assumes every generalization hack task kept its call under the margin rule")
+    return {
+        "GenRuns": g["run_count"], "GenManipulationPasses": g["manipulation_pass_count"],
+        "GenHackCellsCorrect": g["tally"]["hack"]["correct"], "GenHackCells": g["tally"]["hack"]["calls"],
+        "GenSafeCellsCorrect": g["tally"]["safe"]["correct"], "GenSafeCells": g["tally"]["safe"]["calls"],
+        "GenHackTasksCorrect": tt["hack"]["all_seeds_correct"], "GenHackTasks": tt["hack"]["tasks"],
+        "GenSafeTasksCorrect": tt["safe"]["all_seeds_correct"], "GenSafeTasks": tt["safe"]["tasks"],
+        "GenFailedSafeCells": diag["failed_safe_cells"],
+        "RuHanInitial": han[0]["han_initial"], "RuHanFinalMin": min(r["han_final"] for r in han),
+        "RuHanFinalMax": max(r["han_final"] for r in han), "RuHanN": han[0]["n"],
+        "MarginStar": f"{margin['m_star']:.3f}", "MarginDeSeven": signed(de7["margin"]),
+        "MarginRealizedMin": signed(min(realized_margins)), "MarginRu": signed(ru["margin"]),
+        "PRu": f"{ru['p']:.2f}", "PDeSeven": f"{de7['p']:.2f}",
+        "ReachDeSeven": f"{reach['calibration']['not_realized']['7b/en_de']:.3f}",
+        "ReachZhSeven": f"{reach['calibration']['realized']['7b/en_zh']:.3f}",
+    }
+
+
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
     ap = argparse.ArgumentParser()
@@ -268,6 +305,7 @@ def main() -> None:
         "TaskSafeTasks": tt["safe"]["tasks"], "TaskSafeAllCorrect": tt["safe"]["all_seeds_correct"],
         "TaskAbstainTasks": tt["none"]["tasks"],
         "GeneralizationStatus": "complete" if gen_done else "running",
+        **gen_macros(root, ssot),
         "FigTaskPoints": len(ssot["audit_outcome_figure"]["points"]),
         "FigCorrect": ssot["audit_outcome_figure"]["counts"]["correct"],
         "FigIncorrect": ssot["audit_outcome_figure"]["counts"]["incorrect"],
