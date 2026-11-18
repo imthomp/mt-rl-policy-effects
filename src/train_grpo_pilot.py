@@ -36,7 +36,7 @@ PROTOCOLS = {
 }
 GEN_PROTOCOL = ROOT / "results/grpo_generalization_protocol.json"
 GEN_PREDICTIONS = ROOT / "results/grpo_generalization_predictions.json"
-GEN_PREDICTIONS_SHA256 = "PENDING"  # set after the generalization predictions are frozen
+GEN_PREDICTIONS_SHA256 = "a5fcdea069f21f1c93a99aa5159f1992ecb2574196f45f14e731bd22cf99945e"
 SCALE_PROTOCOL = ROOT / "results/grpo_scale_protocol.json"
 SCALE_PREDICTIONS = ROOT / "results/grpo_scale_predictions.json"
 SCALE_PREDICTIONS_SHA256 = "5d7dad584ec35e1d6325543d2b1224585770d58e8f0addfa4d338690da2efd1a"
