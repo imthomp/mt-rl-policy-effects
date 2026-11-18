@@ -272,10 +272,14 @@ case.
 \section{Human evaluation}
 
 \textbf{TODO before submission: complete blinded human evaluation.}
-The frozen package contains \HumanItemsPerPair{} source items for each of
-\HumanPairs{} language pairs and \HumanRows{} unique candidate rows.  Candidate
-order is randomized, duplicate outputs are merged, and the system keys are
-hash-pinned.  Human scores will be used only for final evaluation, never to
+The frozen package targets the paper's headline comparisons:
+\HumanPrimarySheets{} primary sheets of \HumanItemsPerSheet{} source items each
+(\HumanPrimaryRows{} unique candidate rows), covering the larger policy's
+safe-called rewards and the MetricX reward-scale series in English--German and
+English--Chinese, plus a secondary English--Spanish sheet from the corrected
+smaller-policy grid.  Copying outputs that the indicators already flag appear
+only on \HumanAttentionItems{} attention-check items.  Candidate order is
+randomized, duplicate outputs are merged, and the system keys are hash-pinned.  Human scores will be used only for final evaluation, never to
 retune the audit, thresholds, or checkpoints.  Until this evaluation is
 complete, automatic quality results are corroborating evidence rather than a
 definitive adequacy judgment.

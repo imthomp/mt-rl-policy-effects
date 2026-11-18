@@ -1,42 +1,18 @@
 {
-  "n_per_pair": 100,
-  "pairs": {
-    "en_de": {
-      "items": 100,
-      "key_sha256": "098f9ffc62be7bfed969cf1a4a45f6af47f71635d0990b6ec13878008cf7804a",
-      "mean_unique_candidates": 4.64,
-      "rows": 464,
-      "sheet_sha256": "8713bf4592c784285013239408dadb33e2a8ead3d773a0ffcaade3cf14c53871",
-      "systems": {
-        "cometkiwi_22": [
-          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
-          500
-        ],
-        "cometkiwi_23_xl_langid_guard": [
-          "artifacts/grpo_v2/ende_followup/cometkiwi_23_xl_langid_steps1000_seed0",
-          1000
-        ],
-        "cometkiwi_23_xl_seed2_unguarded": [
-          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_23_xl_seed2",
-          500
-        ],
-        "initial": [
-          "artifacts/grpo_v2/rule_test_en_de/cometkiwi_22_seed0",
-          0
-        ],
-        "metricx_24_qe": [
-          "artifacts/grpo_v2/rule_test_en_de/metricx_24_qe_seed0",
-          500
-        ]
-      },
-      "target_lang": "German"
-    },
-    "en_es": {
-      "items": 100,
-      "key_sha256": "7d27d5871191a4a267fd1cbeeaba276ea0739e64a8b97938970dc3f302b6903a",
-      "mean_unique_candidates": 4.56,
-      "rows": 456,
-      "sheet_sha256": "3f6c241ba021de7bbc41a430bb525c9cde7f8bbd82ca39117763f50f8227e38b",
+  "attention_items_per_sheet": 10,
+  "design": "2026-11-18 headline-aligned",
+  "items_per_sheet": 60,
+  "seed": 20261118,
+  "sheets": {
+    "grid1p5b_en_es": {
+      "attention_systems": {},
+      "items": 60,
+      "key_sha256": "571d11c17e80d6c8e9c10f321ad8cb9a1739c4ed361fc422504bde015034f02c",
+      "lp": "en_es",
+      "mean_unique_candidates": 4.5,
+      "role": "secondary",
+      "rows": 270,
+      "sheet_sha256": "ab9897aeace35a854703c3b612bf352c1d88ac399b9368ba4187338562b6877a",
       "systems": {
         "cometkiwi_22": [
           "artifacts/grpo_v2/pilot/cometkiwi_22",
@@ -46,7 +22,7 @@
           "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
           500
         ],
-        "initial": [
+        "initial_1p5b": [
           "artifacts/grpo_v2/pilot/cometkiwi_23_xl",
           0
         ],
@@ -61,32 +37,130 @@
       },
       "target_lang": "Spanish"
     },
-    "en_zh": {
-      "items": 100,
-      "key_sha256": "ced561b0f52b09680b02f5c15a94e6fe192ed11944e6d24894c15c20e8bd862a",
-      "mean_unique_candidates": 3.81,
-      "rows": 381,
-      "sheet_sha256": "e0cdacc3edf04af41e9840f13246e92b7c819baa88489f72e410a955c7eb2f08",
+    "policy7b_en_de": {
+      "attention_systems": {},
+      "items": 60,
+      "key_sha256": "b47f96e6b8905214f5e5eb1c0f76bfb4b7f77189cd4e39ddf892f48349c42bcd",
+      "lp": "en_de",
+      "mean_unique_candidates": 4.766666666666667,
+      "role": "primary",
+      "rows": 286,
+      "sheet_sha256": "f1df4a3ca0327ba2a7c4c87a5d64f729d128bf7d96df66771f9fe067f3a4d418",
       "systems": {
         "cometkiwi_22": [
-          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
+          "artifacts/grpo_scale/A_7b_en_de_cometkiwi_22_seed0",
           500
         ],
         "cometkiwi_23_xl": [
-          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_23_xl_seed0",
+          "artifacts/grpo_scale/A_7b_en_de_cometkiwi_23_xl_seed0",
           500
         ],
-        "initial": [
-          "artifacts/grpo_v2/rule_test_en_zh/cometkiwi_22_seed0",
+        "initial_7b": [
+          "artifacts/grpo_scale/A_7b_en_de_cometkiwi_22_seed0",
           0
         ],
         "metricx_24_qe": [
+          "artifacts/grpo_scale/A_7b_en_de_metricx_24_qe_seed0",
+          500
+        ],
+        "xcomet_xl_qe_no_copy": [
+          "artifacts/grpo_scale/A_7b_en_de_xcomet_xl_qe_seed0",
+          500
+        ]
+      },
+      "target_lang": "German"
+    },
+    "policy7b_en_zh": {
+      "attention_systems": {
+        "xcomet_xl_qe_copy": [
+          "artifacts/grpo_scale/A_7b_en_zh_xcomet_xl_qe_seed0",
+          500
+        ]
+      },
+      "items": 60,
+      "key_sha256": "0d7e61005fbba4bb993e2653f7d5bd657569a2f6b78f86a4152c77da19f1a2e1",
+      "lp": "en_zh",
+      "mean_unique_candidates": 4.116666666666666,
+      "role": "primary",
+      "rows": 247,
+      "sheet_sha256": "9e42db530551f32718199b453536c613092f5257e073bf9bf7074422d986a8b0",
+      "systems": {
+        "cometkiwi_22": [
+          "artifacts/grpo_scale/A_7b_en_zh_cometkiwi_22_seed0",
+          500
+        ],
+        "cometkiwi_23_xl": [
+          "artifacts/grpo_scale/A_7b_en_zh_cometkiwi_23_xl_seed0",
+          500
+        ],
+        "initial_7b": [
+          "artifacts/grpo_scale/A_7b_en_zh_cometkiwi_22_seed0",
+          0
+        ],
+        "metricx_24_qe": [
+          "artifacts/grpo_scale/A_7b_en_zh_metricx_24_qe_seed0",
+          500
+        ]
+      },
+      "target_lang": "Chinese"
+    },
+    "rewardscale_en_de": {
+      "attention_systems": {},
+      "items": 60,
+      "key_sha256": "ee9191619226e218f95551464bb545bca655f9c021e1f902fb4004c5b982e87b",
+      "lp": "en_de",
+      "mean_unique_candidates": 3.716666666666667,
+      "role": "primary",
+      "rows": 223,
+      "sheet_sha256": "6e9bdd7db2193c6b692c7789bb7da1cf7ac9fc58085059adff5c6edcbbf789f1",
+      "systems": {
+        "initial_1p5b": [
+          "artifacts/grpo_scale/B_1p5b_en_de_metricx_24_xl_qe_seed0",
+          0
+        ],
+        "metricx_24_large": [
+          "artifacts/grpo_v2/rule_test_en_de/metricx_24_qe_seed0",
+          500
+        ],
+        "metricx_24_xl": [
+          "artifacts/grpo_scale/B_1p5b_en_de_metricx_24_xl_qe_seed0",
+          500
+        ],
+        "metricx_24_xxl": [
+          "artifacts/grpo_scale/B_1p5b_en_de_metricx_24_xxl_qe_seed0",
+          500
+        ]
+      },
+      "target_lang": "German"
+    },
+    "rewardscale_en_zh": {
+      "attention_systems": {},
+      "items": 60,
+      "key_sha256": "fe967448b375d16a3a4d9092e7f0d47a29d6669c85e346800fd22c7e83424817",
+      "lp": "en_zh",
+      "mean_unique_candidates": 3.783333333333333,
+      "role": "primary",
+      "rows": 227,
+      "sheet_sha256": "6d2aa202c103ff20c1c115cf141d40f4c618ca6a493dccc1f3f6a78a45901462",
+      "systems": {
+        "initial_1p5b": [
+          "artifacts/grpo_scale/B_1p5b_en_zh_metricx_24_xl_qe_seed0",
+          0
+        ],
+        "metricx_24_large": [
           "artifacts/grpo_v2/rule_test_en_zh/metricx_24_qe_seed0",
+          500
+        ],
+        "metricx_24_xl": [
+          "artifacts/grpo_scale/B_1p5b_en_zh_metricx_24_xl_qe_seed0",
+          500
+        ],
+        "metricx_24_xxl": [
+          "artifacts/grpo_scale/B_1p5b_en_zh_metricx_24_xxl_qe_seed0",
           500
         ]
       },
       "target_lang": "Chinese"
     }
-  },
-  "seed": 20261111
+  }
 }

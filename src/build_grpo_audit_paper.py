@@ -82,8 +82,13 @@ def main() -> None:
         raise AssertionError("paper statement about corrected 500-step preambles is stale")
 
     human = ssot["human_eval_manifest"]
-    if set(human["pairs"]) != {"en_de", "en_es", "en_zh"}:
-        raise AssertionError("human-evaluation package has unexpected language pairs")
+    if human.get("design") != "2026-11-18 headline-aligned":
+        raise AssertionError("human-evaluation package is not the headline-aligned design")
+    for sheet in human["sheets"].values():
+        for run_dir, _step in list(sheet["systems"].values()) + list(sheet["attention_systems"].values()):
+            if not (root / run_dir / "eval_outputs.jsonl").exists():
+                raise AssertionError(f"human-eval system does not trace to a run: {run_dir}")
+    primary = {k: v for k, v in human["sheets"].items() if v["role"] == "primary"}
 
     protocol = json.loads((root / "results/grpo_scale_protocol.json").read_text())
     padding = json.loads((root / "results/grpo_padding_rerun_amendment.json").read_text())
@@ -132,7 +137,7 @@ def main() -> None:
         "trace": {
             "scale_run_ids": sorted(scale["runs"]),
             "scale_reference_run_ids": scale_run_names,
-            "human_sheet_hashes": {lp: row["sheet_sha256"] for lp, row in human["pairs"].items()},
+            "human_sheet_hashes": {k: row["sheet_sha256"] for k, row in human["sheets"].items()},
         },
     }
     ssot["grpo_audit_paper"] = paper
@@ -181,9 +186,10 @@ def main() -> None:
         "CorrectedRefusalMax": max(refusal_final),
         "PreambleCrossings": len(threshold_crossings),
         "CorrectedFiveHundredPreambles": paper["padding"]["corrected_500_final_preambles"],
-        "HumanPairs": len(human["pairs"]),
-        "HumanItemsPerPair": human["n_per_pair"],
-        "HumanRows": sum(row["rows"] for row in human["pairs"].values()),
+        "HumanPrimarySheets": len(primary),
+        "HumanItemsPerSheet": human["items_per_sheet"],
+        "HumanPrimaryRows": sum(row["rows"] for row in primary.values()),
+        "HumanAttentionItems": human["attention_items_per_sheet"],
         "SmallPolicy": esc(protocol["arm_B"]["policy"].split("/")[-1]),
         "LargePolicy": esc(protocol["arm_A"]["policy"].split("/")[-1]),
         "ReferenceMetric": "COMET-22",
