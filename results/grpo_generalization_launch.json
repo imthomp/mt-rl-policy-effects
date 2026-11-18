@@ -33,6 +33,11 @@
       "job": "15490113",
       "note": "Hardware differs from the A100 tasks (12-17); seeds are replicates, and hardware is recorded per run from the job logs.",
       "tool": "~/byurc/bin/requeue_to_available.sh --tier h100"
+    },
+    {
+      "basis": "7B LoRA A100 runs in job 15263954: median 7.0 h, max 8.8 h (+25%); arm C estimated from 2-GPU smoke at ~55 s/step (7.6 h training + ~1.5 h eval)",
+      "change": "TimeLimit lowered on every pending/running element: arm C 12:00:00, arm D 11:00:00 (was 18:00:00; byurc requeue had set moved cs2 elements to 1-00:00:00)",
+      "when": "2026-11-17"
     }
   ],
   "smoke": {

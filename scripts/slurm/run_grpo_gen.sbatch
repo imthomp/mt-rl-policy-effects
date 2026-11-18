@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:1
-#SBATCH --time=18:00:00
+#SBATCH --time=11:00:00
 #SBATCH --output=artifacts/logs/RL_gen_%A_%a.out
 # Frozen generalization protocol (results/grpo_generalization_protocol.json); array index = sorted run id.
 # Arm C (indices 0-11) needs --gres=gpu:2; arm D (12-35) one GPU. Submit them separately.

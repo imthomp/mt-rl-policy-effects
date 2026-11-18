@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:1
-#SBATCH --time=18:00:00
+#SBATCH --time=11:00:00
 #SBATCH --output=artifacts/logs/RL_scale_%A_%a.out
 # Frozen scale protocol (results/grpo_scale_protocol.json); array index = sorted run id.
 set -euo pipefail
