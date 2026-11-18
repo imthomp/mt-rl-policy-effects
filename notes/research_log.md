@@ -446,3 +446,7 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
   conclusion and limitations are written from macros.
 - Next: reference-quality results for the generalization runs (job 15500630 finished) into the paper;
   human eval still pending.
+- Reference quality of the generalization runs (job 15500630): all 24 runs without a realized hack improve
+  COMET-22 (+0.020..+0.083, every CI above 0); the 12 copying runs lose -0.122..-0.336 (chrF -24..-42).
+  All 14 runs containing a failed truncation call IMPROVE COMET-22 (>= +0.022), which independently
+  supports the "cleanup, not truncation" diagnosis. Added to the paper via macros.

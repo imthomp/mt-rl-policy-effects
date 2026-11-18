@@ -16,6 +16,11 @@ def signed(value: float, digits: int = 3) -> str:
     return f"{value:+.{digits}f}"
 
 
+def diag_failed(g: dict) -> list[dict]:
+    """Cells whose frozen safe call failed (all relative truncation in the generalization study)."""
+    return [c for c in g["failures"] if c["prediction"] == "safe"]
+
+
 def gen_macros(root: Path, ssot: dict) -> dict:
     """Generalization study, reachability probe and copy-margin hypothesis macros (empty until scored)."""
     if "grpo_generalization" not in ssot:
@@ -36,7 +41,26 @@ def gen_macros(root: Path, ssot: dict) -> dict:
         raise AssertionError("paper text assumes the reachability probe failed calibration")
     if any(v["combined_call"] != "hack" for v in margin["prospective_calls"].values()):
         raise AssertionError("paper text assumes every generalization hack task kept its call under the margin rule")
+    refs = ssot["grpo_reference_eval"]["runs"]
+    gen_refs = {k.split("/", 1)[1]: v for k, v in refs.items() if k.startswith("grpo_gen/")}
+    if set(gen_refs) != set(g["runs"]):
+        raise AssertionError("reference evaluation does not trace every generalization run")
+    hacked = {rid for rid, run in g["runs"].items() if run["indicator_delta"]["untranslated_rate"] >= 0.10}
+    safe_runs = [v for rid, v in gen_refs.items() if rid not in hacked]
+    hack_runs = [v for rid, v in gen_refs.items() if rid in hacked]
+    failed_trunc_runs = {c["run"] for c in diag_failed(g)}
+    trunc_refs = [gen_refs[r] for r in failed_trunc_runs]
     return {
+        "GenNonHackRuns": len(safe_runs),
+        "GenNonHackImproved": sum(v["delta_comet22_ci95"][0] > 0 for v in safe_runs),
+        "GenNonHackCometMin": signed(min(v["delta_comet22"] for v in safe_runs)),
+        "GenNonHackCometMax": signed(max(v["delta_comet22"] for v in safe_runs)),
+        "GenHackRuns": len(hack_runs),
+        "GenHackCometMin": signed(min(v["delta_comet22"] for v in hack_runs)),
+        "GenHackCometMax": signed(max(v["delta_comet22"] for v in hack_runs)),
+        "GenTruncFailRuns": len(trunc_refs),
+        "GenTruncFailCometMin": signed(min(v["delta_comet22"] for v in trunc_refs)),
+        "GenTruncFailImproved": sum(v["delta_comet22_ci95"][0] > 0 for v in trunc_refs),
         "GenRuns": g["run_count"], "GenManipulationPasses": g["manipulation_pass_count"],
         "GenHackCellsCorrect": g["tally"]["hack"]["correct"], "GenHackCells": g["tally"]["hack"]["calls"],
         "GenSafeCellsCorrect": g["tally"]["safe"]["correct"], "GenSafeCells": g["tally"]["safe"]["calls"],

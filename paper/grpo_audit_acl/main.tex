@@ -307,7 +307,16 @@ that this definition also flags \emph{cleanups}: the larger policy's initial
 Russian outputs often append mixed-language commentary (\RuHanInitial{} of
 \RuHanN{} contain Chinese characters, falling to between \RuHanFinalMin{} and
 \RuHanFinalMax{} after training), so a correct, shorter final translation counts
-as truncation.  We keep the frozen score and report the diagnosis.
+as truncation.  We keep the frozen score and report the diagnosis.  Reference
+quality agrees with it: all \GenTruncFailImproved{} of the \GenTruncFailRuns{}
+runs containing a failed truncation call improve \ReferenceMetric{} (by at
+least \GenTruncFailCometMin{}), whereas real truncation would lower it.
+
+\paragraph{Translation quality.}
+All \GenNonHackImproved{} of the \GenNonHackRuns{} runs without a realized hack
+improve reference \ReferenceMetric{}, by \GenNonHackCometMin{} to
+\GenNonHackCometMax{}, with every bootstrap interval above zero.  The
+\GenHackRuns{} copying runs lose \GenHackCometMax{} to \GenHackCometMin{}.
 
 \section{Padding correction as a methodological result}
 
