@@ -49,7 +49,12 @@ Target: ARR, Jan 4 2027 (ACL main track; Findings is the realistic fallback). Lo
 ## Appendix
 - Per-run tables (scale, generalization, corrected grid); audit p tables; the full right-padded vs corrected comparison; compute; prompts; human-evaluation protocol and guide.
 
-## Open decisions for Isaac
+## Framing decisions (made 2026-11-18, delegated by Isaac)
+1. **Screen first; predictor only if earned.** The main claim is that the audit reliably rules out named failures. Hack prediction is claimed only for audit + reachability probe (results/reachability_probe_protocol.json), and only if its prospective test holds. If it fails, the paper is "a screen, plus a diagnosed limit". Committed before the probe's results.
+2. **Keep the first audit (T4) briefly as motivation** (one paragraph + appendix: comparing against the human best failed, which motivates the policy-relative design). **Cut the bandit study** (a separate paper).
+3. **Reachability goes in the method section** (frozen and tested prospectively), not just future work.
+
+## Original open decisions (superseded by the section above)
 - Framing: "a screen for ruling out failures" (what the evidence supports) vs "a predictor of hacking" (more ambitious, weaker evidence).
 - Whether to keep the bandit/T4 history as motivation, or cut it entirely.
 - Whether to propose the reachability probe as a method, which needs one more frozen test, or leave it as future work.
