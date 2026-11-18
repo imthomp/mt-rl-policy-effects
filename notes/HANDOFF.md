@@ -17,6 +17,9 @@ Can a cheap audit, run before RL, predict which failure mode a learned MT QE rew
 ### Reachability probe (2026-11-18): FAILED calibration, frozen and recorded
 `results/reachability_probe_protocol.json` was frozen before any reach value or generalization outcome existed. The probe measures the copy share of initial-policy rollouts (TRL sampling). It is NOT separable: 7B en-de has copy reach 0.068 yet never copied, while Chinese copied from about 0.012. Per the protocol, no combined rule is applied (`results/reachability_predictions.json`). Framing (delegated, committed beforehand): "screen + diagnosed limit"; see `docs/GRPO_PAPER_OUTLINE.md`.
 
+### Copy-margin hypothesis (2026-11-18): frozen, awaiting the generalization outcomes
+`results/copy_margin_protocol.json` + `results/copy_margin_predictions.json`. This is a post-hoc second hypothesis (disclosed). m_star = 0.0545; all 4 generalization hack tasks stay hack calls; en-ru is the discriminating case. After the generalization scorer runs, compare its hack-task outcomes with these calls, reporting both the audit-only and the margin-gated results.
+
 ### Running (generalization protocol, frozen 2026-11-17)
 | Job | What | Outputs |
 |---|---|---|

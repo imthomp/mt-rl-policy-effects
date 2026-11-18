@@ -82,20 +82,34 @@ what that screen omits.
 
 \section{Related work}
 
-QE optimization can improve translation but also overoptimize known metric
-weaknesses \citep{he-etal-2024-improving}.  WALAR shows that reinforcement
-learning amplifies holes in multilingual QE rewards and adds word- and
-language-alignment safeguards \citep{liu-etal-2026-mending}.  Reference-free
-multilingual post-training has also combined QE rewards with language-ID gates
-and checkpoint interpolation \citep{han-etal-2026-reference-free}.  These works
-establish the failure and mitigation setting; our question is whether the
-failure type can be forecast before the target run.
+\paragraph{Reward overoptimization and reward gaming.}
+Optimizing a learned proxy reward can raise the proxy while degrading the
+intended objective, and the gap grows predictably with optimization pressure
+\citep{gao-etal-2023-scaling}.  \citet{skalse-etal-2022-defining} formalize when
+a proxy can be gamed at all.  We study a narrower, applied question: which
+named failure a specific translation reward will produce under a specific
+policy.
 
-Reward-hacking prediction has been studied outside MT.  SimHack learns training
-dynamics from smaller code-RL runs to predict hacking onset under a target
-recipe \citep{deng-etal-2026-simhack}.  Our method is cheaper and more
-interpretable, but tests only behaviors included in the audit and has no model
-of optimization reachability.
+\paragraph{QE metrics as decoding and training objectives.}
+Using QE and reference-based metrics to rerank or decode improves metric scores,
+but those gains are partly bias toward the decoding metric
+\citep{fernandes-etal-2022-quality,kovacs-etal-2024-mitigating}.  As RL rewards,
+QE models can improve translation \citep{he-etal-2024-improving} and support
+R1-style training \citep{feng-etal-2025-mtr1zero}.  WALAR documents
+wrong-language output, length errors and a self-generated-reference exploit
+under QE-only rewards, and adds language and word-alignment terms
+\citep{liu-etal-2026-mending}.  Reference-free multilingual post-training
+combines QE rewards with a language-ID gate and checkpoint interpolation
+\citep{han-etal-2026-reference-free}.  These works establish the failure and
+its mitigations; we ask whether the failure type can be forecast before the
+target run.
+
+\paragraph{Predicting hacking before training.}
+SimHack learns training dynamics from smaller code-RL runs to predict when
+hacking will begin under a target recipe \citep{deng-etal-2026-simhack}.  Our
+audit is cheaper and needs no reference optimization runs, but it predicts only
+the behaviors it tests and, as we show, its positive calls depend on more than
+the reward's preference.
 
 \section{Policy-relative audit}
 

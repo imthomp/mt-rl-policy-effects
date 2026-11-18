@@ -413,3 +413,20 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
 - Framing (delegated by Isaac, committed before the probe ran): the paper is "a screen for ruling
   out named failures, plus a diagnosed limit"; reachability is reported as a tested-and-failed explanation.
 - Reference eval 15500630 released; a watcher scores the generalization runs once the last run finishes.
+
+### 2026-11-18 (cont.): citations verified, figure, copy-margin hypothesis frozen
+- WALAR checked against its PDF text and the Anthology. It is Findings ACL 2026, 2026.findings-acl.1682.
+  CORRECTION: its "100%" repetition is a self-generated reference (the policy repeats its own
+  hypothesis), seen only with Qwen2.5-0.5B, not with 8B models. Paper text and lit notes fixed.
+  All other bib entries verified. New related-work citations verified; Kovacs et al. is WMT 2024, and
+  Skalse et al. is titled "Reward GAMING". Perrella 2024 and MT-R1-Zero's venue could not be verified,
+  so Perrella is not cited and MT-R1-Zero is cited as arXiv.
+- Figure fig_audit_outcomes (src/plot_audit_outcomes.py; dataviz palette validated): one point per
+  task, studies with the fixed indicators only. The corrected en-zh grid is excluded because its old
+  Chinese indicators produce artifacts.
+- Copy-margin hypothesis (exploratory, POST HOC, frozen before the generalization outcomes):
+  XCOMET copy margin over initial outputs separates the calibration cases (realized >= +0.077;
+  7B en-de +0.032). m_star = 0.0545. All 4 generalization hack tasks have margins of +0.108 to +0.153,
+  so all stay hack calls. en-ru discriminates "p near the failed case" (0.688) from "large margin"
+  (+0.116). Disclosed as a second hypothesis on the same held-out set
+  (results/copy_margin_protocol.json, copy_margin_predictions.json).
