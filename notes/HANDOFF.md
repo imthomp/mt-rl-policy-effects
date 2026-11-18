@@ -14,6 +14,9 @@ Can a cheap audit, run before RL, predict which failure mode a learned MT QE rew
 - **Not affected:** evaluation and all audits (left-padded), the frozen rules and predictions, and the corrected scale runs.
 - **Treat every pre-fix GRPO outcome as unconfirmed until its v2 rerun exists.** The refusal collapse is the most suspect: one seed's refusal says the sentence "is incomplete and lacks context".
 
+### Reachability probe (2026-11-18): FAILED calibration, frozen and recorded
+`results/reachability_probe_protocol.json` was frozen before any reach value or generalization outcome existed. The probe measures the copy share of initial-policy rollouts (TRL sampling). It is NOT separable: 7B en-de has copy reach 0.068 yet never copied, while Chinese copied from about 0.012. Per the protocol, no combined rule is applied (`results/reachability_predictions.json`). Framing (delegated, committed beforehand): "screen + diagnosed limit"; see `docs/GRPO_PAPER_OUTLINE.md`.
+
 ### Running (generalization protocol, frozen 2026-11-17)
 | Job | What | Outputs |
 |---|---|---|
