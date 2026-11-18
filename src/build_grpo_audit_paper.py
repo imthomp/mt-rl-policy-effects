@@ -239,6 +239,11 @@ def main() -> None:
               "mixed": sum(r["prediction"] == x and r["any_correct"] and not r["all_correct"] for r in task_rows)}
           for x in ("hack", "safe", "none")}
     gen_done = (root / "results/grpo_generalization_result.json").exists()
+    fig = ssot.get("audit_outcome_figure")
+    if fig is None or fig["generalization_included"] != ("grpo_generalization" in ssot):
+        raise AssertionError("figure is stale: rerun src/plot_audit_outcomes.py before the builder")
+    if len(fig["points"]) != sum(fig["counts"].values()):
+        raise AssertionError("figure point counts do not trace to points")
     paper["setup"] = {"prompts_per_step": g["prompts_per_step"], "generations": g["generations_per_prompt"],
                       "kl_beta": g["kl_beta"], "lr_full": g["learning_rate"], "temperature": g["temperature"],
                       "max_new_tokens": g["max_new_tokens"], "lora": protocol["arm_A"]["lora"],
@@ -263,6 +268,10 @@ def main() -> None:
         "TaskSafeTasks": tt["safe"]["tasks"], "TaskSafeAllCorrect": tt["safe"]["all_seeds_correct"],
         "TaskAbstainTasks": tt["none"]["tasks"],
         "GeneralizationStatus": "complete" if gen_done else "running",
+        "FigTaskPoints": len(ssot["audit_outcome_figure"]["points"]),
+        "FigCorrect": ssot["audit_outcome_figure"]["counts"]["correct"],
+        "FigIncorrect": ssot["audit_outcome_figure"]["counts"]["incorrect"],
+        "FigAbstain": ssot["audit_outcome_figure"]["counts"]["none"],
     })
     # Appendix table: one row per scale run, generated so every row traces to a run record.
     rows = []

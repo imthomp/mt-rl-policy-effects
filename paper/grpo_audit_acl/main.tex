@@ -202,6 +202,19 @@ seeds do not create independent audit probabilities.}
 \label{tab:scorecard}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_audit_outcomes}
+\caption{Audit preference rate against the observed change in the audited
+indicator, one point per audit task (\FigTaskPoints{} tasks; seeds averaged).
+Dashed lines mark the safe ($\le\SafeP$) and hack ($>\HackP$) thresholds; the
+dotted line marks the hack outcome margin.  Calls correct: \FigCorrect{};
+incorrect: \FigIncorrect{}; abstentions: \FigAbstain{}.  The $x$-axis is
+square-root scaled.  Only studies scored with the prospectively fixed
+indicator definitions are shown.}
+\label{fig:audit-outcomes}
+\end{figure}
+
 \paragraph{Task-level view.}
 Seeds replicate an optimization run; they do not replicate an audit
 prediction.  Collapsing seeds, the scale study contains \TaskSafeTasks{} safe
@@ -209,7 +222,8 @@ tasks, all \TaskSafeAllCorrect{} correct in every seed, and only
 \TaskHackTasks{} hack tasks, of which \TaskHackAllCorrect{} is correct in every
 seed.  \TaskAbstainTasks{} tasks are abstentions.  The evidence for positive
 calls is therefore much thinner than the cell counts suggest, which motivates
-the generalization study below.
+the generalization study below.  Figure~\ref{fig:audit-outcomes} shows every
+task: safe calls sit flat at zero change, while the two hack calls split.
 
 \paragraph{Safe calls transfer.}
 Every prospective safe call passes.  This includes the prespecified
