@@ -47,9 +47,11 @@ Reference-free quality estimation (QE) is an attractive reward for machine
 translation because it can score new outputs without parallel data.  Yet a QE
 model is a proxy: policy optimization can raise its score while reducing
 translation quality \citep{he-etal-2024-improving}.  Recent multilingual MT
-work directly documents copying, wrong-language output, and repetition under
-QE-based reinforcement learning, and mitigates them with output guards
-\citep{liu-etal-2026-mending}.  The practical question is therefore whether a
+work directly documents wrong-language output, length errors, and a
+self-generated-reference exploit (the policy repeats its own hypothesis so that
+a hybrid QE model switches to reference-based scoring) under QE-based
+reinforcement learning, and mitigates them with language and word-alignment
+terms \citep{liu-etal-2026-mending}.  The practical question is therefore whether a
 developer can identify a risky reward before paying for a full training run.
 
 We study an interpretable pre-training audit.  For each initial policy, reward,
@@ -228,9 +230,9 @@ audit lacks a policy-dependent reachability term.
 \paragraph{Reward scale.}
 Across the reward-scale arm, mean \ReferenceMetric{} changes are
 \MetricXlCometMean{} for MetricX XL and \MetricXxlCometMean{} for MetricX XXL.
-Neither reward produces an audited failure.  This is a controlled contrast
-within our setup, not a contradiction of failures reported with other policies,
-data, and reward variants.
+Neither reward produces an audited failure.  This does not contradict
+\citet{liu-etal-2026-mending}, who report the MetricX self-generated-reference
+exploit only for a smaller policy than ours and not for their larger ones.
 
 \section{Generalization study}
 

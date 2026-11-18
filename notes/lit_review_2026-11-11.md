@@ -36,3 +36,14 @@ Read via arXiv abstract and HTML pages. Items marked [summary] came from a trunc
    - WALAR is a direct comparison point and must be cited prominently. Check whether it is published (ACL 2026?).
    - We use one policy family and small models. The planned 7B runs address this.
 4. **To do:** read WALAR in full (PDF) and verify the [summary] numbers; read 2607.29287; search for "refusal" + QE reward and LLM-judge reward hacking in MT.
+
+
+## Verification against the source (2026-11-18)
+Checked against the WALAR PDF text (pypdf extraction) and the ACL Anthology; this section supersedes the [summary] items above.
+- **Venue:** WALAR is **Findings of ACL 2026**, pp. 33699–33723, `2026.findings-acl.1682`. On the Anthology the third author is "Yatish H R".
+- **Setup:** reward MetricX-24-Hybrid-XXL-bf16. GRPO in OpenRLHF: 8 rollouts, temperature 1, ε 0.2, KL β 0.01, peak LR 5e-7.
+- **CORRECTION:** the "100%" repetition is a **self-generated reference**: the policy repeats *its own hypothesis*, which flips the hybrid QE model into reference mode. It occurred **only in preliminary QE-only training of Qwen2.5-0.5B-Instruct, "not ... on larger base models like Qwen3-8B and LLaMAX3-8B-Alpaca"**. The intro does also say "repeating input source sentences". Our null MetricX-XL/XXL result at 1.5B is therefore not in tension with WALAR.
+- **Wrong-language ratio:** 92.43% for LLaMAX + QE-only. Token length 40.00 vs the reference's 62.04.
+- **Human evaluation:** WALAR preferred in 42% (Az-Pt) and 51% (En-Kn), comparable in 34% and 39%.
+- **Not mentioned:** refusals, preambles, prediction before training.
+- **Other bib entries verified:** SimHack 2610.28707, MiLMMT-46 2608.10812 (v2), DeepSeekMath 2402.03300, and He et al. 2024 (NAACL long, 2024.naacl-long.451, pp. 8164–8180).
