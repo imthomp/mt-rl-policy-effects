@@ -381,3 +381,21 @@ Corrected (left-padded) runs; all 28 pass the manipulation check (own reward +0.
   preamble analyses. Results and all paper-facing quantities are merged into the SSOT.
 - Corrected human-evaluation sheets and blinded keys were regenerated deterministically from
   `artifacts/grpo_v2`; the manifest is also merged into the SSOT.
+
+### 2026-11-17/18: generalization protocol launched; human eval redesigned; paper expanded
+- Generalization protocol (`results/grpo_generalization_protocol.json`, 36 runs):
+  - Arm C: 1.5B x XCOMET-XXL / CometKiwi-23-XXL x en-de/en-zh, 2 GPUs (reward on GPU 1).
+  - Arm D: 7B LoRA x 4 base rewards x en-ja/en-ru.
+  - New en-ja/en-ru protocols, with ja/ru guard codes and refusal patterns added before any audit.
+- Predictions: 12 hack / 102 safe / 30 no-call cells. New hack tasks: XCOMET-XXL en-de (p=0.802),
+  en-zh (0.845); XCOMET-XL 7B en-ja (0.853), en-ru (0.688; close to the failed 7B en-de call at 0.653).
+- Two-GPU trainer fixes: the HF Trainer wrapped the policy in DataParallel across both GPUs (pin
+  _n_gpu=1), and Lightning leaves the current CUDA device on the reward GPU (restore after predict).
+- Placement via byurc (also added to ~/.claude/CLAUDE.md and ~/.codex/AGENTS.md). Arm D's pending
+  tasks moved to cs2 H100. Time limits lowered to measured values.
+- Scorer `src/analyze_grpo_generalization.py` committed (ad7c438) before any outcome was inspected.
+- Paper: setup table, freezing procedure, task-level tally (scale study: 36/36 safe tasks, 1/2 hack
+  tasks), compute (124 + 129 GPU-h), ethics, per-run appendix, generalization placeholder, draft
+  abstract and outline (docs/GRPO_PAPER_OUTLINE.md).
+- Human eval redesigned around the headline experiments (see HANDOFF item 4); the annotator guide
+  is split from the team notes to protect blinding.

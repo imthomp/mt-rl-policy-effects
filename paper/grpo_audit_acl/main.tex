@@ -17,27 +17,28 @@
 \begin{document}
 \maketitle
 
-% TODO(Isaac): rewrite the abstract and confirm the section outline before expanding further.
+% DRAFT abstract (2026-11-18), written from docs/GRPO_PAPER_OUTLINE.md at the author's request; revise freely.
+% The generalization sentence is filled in once results/grpo_generalization_result.json exists.
 \begin{abstract}
-Quality-estimation models make machine translation reinforcement learning
-possible without references, but optimizing them can amplify reward-specific
-failure modes.  We ask whether a cheap audit, performed before policy
-optimization, can predict which behavior a translation reward will amplify.
-The audit compares each reward's preference for controlled source copying,
-refusal, repetition, and shortening against translations from the initial
-policy, then makes a hack call, a safe call, or abstains.  We freeze these calls
-before GRPO and test them across policy sizes, language directions, reward
-families, and reward-model scales.  All \ScaleRuns{} prospective runs pass a
-reward-improvement manipulation check.  Safe calls are correct in
-\ScaleSafeCorrect{}/\ScaleSafeCalls{} cells, while hack calls are correct in
-\ScaleHackCorrect{}/\ScaleHackCalls{} cells.  XCOMET induces source copying for
-Chinese but not German under the larger policy despite increasing its reward in
-both settings.  This identifies a central limitation: a reward preference is
-insufficient when the policy cannot reach the corresponding exploit.  A full
-rerun also shows that earlier refusal and preamble failures came from incorrect
-rollout padding.  The audit is therefore useful for ruling out named failures
-in this setting, but positive predictions require a reachability model.
-Blinded human evaluation is prepared and pending.
+Quality-estimation (QE) models make reinforcement learning for machine
+translation possible without references, but policies can learn to exploit
+them.  Prior work documents such exploits and patches them after the fact; we
+ask whether they can be predicted before training.  We propose a
+policy-relative audit: for each reward and named failure type (source copying,
+truncation, repetition, refusal), it measures how often the reward prefers a
+controlled degenerate output over the initial policy's own translation, and a
+frozen three-band rule turns that rate into a hack call, a safe call, or an
+abstention.  We freeze every call before training and test it in
+\ScaleRuns{} prospective GRPO runs spanning two policies, several QE reward
+families and scales, and two translation directions, with every run required
+to raise its own reward.  Counting each policy, reward, direction and failure
+type once, safe calls are correct in \TaskSafeAllCorrect{} of \TaskSafeTasks{}
+tasks, but hack calls in only \TaskHackAllCorrect{} of \TaskHackTasks{}: XCOMET
+induces source copying into Chinese but not German, although both runs raise
+the reward.  A reward's preference for an exploit is necessary but not
+sufficient; the policy must also be able to reach it.  Finally, a rollout
+padding bug had manufactured a dramatic refusal collapse that vanished on a
+full rerun, a cautionary result for reward-hacking studies.
 \end{abstract}
 
 \section{Introduction}
