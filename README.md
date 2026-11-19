@@ -5,6 +5,8 @@ when machine translation policies optimize learned quality estimation rewards.
 The current question is whether a cheap audit of a reward against an initial
 policy can predict which failure mode reinforcement learning will amplify.
 
+**Resuming work?** Start at [`notes/HANDOFF.md`](notes/HANDOFF.md) (its CURRENT STATE block is kept up to date). The day-by-day history is in [`notes/research_log.md`](notes/research_log.md).
+
 The repository grew from an earlier tokenization intervention study. That
 branch is closed as a bounded negative result and has its own short paper. The
 main project now combines controlled candidate selection experiments with
@@ -31,28 +33,28 @@ These studies support the class project and the current ACL draft. See the
 
 ### Generative GRPO
 
-The completed extension trains Qwen translation policies with COMET-family and
-MetricX quality-estimation rewards. A policy-relative audit scores controlled
-source-copy, refusal, repetition, and shortening behaviors against the initial
-policy before training. Its prospective calls and abstentions are frozen in
-[`results/grpo_scale_predictions.json`](results/grpo_scale_predictions.json).
+Qwen2.5 translation policies (1.5B full fine-tuning; 7B LoRA) are trained with GRPO against COMET-family and MetricX quality-estimation rewards.
 
-The scale experiment is defined by
-[`results/grpo_scale_protocol.json`](results/grpo_scale_protocol.json). The
-left-padding implementation correction, launch provenance, and planned result
-scoring are recorded in:
+- **The audit:** before training, a policy-relative audit compares each reward's scores for controlled source-copy, refusal, repetition and truncation outputs against the initial policy's own translations.
+- **The rule:** a frozen three-band rule ([`results/policy_relative_rule.json`](results/policy_relative_rule.json)) turns each preference rate into a hack call, a safe call, or an abstention.
+- **Freezing:** every study's calls are frozen before training, and the trainer refuses runs whose protocol or prediction hashes differ from the pinned values.
 
-- [`results/grpo_scale_protocol_amendment_1.json`](results/grpo_scale_protocol_amendment_1.json)
-- [`results/grpo_scale_launch.json`](results/grpo_scale_launch.json)
-- [`src/analyze_grpo_scale.py`](src/analyze_grpo_scale.py)
-- [`docs/GRPO_PAPER_PLAN.md`](docs/GRPO_PAPER_PLAN.md)
+Studies, all complete unless noted:
 
-The prospective scale study and the full corrected smaller-policy rerun are
-complete. Safe calls transferred reliably; positive calls depended on whether
-the policy reached the audited behavior. The corrected rerun also established
-that the earlier refusal and preamble failures were rollout-padding artifacts.
-The current result narrative and remaining human-evaluation work are recorded
-in [`docs/GRPO_PAPER_PLAN.md`](docs/GRPO_PAPER_PLAN.md).
+| Study | Protocol / predictions | Result |
+|---|---|---|
+| Corrected 1.5B grid (en-es, en-de, en-zh) | [`grpo_padding_rerun_amendment.json`](results/grpo_padding_rerun_amendment.json) | Reran every early run after a rollout right-padding bug; the earlier refusal collapse and preambles were artifacts of it |
+| Scale study (7B LoRA; MetricX-24 XL/XXL rewards) | [`grpo_scale_protocol.json`](results/grpo_scale_protocol.json), [`grpo_scale_predictions.json`](results/grpo_scale_predictions.json) | Safe calls 36/36 tasks; hack calls 1/2 (XCOMET copies into Chinese, not German) |
+| Generalization study (XCOMET-XXL, CometKiwi-23-XXL; en-ja, en-ru) | [`grpo_generalization_protocol.json`](results/grpo_generalization_protocol.json), [`grpo_generalization_predictions.json`](results/grpo_generalization_predictions.json) | Hack calls 4/4 tasks (12/12 cells); safe calls 27/34 tasks, every failure in the truncation indicator and mostly cleanups of bloated initial outputs |
+| Reachability probe (why 7B en-de did not copy) | [`reachability_probe_protocol.json`](results/reachability_probe_protocol.json) | Failed calibration, frozen before the generalization outcomes; how often the policy samples copies does not explain it |
+| Copy-margin hypothesis (post hoc, disclosed) | [`copy_margin_protocol.json`](results/copy_margin_protocol.json), [`copy_margin_predictions.json`](results/copy_margin_predictions.json) | Frozen before the generalization outcomes; consistent with all four new hack tasks, including en-ru |
+| **Fresh copy-margin test (in progress)** | [`margin_test_protocol.json`](results/margin_test_protocol.json) | Protocol frozen; candidate audits complete (`results/policy_relative_audit_margin_M_*.json`). Runs and predictions NOT yet frozen ([`src/freeze_margin_test_runs.py`](src/freeze_margin_test_runs.py)) or launched |
+
+Reference quality (COMET-22, chrF vs WMT24 refA) agrees with the audit: runs without a realized hack improve, and copying runs lose heavily. Blinded human evaluation is prepared but not yet sent. Primary sheets cover the 7B safe-called rewards and the MetricX large/XL/XXL series:
+- annotators receive only their `sheet.csv` and [`docs/HUMAN_EVAL_ANNOTATOR_GUIDE.md`](docs/HUMAN_EVAL_ANNOTATOR_GUIDE.md);
+- the study team's notes and planned analysis are in [`docs/HUMAN_EVAL_GUIDELINES.md`](docs/HUMAN_EVAL_GUIDELINES.md).
+
+The paper outline and framing decisions are in [`docs/GRPO_PAPER_OUTLINE.md`](docs/GRPO_PAPER_OUTLINE.md). Prior-work positioning, with every citation checked against its source, is in [`notes/lit_review_2026-11-11.md`](notes/lit_review_2026-11-11.md).
 
 ### Tokenization study
 
@@ -68,7 +70,7 @@ pass. It does not claim a translation-learning effect. See
 - [`paper/reward_overoptimization_acl/`](paper/reward_overoptimization_acl/):
   ACL-format manuscript for the reward-overoptimization project.
 - [`paper/grpo_audit_acl/`](paper/grpo_audit_acl/): ACL-format manuscript for
-  the prospective generative reward-audit study; human evaluation is pending.
+  the prospective generative reward-audit study. It covers the scale and generalization studies, the audit-outcome figure, and the padding correction. Human evaluation is pending, and the abstract and outline are drafts for the author to revise.
 - [`paper/tokenization_acl/`](paper/tokenization_acl/): short negative-result
   paper for the tokenization branch.
 - [`paper/class_project_proposal/`](paper/class_project_proposal/): proposal for
@@ -116,10 +118,13 @@ python scripts/check_tex_numbers.py paper/tokenization_acl/main.tex
 make -C paper/tokenization_acl
 ```
 
-Build the generative GRPO audit paper:
+Build the generative GRPO audit paper (order matters: the builder refuses a stale figure):
 
 ```bash
 module load texlive/2024
+python src/analyze_grpo_generalization.py          # only after new generalization outputs
+python src/diagnose_truncation_flags.py
+~/.venvs/grpo/bin/python src/plot_audit_outcomes.py
 python src/build_grpo_audit_paper.py
 python scripts/check_tex_numbers.py paper/grpo_audit_acl/main.tex
 make -C paper/grpo_audit_acl
@@ -173,6 +178,17 @@ The generative path is centered on:
 - [`src/analyze_grpo_ende_followup.py`](src/analyze_grpo_ende_followup.py)
 - [`src/build_grpo_audit_paper.py`](src/build_grpo_audit_paper.py)
 
+Supporting scripts:
+
+| Role | Scripts |
+|---|---|
+| Freezing (each refuses to overwrite its output) | `freeze_grpo_*_protocol.py`, `freeze_grpo_*_predictions.py`, `freeze_reachability_predictions.py`, `freeze_margin_predictions.py`, `freeze_margin_test_runs.py` |
+| Scoring | `analyze_grpo_generalization.py`, plus the scale and rule-test scorers above |
+| Probes and diagnostics | `probe_reachability.py`, `diagnose_truncation_flags.py`, `audit_preamble_exploratory.py` |
+| Reference quality | `eval_grpo_reference.py` (COMET-22, chrF, paired bootstrap; cached), `eval_stripped_reference.py` |
+| Figure | `plot_audit_outcomes.py` (task-level scatter; palette validated for colour vision deficiency) |
+| Human evaluation | `prepare_human_eval.py` (blinded sheets; key hashes in `artifacts/human_eval/manifest.json`) |
+
 Cluster launchers default to offline Hugging Face caches and the local GRPO
 Python environment. Do not regenerate a frozen protocol or prediction file in
 place. Each freezing script refuses to overwrite its output, and trainers pin
@@ -187,6 +203,18 @@ dependencies for the original NLLB and data-reader paths. The GRPO launchers
 use the cluster's dedicated `~/.venvs/grpo` environment together with local
 model caches. Protocol JSON files pin model identifiers, input hashes, and
 experimental settings.
+
+`~/.venvs/grpo` (torch 2.6 + cu124, TRL 0.25.1, COMET) also has these additions:
+- `peft` (LoRA);
+- `fasttext-wheel` (the GlotLID language-ID guard; model in the Hugging Face cache);
+- `matplotlib` (figures).
+
+NumPy stays pinned at 1.26.4. The larger reward models (XCOMET-XXL, CometKiwi-23-XXL, MetricX-24 XL and XXL) live in `/nobackup/archive/usr/it238/hf_cache` because of the home quota. Runs with an XXL reward use 2 GPUs: the policy on GPU 0 and the reward on GPU 1 (`REWARD_DEVICE=1`). torch 2.6 here does not support B200 GPUs.
+
+Slurm conventions:
+- job names are `RL_<desc>`;
+- placement comes from the lab's [byurc](https://github.com/byu-matrix-lab/byurc) (`~/byurc/bin/byurc pick-partition --eta ...`); move pending jobs with `requeue_to_available.sh`;
+- set time limits from measured runtimes.
 
 The repository is designed for the BYU Slurm cluster, but the analysis and
 paper-building scripts can run elsewhere when their recorded inputs are
