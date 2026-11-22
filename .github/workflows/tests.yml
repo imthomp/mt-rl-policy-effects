@@ -16,6 +16,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install lightweight test dependencies
-        run: python -m pip install pytest numpy pandas
+        run: python -m pip install pytest numpy pandas scipy
       - name: Run offline tests
         run: pytest
