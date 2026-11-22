@@ -27,6 +27,8 @@ venv/
 
 # Local operating instructions and superseded cluster job wrappers
 /local_notes/
+/notes/HANDOFF.md
+/notes/research_log.md
 /scripts/archive/
 /scripts/slurm/*
 !/scripts/slurm/run_nllb_eval_smoke.sbatch

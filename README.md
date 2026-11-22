@@ -1,11 +1,27 @@
 # Predicting reward overoptimization in machine translation
 
+[![tests](https://github.com/imthomp/mt-rl-policy-effects/actions/workflows/tests.yml/badge.svg)](https://github.com/imthomp/mt-rl-policy-effects/actions/workflows/tests.yml)
+
 Research code, frozen protocols, and paper sources for studying what happens
 when machine translation policies optimize learned quality estimation rewards.
 The current question is whether a cheap audit of a reward against an initial
 policy can predict which failure mode reinforcement learning will amplify.
 
-**Resuming work?** Start at [`notes/HANDOFF.md`](notes/HANDOFF.md) (its CURRENT STATE block is kept up to date). The day-by-day history is in [`notes/research_log.md`](notes/research_log.md).
+## At a glance
+
+- Before training, a policy-relative audit tests whether a reward prefers
+  controlled source-copy, refusal, repetition, or truncation outputs to the
+  initial policy's translations.
+- Predictions are frozen before GRPO training; protocol hashes prevent results
+  from being silently redefined after outcomes are known.
+- In the 7B generalization study, hack calls held in 4/4 tasks (12/12 cells),
+  while safe calls held in 27/34 tasks; every safe-call miss involved the
+  truncation indicator and mostly reflected cleanup of bloated initial outputs.
+- The work includes controlled best-of-N and contextual-bandit studies, a
+  corrected 1.5B GRPO grid, 7B LoRA scale and language-generalization studies,
+  and a fresh prospective copy-margin test in progress.
+- A first-author paper is in progress. Human evaluation is prepared but has not
+  yet been run, so the present conclusions remain computational.
 
 The repository grew from an earlier tokenization intervention study. That
 branch is closed as a bounded negative result and has its own short paper. The
@@ -199,27 +215,11 @@ the expected hashes.
 There is no single environment file covering every historical branch.
 [`requirements-rl.txt`](requirements-rl.txt) and
 [`requirements-data.txt`](requirements-data.txt) contain the small pinned
-dependencies for the original NLLB and data-reader paths. The GRPO launchers
-use the cluster's dedicated `~/.venvs/grpo` environment together with local
-model caches. Protocol JSON files pin model identifiers, input hashes, and
-experimental settings.
-
-`~/.venvs/grpo` (torch 2.6 + cu124, TRL 0.25.1, COMET) also has these additions:
-- `peft` (LoRA);
-- `fasttext-wheel` (the GlotLID language-ID guard; model in the Hugging Face cache);
-- `matplotlib` (figures).
-
-NumPy stays pinned at 1.26.4. The larger reward models (XCOMET-XXL, CometKiwi-23-XXL, MetricX-24 XL and XXL) live in `/nobackup/archive/usr/it238/hf_cache` because of the home quota. Runs with an XXL reward use 2 GPUs: the policy on GPU 0 and the reward on GPU 1 (`REWARD_DEVICE=1`). torch 2.6 here does not support B200 GPUs.
-
-Slurm conventions:
-- job names are `RL_<desc>`;
-- placement comes from the lab's [byurc](https://github.com/byu-matrix-lab/byurc) (`~/byurc/bin/byurc pick-partition --eta ...`); move pending jobs with `requeue_to_available.sh`;
-- set time limits from measured runtimes.
-
-The repository is designed for the BYU Slurm cluster, but the analysis and
-paper-building scripts can run elsewhere when their recorded inputs are
-available. Scheduler placement is operational metadata and is not part of the
-scientific treatment.
+dependencies for the original NLLB and data-reader paths. The generative GRPO
+experiments use PyTorch, Transformers, TRL, PEFT/LoRA, COMET-family rewards,
+GlotLID guards, and SLURM launchers. Protocol JSON files pin model identifiers,
+input hashes, and experimental settings. Analysis and paper-building scripts
+can run outside the original cluster when their recorded inputs are available.
 
 ## Data, models, and redistribution
 
@@ -233,4 +233,7 @@ WMT release and model cards before redistributing data or modified weights.
 OPUS-100 remains excluded from research training because its combined-source
 licensing was not cleared for this project.
 
-No code license has been assigned to this repository.
+## License
+
+Code is released under the [MIT License](LICENSE). Datasets, model weights, and
+generated artifacts remain subject to their original licenses and terms.
